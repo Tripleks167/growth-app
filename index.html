@@ -450,7 +450,164 @@
     .quality-btn.selected .num {
       color: rgba(255,255,255,0.9);
     }
+    /* ============ НАСТРОЕНИЕ + ДНЕВНИК ============ */
+    .mood-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .mood-header .title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .date-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .date-nav button {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      padding: 0;
+    }
+    .date-nav button:active { transform: scale(0.9); }
+    .date-nav button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
 
+    .mood-scale-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .mood-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 0;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+      line-height: 1.2;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      position: relative;
+    }
+    .mood-btn .num {
+      font-size: 9px;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+    .mood-btn:active { transform: scale(0.9); }
+    .mood-btn.selected {
+      background: var(--accent-grad);
+      border-color: var(--accent);
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(74, 222, 128, 0.4);
+    }
+    .mood-btn.selected .num {
+      color: rgba(20, 17, 15, 0.8);
+    }
+    .mood-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .mood-selected-name {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      min-height: 18px;
+    }
+    .mood-selected-name b {
+      color: var(--text);
+    }
+
+    .note-field {
+      width: 100%;
+      min-height: 80px;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+      line-height: 1.4;
+    }
+    .note-field:focus { border-color: var(--accent); }
+    .note-field::placeholder { color: var(--text-dim); }
+    .note-field:disabled { opacity: 0.6; }
+
+    .note-status {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: right;
+      margin-top: 6px;
+      min-height: 14px;
+      transition: opacity 0.3s;
+    }
+    .note-status.saved { color: var(--accent); }
+
+    .mood-week-row {
+      display: grid;
+      grid-template-columns: 32px 32px 1fr;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 4px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .mood-week-row:last-of-type { border-bottom: none; }
+    .mood-week-row .mood-emoji { font-size: 20px; text-align: center; }
+    .mood-week-row .mood-note {
+      color: var(--text-dim);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mood-week-row.empty { opacity: 0.4; }
+
+    .mood-week-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: var(--card-2);
+      border-radius: 12px;
+      font-size: 13px;
+    }
+    .mood-week-stats .val {
+      font-weight: 700;
+      color: var(--accent);
+    }
     /* ============ МОДАЛКА ============ */
     .modal-backdrop {
       position: fixed;
@@ -750,13 +907,23 @@
           </div>
         </div>
 
-        <!-- НАСТРОЕНИЕ (заглушка) -->
+        <!-- НАСТРОЕНИЕ + ДНЕВНИК -->
         <div class="card">
-          <div class="card-title"><span class="icon">😊</span> Настроение и дневник</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">📝</span>
-            <div class="text">Смайлик + заметка</div>
+          <div class="mood-header">
+            <div class="title"><span>😊</span> Настроение и дневник</div>
+            <div class="date-nav">
+              <button id="moodPrevDay" onclick="moodShiftDay(-1)">‹</button>
+              <span id="moodDateLabel">Сегодня</span>
+              <button id="moodNextDay" onclick="moodShiftDay(1)">›</button>
+            </div>
           </div>
+
+          <div class="mood-scale-row" id="moodScaleRow1"></div>
+          <div class="mood-scale-row" id="moodScaleRow2"></div>
+          <div class="mood-selected-name" id="moodSelectedName">Настроение не выбрано</div>
+
+          <textarea class="note-field" id="noteField" placeholder="Заметка дня..." maxlength="500"></textarea>
+          <div class="note-status" id="noteStatus"></div>
         </div>
 
         <!-- ПИТАНИЕ (заглушка) -->
@@ -796,7 +963,9 @@
         </div>
 
         <div class="card">
-          <div class="card-title"><span class="icon">📋</span> Сетка привычек</div>
+          <div class="card-title"><span class="icon">😊</span> Настроение за неделю</div>
+          <div id="weekMoodTable"></div>
+        </div>
           <div class="placeholder" style="padding: 24px;">
             <span class="big">📅</span>
             <div class="text">Пн–Вс × блоки</div>
@@ -926,8 +1095,10 @@
       document.querySelector('.content').scrollTop = 0;
       tg.HapticFeedback?.selectionChanged();
 
-      if (name === 'week') renderWeekSleep();
-    }
+      if (name === 'week') {
+        renderWeekSleep();
+        renderWeekMood();
+      }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => switchScreen(tab.dataset.screen));
@@ -1578,11 +1749,238 @@
       `;
     }
 
-    /* ============ СТАРТ ============ */
+    /* ============ НАСТРОЕНИЕ + ДНЕВНИК ============ */
+    const MOOD_KEY = 'mood_v1';
+    const MOOD_HISTORY_KEY = 'mood_history_v1';
+
+    // Смайлики настроения
+    const MOOD_LEVELS = [
+      { emoji: '😭', name: 'Ужасно' },
+      { emoji: '😢', name: 'Очень плохо' },
+      { emoji: '😞', name: 'Плохо' },
+      { emoji: '😕', name: 'Так себе' },
+      { emoji: '😐', name: 'Нормально' },
+      { emoji: '🙂', name: 'Неплохо' },
+      { emoji: '😊', name: 'Хорошо' },
+      { emoji: '😁', name: 'Отлично' },
+      { emoji: '😄', name: 'Супер' },
+      { emoji: '🤩', name: 'Великолепно' },
+    ];
+
+    let moodHistory = {};       // { "2026-10-12": { mood: 7, note: "..." } }
+    let moodViewDate = getLogicalDate();  // какую дату смотрим
+    let noteDebounce = null;
+
+    const moodScaleRow1  = document.getElementById('moodScaleRow1');
+    const moodScaleRow2  = document.getElementById('moodScaleRow2');
+    const moodSelectedName = document.getElementById('moodSelectedName');
+    const moodDateLabel  = document.getElementById('moodDateLabel');
+    const noteField      = document.getElementById('noteField');
+    const noteStatus     = document.getElementById('noteStatus');
+    const moodPrevBtn    = document.getElementById('moodPrevDay');
+    const moodNextBtn    = document.getElementById('moodNextDay');
+
+    // Отрисовка шкалы (2 ряда по 5)
+    function renderMoodScale() {
+      moodScaleRow1.innerHTML = '';
+      moodScaleRow2.innerHTML = '';
+      const currentEntry = moodHistory[moodViewDate];
+      const currentMood = currentEntry?.mood || null;
+      const isToday = moodViewDate === getLogicalDate();
+
+      MOOD_LEVELS.forEach((lvl, i) => {
+        const level = i + 1;
+        const btn = document.createElement('button');
+        btn.className = 'mood-btn';
+        btn.dataset.level = level;
+        btn.innerHTML = `<span>${lvl.emoji}</span><span class="num">${level}</span>`;
+        if (currentMood === level) btn.classList.add('selected');
+        if (!isToday) btn.disabled = true;
+        btn.onclick = () => selectMood(level);
+        (i < 5 ? moodScaleRow1 : moodScaleRow2).appendChild(btn);
+      });
+
+      moodSelectedName.innerHTML = currentMood
+        ? `Настроение: <b>${MOOD_LEVELS[currentMood - 1].name}</b>`
+        : 'Настроение не выбрано';
+    }
+
+    // Выбор настроения
+    function selectMood(level) {
+      if (moodViewDate !== getLogicalDate()) return;
+      if (!moodHistory[moodViewDate]) moodHistory[moodViewDate] = {};
+      moodHistory[moodViewDate].mood = level;
+      saveMoodHistory();
+      renderMoodScale();
+      updateHomeMood();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    // Отрисовка даты и стрелок
+    function renderMoodDate() {
+      const today = getLogicalDate();
+      const isToday = moodViewDate === today;
+
+      if (isToday) {
+        moodDateLabel.textContent = 'Сегодня';
+      } else {
+        const d = new Date(moodViewDate + 'T12:00:00');
+        moodDateLabel.textContent = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+      }
+
+      // Стрелка вперёд: нельзя уйти в будущее
+      moodNextBtn.disabled = isToday;
+
+      // Стрелка назад: ограничим 30 днями
+      const limit = new Date();
+      limit.setDate(limit.getDate() - 30);
+      moodPrevBtn.disabled = moodViewDate <= limit.toISOString().slice(0, 10);
+    }
+
+    // Смена дня
+    function moodShiftDay(delta) {
+      if (delta > 0 && moodViewDate === getLogicalDate()) return;
+      const d = new Date(moodViewDate + 'T12:00:00');
+      d.setDate(d.getDate() + delta);
+      const newDate = d.toISOString().slice(0, 10);
+      const today = getLogicalDate();
+      if (newDate > today) return;
+      moodViewDate = newDate;
+      renderMoodDate();
+      renderMoodScale();
+      renderNote();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    // Отрисовка заметки
+    function renderNote() {
+      const entry = moodHistory[moodViewDate];
+      const isToday = moodViewDate === getLogicalDate();
+      noteField.value = entry?.note || '';
+      noteField.disabled = !isToday;
+      noteField.placeholder = isToday ? 'Заметка дня...' : 'Прошлый день — только чтение';
+      noteStatus.textContent = '';
+      noteStatus.classList.remove('saved');
+    }
+
+    // Автосохранение заметки
+    noteField.addEventListener('input', () => {
+      if (moodViewDate !== getLogicalDate()) return;
+      noteStatus.textContent = '...';
+      noteStatus.classList.remove('saved');
+      clearTimeout(noteDebounce);
+      noteDebounce = setTimeout(() => {
+        if (!moodHistory[moodViewDate]) moodHistory[moodViewDate] = {};
+        moodHistory[moodViewDate].note = noteField.value.trim();
+        saveMoodHistory();
+        noteStatus.textContent = 'Сохранено ✓';
+        noteStatus.classList.add('saved');
+        setTimeout(() => {
+          if (noteStatus.textContent === 'Сохранено ✓') {
+            noteStatus.textContent = '';
+            noteStatus.classList.remove('saved');
+          }
+        }, 2000);
+      }, 1000);
+    });
+
+    // Сохранение истории
+    function saveMoodHistory() {
+      // Ограничим историю 60 днями
+      const keys = Object.keys(moodHistory).sort();
+      if (keys.length > 60) {
+        keys.slice(0, keys.length - 60).forEach(k => delete moodHistory[k]);
+      }
+      tg.CloudStorage.setItem(MOOD_HISTORY_KEY, JSON.stringify(moodHistory), (err) => {
+        if (err) console.warn('Mood save error', err);
+      });
+    }
+
+    // Загрузка истории
+    function loadMoodHistory(cb) {
+      tg.CloudStorage.getItem(MOOD_HISTORY_KEY, (err, value) => {
+        if (err || !value) { moodHistory = {}; cb && cb(); return; }
+        try { moodHistory = JSON.parse(value) || {}; }
+        catch (e) { moodHistory = {}; }
+        cb && cb();
+      });
+    }
+
+    // Обновление на главной
+    function updateHomeMood() {
+      const homeVal = document.querySelector('#screen-home .summary-row:nth-child(4) .value');
+      // В сводке настроение — 3-й пункт (после воды и сна). Найдём по иконке.
+      const rows = document.querySelectorAll('#screen-home .summary-row');
+      rows.forEach(row => {
+        if (row.querySelector('.label').textContent.includes('Настроение')) {
+          const entry = moodHistory[getLogicalDate()];
+          row.querySelector('.value').textContent = entry?.mood
+            ? MOOD_LEVELS[entry.mood - 1].emoji
+            : '—';
+        }
+      });
+    }
+
+    // Неделя: таблица настроения
+    function renderWeekMood() {
+      const container = document.getElementById('weekMoodTable');
+      if (!container) return;
+      const days = getWeekDays();
+      let totalMood = 0, moodCount = 0;
+
+      const rows = days.map(d => {
+        const entry = moodHistory[d.date];
+        if (!entry || !entry.mood) {
+          return `
+            <div class="mood-week-row empty">
+              <span class="mood-emoji">—</span>
+              <span>${d.name}</span>
+              <span class="mood-note">—</span>
+            </div>`;
+        }
+        totalMood += entry.mood;
+        moodCount++;
+        const emoji = MOOD_LEVELS[entry.mood - 1].emoji;
+        const note = entry.note ? entry.note : '';
+        return `
+          <div class="mood-week-row">
+            <span class="mood-emoji">${emoji}</span>
+            <span>${d.name}</span>
+            <span class="mood-note">${escapeHtml(note)}</span>
+          </div>`;
+      }).join('');
+
+      const stats = moodCount > 0
+        ? `<div class="mood-week-stats">
+             <span>Среднее за неделю:</span>
+             <span class="val">${(totalMood / moodCount).toFixed(1)} / 10</span>
+           </div>`
+        : '';
+
+      container.innerHTML = rows + stats;
+    }
+
+    // Простая защита от XSS в заметках
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // === СТАРТ ===
     loadWater();
     loadSleep();
     loadSleepHistory(() => {
       renderWeekSleep();
+    });
+    loadMoodHistory(() => {
+      renderMoodDate();
+      renderMoodScale();
+      renderNote();
+      updateHomeMood();
+      renderWeekMood();
     });
   </script>
 
