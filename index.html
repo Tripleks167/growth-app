@@ -284,6 +284,9 @@
       height: 140px;
       display: block;
     }
+    .chart-svg.tall {
+      height: 180px;
+    }
     .chart-avg {
       text-align: center;
       font-size: 12px;
@@ -318,9 +321,7 @@
       justify-content: space-between;
       font-size: 13px;
     }
-    .progress-info .val {
-      font-weight: 700;
-    }
+    .progress-info .val { font-weight: 700; }
     .progress-info .pct {
       color: var(--habit);
       font-weight: 700;
@@ -346,12 +347,163 @@
     }
     .numbers-item .n-val.sport { color: var(--sport); }
     .numbers-item .n-val.read { color: var(--read); }
+    .numbers-item .n-val.money { color: var(--money); }
     .numbers-item .n-label {
       font-size: 11px;
       color: var(--text-dim);
       text-transform: uppercase;
       letter-spacing: 0.3px;
     }
+
+    /* ФИНАНСЫ */
+    .month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+    .month-nav button {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      padding: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      flex-shrink: 0;
+    }
+    .month-nav button:active { transform: scale(0.9); }
+    .month-nav button:disabled { opacity: 0.3; cursor: default; }
+    .month-nav .month-label {
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      flex: 1;
+      text-transform: capitalize;
+    }
+
+    .fin-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .fin-row:last-child { border-bottom: none; }
+    .fin-row .fin-label {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+    .fin-row .fin-value {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .fin-row .fin-value.income { color: #4ade80; }
+    .fin-row .fin-value.expense { color: #fb923c; }
+    .fin-row .fin-value.profit { color: var(--money); font-size: 18px; }
+    .fin-row .fin-value.empty { color: var(--text-dim); font-weight: 500; }
+
+    .fin-edit-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--money-grad);
+      color: #14110f;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.1s, opacity 0.2s;
+      margin-top: 14px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .fin-edit-btn:active { transform: scale(0.98); opacity: 0.9; }
+
+    .fin-history {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .fin-history-title {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .fin-history-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--card-2);
+      border-radius: 10px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .fin-history-row:active { transform: scale(0.99); }
+    .fin-history-row.empty {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .fin-history-row.empty:active { transform: none; }
+    .fin-history-row.current {
+      border: 1px solid var(--money);
+    }
+    .fin-history-row .fh-month {
+      font-weight: 600;
+      text-transform: capitalize;
+      font-size: 13px;
+    }
+    .fin-history-row .fh-income {
+      font-weight: 700;
+      color: #4ade80;
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+    }
+    .fin-history-row .fh-profit {
+      font-weight: 700;
+      color: var(--money);
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    /* ВЕС ЗА МЕСЯЦ */
+    .weight-month-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 14px;
+    }
+    .weight-month-row .wm-label {
+      color: var(--text-dim);
+    }
+    .weight-month-row .wm-value {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .weight-month-row .wm-value.down { color: #4ade80; }
+    .weight-month-row .wm-value.up { color: #fb923c; }
+    .weight-month-row .wm-value.same { color: var(--text-dim); }
 
     /* ВОДА */
     .water-body { display: flex; align-items: stretch; gap: 16px; height: 280px; }
@@ -2139,12 +2291,35 @@
 
         <!-- Панель: Месяц -->
         <div class="stats-panel" id="stats-panel-month">
+          <!-- ФИНАНСЫ -->
           <div class="card">
-            <div class="card-title"><span class="icon">📉</span> Месячная статистика</div>
-            <div class="placeholder" style="padding: 30px 20px;">
-              <span class="big">📅</span>
-              <div class="text">Финансы, шаги, вес, средние значения</div>
+            <div class="card-title"><span class="icon">💰</span> Финансы</div>
+            <div class="month-nav">
+              <button type="button" id="finPrevBtn" onclick="finShiftMonth(-1)">‹</button>
+              <div class="month-label" id="finMonthLabel">—</div>
+              <button type="button" id="finNextBtn" onclick="finShiftMonth(1)">›</button>
             </div>
+            <div id="finContent"></div>
+            <button class="fin-edit-btn" id="finEditBtn" onclick="openFinEditModal()">✏️ Изменить</button>
+            <div class="fin-history" id="finHistory"></div>
+          </div>
+
+          <!-- ШАГИ ЗА МЕСЯЦ -->
+          <div class="card">
+            <div class="card-title"><span class="icon">👟</span> Шаги за месяц</div>
+            <div id="statsMonthSteps"></div>
+          </div>
+
+          <!-- ВЕС ЗА МЕСЯЦ -->
+          <div class="card">
+            <div class="card-title"><span class="icon">⚖️</span> Вес за месяц</div>
+            <div id="statsMonthWeight"></div>
+          </div>
+
+          <!-- СРЕДНИЕ ЗНАЧЕНИЯ -->
+          <div class="card">
+            <div class="card-title"><span class="icon">📊</span> Средние за месяц</div>
+            <div id="statsMonthAverages"></div>
           </div>
         </div>
       </div>
@@ -4147,7 +4322,14 @@
         let pct = ((start - current) / (start - target)) * 100;
         return Math.max(0, Math.min(Math.round(pct), 100));
       }
-      if (goal.linkType === 'money') return 0;
+      if (goal.linkType === 'money') {
+        const m = getMonthKey(getLogicalDate());
+        const rec = finances[m];
+        if (!rec || !goal.targetMoney || goal.targetMoney <= 0) return 0;
+        const income = rec.income || 0;
+        let pct = (income / goal.targetMoney) * 100;
+        return Math.max(0, Math.min(Math.round(pct), 100));
+      }
       if (goal.progressMode === 'counter' && goal.targetCount > 0) {
         return Math.max(0, Math.min(Math.round((goal.currentCount / goal.targetCount) * 100), 100));
       }
@@ -4165,7 +4347,10 @@
         return start + ' → ' + current + ' → ' + target + ' кг (осталось ' + remaining + ')';
       }
       if (goal.linkType === 'money') {
-        return (goal.startMoney || 0) + ' → ' + goal.targetMoney + ' ₽';
+        const m = getMonthKey(getLogicalDate());
+        const rec = finances[m];
+        const income = rec ? (rec.income || 0) : 0;
+        return formatNum(income) + ' / ' + formatNum(goal.targetMoney) + ' ₽';
       }
       if (goal.linkType === 'steps') {
         return (goal.currentCount || 0) + ' / ' + goal.targetCount + ' шагов';
@@ -4464,7 +4649,7 @@
         html += '<input type="number" id="goalStartMoney" min="0" max="1000000000" step="1000" value="' + (s.startMoney || 0) + '" placeholder="0">';
         html += '<label>Целевая сумма (₽)</label>';
         html += '<input type="number" id="goalTargetMoney" min="1" max="1000000000" step="1000" value="' + (s.targetMoney || '') + '" placeholder="100000">';
-        html += '<div class="modal-hint">Прогресс будет считаться автоматически, когда добавишь доход за месяц.</div>';
+        html += '<div class="modal-hint">Прогресс считается из дохода текущего месяца.</div>';
       } else if (s.linkType === 'steps') {
         html += '<label>Целевое количество шагов</label>';
         html += '<input type="number" id="goalTargetCount" min="1" max="999999999" step="1000" value="' + (s.targetCount || '') + '" placeholder="300000">';
@@ -4580,7 +4765,7 @@
       };
     }
 
-    /* ============ STATS: РАЗДЕЛ ДЕНЬ ============ */
+    /* ============ STATS: ДЕНЬ ============ */
     function calcStreakDaily(checkFn, maxDays = 365) {
       let current = 0;
       let record = 0;
@@ -4851,11 +5036,7 @@
       streaksEl.innerHTML = streakHtml;
     }
 
-    /* ============ STATS: НЕДЕЛЯ (ГРАФИКИ) ============ */
-    // Рисуем столбики в SVG
-    // values: массив { label, value, color, isFuture }
-    // maxValue: максимум по оси Y
-    // unit: подпись (напр. "ч" или "")
+    /* ============ STATS: НЕДЕЛЯ ============ */
     function renderBarChart(container, values, maxValue, color, formatValue) {
       const W = 300;
       const H = 140;
@@ -4872,15 +5053,12 @@
         const barH = Math.max(chartH * pct, 0);
         const y = paddingTop + chartH - barH;
         const isEmpty = !val;
-        // Пустой столбик — тонкая полоска внизу
         if (isEmpty) {
           svg += `<rect x="${x}" y="${paddingTop + chartH - 3}" width="${barW}" height="3" rx="1.5" fill="rgba(255,255,255,0.08)"/>`;
         } else {
           svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="6" fill="${color}"/>`;
         }
-        // Подпись дня
         svg += `<text x="${x + barW / 2}" y="${H - 6}" text-anchor="middle" font-size="11" fill="${v.isFuture ? 'rgba(168,158,147,0.4)' : '#a89e93'}" font-family="-apple-system, sans-serif">${v.label}</text>`;
-        // Значение над столбиком (если есть и есть место)
         if (!isEmpty && val > 0 && formatValue) {
           const labelText = formatValue(val);
           if (labelText) {
@@ -4899,14 +5077,9 @@
 
       let html = '';
 
-      // === СОН ===
       const sleepVals = days.map(d => {
         const e = sleepHistory[d.date];
-        return {
-          label: d.name,
-          value: e && e.duration ? e.duration : 0,
-          isFuture: d.isFuture
-        };
+        return { label: d.name, value: e && e.duration ? e.duration : 0, isFuture: d.isFuture };
       });
       const sleepMax = Math.max(600, ...sleepVals.map(v => v.value));
       const sleepFilled = sleepVals.filter(v => v.value > 0);
@@ -4918,14 +5091,9 @@
         <div class="chart-avg">Среднее: <b>${sleepAvg > 0 ? formatDuration(sleepAvg) : '—'}</b></div>
       </div>`;
 
-      // === НАСТРОЕНИЕ ===
       const moodVals = days.map(d => {
         const e = moodHistory[d.date];
-        return {
-          label: d.name,
-          value: e && e.mood ? e.mood : 0,
-          isFuture: d.isFuture
-        };
+        return { label: d.name, value: e && e.mood ? e.mood : 0, isFuture: d.isFuture };
       });
       const moodMax = 10;
       const moodFilled = moodVals.filter(v => v.value > 0);
@@ -4937,13 +5105,8 @@
         <div class="chart-avg">Среднее: <b>${moodAvg > 0 ? moodAvg.toFixed(1) + ' / 10' : '—'}</b></div>
       </div>`;
 
-      // === ШАГИ ===
       const stepsVals = days.map(d => {
-        return {
-          label: d.name,
-          value: stepsHistory[d.date] || 0,
-          isFuture: d.isFuture
-        };
+        return { label: d.name, value: stepsHistory[d.date] || 0, isFuture: d.isFuture };
       });
       const stepsMax = Math.max(stepsGoal, ...stepsVals.map(v => v.value));
       const stepsFilled = stepsVals.filter(v => v.value > 0);
@@ -4955,14 +5118,9 @@
         <div class="chart-avg">Среднее: <b>${stepsAvg > 0 ? formatNum(stepsAvg) : '—'}</b></div>
       </div>`;
 
-      // === ПИТАНИЕ ===
       const foodVals = days.map(d => {
         const e = foodHistory[d.date];
-        return {
-          label: d.name,
-          value: e && e.calories ? e.calories : 0,
-          isFuture: d.isFuture
-        };
+        return { label: d.name, value: e && e.calories ? e.calories : 0, isFuture: d.isFuture };
       });
       const foodMax = Math.max(foodCalGoal || 2000, ...foodVals.map(v => v.value));
       const foodFilled = foodVals.filter(v => v.value > 0);
@@ -4974,7 +5132,6 @@
         <div class="chart-avg">Среднее: <b>${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</b></div>
       </div>`;
 
-      // === ПРИВЫЧКИ ===
       const checks = getWeekChecks();
       let habPossible = 0, habDone = 0;
       habitsConfig.blocks.forEach(block => {
@@ -4989,7 +5146,6 @@
               if (checks[h.id] && checks[h.id][dateStr]) habDone++;
             }
           } else {
-            // Weekly — 1 раз за неделю
             habPossible += 1;
             if (checks[h.id]) {
               const hasAny = Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
@@ -5013,7 +5169,6 @@
         </div>
       </div>`;
 
-      // === СПОРТ И ЧТЕНИЕ (числа) ===
       let sportCount = 0, readCount = 0;
       days.forEach(d => {
         const sp = sportData[d.date];
@@ -5038,23 +5193,460 @@
 
       container.innerHTML = html;
 
-      // Рисуем графики
-      renderBarChart(document.getElementById('chartSleep'), sleepVals, sleepMax, '#a78bfa',
-        v => {
-          const h = Math.floor(v / 60);
-          return h > 0 ? h + 'ч' : '';
+      renderBarChart(document.getElementById('chartSleep'), sleepVals, sleepMax, '#a78bfa', v => {
+        const h = Math.floor(v / 60);
+        return h > 0 ? h + 'ч' : '';
+      });
+      renderBarChart(document.getElementById('chartMood'), moodVals, moodMax, '#4ade80', v => String(v));
+      renderBarChart(document.getElementById('chartSteps'), stepsVals, stepsMax, '#22c55e', v => formatNum(v));
+      renderBarChart(document.getElementById('chartFood'), foodVals, foodMax, '#fbbf24', v => String(v));
+    }
+
+    /* ============ ФИНАНСЫ ============ */
+    const FIN_KEY = 'finances_v1';
+    let finances = {};
+    let finViewMonth = null; // "YYYY-MM"
+
+    function getMonthKey(dateStr) {
+      return dateStr.slice(0, 7);
+    }
+    function shiftMonth(monthKey, delta) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const d = new Date(y, m - 1 + delta, 1);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    }
+    function formatMonthLabel(monthKey) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+      return months[m - 1] + ' ' + y;
+    }
+
+    function saveFinances() {
+      tg.CloudStorage.setItem(FIN_KEY, JSON.stringify(finances), (err) => { if (err) console.warn(err); });
+    }
+    function loadFinances(cb) {
+      tg.CloudStorage.getItem(FIN_KEY, (err, value) => {
+        if (err || !value) { finances = {}; cb && cb(); return; }
+        try { finances = JSON.parse(value) || {}; } catch (e) { finances = {}; }
+        cb && cb();
+      });
+    }
+
+    function initFinView() {
+      if (!finViewMonth) finViewMonth = getMonthKey(getLogicalDate());
+    }
+
+    function finShiftMonth(delta) {
+      initFinView();
+      finViewMonth = shiftMonth(finViewMonth, delta);
+      renderFinances();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    function renderFinances() {
+      initFinView();
+      const labelEl = document.getElementById('finMonthLabel');
+      const contentEl = document.getElementById('finContent');
+      const historyEl = document.getElementById('finHistory');
+      const prevBtn = document.getElementById('finPrevBtn');
+      const nextBtn = document.getElementById('finNextBtn');
+      if (!labelEl || !contentEl) return;
+
+      labelEl.textContent = formatMonthLabel(finViewMonth);
+
+      const currentMonth = getMonthKey(getLogicalDate());
+      nextBtn.disabled = finViewMonth >= currentMonth;
+
+      const rec = finances[finViewMonth];
+      if (rec) {
+        const income = rec.income || 0;
+        const expenses = rec.expenses || 0;
+        const profit = income - expenses;
+        contentEl.innerHTML = `
+          <div class="fin-row"><span class="fin-label">Доход</span><span class="fin-value income">+${formatNum(income)} ₽</span></div>
+          <div class="fin-row"><span class="fin-label">Расходы</span><span class="fin-value expense">−${formatNum(expenses)} ₽</span></div>
+          <div class="fin-row"><span class="fin-label">Прибыль</span><span class="fin-value profit">${profit >= 0 ? '+' : ''}${formatNum(profit)} ₽</span></div>
+        `;
+      } else {
+        contentEl.innerHTML = `
+          <div class="fin-row"><span class="fin-label">Доход</span><span class="fin-value empty">—</span></div>
+          <div class="fin-row"><span class="fin-label">Расходы</span><span class="fin-value empty">—</span></div>
+          <div class="fin-row"><span class="fin-label">Прибыль</span><span class="fin-value empty">—</span></div>
+        `;
+      }
+
+      // История последних 6 месяцев
+      const historyMonths = [];
+      for (let i = 0; i < 6; i++) {
+        historyMonths.push(shiftMonth(currentMonth, -i));
+      }
+      let historyHtml = `<div class="fin-history-title">📅 Последние 6 месяцев</div>`;
+      historyMonths.forEach(m => {
+        const r = finances[m];
+        const isCurrent = m === finViewMonth;
+        const cls = 'fin-history-row' + (r ? '' : ' empty') + (isCurrent ? ' current' : '');
+        if (r) {
+          const p = (r.income || 0) - (r.expenses || 0);
+          historyHtml += `<div class="${cls}" data-month="${m}">
+            <span class="fh-month">${formatMonthLabel(m)}</span>
+            <span class="fh-income">+${formatNum(r.income || 0)} ₽</span>
+            <span class="fh-profit">${p >= 0 ? '+' : ''}${formatNum(p)} ₽</span>
+          </div>`;
+        } else {
+          historyHtml += `<div class="${cls}">
+            <span class="fh-month">${formatMonthLabel(m)}</span>
+            <span class="fh-income">—</span>
+            <span class="fh-profit">—</span>
+          </div>`;
+        }
+      });
+      historyEl.innerHTML = historyHtml;
+
+      // Клики по истории
+      historyEl.querySelectorAll('.fin-history-row[data-month]').forEach(row => {
+        row.onclick = function() {
+          finViewMonth = row.dataset.month;
+          renderFinances();
+          tg.HapticFeedback?.selectionChanged();
+        };
+      });
+    }
+
+    function openFinEditModal() {
+      initFinView();
+      const rec = finances[finViewMonth] || { income: 0, expenses: 0 };
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>💰 ${formatMonthLabel(finViewMonth)}</h3>
+          <label>Доход (₽)</label>
+          <input type="number" id="finIncome" min="0" max="1000000000" step="1000" value="${rec.income || ''}" placeholder="85000">
+          <label>Расходы (₽)</label>
+          <input type="number" id="finExpenses" min="0" max="1000000000" step="1000" value="${rec.expenses || ''}" placeholder="42000">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+      const incInp = backdrop.querySelector('#finIncome');
+      const expInp = backdrop.querySelector('#finExpenses');
+      setTimeout(() => incInp.focus(), 100);
+
+      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
+        const income = parseInt(incInp.value, 10);
+        const expenses = parseInt(expInp.value, 10);
+        const i = isNaN(income) ? 0 : Math.max(0, income);
+        const e = isNaN(expenses) ? 0 : Math.max(0, expenses);
+        if (i === 0 && e === 0) {
+          delete finances[finViewMonth];
+        } else {
+          finances[finViewMonth] = { income: i, expenses: e };
+        }
+        saveFinances();
+        backdrop.remove();
+        renderFinances();
+        renderGoals();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = function(ev) { if (ev.target === backdrop) backdrop.remove(); };
+    }
+
+    /* ============ STATS: МЕСЯЦ ============ */
+    function getMonthDays(monthKey) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const daysInMonth = new Date(y, m, 0).getDate();
+      const arr = [];
+      for (let i = 1; i <= daysInMonth; i++) {
+        const date = `${y}-${String(m).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        arr.push({ day: i, date });
+      }
+      return arr;
+    }
+
+    function renderMonthSteps() {
+      const container = document.getElementById('statsMonthSteps');
+      if (!container) return;
+      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
+      const days = getMonthDays(monthKey);
+      const today = getLogicalDate();
+
+      let total = 0, daysWithSteps = 0, best = 0, bestDay = '';
+      const values = [];
+      days.forEach(d => {
+        const val = stepsHistory[d.date] || 0;
+        const isFuture = d.date > today;
+        if (!isFuture) {
+          if (val > 0) { total += val; daysWithSteps++; }
+          if (val > best) { best = val; bestDay = d.day; }
+        }
+        values.push({ label: '', value: val, isFuture });
+      });
+      const maxVal = Math.max(stepsGoal, ...values.map(v => v.value));
+      const avg = daysWithSteps > 0 ? Math.round(total / daysWithSteps) : 0;
+      const totalDays = days.filter(d => d.date <= today).length;
+
+      container.innerHTML = `
+        <div class="chart-svg-wrap" id="monthStepsChart"></div>
+        <div class="numbers-row" style="margin-top:12px;">
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${formatNum(total)}</div>
+            <div class="n-label">Всего за ${totalDays} дн.</div>
+          </div>
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${formatNum(avg)}</div>
+            <div class="n-label">Средн/день</div>
+          </div>
+        </div>
+        <div class="numbers-row" style="margin-top:8px;">
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${best > 0 ? formatNum(best) : '—'}</div>
+            <div class="n-label">Лучший день${bestDay ? ' (' + bestDay + ')' : ''}</div>
+          </div>
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${daysWithSteps}</div>
+            <div class="n-label">Дней с шагами</div>
+          </div>
+        </div>
+      `;
+
+      // Мини-график по дням месяца
+      renderMonthChart(document.getElementById('monthStepsChart'), values, maxVal, '#22c55e');
+    }
+
+    function renderMonthChart(container, values, maxValue, color) {
+      const n = values.length;
+      const W = 300;
+      const H = 100;
+      const paddingTop = 8;
+      const paddingBottom = 6;
+      const chartH = H - paddingTop - paddingBottom;
+      const barW = Math.max((W - n - 1) / n, 2);
+      const gap = 1;
+      let svg = `<svg class="chart-svg" style="height:100px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+      values.forEach((v, i) => {
+        const x = i * (barW + gap);
+        const val = v.value || 0;
+        const pct = maxValue > 0 ? Math.min(val / maxValue, 1) : 0;
+        const barH = Math.max(chartH * pct, 1.5);
+        const y = paddingTop + chartH - barH;
+        if (v.isFuture) {
+          svg += `<rect x="${x}" y="${paddingTop + chartH - 1.5}" width="${barW}" height="1.5" rx="0.75" fill="rgba(255,255,255,0.04)"/>`;
+        } else if (val === 0) {
+          svg += `<rect x="${x}" y="${paddingTop + chartH - 1.5}" width="${barW}" height="1.5" rx="0.75" fill="rgba(255,255,255,0.1)"/>`;
+        } else {
+          svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="1.5" fill="${color}"/>`;
+        }
+      });
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function renderMonthWeight() {
+      const container = document.getElementById('statsMonthWeight');
+      if (!container) return;
+      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
+      const [y, m] = monthKey.split('-').map(Number);
+      const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
+      const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
+
+      // Фильтруем взвешивания месяца
+      const inMonth = weightHistory.filter(w => w.date >= startDate && w.date <= endDate).sort((a, b) => a.date.localeCompare(b.date));
+
+      if (inMonth.length === 0) {
+        container.innerHTML = `<div class="weight-empty" style="padding: 20px 0; color: var(--text-dim); text-align:center;">Нет взвешиваний в этом месяце</div>`;
+        return;
+      }
+
+      const first = inMonth[0];
+      const last = inMonth[inMonth.length - 1];
+      const diff = last.weight - first.weight;
+      const diffClass = diff < 0 ? 'down' : (diff > 0 ? 'up' : 'same');
+      const diffArrow = diff < 0 ? '↓' : (diff > 0 ? '↑' : '=');
+      const diffSign = diff > 0 ? '+' : '';
+
+      let html = `
+        <div class="weight-month-row">
+          <span class="wm-label">Начало месяца</span>
+          <span class="wm-value">${first.weight.toFixed(1)} кг</span>
+        </div>
+        <div class="weight-month-row">
+          <span class="wm-label">Конец месяца</span>
+          <span class="wm-value">${last.weight.toFixed(1)} кг</span>
+        </div>
+        <div class="weight-month-row">
+          <span class="wm-label">Изменение</span>
+          <span class="wm-value ${diffClass}">${diffArrow} ${diffSign}${diff.toFixed(1)} кг</span>
+        </div>
+      `;
+
+      // Мини-график, если ≥ 3 взвешиваний
+      if (inMonth.length >= 3) {
+        html += `<div class="chart-svg-wrap" id="monthWeightChart" style="margin-top: 12px;"></div>`;
+      }
+
+      container.innerHTML = html;
+
+      if (inMonth.length >= 3) {
+        renderWeightLineChart(document.getElementById('monthWeightChart'), inMonth);
+      }
+    }
+
+    function renderWeightLineChart(container, entries) {
+      const W = 300;
+      const H = 90;
+      const padTop = 12;
+      const padBot = 12;
+      const padLeft = 4;
+      const padRight = 4;
+      const chartW = W - padLeft - padRight;
+      const chartH = H - padTop - padBot;
+
+      const weights = entries.map(e => e.weight);
+      const minW = Math.min(...weights);
+      const maxW = Math.max(...weights);
+      const range = Math.max(maxW - minW, 0.5);
+
+      const n = entries.length;
+      const points = entries.map((e, i) => {
+        const x = padLeft + (n === 1 ? chartW / 2 : (i / (n - 1)) * chartW);
+        const y = padTop + chartH - ((e.weight - minW) / range) * chartH;
+        return { x, y, w: e.weight };
+      });
+
+      // Линия
+      let path = '';
+      points.forEach((p, i) => {
+        path += (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ' ';
+      });
+
+      // Градиент-подложка
+      let areaPath = path + `L ${points[points.length - 1].x.toFixed(1)} ${padTop + chartH} L ${points[0].x.toFixed(1)} ${padTop + chartH} Z`;
+
+      let svg = `<svg class="chart-svg" style="height:90px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+      svg += `<defs>
+        <linearGradient id="wgrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+        </linearGradient>
+      </defs>`;
+      svg += `<path d="${areaPath}" fill="url(#wgrad)"/>`;
+      svg += `<path d="${path}" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      points.forEach(p => {
+        svg += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" fill="#06b6d4"/>`;
+      });
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function renderMonthAverages() {
+      const container = document.getElementById('statsMonthAverages');
+      if (!container) return;
+      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
+      const [y, m] = monthKey.split('-').map(Number);
+      const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
+      const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
+      const today = getLogicalDate();
+
+      // Сон
+      const sleepDays = Object.keys(sleepHistory).filter(d => d >= startDate && d <= endDate && d <= today && sleepHistory[d].duration);
+      const sleepAvg = sleepDays.length > 0
+        ? Math.round(sleepDays.reduce((s, d) => s + sleepHistory[d].duration, 0) / sleepDays.length)
+        : 0;
+
+      // Настроение
+      const moodDays = Object.keys(moodHistory).filter(d => d >= startDate && d <= endDate && d <= today && moodHistory[d].mood);
+      const moodAvg = moodDays.length > 0
+        ? (moodDays.reduce((s, d) => s + moodHistory[d].mood, 0) / moodDays.length)
+        : 0;
+
+      // Питание
+      const foodDays = Object.keys(foodHistory).filter(d => d >= startDate && d <= endDate && d <= today && foodHistory[d].calories);
+      const foodAvg = foodDays.length > 0
+        ? Math.round(foodDays.reduce((s, d) => s + foodHistory[d].calories, 0) / foodDays.length)
+        : 0;
+
+      // Вода (среднее по дням, где заполнено)
+      const waterDays = Object.keys(waterHistory).filter(d => d >= startDate && d <= endDate && d <= today && waterHistory[d].current > 0);
+      const waterAvg = waterDays.length > 0
+        ? Math.round(waterDays.reduce((s, d) => s + waterHistory[d].current, 0) / waterDays.length)
+        : 0;
+
+      // Спорт
+      const sportDays = Object.keys(sportData).filter(d => d >= startDate && d <= endDate && d <= today && (sportData[d].mood || sportData[d].typeId || (sportData[d].exercises && sportData[d].exercises.length) || sportData[d].distance));
+      const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text));
+
+      // Привычки — средний % по неделям месяца
+      let habDone = 0, habPossible = 0;
+      habitsConfig.blocks.forEach(block => {
+        if (block.type === 'sport' || block.type === 'read') return;
+        block.habits.forEach(h => {
+          if (block.type === 'daily') {
+            const monthDays = getMonthDays(monthKey).filter(d => d.date <= today);
+            monthDays.forEach(d => {
+              habPossible++;
+              // Ищем в неделях habitsData
+              const wk = getWeekKeyForDate(d.date);
+              const wkChecks = habitsData.weeks[wk] && habitsData.weeks[wk].checks;
+              if (wkChecks && wkChecks[h.id] && wkChecks[h.id][d.date]) habDone++;
+            });
+          } else {
+            // Weekly
+            habPossible++;
+            const weeks = getWeeksInMonth(monthKey, today);
+            let any = false;
+            weeks.forEach(w => {
+              const wkChecks = habitsData.weeks[w] && habitsData.weeks[w].checks;
+              if (wkChecks && wkChecks[h.id]) {
+                const hasAny = Object.keys(wkChecks[h.id]).some(dd => dd >= w && dd <= addDays(w, 6) && getMonthKey(dd) === monthKey);
+                if (hasAny) any = true;
+              }
+            });
+            if (any) habDone++;
+          }
         });
-      renderBarChart(document.getElementById('chartMood'), moodVals, moodMax, '#4ade80',
-        v => String(v));
-      renderBarChart(document.getElementById('chartSteps'), stepsVals, stepsMax, '#22c55e',
-        v => formatNum(v));
-      renderBarChart(document.getElementById('chartFood'), foodVals, foodMax, '#fbbf24',
-        v => String(v));
+      });
+      const habPct = habPossible > 0 ? Math.round((habDone / habPossible) * 100) : 0;
+
+      container.innerHTML = `
+        <div class="stats-day-row"><div class="label"><span>😴</span> Средний сон</div><div class="value">${sleepAvg > 0 ? formatDuration(sleepAvg) : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>😊</span> Среднее настроение</div><div class="value">${moodAvg > 0 ? moodAvg.toFixed(1) + ' / 10' : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>🍎</span> Средние калории</div><div class="value">${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>💧</span> Средняя вода</div><div class="value">${waterAvg > 0 ? waterAvg + ' мл' : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>🏃</span> Тренировок</div><div class="value">${sportDays.length}</div></div>
+        <div class="stats-day-row"><div class="label"><span>📚</span> Раз читал</div><div class="value">${readDays.length}</div></div>
+        <div class="stats-day-row"><div class="label"><span>✅</span> Средний % привычек</div><div class="value">${habPossible > 0 ? habPct + '%' : '—'}</div></div>
+      `;
+    }
+
+    function getWeekKeyForDate(dateStr) {
+      const d = new Date(dateStr + 'T12:00:00');
+      const day = d.getDay() || 7;
+      d.setDate(d.getDate() - day + 1);
+      return d.toISOString().slice(0, 10);
+    }
+
+    function getWeeksInMonth(monthKey, today) {
+      const days = getMonthDays(monthKey).filter(d => d.date <= today);
+      const set = new Set();
+      days.forEach(d => set.add(getWeekKeyForDate(d.date)));
+      return Array.from(set).sort();
+    }
+
+    function renderMonth() {
+      renderFinances();
+      renderMonthSteps();
+      renderMonthWeight();
+      renderMonthAverages();
     }
 
     function renderStats() {
       renderStatsDay();
       renderStatsWeek();
+      renderMonth();
     }
 
     /* СТАРТ */
@@ -5070,6 +5662,7 @@
     loadFoodHistory(() => { renderWeekFood(); });
     loadFood();
     loadWeight(() => { renderWeight(); });
+    loadFinances(() => { renderFinances(); });
 
     loadHabitsConfig(() => {
       loadHabitsData(() => {
