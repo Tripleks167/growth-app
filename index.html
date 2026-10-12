@@ -43,6 +43,8 @@
       --stats-grad: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
       --streak: #fb923c;
       --streak-grad: linear-gradient(135deg, #fb923c 0%, #f43f5e 100%);
+      --archive: #94a3b8;
+      --archive-grad: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
     }
 
     html, body {
@@ -151,6 +153,69 @@
     }
     .gear-btn:active { opacity: 1; transform: scale(0.9) rotate(45deg); }
 
+    /* НЕДЕЛЯ: навигация */
+    .week-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+    .week-nav button {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      padding: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      flex-shrink: 0;
+    }
+    .week-nav button:active { transform: scale(0.9); }
+    .week-nav button:disabled { opacity: 0.3; cursor: default; }
+    .week-nav .week-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      flex: 1;
+      line-height: 1.3;
+    }
+    .week-nav .week-label .current-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--habit-grad);
+      color: #14110f;
+      margin-left: 4px;
+    }
+
+    .archive-banner {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--archive);
+      margin-bottom: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
     /* СТАТЫ */
     .stats-tabs {
       display: grid;
@@ -184,7 +249,6 @@
     .stats-panel { display: none; }
     .stats-panel.active { display: block; animation: fadeIn 0.25s ease; }
 
-    /* Stats day */
     .stats-day-row {
       display: flex;
       align-items: center;
@@ -214,7 +278,6 @@
       color: #4ade80;
     }
 
-    /* Streak */
     .streak-row {
       display: flex;
       align-items: center;
@@ -284,9 +347,6 @@
       height: 140px;
       display: block;
     }
-    .chart-svg.tall {
-      height: 180px;
-    }
     .chart-avg {
       text-align: center;
       font-size: 12px;
@@ -298,10 +358,7 @@
       font-weight: 700;
     }
 
-    /* Прогресс-бар */
-    .progress-wrap {
-      margin-top: 4px;
-    }
+    .progress-wrap { margin-top: 4px; }
     .progress-bar-outer {
       height: 12px;
       background: rgba(255,255,255,0.08);
@@ -327,7 +384,6 @@
       font-weight: 700;
     }
 
-    /* Спорт/Чтение — числа */
     .numbers-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -486,7 +542,6 @@
       text-align: right;
     }
 
-    /* ВЕС ЗА МЕСЯЦ */
     .weight-month-row {
       display: flex;
       justify-content: space-between;
@@ -494,9 +549,7 @@
       padding: 10px 0;
       font-size: 14px;
     }
-    .weight-month-row .wm-label {
-      color: var(--text-dim);
-    }
+    .weight-month-row .wm-label { color: var(--text-dim); }
     .weight-month-row .wm-value {
       font-weight: 700;
       font-variant-numeric: tabular-nums;
@@ -771,10 +824,7 @@
       gap: 8px;
       margin-bottom: 10px;
     }
-    .goal-title-wrap {
-      flex: 1;
-      min-width: 0;
-    }
+    .goal-title-wrap { flex: 1; min-width: 0; }
     .goal-title {
       font-size: 15px;
       font-weight: 700;
@@ -836,9 +886,7 @@
       width: 0;
       transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .goal-card.done .goal-progress-fill {
-      background: var(--habit-grad);
-    }
+    .goal-card.done .goal-progress-fill { background: var(--habit-grad); }
     .goal-progress-info {
       display: flex;
       justify-content: space-between;
@@ -853,7 +901,6 @@
       flex-shrink: 0;
     }
     .goal-card.done .goal-progress-pct { color: var(--habit); }
-
     .goal-description {
       font-size: 12px;
       color: var(--text-dim);
@@ -861,7 +908,6 @@
       margin-bottom: 8px;
       word-break: break-word;
     }
-
     .goal-meta {
       display: flex;
       flex-wrap: wrap;
@@ -958,10 +1004,7 @@
       appearance: none;
     }
     .goal-completed-toggle:active { background: var(--card-2); }
-    .goal-completed-toggle .arrow {
-      transition: transform 0.2s;
-      display: inline-block;
-    }
+    .goal-completed-toggle .arrow { transition: transform 0.2s; display: inline-block; }
 
     .goal-actions-backdrop {
       position: fixed; inset: 0; z-index: 15;
@@ -1368,6 +1411,15 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* Read-only для архива */
+    .archive-mode .week-cell-day {
+      cursor: default;
+      pointer-events: none;
+    }
+    .archive-mode .week-cell-day:active { transform: none; }
+    .archive-mode .week-day-row { cursor: default; }
+    .archive-mode .week-day-row:active { transform: none; }
+
     /* Итоги недели */
     .week-summary-box {
       background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(251, 146, 60, 0.05));
@@ -1435,10 +1487,7 @@
       margin-top: 2px;
     }
     .week-day-content .exercise-line b { color: var(--text); font-weight: 600; }
-    .week-day-content .steps-val {
-      font-weight: 700;
-      font-size: 14px;
-    }
+    .week-day-content .steps-val { font-weight: 700; font-size: 14px; }
     .week-day-content .steps-pct {
       color: var(--steps);
       font-size: 12px;
@@ -1599,7 +1648,6 @@
       color: rgba(20, 17, 15, 0.9);
     }
 
-    /* Слайдер прогресса */
     .progress-slider-wrap {
       margin-top: 6px;
       padding: 8px 0;
@@ -1640,7 +1688,6 @@
       box-shadow: 0 2px 8px rgba(236, 72, 153, 0.6);
     }
 
-    /* Редактор привычек */
     .edit-habit-list { margin-bottom: 12px; }
     .edit-habit-row {
       display: flex; align-items: center; gap: 8px;
@@ -1683,7 +1730,6 @@
     .add-habit-btn:active { background: var(--card-2); }
     .add-habit-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--text-dim); }
 
-    /* Модалка спорта */
     .modal .type-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1787,7 +1833,6 @@
       appearance: none;
     }
 
-    /* Смайлики */
     .emoji-scale-10 {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -2177,19 +2222,27 @@
         </div>
       </div>
 
-      <!-- НЕДЕЛЯ -->
+      <!-- НЕДЕЛЯ (с архивом) -->
       <div class="screen" id="screen-week">
         <div class="screen-header">
           <h1>Неделя</h1>
-          <div class="sub" id="weekRange">—</div>
+          <div class="sub">Привычки · Активности · Итоги</div>
         </div>
+
+        <div class="week-nav">
+          <button type="button" id="weekPrevBtn" onclick="weekShift(-1)">‹</button>
+          <div class="week-label" id="weekNavLabel">—</div>
+          <button type="button" id="weekNextBtn" onclick="weekShift(1)">›</button>
+        </div>
+
+        <div id="weekArchiveBanner"></div>
 
         <div id="weekSummaryContainer"></div>
 
         <div class="card">
           <div class="card-head">
             <div class="title"><span>📋</span> Сетка привычек</div>
-            <button class="gear-btn" onclick="openHabitsEditor()">⚙️</button>
+            <button class="gear-btn" id="weekHabitsGear" onclick="openHabitsEditor()">⚙️</button>
           </div>
           <div class="week-grid-wrap">
             <div class="week-grid" id="weekHabitsGrid"></div>
@@ -2198,8 +2251,8 @@
 
         <div class="card">
           <div class="card-head">
-            <div class="title"><span>🏃</span> Спорт за неделю</div>
-            <button class="gear-btn" onclick="openSportSettings()">⚙️</button>
+            <div class="title"><span>🏃</span> Спорт</div>
+            <button class="gear-btn" id="weekSportGear" onclick="openSportSettings()">⚙️</button>
           </div>
           <div id="weekSportList"></div>
           <div id="weekSportSummary"></div>
@@ -2207,7 +2260,7 @@
 
         <div class="card">
           <div class="card-head">
-            <div class="title"><span>📚</span> Чтение за неделю</div>
+            <div class="title"><span>📚</span> Чтение</div>
           </div>
           <div id="weekReadList"></div>
           <div id="weekReadSummary"></div>
@@ -2215,8 +2268,8 @@
 
         <div class="card">
           <div class="card-head">
-            <div class="title"><span>👟</span> Шаги за неделю</div>
-            <button class="gear-btn" onclick="openStepsSettings()">⚙️</button>
+            <div class="title"><span>👟</span> Шаги</div>
+            <button class="gear-btn" id="weekStepsGear" onclick="openStepsSettings()">⚙️</button>
           </div>
           <div class="steps-week-progress" id="stepsWeekProgress"></div>
           <div id="weekStepsList"></div>
@@ -2231,17 +2284,17 @@
         </div>
 
         <div class="card">
-          <div class="card-title"><span class="icon">😴</span> Сон за неделю</div>
+          <div class="card-title"><span class="icon">😴</span> Сон</div>
           <div id="weekSleepTable"></div>
         </div>
 
         <div class="card">
-          <div class="card-title"><span class="icon">😊</span> Настроение за неделю</div>
+          <div class="card-title"><span class="icon">😊</span> Настроение</div>
           <div id="weekMoodTable"></div>
         </div>
 
         <div class="card">
-          <div class="card-title"><span class="icon">🍎</span> Питание за неделю</div>
+          <div class="card-title"><span class="icon">🍎</span> Питание</div>
           <div id="weekFoodTable"></div>
         </div>
       </div>
@@ -2269,7 +2322,6 @@
           <button type="button" class="stats-tab" data-stats="month">Месяц</button>
         </div>
 
-        <!-- Панель: День -->
         <div class="stats-panel active" id="stats-panel-day">
           <div class="card">
             <div class="card-title"><span class="icon">📊</span> Сводка дня</div>
@@ -2281,7 +2333,6 @@
           </div>
         </div>
 
-        <!-- Панель: Неделя -->
         <div class="stats-panel" id="stats-panel-week">
           <div class="card" id="statsWeekCharts">
             <div class="card-title"><span class="icon">📈</span> Графики недели</div>
@@ -2289,9 +2340,7 @@
           </div>
         </div>
 
-        <!-- Панель: Месяц -->
         <div class="stats-panel" id="stats-panel-month">
-          <!-- ФИНАНСЫ -->
           <div class="card">
             <div class="card-title"><span class="icon">💰</span> Финансы</div>
             <div class="month-nav">
@@ -2304,19 +2353,16 @@
             <div class="fin-history" id="finHistory"></div>
           </div>
 
-          <!-- ШАГИ ЗА МЕСЯЦ -->
           <div class="card">
             <div class="card-title"><span class="icon">👟</span> Шаги за месяц</div>
             <div id="statsMonthSteps"></div>
           </div>
 
-          <!-- ВЕС ЗА МЕСЯЦ -->
           <div class="card">
             <div class="card-title"><span class="icon">⚖️</span> Вес за месяц</div>
             <div id="statsMonthWeight"></div>
           </div>
 
-          <!-- СРЕДНИЕ ЗНАЧЕНИЯ -->
           <div class="card">
             <div class="card-title"><span class="icon">📊</span> Средние за месяц</div>
             <div id="statsMonthAverages"></div>
@@ -2351,18 +2397,6 @@
     document.getElementById('todayDate').textContent = dateStr;
     document.getElementById('dayDate').textContent = dateStr;
 
-    function getWeekRange() {
-      const d = new Date();
-      const day = d.getDay() || 7;
-      const monday = new Date(d);
-      monday.setDate(d.getDate() - day + 1);
-      const sunday = new Date(monday);
-      sunday.setDate(sunday.getDate() + 6);
-      const fmt = (x) => x.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
-      return `${fmt(monday)} — ${fmt(sunday)}`;
-    }
-    document.getElementById('weekRange').textContent = getWeekRange();
-
     const tabs = document.querySelectorAll('.tab');
     const screens = {};
     document.querySelectorAll('.screen').forEach(s => {
@@ -2376,17 +2410,7 @@
       document.querySelector('.content').scrollTop = 0;
       tg.HapticFeedback?.selectionChanged();
       if (name === 'day') renderDayHabits();
-      if (name === 'week') {
-        renderWeekHabitsGrid();
-        renderWeekSummary();
-        renderWeekSport();
-        renderWeekRead();
-        renderWeekSteps();
-        renderWeight();
-        renderWeekSleep();
-        renderWeekMood();
-        renderWeekFood();
-      }
+      if (name === 'week') renderWeekAll();
       if (name === 'goals') renderGoals();
       if (name === 'stats') renderStats();
     }
@@ -2417,23 +2441,82 @@
       return n.toISOString().slice(0, 10);
     }
 
-    function getWeekDays() {
-      const d = new Date();
+    // === НЕДЕЛЯ: viewWeekMonday ===
+    const ARCHIVE_LIMIT = 24; // сколько недель назад можно листать
+
+    function getMondayOfDate(dateStr) {
+      const d = new Date(dateStr + 'T12:00:00');
       const day = d.getDay() || 7;
-      const monday = new Date(d);
-      monday.setDate(d.getDate() - day + 1);
+      d.setDate(d.getDate() - day + 1);
+      return d.toISOString().slice(0, 10);
+    }
+    function getCurrentWeekKey() { return getMondayOfDate(getLogicalDate()); }
+    function shiftWeekKey(weekKey, delta) {
+      const d = new Date(weekKey + 'T12:00:00');
+      d.setDate(d.getDate() + delta * 7);
+      return d.toISOString().slice(0, 10);
+    }
+
+    let viewWeekMonday = null; // понедельник просматриваемой недели
+
+    function initViewWeek() {
+      if (!viewWeekMonday) viewWeekMonday = getCurrentWeekKey();
+    }
+
+    function isViewingCurrentWeek() {
+      return viewWeekMonday === getCurrentWeekKey();
+    }
+
+    function weekShift(delta) {
+      initViewWeek();
+      const newKey = shiftWeekKey(viewWeekMonday, delta);
+      const currentKey = getCurrentWeekKey();
+      const minKey = shiftWeekKey(currentKey, -ARCHIVE_LIMIT);
+      if (newKey > currentKey) return;
+      if (newKey < minKey) return;
+      viewWeekMonday = newKey;
+      renderWeekAll();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    // Дни недели для произвольного weekKey
+    function getWeekDaysFor(weekKey) {
       const days = [];
       const dayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+      const today = getLogicalDate();
       for (let i = 0; i < 7; i++) {
-        const dd = new Date(monday);
-        dd.setDate(monday.getDate() + i);
+        const dateStr = shiftWeekKey(weekKey, 0);
+        const d = new Date(weekKey + 'T12:00:00');
+        d.setDate(d.getDate() + i);
+        const ds = d.toISOString().slice(0, 10);
         days.push({
           name: dayNames[i],
-          date: dd.toISOString().slice(0, 10),
-          isFuture: dd > new Date()
+          date: ds,
+          isFuture: ds > today
         });
       }
       return days;
+    }
+
+    function formatWeekRange(weekKey) {
+      const monday = new Date(weekKey + 'T12:00:00');
+      const sunday = new Date(monday);
+      sunday.setDate(sunday.getDate() + 6);
+      const fmt = (x) => x.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+      return `${fmt(monday)} — ${fmt(sunday)}`;
+    }
+
+    // Универсальные функции для недели
+    function getWeekDays() { return getWeekDaysFor(viewWeekMonday || getCurrentWeekKey()); }
+    function getWeekEnd() {
+      const m = new Date((viewWeekMonday || getCurrentWeekKey()) + 'T12:00:00');
+      m.setDate(m.getDate() + 6);
+      return m.toISOString().slice(0, 10);
+    }
+    function getChecksForWeek(weekKey) {
+      if (!habitsData.weeks[weekKey]) return {};
+      if (!habitsData.weeks[weekKey].checks) return {};
+      return habitsData.weeks[weekKey].checks;
     }
 
     function escapeHtml(s) {
@@ -3502,29 +3585,19 @@
     };
     let habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
     let habitsData = { weeks: {} };
-    let currentWeekMonday = null;
-    function getMonday(date = new Date()) {
-      const d = new Date(date);
-      const day = d.getDay() || 7;
-      d.setDate(d.getDate() - day + 1);
-      d.setHours(0, 0, 0, 0);
-      return d;
-    }
-    function getCurrentWeekKey() { return getMonday().toISOString().slice(0, 10); }
-    function getWeekEnd() {
-      const m = new Date(currentWeekMonday + 'T12:00:00');
-      m.setDate(m.getDate() + 6);
-      return m.toISOString().slice(0, 10);
-    }
     function initHabitsData() {
-      currentWeekMonday = getCurrentWeekKey();
+      const currentWeekMonday = getCurrentWeekKey();
       if (!habitsData.weeks) habitsData.weeks = {};
       if (!habitsData.weeks[currentWeekMonday]) habitsData.weeks[currentWeekMonday] = { checks: {} };
     }
     function getWeekChecks() {
-      if (!habitsData.weeks[currentWeekMonday]) habitsData.weeks[currentWeekMonday] = { checks: {} };
-      if (!habitsData.weeks[currentWeekMonday].checks) habitsData.weeks[currentWeekMonday].checks = {};
-      return habitsData.weeks[currentWeekMonday].checks;
+      return getChecksForWeek(viewWeekMonday || getCurrentWeekKey());
+    }
+    function getCurrentWeekChecks() {
+      const currentKey = getCurrentWeekKey();
+      if (!habitsData.weeks[currentKey]) habitsData.weeks[currentKey] = { checks: {} };
+      if (!habitsData.weeks[currentKey].checks) habitsData.weeks[currentKey].checks = {};
+      return habitsData.weeks[currentKey].checks;
     }
     function saveHabitsConfig() {
       tg.CloudStorage.setItem(HABITS_CONFIG_KEY, JSON.stringify(habitsConfig), (err) => { if (err) console.warn(err); });
@@ -3558,19 +3631,21 @@
       });
     }
     function toggleHabit(habitId, dateStr) {
-      const checks = getWeekChecks();
+      // Только для текущей недели
+      if (!isViewingCurrentWeek()) return;
+      const checks = getCurrentWeekChecks();
       if (!checks[habitId]) checks[habitId] = {};
       if (checks[habitId][dateStr]) delete checks[habitId][dateStr];
       else checks[habitId][dateStr] = true;
       saveHabitsData();
-      renderDayHabits(); renderWeekHabitsGrid(); renderWeekSummary(); updateHomeHabits();
+      renderDayHabits(); renderWeekAll(); updateHomeHabits();
       tg.HapticFeedback?.selectionChanged();
     }
     function renderDayHabits() {
       const container = document.getElementById('dayHabitsList');
       if (!container) return;
       const today = getLogicalDate();
-      const checks = getWeekChecks();
+      const checks = getCurrentWeekChecks();
       let html = '';
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'daily') return;
@@ -3584,11 +3659,12 @@
         });
         html += `</div>`;
       });
+      const curWeekEnd = getWeekEndForWeek(getCurrentWeekKey());
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'weekly') return;
         let wasDoneThisWeek = false;
         block.habits.forEach(h => {
-          if (checks[h.id] && Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd())) wasDoneThisWeek = true;
+          if (checks[h.id] && Object.keys(checks[h.id]).some(d => d >= getCurrentWeekKey() && d <= curWeekEnd)) wasDoneThisWeek = true;
         });
         html += `<div class="habit-block"><div class="habit-block-head"><div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${wasDoneThisWeek ? '1/1' : '0/1'} за неделю)</span></div></div>`;
         block.habits.forEach(h => {
@@ -3600,11 +3676,22 @@
       });
       container.innerHTML = html || '<div class="placeholder" style="padding:20px;"><span class="big">📋</span><div class="text">Нет привычек. Открой ⚙️ чтобы добавить</div></div>';
     }
+
+    function getWeekEndForWeek(weekKey) {
+      const m = new Date(weekKey + 'T12:00:00');
+      m.setDate(m.getDate() + 6);
+      return m.toISOString().slice(0, 10);
+    }
+
     function renderWeekHabitsGrid() {
       const grid = document.getElementById('weekHabitsGrid');
       if (!grid) return;
       const days = getWeekDays();
       const checks = getWeekChecks();
+      const isArchive = !isViewingCurrentWeek();
+      const weekKey = viewWeekMonday;
+      const weekEnd = getWeekEndForWeek(weekKey);
+
       let html = `<div class="week-grid-row head"><div class="week-cell-name">Привычка</div>${days.map(d => `<div style="text-align:center;">${d.name}</div>`).join('')}<div style="text-align:center;">%</div></div>`;
       habitsConfig.blocks.forEach(block => {
         if (block.type === 'sport' || block.type === 'read') {
@@ -3618,7 +3705,8 @@
           days.forEach(d => {
             const done = checks[habit.id] && checks[habit.id][d.date];
             const future = d.isFuture;
-            html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}" onclick="${future ? '' : `toggleHabit('${habit.id}', '${d.date}')`}">✓</div>`;
+            const blockClick = future || isArchive ? '' : `onclick="toggleHabit('${habit.id}', '${d.date}')"`;
+            html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}" ${blockClick}>✓</div>`;
           });
           html += `<div class="week-cell-percent">${percent}%</div></div>`;
           return;
@@ -3630,7 +3718,7 @@
             days.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) doneCount++; });
           } else {
             if (checks[h.id]) {
-              const hasAny = Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
+              const hasAny = Object.keys(checks[h.id]).some(d => d >= weekKey && d <= weekEnd);
               doneCount = hasAny ? 1 : 0;
             }
           }
@@ -3640,11 +3728,13 @@
             const done = checks[h.id] && checks[h.id][d.date];
             const future = d.isFuture;
             if (block.type === 'weekly') {
-              const wasDoneThisWeek = checks[h.id] && Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
+              const wasDoneThisWeek = checks[h.id] && Object.keys(checks[h.id]).some(dd => dd >= weekKey && dd <= weekEnd);
               const blocked = wasDoneThisWeek && !done;
-              html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''} ${blocked ? 'blocked' : ''}" onclick="${future || blocked ? '' : `toggleHabit('${h.id}', '${d.date}')`}">✓</div>`;
+              const blockClick = future || blocked || isArchive ? '' : `onclick="toggleHabit('${h.id}', '${d.date}')"`;
+              html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''} ${blocked ? 'blocked' : ''}" ${blockClick}>✓</div>`;
             } else {
-              html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}" onclick="${future ? '' : `toggleHabit('${h.id}', '${d.date}')`}">✓</div>`;
+              const blockClick = future || isArchive ? '' : `onclick="toggleHabit('${h.id}', '${d.date}')"`;
+              html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}" ${blockClick}>✓</div>`;
             }
           });
           html += `<div class="week-cell-percent">${percent}%</div></div>`;
@@ -3652,14 +3742,21 @@
       });
       grid.innerHTML = html;
     }
+
     function renderWeekSummary() {
       const container = document.getElementById('weekSummaryContainer');
       if (!container) return;
-      const n = new Date();
-      const dayOfWeek = n.getDay();
-      const hour = n.getHours();
-      if (!(dayOfWeek === 0 && hour >= 20)) { container.innerHTML = ''; return; }
+      const isArchive = !isViewingCurrentWeek();
+      // Показываем итоги: для архива — всегда, для текущей — только в воскресенье после 20:00
+      if (!isArchive) {
+        const n = new Date();
+        const dayOfWeek = n.getDay();
+        const hour = n.getHours();
+        if (!(dayOfWeek === 0 && hour >= 20)) { container.innerHTML = ''; return; }
+      }
       const checks = getWeekChecks();
+      const weekKey = viewWeekMonday;
+      const weekEnd = getWeekEndForWeek(weekKey);
       let totalPossible = 0, totalDone = 0;
       const blockStats = [];
       habitsConfig.blocks.forEach(block => {
@@ -3669,7 +3766,7 @@
           if (block.type === 'daily') {
             blockPossible += 7;
             for (let i = 0; i < 7; i++) {
-              const d = new Date(currentWeekMonday + 'T12:00:00');
+              const d = new Date(weekKey + 'T12:00:00');
               d.setDate(d.getDate() + i);
               const dateStr = d.toISOString().slice(0, 10);
               if (checks[h.id] && checks[h.id][dateStr]) blockDone++;
@@ -3677,7 +3774,7 @@
           } else {
             blockPossible += 1;
             if (checks[h.id]) {
-              const hasAny = Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
+              const hasAny = Object.keys(checks[h.id]).some(d => d >= weekKey && d <= weekEnd);
               if (hasAny) blockDone++;
             }
           }
@@ -3701,11 +3798,12 @@
       const percent = totalPossible > 0 ? Math.round((totalDone / totalPossible) * 100) : 0;
       container.innerHTML = `<div class="week-summary-box"><div class="week-summary-title">🏆 Итоги недели</div>${blockStats.map(b => `<div class="week-summary-row"><span>${b.emoji} ${escapeHtml(b.title)}</span><span class="val">${b.done} / ${b.possible}</span></div>`).join('')}<div class="week-summary-row"><span>🏃 Спорт (дней)</span><span class="val">${sportDone} / 7</span></div><div class="week-summary-row"><span>📚 Чтение (дней)</span><span class="val">${readDone} / 7</span></div><div class="week-summary-row week-summary-total"><span>Итого привычек</span><span class="val">${totalDone} / ${totalPossible} (${percent}%)</span></div></div>`;
     }
+
     function updateHomeHabits() {
       const homeVal = document.getElementById('homeHabitsValue');
       if (!homeVal) return;
       const today = getLogicalDate();
-      const checks = getWeekChecks();
+      const checks = getCurrentWeekChecks();
       let done = 0, total = 0;
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'daily' && block.type !== 'weekly') return;
@@ -3716,6 +3814,7 @@
       });
       homeVal.textContent = total > 0 ? `${done} / ${total}` : '— / —';
     }
+
     function openHabitsEditor() { renderHabitsEditor(); }
     function renderHabitsEditor() {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
@@ -3728,12 +3827,12 @@
       renderHabitsEditorContent();
       backdrop.querySelector('#closeEditorBtn').onclick = () => {
         backdrop.remove();
-        renderDayHabits(); renderWeekHabitsGrid(); renderWeekSummary(); updateHomeHabits();
+        renderDayHabits(); renderWeekAll(); updateHomeHabits();
       };
       backdrop.onclick = (e) => {
         if (e.target === backdrop) {
           backdrop.remove();
-          renderDayHabits(); renderWeekHabitsGrid(); renderWeekSummary(); updateHomeHabits();
+          renderDayHabits(); renderWeekAll(); updateHomeHabits();
         }
       };
     }
@@ -3892,13 +3991,16 @@
       const sumEl = document.getElementById('weekSportSummary');
       if (!listEl) return;
       const days = getWeekDays();
+      const isArchive = !isViewingCurrentWeek();
       let html = '';
       let totalDone = 0, totalMood = 0, moodCount = 0;
       days.forEach(d => {
         const entry = sportData[d.date];
         const hasEntry = entry && (entry.mood || entry.typeId || (entry.exercises && entry.exercises.length) || entry.distance || entry.note);
+        const clickAttr = isArchive ? '' : `onclick="openSportModal('${d.date}')"`;
+        const clickClass = isArchive ? ' no-click' : '';
         if (!hasEntry) {
-          html += `<div class="week-day-row empty" onclick="openSportModal('${d.date}')"><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">— (отдых)</span></div></div>`;
+          html += `<div class="week-day-row empty${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">— (отдых)</span></div></div>`;
           return;
         }
         totalDone++;
@@ -3932,7 +4034,7 @@
           }
           details = nums.join(' · ');
         }
-        html += `<div class="week-day-row done" onclick="openSportModal('${d.date}')"><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${typeName ? ` · ${typeName}` : ''}${details ? `<span class="exercise-line">${details}</span>` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
+        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${typeName ? ` · ${typeName}` : ''}${details ? `<span class="exercise-line">${details}</span>` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
       });
       listEl.innerHTML = html;
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
@@ -3943,19 +4045,22 @@
       const sumEl = document.getElementById('weekReadSummary');
       if (!listEl) return;
       const days = getWeekDays();
+      const isArchive = !isViewingCurrentWeek();
       let html = '';
       let totalDone = 0, totalMood = 0, moodCount = 0;
       days.forEach(d => {
         const entry = readData[d.date];
         const hasEntry = entry && (entry.mood || entry.text);
+        const clickAttr = isArchive ? '' : `onclick="openReadModal('${d.date}')"`;
+        const clickClass = isArchive ? ' no-click' : '';
         if (!hasEntry) {
-          html += `<div class="week-day-row empty" onclick="openReadModal('${d.date}')"><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">—</span></div></div>`;
+          html += `<div class="week-day-row empty${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">—</span></div></div>`;
           return;
         }
         totalDone++;
         if (entry.mood) { totalMood += entry.mood; moodCount++; }
         const emoji = entry.mood ? READ_EMOJIS[entry.mood - 1] : '';
-        html += `<div class="week-day-row done" onclick="openReadModal('${d.date}')"><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
+        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
       });
       listEl.innerHTML = html;
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
@@ -3964,6 +4069,7 @@
     let sportModalState = null;
     let sportModalEl = null;
     function openSportModal(dateStr) {
+      if (!isViewingCurrentWeek()) return;
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const existing = sportData[dateStr] || { mood: null, typeId: null, exercises: [], distance: null, time: null, note: '' };
       sportModalState = {
@@ -4055,7 +4161,7 @@
         saveSportData();
         const sportHabitId = getSportHabitId();
         if (sportHabitId) {
-          const checks = getWeekChecks();
+          const checks = getCurrentWeekChecks();
           if (!checks[sportHabitId]) checks[sportHabitId] = {};
           if (hasData) checks[sportHabitId][s.date] = true;
           else delete checks[sportHabitId][s.date];
@@ -4218,6 +4324,7 @@
     let readModalState = null;
     let readModalEl = null;
     function openReadModal(dateStr) {
+      if (!isViewingCurrentWeek()) return;
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const existing = readData[dateStr] || { mood: null, text: '', note: '' };
       readModalState = { date: dateStr, mood: existing.mood || null, text: existing.text || '', note: existing.note || '' };
@@ -4276,7 +4383,7 @@
         saveReadData();
         const readHabitId = getReadHabitId();
         if (readHabitId) {
-          const checks = getWeekChecks();
+          const checks = getCurrentWeekChecks();
           if (!checks[readHabitId]) checks[readHabitId] = {};
           if (hasData) checks[readHabitId][s.date] = true;
           else delete checks[readHabitId][s.date];
@@ -4765,7 +4872,7 @@
       };
     }
 
-    /* ============ STATS: ДЕНЬ ============ */
+    /* ============ STATS ============ */
     function calcStreakDaily(checkFn, maxDays = 365) {
       let current = 0;
       let record = 0;
@@ -4844,6 +4951,7 @@
       function isWeekDone(weekKey) {
         const week = habitsData.weeks[weekKey];
         if (!week || !week.checks) return false;
+        const weekEnd = getWeekEndForWeek(weekKey);
         let totalPossible = 0, totalDone = 0;
         habitsConfig.blocks.forEach(block => {
           if (block.type === 'sport' || block.type === 'read') return;
@@ -4859,7 +4967,7 @@
             } else {
               totalPossible += 1;
               if (week.checks[h.id]) {
-                const hasAny = Object.keys(week.checks[h.id]).some(d => d >= weekKey && d <= addDays(weekKey, 6));
+                const hasAny = Object.keys(week.checks[h.id]).some(d => d >= weekKey && d <= weekEnd);
                 if (hasAny) totalDone++;
               }
             }
@@ -4892,10 +5000,7 @@
       const allDates = Object.keys(sportData).sort();
       if (!allDates.length) return { current: 0, record: 0 };
       function getWeekKeyForDate(dateStr) {
-        const d = new Date(dateStr + 'T12:00:00');
-        const day = d.getDay() || 7;
-        d.setDate(d.getDate() - day + 1);
-        return d.toISOString().slice(0, 10);
+        return getMondayOfDate(dateStr);
       }
       function countSportInWeek(weekKey) {
         let n = 0;
@@ -4935,7 +5040,6 @@
       if (!summaryEl || !streaksEl) return;
 
       const today = getLogicalDate();
-
       let summaryHtml = '';
 
       const wHist = waterHistory[today];
@@ -4972,7 +5076,7 @@
         summaryHtml += `<div class="stats-day-row"><div class="label"><span>🍎</span> Питание</div><div class="value dim">—</div></div>`;
       }
 
-      const checks = getWeekChecks();
+      const checks = getCurrentWeekChecks();
       let habDone = 0, habTotal = 0;
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'daily' && block.type !== 'weekly') return;
@@ -5003,24 +5107,15 @@
 
       summaryEl.innerHTML = summaryHtml;
 
-      const waterSt = getWaterStreak();
-      const stepsSt = getStepsStreak();
-      const sleepSt = getSleepStreak();
-      const moodSt = getMoodStreak();
-      const habitsSt = getHabitsWeeklyStreak();
-      const sportSt = getSportWeeklyStreak();
-      const readSt = getReadStreak();
-      const foodSt = getFoodStreak();
-
       const streaks = [
-        { emoji: '💧', label: 'Вода', st: waterSt, unit: 'дн.' },
-        { emoji: '👟', label: 'Шаги', st: stepsSt, unit: 'дн.' },
-        { emoji: '😴', label: 'Сон', st: sleepSt, unit: 'дн.' },
-        { emoji: '😊', label: 'Настроение', st: moodSt, unit: 'дн.' },
-        { emoji: '✅', label: 'Привычки', st: habitsSt, unit: 'нед.' },
-        { emoji: '🏃', label: 'Спорт', st: sportSt, unit: 'нед.' },
-        { emoji: '📚', label: 'Чтение', st: readSt, unit: 'дн.' },
-        { emoji: '🍎', label: 'Питание', st: foodSt, unit: 'дн.' },
+        { emoji: '💧', label: 'Вода', st: getWaterStreak(), unit: 'дн.' },
+        { emoji: '👟', label: 'Шаги', st: getStepsStreak(), unit: 'дн.' },
+        { emoji: '😴', label: 'Сон', st: getSleepStreak(), unit: 'дн.' },
+        { emoji: '😊', label: 'Настроение', st: getMoodStreak(), unit: 'дн.' },
+        { emoji: '✅', label: 'Привычки', st: getHabitsWeeklyStreak(), unit: 'нед.' },
+        { emoji: '🏃', label: 'Спорт', st: getSportWeeklyStreak(), unit: 'нед.' },
+        { emoji: '📚', label: 'Чтение', st: getReadStreak(), unit: 'дн.' },
+        { emoji: '🍎', label: 'Питание', st: getFoodStreak(), unit: 'дн.' },
       ];
 
       let streakHtml = '';
@@ -5036,7 +5131,6 @@
       streaksEl.innerHTML = streakHtml;
     }
 
-    /* ============ STATS: НЕДЕЛЯ ============ */
     function renderBarChart(container, values, maxValue, color, formatValue) {
       const W = 300;
       const H = 140;
@@ -5074,7 +5168,6 @@
       const container = document.getElementById('statsWeekContent');
       if (!container) return;
       const days = getWeekDays();
-
       let html = '';
 
       const sleepVals = days.map(d => {
@@ -5140,15 +5233,16 @@
           if (block.type === 'daily') {
             habPossible += 7;
             for (let i = 0; i < 7; i++) {
-              const d = new Date(currentWeekMonday + 'T12:00:00');
+              const d = new Date(viewWeekMonday + 'T12:00:00');
               d.setDate(d.getDate() + i);
               const dateStr = d.toISOString().slice(0, 10);
               if (checks[h.id] && checks[h.id][dateStr]) habDone++;
             }
           } else {
             habPossible += 1;
+            const weekEnd = getWeekEndForWeek(viewWeekMonday);
             if (checks[h.id]) {
-              const hasAny = Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
+              const hasAny = Object.keys(checks[h.id]).some(dd => dd >= viewWeekMonday && dd <= weekEnd);
               if (hasAny) habDone++;
             }
           }
@@ -5202,14 +5296,12 @@
       renderBarChart(document.getElementById('chartFood'), foodVals, foodMax, '#fbbf24', v => String(v));
     }
 
-    /* ============ ФИНАНСЫ ============ */
+    /* ФИНАНСЫ */
     const FIN_KEY = 'finances_v1';
     let finances = {};
-    let finViewMonth = null; // "YYYY-MM"
+    let finViewMonth = null;
 
-    function getMonthKey(dateStr) {
-      return dateStr.slice(0, 7);
-    }
+    function getMonthKey(dateStr) { return dateStr.slice(0, 7); }
     function shiftMonth(monthKey, delta) {
       const [y, m] = monthKey.split('-').map(Number);
       const d = new Date(y, m - 1 + delta, 1);
@@ -5231,11 +5323,9 @@
         cb && cb();
       });
     }
-
     function initFinView() {
       if (!finViewMonth) finViewMonth = getMonthKey(getLogicalDate());
     }
-
     function finShiftMonth(delta) {
       initFinView();
       const currentMonth = getMonthKey(getLogicalDate());
@@ -5245,9 +5335,9 @@
       if (newMonth > currentMonth) return;
       finViewMonth = newMonth;
       renderFinances();
+      renderMonth();
       tg.HapticFeedback?.selectionChanged();
     }
-
     function renderFinances() {
       initFinView();
       const labelEl = document.getElementById('finMonthLabel');
@@ -5282,11 +5372,8 @@
         `;
       }
 
-      // История последних 6 месяцев
       const historyMonths = [];
-      for (let i = 0; i < 6; i++) {
-        historyMonths.push(shiftMonth(currentMonth, -i));
-      }
+      for (let i = 0; i < 6; i++) historyMonths.push(shiftMonth(currentMonth, -i));
       let historyHtml = `<div class="fin-history-title">📅 Последние 6 месяцев</div>`;
       historyMonths.forEach(m => {
         const r = finances[m];
@@ -5309,11 +5396,11 @@
       });
       historyEl.innerHTML = historyHtml;
 
-      // Клики по истории
       historyEl.querySelectorAll('.fin-history-row[data-month]').forEach(row => {
         row.onclick = function() {
           finViewMonth = row.dataset.month;
           renderFinances();
+          renderMonth();
           tg.HapticFeedback?.selectionChanged();
         };
       });
@@ -5362,7 +5449,6 @@
       backdrop.onclick = function(ev) { if (ev.target === backdrop) backdrop.remove(); };
     }
 
-    /* ============ STATS: МЕСЯЦ ============ */
     function getMonthDays(monthKey) {
       const [y, m] = monthKey.split('-').map(Number);
       const daysInMonth = new Date(y, m, 0).getDate();
@@ -5420,7 +5506,6 @@
         </div>
       `;
 
-      // Мини-график по дням месяца
       renderMonthChart(document.getElementById('monthStepsChart'), values, maxVal, '#22c55e');
     }
 
@@ -5460,7 +5545,6 @@
       const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
       const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
 
-      // Фильтруем взвешивания месяца
       const inMonth = weightHistory.filter(w => w.date >= startDate && w.date <= endDate).sort((a, b) => a.date.localeCompare(b.date));
 
       if (inMonth.length === 0) {
@@ -5490,7 +5574,6 @@
         </div>
       `;
 
-      // Мини-график, если ≥ 3 взвешиваний
       if (inMonth.length >= 3) {
         html += `<div class="chart-svg-wrap" id="monthWeightChart" style="margin-top: 12px;"></div>`;
       }
@@ -5521,16 +5604,14 @@
       const points = entries.map((e, i) => {
         const x = padLeft + (n === 1 ? chartW / 2 : (i / (n - 1)) * chartW);
         const y = padTop + chartH - ((e.weight - minW) / range) * chartH;
-        return { x, y, w: e.weight };
+        return { x, y };
       });
 
-      // Линия
       let path = '';
       points.forEach((p, i) => {
         path += (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ' ';
       });
 
-      // Градиент-подложка
       let areaPath = path + `L ${points[points.length - 1].x.toFixed(1)} ${padTop + chartH} L ${points[0].x.toFixed(1)} ${padTop + chartH} Z`;
 
       let svg = `<svg class="chart-svg" style="height:90px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
@@ -5558,35 +5639,21 @@
       const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
       const today = getLogicalDate();
 
-      // Сон
       const sleepDays = Object.keys(sleepHistory).filter(d => d >= startDate && d <= endDate && d <= today && sleepHistory[d].duration);
-      const sleepAvg = sleepDays.length > 0
-        ? Math.round(sleepDays.reduce((s, d) => s + sleepHistory[d].duration, 0) / sleepDays.length)
-        : 0;
+      const sleepAvg = sleepDays.length > 0 ? Math.round(sleepDays.reduce((s, d) => s + sleepHistory[d].duration, 0) / sleepDays.length) : 0;
 
-      // Настроение
       const moodDays = Object.keys(moodHistory).filter(d => d >= startDate && d <= endDate && d <= today && moodHistory[d].mood);
-      const moodAvg = moodDays.length > 0
-        ? (moodDays.reduce((s, d) => s + moodHistory[d].mood, 0) / moodDays.length)
-        : 0;
+      const moodAvg = moodDays.length > 0 ? (moodDays.reduce((s, d) => s + moodHistory[d].mood, 0) / moodDays.length) : 0;
 
-      // Питание
       const foodDays = Object.keys(foodHistory).filter(d => d >= startDate && d <= endDate && d <= today && foodHistory[d].calories);
-      const foodAvg = foodDays.length > 0
-        ? Math.round(foodDays.reduce((s, d) => s + foodHistory[d].calories, 0) / foodDays.length)
-        : 0;
+      const foodAvg = foodDays.length > 0 ? Math.round(foodDays.reduce((s, d) => s + foodHistory[d].calories, 0) / foodDays.length) : 0;
 
-      // Вода (среднее по дням, где заполнено)
       const waterDays = Object.keys(waterHistory).filter(d => d >= startDate && d <= endDate && d <= today && waterHistory[d].current > 0);
-      const waterAvg = waterDays.length > 0
-        ? Math.round(waterDays.reduce((s, d) => s + waterHistory[d].current, 0) / waterDays.length)
-        : 0;
+      const waterAvg = waterDays.length > 0 ? Math.round(waterDays.reduce((s, d) => s + waterHistory[d].current, 0) / waterDays.length) : 0;
 
-      // Спорт
       const sportDays = Object.keys(sportData).filter(d => d >= startDate && d <= endDate && d <= today && (sportData[d].mood || sportData[d].typeId || (sportData[d].exercises && sportData[d].exercises.length) || sportData[d].distance));
       const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text));
 
-      // Привычки — средний % по неделям месяца
       let habDone = 0, habPossible = 0;
       habitsConfig.blocks.forEach(block => {
         if (block.type === 'sport' || block.type === 'read') return;
@@ -5595,20 +5662,19 @@
             const monthDays = getMonthDays(monthKey).filter(d => d.date <= today);
             monthDays.forEach(d => {
               habPossible++;
-              // Ищем в неделях habitsData
-              const wk = getWeekKeyForDate(d.date);
+              const wk = getMondayOfDate(d.date);
               const wkChecks = habitsData.weeks[wk] && habitsData.weeks[wk].checks;
               if (wkChecks && wkChecks[h.id] && wkChecks[h.id][d.date]) habDone++;
             });
           } else {
-            // Weekly
             habPossible++;
             const weeks = getWeeksInMonth(monthKey, today);
             let any = false;
             weeks.forEach(w => {
               const wkChecks = habitsData.weeks[w] && habitsData.weeks[w].checks;
               if (wkChecks && wkChecks[h.id]) {
-                const hasAny = Object.keys(wkChecks[h.id]).some(dd => dd >= w && dd <= addDays(w, 6) && getMonthKey(dd) === monthKey);
+                const weekEnd = getWeekEndForWeek(w);
+                const hasAny = Object.keys(wkChecks[h.id]).some(dd => dd >= w && dd <= weekEnd && getMonthKey(dd) === monthKey);
                 if (hasAny) any = true;
               }
             });
@@ -5629,17 +5695,10 @@
       `;
     }
 
-    function getWeekKeyForDate(dateStr) {
-      const d = new Date(dateStr + 'T12:00:00');
-      const day = d.getDay() || 7;
-      d.setDate(d.getDate() - day + 1);
-      return d.toISOString().slice(0, 10);
-    }
-
     function getWeeksInMonth(monthKey, today) {
       const days = getMonthDays(monthKey).filter(d => d.date <= today);
       const set = new Set();
-      days.forEach(d => set.add(getWeekKeyForDate(d.date)));
+      days.forEach(d => set.add(getMondayOfDate(d.date)));
       return Array.from(set).sort();
     }
 
@@ -5656,9 +5715,127 @@
       renderMonth();
     }
 
+    /* === НЕДЕЛЯ: рендер всего === */
+    function renderWeekAll() {
+      initViewWeek();
+      const currentKey = getCurrentWeekKey();
+      const minKey = shiftWeekKey(currentKey, -ARCHIVE_LIMIT);
+      const isCurrent = isViewingCurrentWeek();
+
+      // Заголовок
+      const labelEl = document.getElementById('weekNavLabel');
+      const prevBtn = document.getElementById('weekPrevBtn');
+      const nextBtn = document.getElementById('weekNextBtn');
+      if (labelEl) {
+        const range = formatWeekRange(viewWeekMonday);
+        if (isCurrent) {
+          labelEl.innerHTML = `${range} <span class="current-badge">Текущая</span>`;
+        } else {
+          labelEl.textContent = range;
+        }
+      }
+      if (prevBtn) prevBtn.disabled = viewWeekMonday <= minKey;
+      if (nextBtn) nextBtn.disabled = isCurrent;
+
+      // Баннер архива
+      const bannerEl = document.getElementById('weekArchiveBanner');
+      if (bannerEl) {
+        if (isCurrent) {
+          bannerEl.innerHTML = '';
+        } else {
+          bannerEl.innerHTML = `<div class="archive-banner">📖 Архив — только просмотр</div>`;
+        }
+      }
+
+      // Скрыть шестерёнки в архиве
+      const gearIds = ['weekHabitsGear', 'weekSportGear', 'weekStepsGear'];
+      gearIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = isCurrent ? '' : 'none';
+      });
+
+      // Рендер
+      renderWeekHabitsGrid();
+      renderWeekSummary();
+      renderWeekSport();
+      renderWeekRead();
+      renderWeekSteps();
+      renderWeight();
+      renderWeekSleep();
+      renderWeekMood();
+      renderWeekFood();
+    }
+
+    // Обновлённая renderWeight — работает и для текущей, и для архива
+    function renderWeight() {
+      const container = document.getElementById('weightContent');
+      if (!container) return;
+      const isCurrent = isViewingCurrentWeek();
+      if (!weightHistory.length) {
+        if (isCurrent) {
+          container.innerHTML = `<div class="weight-empty">Ещё нет взвешиваний.<br>Начни отслеживать прогресс!</div><button class="weight-btn" onclick="openWeightModal()">⚖️ Взвеситься</button>`;
+        } else {
+          container.innerHTML = `<div class="weight-empty">Ещё нет взвешиваний</div>`;
+        }
+        return;
+      }
+      const latest = getLatestWeight();
+      const first = getFirstWeight();
+      const sorted = [...weightHistory].sort((a, b) => a.date.localeCompare(b.date));
+      const prev = sorted.length > 1 ? sorted[sorted.length - 2] : null;
+      const diffPrev = prev ? (latest.weight - prev.weight) : null;
+      const diffFirst = (latest.weight - first.weight);
+      function diffClass(d) {
+        if (d == null) return 'same';
+        if (d < 0) return 'down';
+        if (d > 0) return 'up';
+        return 'same';
+      }
+      function diffText(d) {
+        if (d == null) return '—';
+        const sign = d > 0 ? '+' : '';
+        return `${sign}${d.toFixed(1)} кг`;
+      }
+      function diffArrow(d) {
+        if (d == null) return '';
+        if (d < 0) return '↓';
+        if (d > 0) return '↑';
+        return '=';
+      }
+      let reminderHtml = '';
+      const daysSince = daysSinceLastWeigh();
+      if (isCurrent && daysSince != null && daysSince >= 7) {
+        reminderHtml = `<div class="weight-reminder">💡 Прошло ${daysSince} дней с последнего взвешивания — пора взвеситься!</div>`;
+      }
+      const recent = [...weightHistory].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8);
+      const historyHtml = recent.map((entry) => {
+        const idx = sorted.findIndex(x => x.date === entry.date);
+        const older = idx > 0 ? sorted[idx - 1] : null;
+        const diff = older ? (entry.weight - older.weight) : null;
+        return `<div class="weight-history-row"><span class="wh-date">${formatDateRu(entry.date)}</span><span class="wh-weight">${entry.weight.toFixed(1)} кг</span><span class="wh-diff ${diffClass(diff)}">${diffArrow(diff)} ${diffText(diff).replace('—', '')}</span></div>`;
+      }).join('');
+      container.innerHTML = `
+        ${reminderHtml}
+        <div class="weight-current">
+          <div class="weight-value">${latest.weight.toFixed(1)}<span class="weight-unit">кг</span></div>
+          <div class="weight-changes">
+            ${diffPrev != null ? `<div class="weight-change ${diffClass(diffPrev)}">${diffArrow(diffPrev)} ${diffText(diffPrev)} <span class="label">с прошлого</span></div>` : ''}
+            ${sorted.length > 1 ? `<div class="weight-change ${diffClass(diffFirst)}">${diffArrow(diffFirst)} ${diffText(diffFirst)} <span class="label">с начала</span></div>` : ''}
+          </div>
+        </div>
+        ${isCurrent ? `<button class="weight-btn" onclick="openWeightModal()">⚖️ Взвеситься</button>` : ''}
+        <div class="weight-history-title">📅 История взвешиваний</div>
+        ${historyHtml}
+      `;
+    }
+
     /* СТАРТ */
     loadWater();
-    loadWaterHistory(() => { renderStats(); });
+    loadWaterHistory(() => {
+      initViewWeek();
+      renderStats();
+      renderWeekAll();
+    });
     loadSteps();
     loadSleep();
     loadSleepHistory(() => { renderWeekSleep(); });
@@ -5679,12 +5856,9 @@
               loadStepsHistory(() => {
                 loadGoals(() => {
                   initHabitsData();
+                  initViewWeek();
                   renderDayHabits();
-                  renderWeekHabitsGrid();
-                  renderWeekSummary();
-                  renderWeekSport();
-                  renderWeekRead();
-                  renderWeekSteps();
+                  renderWeekAll();
                   updateHomeHabits();
                   renderSteps(false);
                   renderGoals();
