@@ -424,7 +424,120 @@
       font-size: 13px; font-weight: 700; min-width: 16px;
       text-align: center; font-variant-numeric: tabular-nums;
     }
+    /* ТАБЛИЦЫ */
+    .wk-sleep-header, .wk-sleep-row {
+      display: grid;
+      grid-template-columns: 34px 1fr 60px 40px 30px;
+      gap: 6px;
+      padding: 10px 8px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      min-height: 36px;
+    }
+    .wk-sleep-header {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: var(--card-2);
+      border-radius: 8px 8px 0 0;
+      padding: 10px 8px;
+    }
+    .wk-sleep-row:last-child { border-bottom: none; }
+    .wk-sleep-row { font-variant-numeric: tabular-nums; }
+    .wk-sleep-row.empty { opacity: 0.4; }
+    .wk-day { font-weight: 600; }
+    .wk-time { color: var(--text-dim); font-size: 11px; }
+    .wk-dur { font-weight: 600; }
+    .wk-qual { text-align: center; font-size: 14px; }
+    .wk-badge { text-align: right; font-size: 12px; }
+    .wk-stats {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-stat {
+      text-align: center; background: var(--card-2);
+      border-radius: 10px; padding: 10px 6px;
+    }
+    .wk-stat-val { font-size: 15px; font-weight: 700; color: var(--sleep); }
+    .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
+    .mood-week-row {
+      display: grid;
+      grid-template-columns: 40px 32px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      min-height: 36px;
+    }
+    .mood-week-row:last-of-type { border-bottom: none; }
+    .mood-week-row .mood-emoji { font-size: 20px; text-align: center; line-height: 1; }
+    .mood-week-row .mood-note {
+      color: var(--text-dim); font-size: 12px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .mood-week-row.empty { opacity: 0.4; }
+    .mood-week-stats {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 12px; padding: 10px 14px;
+      background: var(--card-2); border-radius: 12px; font-size: 13px;
+    }
+    .mood-week-stats .val { font-weight: 700; color: var(--accent); }
+
+    .wk-food-header, .wk-food-row {
+      display: grid;
+      grid-template-columns: 40px 60px 1fr 60px;
+      gap: 6px;
+      padding: 10px 8px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      min-height: 36px;
+    }
+    .wk-food-header {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: var(--card-2);
+      border-radius: 8px 8px 0 0;
+    }
+    .wk-food-row:last-of-type { border-bottom: none; }
+    .wk-food-row { font-variant-numeric: tabular-nums; }
+    .wk-food-row.empty { opacity: 0.4; }
+    .wk-food-kcal { font-weight: 700; text-align: right; }
+    .wk-food-meals { text-align: center; color: var(--text-dim); }
+    .wk-food-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-food-stat {
+      text-align: center; background: var(--card-2);
+      border-radius: 10px; padding: 10px 6px;
+    }
+    .wk-food-stat-val { font-size: 15px; font-weight: 700; color: var(--food); }
+    .wk-food-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+    .wk-food-dishes {
+      margin-top: 16px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-food-dishes-title {
+      font-size: 12px; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.3px;
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .wk-food-dish-day {
+      margin-bottom: 10px; font-size: 13px; line-height: 1.4;
+    }
+    .wk-food-dish-day b { color: var(--food); margin-right: 6px; }
+    .wk-food-dish-day span { color: var(--text-dim); }
     /* ПРИВЫЧКИ */
     .habit-block { margin-bottom: 14px; }
     .habit-block-head {
