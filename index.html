@@ -2786,8 +2786,34 @@
         stepsRemain.classList.add('done');
       }
       if (document.activeElement !== stepsInput) stepsInput.value = stepsCurrent || '';
-      const homeSteps = document.getElementById('homeStepsValue');
-      if (homeSteps) homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
+
+      // === ОБНОВЛЕНИЕ СВОДКИ — С СОЗДАНИЕМ, ЕСЛИ НЕТ ===
+      let homeSteps = document.getElementById('homeStepsValue');
+      if (!homeSteps) {
+        const cards = document.querySelectorAll('#screen-home .card');
+        for (const card of cards) {
+          const title = card.querySelector('.card-title');
+          if (title && title.textContent.includes('Сводка дня')) {
+            const newRow = document.createElement('div');
+            newRow.className = 'summary-row clickable';
+            newRow.onclick = () => switchScreen('day');
+            newRow.innerHTML = '<div class="label"><span>👟</span> Шаги</div><div class="value" id="homeStepsValue">— / —</div>';
+            const waterRow = card.querySelector('.summary-row');
+            if (waterRow && waterRow.nextSibling) {
+              card.insertBefore(newRow, waterRow.nextSibling);
+            } else {
+              card.appendChild(newRow);
+            }
+            homeSteps = document.getElementById('homeStepsValue');
+            break;
+          }
+        }
+      }
+      if (homeSteps) {
+        homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
+      }
+      // === КОНЕЦ ===
+
       if (!animate) requestAnimationFrame(() => { stepsRingFill.style.transition = ''; });
     }
     function miniBottleSvg(pct) {
