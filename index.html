@@ -2835,13 +2835,17 @@
         setTimeout(() => toast.remove(), 400);
       }, 2000);
     }
+    
     function saveSteps() {
       const data = JSON.stringify({ date: getLogicalDate(), current: stepsCurrent, goal: stepsGoal, dayStartHour });
       tg.CloudStorage.setItem(STEPS_KEY, data, (err) => { if (err) console.warn(err); });
     }
     function loadSteps() {
       tg.CloudStorage.getItem(STEPS_KEY, (err, value) => {
-        if (err || !value) { renderSteps(false); return; }
+        if (err || !value) { 
+          renderSteps(false); 
+          return; 
+        }
         try {
           const data = JSON.parse(value);
           if (data.goal) stepsGoal = data.goal;
@@ -2849,7 +2853,16 @@
           if (data.date === getLogicalDate()) stepsCurrent = data.current || 0;
           else { stepsCurrent = 0; saveSteps(); }
           renderSteps(false);
-        } catch (e) { renderSteps(false); }
+          // Явно обновляем сводку
+          const homeSteps = document.getElementById('homeStepsValue');
+          if (homeSteps) {
+            const pct = Math.min(stepsCurrent / stepsGoal, 1);
+            homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
+          }
+        } catch (e) { 
+          console.warn('loadSteps error:', e);
+          renderSteps(false); 
+        }
       });
     }
     function saveStepsHistory() {
