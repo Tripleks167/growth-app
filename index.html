@@ -6,11 +6,7 @@
   <title>Лучшая версия себя</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    /* ============ БАЗА ============ */
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     :root {
       --bg: #14110f;
@@ -32,9 +28,7 @@
     }
 
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
       overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
@@ -42,12 +36,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .app {
-      height: 100vh;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-    }
+    .app { height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
 
     .content {
       flex: 1;
@@ -68,21 +57,15 @@
 
     .screen-header { margin-bottom: 20px; }
     .screen-header h1 {
-      font-size: 26px;
-      font-weight: 700;
-      margin: 0 0 4px;
+      font-size: 26px; font-weight: 700; margin: 0 0 4px;
       letter-spacing: -0.5px;
     }
     .screen-header .sub {
-      font-size: 13px;
-      color: var(--text-dim);
-      text-transform: capitalize;
+      font-size: 13px; color: var(--text-dim); text-transform: capitalize;
     }
 
     .greeting {
-      font-size: 26px;
-      font-weight: 700;
-      margin: 0 0 4px;
+      font-size: 26px; font-weight: 700; margin: 0 0 4px;
       letter-spacing: -0.5px;
     }
     .greeting .name {
@@ -102,12 +85,8 @@
     }
 
     .card-title {
-      font-size: 15px;
-      font-weight: 600;
-      margin: 0 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 15px; font-weight: 600; margin: 0 0 12px;
+      display: flex; align-items: center; gap: 8px;
     }
     .card-title .icon { font-size: 18px; }
 
@@ -119,132 +98,69 @@
       text-align: center;
       color: var(--text-dim);
     }
-    .placeholder .big {
-      font-size: 42px;
-      margin-bottom: 8px;
-      display: block;
-    }
+    .placeholder .big { font-size: 42px; margin-bottom: 8px; display: block; }
     .placeholder .text { font-size: 14px; }
 
     .summary-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
     }
     .summary-row:last-child { border-bottom: none; }
     .summary-row .label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
+      display: flex; align-items: center; gap: 10px; font-size: 15px;
     }
     .summary-row .value {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--accent);
+      font-size: 15px; font-weight: 600; color: var(--accent);
     }
 
     .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 16px;
     }
     .card-head .title {
-      font-size: 15px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 15px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
     }
     .gear-btn {
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      padding: 4px;
-      opacity: 0.7;
+      background: transparent; border: none; font-size: 18px;
+      cursor: pointer; padding: 4px; opacity: 0.7;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .gear-btn:active {
-      opacity: 1;
-      transform: scale(0.9) rotate(45deg);
-    }
+    .gear-btn:active { opacity: 1; transform: scale(0.9) rotate(45deg); }
 
-    /* ============ ВОДА ============ */
-    .water-body {
-      display: flex;
-      align-items: stretch;
-      gap: 16px;
-      height: 280px;
-    }
+    /* ВОДА */
+    .water-body { display: flex; align-items: stretch; gap: 16px; height: 280px; }
     .slider-wrap {
-      position: relative;
-      width: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px 0;
+      position: relative; width: 50px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: space-between; padding: 4px 0;
     }
-    .slider-label {
-      font-size: 10px;
-      color: var(--text-dim);
-      text-align: center;
-      line-height: 1.2;
-    }
+    .slider-label { font-size: 10px; color: var(--text-dim); text-align: center; line-height: 1.2; }
     .v-slider {
-      position: relative;
-      flex: 1;
-      width: 6px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 3px;
-      margin: 8px 0;
-      cursor: pointer;
-      touch-action: none;
-      user-select: none;
+      position: relative; flex: 1; width: 6px;
+      background: rgba(255,255,255,0.08); border-radius: 3px;
+      margin: 8px 0; cursor: pointer; touch-action: none; user-select: none;
     }
     .v-slider-fill {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      position: absolute; bottom: 0; left: 0; right: 0;
       background: linear-gradient(to top, #4fc3f7, #81d4fa);
-      border-radius: 3px;
-      transition: height 0.15s;
-      pointer-events: none;
+      border-radius: 3px; transition: height 0.15s; pointer-events: none;
       box-shadow: 0 0 12px rgba(79, 195, 247, 0.5);
     }
     .v-slider-thumb {
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, 50%);
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
+      position: absolute; left: 50%; transform: translate(-50%, 50%);
+      width: 22px; height: 22px; border-radius: 50%;
       background: #fff;
       box-shadow: 0 2px 8px rgba(79, 195, 247, 0.7), 0 0 0 3px rgba(79, 195, 247, 0.25);
-      pointer-events: none;
-      transition: bottom 0.15s;
+      pointer-events: none; transition: bottom 0.15s;
     }
-    .v-slider-thumb.dragging {
-      transition: none;
-      transform: translate(-50%, 50%) scale(1.2);
-    }
+    .v-slider-thumb.dragging { transition: none; transform: translate(-50%, 50%) scale(1.2); }
     .bottle-wrap {
-      position: relative;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: relative; flex: 1; display: flex;
+      flex-direction: column; align-items: center; justify-content: center;
     }
     .bottle-svg {
-      width: 100%;
-      max-width: 140px;
-      height: 240px;
+      width: 100%; max-width: 140px; height: 240px;
       filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
       transition: filter 0.6s;
     }
@@ -254,443 +170,259 @@
       animation: bottleGlow 1s ease-in-out infinite alternate;
     }
     @keyframes bottleGlow {
-      from { transform: scale(1); }
-      to   { transform: scale(1.03); }
+      from { transform: scale(1); } to { transform: scale(1.03); }
     }
     .water-percent {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 26px; font-weight: 800;
       color: #1a73e8;
       text-shadow: 0 1px 4px rgba(255,255,255,0.9);
-      pointer-events: none;
-      transition: color 0.3s, text-shadow 0.3s;
-      z-index: 2;
+      pointer-events: none; transition: color 0.3s, text-shadow 0.3s; z-index: 2;
     }
-    .water-percent.high {
-      color: #fff;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.5);
-    }
+    .water-percent.high { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
     .water-stats { text-align: center; margin-top: 12px; }
     .water-amount { font-size: 20px; font-weight: 700; }
-    .water-amount .goal {
-      color: var(--text-dim);
-      font-weight: 500;
-      font-size: 16px;
-    }
-    .water-remain {
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
+    .water-amount .goal { color: var(--text-dim); font-weight: 500; font-size: 16px; }
+    .water-remain { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
     .water-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-top: 14px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px;
     }
     .water-buttons button {
-      background: var(--card-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.1s, background 0.2s;
+      background: var(--card-2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: transform 0.1s, background 0.2s;
       font-family: inherit;
     }
     .water-buttons button:active {
-      transform: scale(0.95);
-      background: var(--accent);
-      color: #14110f;
+      transform: scale(0.95); background: var(--accent); color: #14110f;
     }
     .water-buttons button.reset {
-      grid-column: span 3;
-      color: var(--text-dim);
-      font-size: 13px;
+      grid-column: span 3; color: var(--text-dim); font-size: 13px;
     }
 
-    /* ============ СОН ============ */
-    .sleep-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
+    /* СОН */
+    .sleep-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .time-input-wrap {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.1s;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px; text-align: center;
+      cursor: pointer; transition: border-color 0.2s, transform 0.1s;
     }
     .time-input-wrap:active { transform: scale(0.98); }
     .time-input-wrap.filled { border-color: var(--sleep); }
     .time-input-wrap .label {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-size: 11px; color: var(--text-dim); margin-bottom: 4px;
+      text-transform: uppercase; letter-spacing: 0.5px;
     }
     .time-input-wrap .value {
-      font-size: 22px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
+      font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums;
     }
     .time-input-wrap .value.empty {
-      color: var(--text-dim);
-      font-weight: 500;
-      font-size: 18px;
+      color: var(--text-dim); font-weight: 500; font-size: 18px;
     }
     .sleep-duration {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      background: var(--card-2);
-      border-radius: 12px;
-      margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; background: var(--card-2);
+      border-radius: 12px; margin-bottom: 14px;
       border: 1px solid var(--border);
     }
     .sleep-duration .dur-label { font-size: 13px; color: var(--text-dim); }
     .sleep-duration .dur-value { font-size: 18px; font-weight: 700; }
     .sleep-duration .norm-badge {
-      font-size: 12px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
+      font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 600;
     }
     .norm-badge.ok { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
     .norm-badge.bad { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
-    .quality-label {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 8px;
-    }
+    .quality-label { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; }
     .quality-label .selected-name { color: var(--text); font-weight: 600; }
     .quality-scale {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 4px;
-      margin-bottom: 14px;
+      display: grid; grid-template-columns: repeat(10, 1fr);
+      gap: 4px; margin-bottom: 14px;
     }
     .quality-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 6px 0;
-      font-size: 18px;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 6px 0; font-size: 18px;
       cursor: pointer;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
-      line-height: 1.2;
-      font-family: inherit;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
+      line-height: 1.2; font-family: inherit;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
     }
     .quality-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .quality-btn:active { transform: scale(0.9); }
     .quality-btn.selected {
-      background: var(--sleep-grad);
-      border-color: var(--sleep);
+      background: var(--sleep-grad); border-color: var(--sleep);
       transform: scale(1.05);
       box-shadow: 0 4px 16px rgba(167, 139, 250, 0.4);
     }
     .quality-btn.selected .num { color: rgba(255,255,255,0.9); }
 
-    /* ============ НАСТРОЕНИЕ ============ */
+    /* НАСТРОЕНИЕ */
     .mood-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 14px;
     }
     .mood-header .title {
-      font-size: 15px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 15px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
     }
     .date-nav {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--text-dim);
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--text-dim);
     }
     .date-nav button {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: inherit;
-      padding: 0;
+      background: var(--card-2); border: 1px solid var(--border);
+      color: var(--text); width: 26px; height: 26px;
+      border-radius: 8px; cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; padding: 0;
     }
     .date-nav button:active { transform: scale(0.9); }
     .date-nav button:disabled { opacity: 0.3; cursor: default; }
     .mood-scale-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-bottom: 6px;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 6px; margin-bottom: 6px;
     }
     .mood-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 0;
-      font-size: 22px;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px 0; font-size: 22px;
       cursor: pointer;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
-      line-height: 1.2;
-      font-family: inherit;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
+      line-height: 1.2; font-family: inherit;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
     }
     .mood-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .mood-btn:active { transform: scale(0.9); }
     .mood-btn.selected {
-      background: var(--accent-grad);
-      border-color: var(--accent);
+      background: var(--accent-grad); border-color: var(--accent);
       transform: scale(1.05);
       box-shadow: 0 4px 16px rgba(74, 222, 128, 0.4);
     }
     .mood-btn.selected .num { color: rgba(20, 17, 15, 0.8); }
     .mood-btn:disabled { opacity: 0.5; cursor: default; }
     .mood-selected-name {
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 14px;
-      min-height: 18px;
+      text-align: center; font-size: 13px; color: var(--text-dim);
+      margin-bottom: 14px; min-height: 18px;
     }
     .mood-selected-name b { color: var(--text); }
     .note-field {
-      width: 100%;
-      min-height: 80px;
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      color: var(--text);
-      font-size: 14px;
-      font-family: inherit;
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.2s;
-      line-height: 1.4;
+      width: 100%; min-height: 80px;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px; color: var(--text);
+      font-size: 14px; font-family: inherit; resize: vertical;
+      outline: none; transition: border-color 0.2s; line-height: 1.4;
     }
     .note-field:focus { border-color: var(--accent); }
     .note-field::placeholder { color: var(--text-dim); }
     .note-field:disabled { opacity: 0.6; }
     .note-status {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-align: right;
-      margin-top: 6px;
-      min-height: 14px;
-      transition: opacity 0.3s;
+      font-size: 11px; color: var(--text-dim);
+      text-align: right; margin-top: 6px;
+      min-height: 14px; transition: opacity 0.3s;
     }
     .note-status.saved { color: var(--accent); }
 
-    /* ============ ПИТАНИЕ ============ */
+    /* ПИТАНИЕ */
     .food-calories-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-      align-items: stretch;
+      display: flex; gap: 8px; margin-bottom: 10px; align-items: stretch;
     }
     .food-calories-input {
-      flex: 1;
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      color: var(--text);
-      font-size: 18px;
-      font-weight: 700;
-      font-family: inherit;
-      outline: none;
-      text-align: center;
+      flex: 1; background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px; color: var(--text);
+      font-size: 18px; font-weight: 700; font-family: inherit;
+      outline: none; text-align: center;
       transition: border-color 0.2s;
-      font-variant-numeric: tabular-nums;
-      min-width: 0;
+      font-variant-numeric: tabular-nums; min-width: 0;
     }
     .food-calories-input:focus { border-color: var(--food); }
     .food-calories-input::placeholder { color: var(--text-dim); font-weight: 500; }
     .food-quick-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 0 12px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
+      background: var(--card-2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 12px; padding: 0 12px;
+      font-size: 13px; font-weight: 700; cursor: pointer;
       transition: transform 0.1s, background 0.2s;
-      font-family: inherit;
-      white-space: nowrap;
+      font-family: inherit; white-space: nowrap;
     }
     .food-quick-btn:active {
-      transform: scale(0.95);
-      background: var(--food);
-      color: #14110f;
+      transform: scale(0.95); background: var(--food); color: #14110f;
     }
-
     .food-cal-bar {
-      height: 6px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 3px;
-      overflow: hidden;
-      margin-bottom: 14px;
+      height: 6px; background: rgba(255,255,255,0.08);
+      border-radius: 3px; overflow: hidden; margin-bottom: 14px;
     }
     .food-cal-bar-fill {
-      height: 100%;
-      background: var(--food-grad);
-      border-radius: 3px;
-      width: 0;
+      height: 100%; background: var(--food-grad);
+      border-radius: 3px; width: 0;
       transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .food-cal-goal {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-align: right;
-      margin-top: -10px;
-      margin-bottom: 14px;
+      font-size: 11px; color: var(--text-dim); text-align: right;
+      margin-top: -10px; margin-bottom: 14px;
     }
-
-    .food-meals-label {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 8px;
-    }
+    .food-meals-label { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; }
     .food-meals-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 8px; margin-bottom: 14px;
     }
     .food-meal-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 4px;
-      font-size: 22px;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 4px; font-size: 22px;
       cursor: pointer;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
       font-family: inherit;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      line-height: 1.2;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2px; line-height: 1.2;
     }
     .food-meal-btn .meal-name {
-      font-size: 9px;
-      color: var(--text-dim);
-      font-weight: 600;
+      font-size: 9px; color: var(--text-dim); font-weight: 600;
       text-transform: uppercase;
     }
     .food-meal-btn:active { transform: scale(0.9); }
     .food-meal-btn.done {
-      background: var(--food-grad);
-      border-color: var(--food);
+      background: var(--food-grad); border-color: var(--food);
       transform: scale(1.03);
       box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35);
     }
     .food-meal-btn.done .meal-name { color: rgba(20, 17, 15, 0.8); }
-
     .food-counters {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
       margin-bottom: 14px;
     }
     .food-counter {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 12px;
+      display: flex; align-items: center; justify-content: space-between;
       gap: 8px;
     }
     .food-counter .c-label {
-      font-size: 12px;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex: 1;
-      min-width: 0;
+      font-size: 12px; color: var(--text-dim);
+      display: flex; align-items: center; gap: 4px;
+      flex: 1; min-width: 0;
     }
-    .food-counter .c-controls {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .food-counter .c-controls { display: flex; align-items: center; gap: 4px; }
     .food-counter .c-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: inherit;
-      padding: 0;
-      line-height: 1;
+      width: 28px; height: 28px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--card);
+      color: var(--text); font-size: 16px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-family: inherit;
+      padding: 0; line-height: 1;
     }
     .food-counter .c-btn:active { transform: scale(0.9); }
     .food-counter .c-val {
-      font-size: 16px;
-      font-weight: 700;
-      min-width: 22px;
-      text-align: center;
-      font-variant-numeric: tabular-nums;
+      font-size: 16px; font-weight: 700; min-width: 22px;
+      text-align: center; font-variant-numeric: tabular-nums;
     }
 
-    /* ============ ТАБЛИЦЫ ============ */
+    /* ТАБЛИЦЫ */
     .wk-sleep-header, .wk-sleep-row {
-      display: grid;
-      grid-template-columns: 32px 1fr 55px 36px 28px;
-      gap: 6px;
-      padding: 8px 6px;
-      font-size: 12px;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 32px 1fr 55px 36px 28px;
+      gap: 6px; padding: 8px 6px; font-size: 12px;
+      align-items: center; border-bottom: 1px solid var(--border);
     }
     .wk-sleep-header {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
+      color: var(--text-dim); font-weight: 600; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.3px;
     }
     .wk-sleep-row { font-variant-numeric: tabular-nums; }
     .wk-sleep-row.empty { opacity: 0.4; }
@@ -700,137 +432,86 @@
     .wk-qual { text-align: center; font-size: 14px; }
     .wk-badge { text-align: right; font-size: 12px; }
     .wk-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-top: 14px;
-      padding-top: 14px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-top: 14px; padding-top: 14px;
       border-top: 1px solid var(--border);
     }
     .wk-stat {
-      text-align: center;
-      background: var(--card-2);
-      border-radius: 10px;
-      padding: 10px 6px;
+      text-align: center; background: var(--card-2);
+      border-radius: 10px; padding: 10px 6px;
     }
     .wk-stat-val { font-size: 15px; font-weight: 700; color: var(--sleep); }
     .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
-    /* Неделя настроения */
     .mood-week-row {
-      display: grid;
-      grid-template-columns: 32px 32px 1fr;
-      gap: 8px;
-      align-items: center;
-      padding: 8px 4px;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
+      display: grid; grid-template-columns: 32px 32px 1fr;
+      gap: 8px; align-items: center; padding: 8px 4px;
+      border-bottom: 1px solid var(--border); font-size: 13px;
     }
     .mood-week-row:last-of-type { border-bottom: none; }
     .mood-week-row .mood-emoji { font-size: 20px; text-align: center; }
     .mood-week-row .mood-note {
-      color: var(--text-dim);
-      font-size: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: var(--text-dim); font-size: 12px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .mood-week-row.empty { opacity: 0.4; }
     .mood-week-stats {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 12px;
-      padding: 10px 14px;
-      background: var(--card-2);
-      border-radius: 12px;
-      font-size: 13px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 12px; padding: 10px 14px;
+      background: var(--card-2); border-radius: 12px; font-size: 13px;
     }
     .mood-week-stats .val { font-weight: 700; color: var(--accent); }
 
-    /* Неделя питания */
     .wk-food-header, .wk-food-row {
-      display: grid;
-      grid-template-columns: 32px 1fr 60px 60px;
-      gap: 6px;
-      padding: 8px 6px;
-      font-size: 12px;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 32px 1fr 60px 60px;
+      gap: 6px; padding: 8px 6px; font-size: 12px;
+      align-items: center; border-bottom: 1px solid var(--border);
     }
     .wk-food-header {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
+      color: var(--text-dim); font-weight: 600; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.3px;
     }
     .wk-food-row { font-variant-numeric: tabular-nums; }
     .wk-food-row.empty { opacity: 0.4; }
     .wk-food-kcal { font-weight: 700; text-align: right; }
     .wk-food-meals { text-align: center; color: var(--text-dim); }
     .wk-food-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 14px;
-      padding-top: 14px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 14px; padding-top: 14px;
       border-top: 1px solid var(--border);
     }
     .wk-food-stat {
-      text-align: center;
-      background: var(--card-2);
-      border-radius: 10px;
-      padding: 10px 6px;
+      text-align: center; background: var(--card-2);
+      border-radius: 10px; padding: 10px 6px;
     }
     .wk-food-stat-val { font-size: 15px; font-weight: 700; color: var(--food); }
     .wk-food-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-
     .wk-food-dishes {
-      margin-top: 16px;
-      padding-top: 14px;
+      margin-top: 16px; padding-top: 14px;
       border-top: 1px solid var(--border);
     }
     .wk-food-dishes-title {
-      font-size: 12px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-size: 12px; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.3px;
+      font-weight: 600; margin-bottom: 10px;
     }
     .wk-food-dish-day {
-      margin-bottom: 10px;
-      font-size: 13px;
-      line-height: 1.4;
+      margin-bottom: 10px; font-size: 13px; line-height: 1.4;
     }
-    .wk-food-dish-day b {
-      color: var(--food);
-      margin-right: 6px;
-    }
+    .wk-food-dish-day b { color: var(--food); margin-right: 6px; }
     .wk-food-dish-day span { color: var(--text-dim); }
 
-    /* ============ МОДАЛКА ============ */
+    /* МОДАЛКА */
     .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 20px;
-      backdrop-filter: blur(4px);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      display: none; align-items: center; justify-content: center;
+      z-index: 100; padding: 20px; backdrop-filter: blur(4px);
     }
     .modal-backdrop.show { display: flex; }
     .modal {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      width: 100%;
-      max-width: 340px;
-      box-shadow: var(--shadow);
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      width: 100%; max-width: 340px; box-shadow: var(--shadow);
       animation: modalIn 0.25s ease;
     }
     @keyframes modalIn {
@@ -839,151 +520,88 @@
     }
     .modal h3 { margin: 0 0 16px; font-size: 18px; }
     .modal label {
-      display: block;
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-      margin-top: 12px;
+      display: block; font-size: 13px; color: var(--text-dim);
+      margin-bottom: 6px; margin-top: 12px;
     }
     .modal input[type="number"],
     .modal input[type="time"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg-2);
-      color: var(--text);
-      font-size: 16px;
-      font-family: inherit;
+      width: 100%; padding: 12px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-2);
+      color: var(--text); font-size: 16px; font-family: inherit;
       outline: none;
     }
     .modal input:focus { border-color: var(--accent); }
     .modal-hint {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 6px;
-      line-height: 1.4;
+      font-size: 11px; color: var(--text-dim);
+      margin-top: 6px; line-height: 1.4;
     }
-    .modal-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 20px;
-    }
+    .modal-buttons { display: flex; gap: 8px; margin-top: 20px; }
     .modal-buttons button {
-      flex: 1;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: transform 0.1s;
+      flex: 1; padding: 12px; border-radius: 10px; border: none;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: transform 0.1s;
     }
     .modal-buttons button:active { transform: scale(0.97); }
-    .modal-buttons .save {
-      background: var(--accent-grad);
-      color: #14110f;
-    }
-    .modal-buttons .cancel {
-      background: var(--card-2);
-      color: var(--text);
-    }
+    .modal-buttons .save { background: var(--accent-grad); color: #14110f; }
+    .modal-buttons .cancel { background: var(--card-2); color: var(--text); }
 
-    /* ============ МЕНЮ ============ */
+    /* МЕНЮ */
     .tabbar {
-      display: flex;
-      background: var(--bg-2);
+      display: flex; background: var(--bg-2);
       border-top: 1px solid var(--border);
       padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
       box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
       z-index: 10;
     }
     .tab {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      padding: 8px 4px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--text-dim);
-      font-size: 11px;
-      font-family: inherit;
-      font-weight: 500;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 3px;
+      padding: 8px 4px; background: transparent; border: none;
+      cursor: pointer; color: var(--text-dim); font-size: 11px;
+      font-family: inherit; font-weight: 500;
       transition: color 0.25s, transform 0.15s;
-      user-select: none;
-      position: relative;
+      user-select: none; position: relative;
     }
     .tab:active { transform: scale(0.9); }
     .tab .icon {
-      font-size: 26px;
-      line-height: 1;
+      font-size: 26px; line-height: 1;
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter: grayscale(1) opacity(0.6);
     }
     .tab.active { color: var(--accent); }
-    .tab.active .icon {
-      transform: translateY(-3px) scale(1.15);
-      filter: none;
-    }
+    .tab.active .icon { transform: translateY(-3px) scale(1.15); filter: none; }
     .tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
+      content: ''; position: absolute; bottom: 2px;
+      width: 4px; height: 4px; border-radius: 50%;
       background: var(--accent-grad);
     }
   </style>
 </head>
 <body>
   <div class="app">
-
     <div class="content">
 
-      <!-- 🏠 ГЛАВНАЯ -->
+      <!-- ГЛАВНАЯ -->
       <div class="screen active" id="screen-home">
         <div class="screen-header">
           <h1 class="greeting">Привет, <span class="name" id="userName">друг</span>!</h1>
           <div class="sub" id="todayDate">Сегодня</div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">📋</span> Сводка дня</div>
-          <div class="summary-row">
-            <div class="label"><span>💧</span> Вода</div>
-            <div class="value" id="homeWaterValue">— / —</div>
-          </div>
-          <div class="summary-row">
-            <div class="label"><span>😴</span> Сон</div>
-            <div class="value" id="homeSleepValue">—</div>
-          </div>
-          <div class="summary-row">
-            <div class="label"><span>😊</span> Настроение</div>
-            <div class="value" id="homeMoodValue">—</div>
-          </div>
-          <div class="summary-row">
-            <div class="label"><span>🍎</span> Питание</div>
-            <div class="value" id="homeFoodValue">—</div>
-          </div>
-          <div class="summary-row">
-            <div class="label"><span>✅</span> Привычки</div>
-            <div class="value">— / —</div>
-          </div>
+          <div class="summary-row"><div class="label"><span>💧</span> Вода</div><div class="value" id="homeWaterValue">— / —</div></div>
+          <div class="summary-row"><div class="label"><span>😴</span> Сон</div><div class="value" id="homeSleepValue">—</div></div>
+          <div class="summary-row"><div class="label"><span>😊</span> Настроение</div><div class="value" id="homeMoodValue">—</div></div>
+          <div class="summary-row"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
+          <div class="summary-row"><div class="label"><span>✅</span> Привычки</div><div class="value">— / —</div></div>
         </div>
-
         <div class="placeholder">
           <span class="big">✨</span>
           <div class="text">Здесь появятся поздравления и достижения</div>
         </div>
       </div>
 
-      <!-- 📅 ДЕНЬ -->
+      <!-- ДЕНЬ -->
       <div class="screen" id="screen-day">
         <div class="screen-header">
           <h1>День</h1>
@@ -1064,9 +682,7 @@
             </div>
             <div class="norm-badge" id="sleepNormBadge">—</div>
           </div>
-          <div class="quality-label">
-            Качество: <span class="selected-name" id="qualityName">не выбрано</span>
-          </div>
+          <div class="quality-label">Качество: <span class="selected-name" id="qualityName">не выбрано</span></div>
           <div class="quality-scale" id="qualityScale"></div>
         </div>
 
@@ -1093,7 +709,6 @@
             <div class="title"><span>🍎</span> Питание</div>
             <button class="gear-btn" onclick="openFoodSettings()">⚙️</button>
           </div>
-
           <div class="food-calories-row">
             <input type="number" class="food-calories-input" id="foodCaloriesInput" placeholder="0 ккал" min="0" max="20000" step="10">
             <button class="food-quick-btn" onclick="addCalories(100)">+100</button>
@@ -1102,24 +717,14 @@
           <div class="food-cal-bar" id="foodCalBar" style="display:none;">
             <div class="food-cal-bar-fill" id="foodCalBarFill"></div>
           </div>
-          <div class="food-cal-goal" id="foodCalGoal" style="display:none;"></div>
-
+          <div class="food-cal-goal" id="foodCalGoalEl" style="display:none;"></div>
           <div class="food-meals-label">Приёмы пищи:</div>
           <div class="food-meals-grid">
-            <button class="food-meal-btn" data-meal="breakfast" onclick="toggleMeal('breakfast')">
-              <span>🌅</span><span class="meal-name">Завтрак</span>
-            </button>
-            <button class="food-meal-btn" data-meal="lunch" onclick="toggleMeal('lunch')">
-              <span>☀️</span><span class="meal-name">Обед</span>
-            </button>
-            <button class="food-meal-btn" data-meal="dinner" onclick="toggleMeal('dinner')">
-              <span>🌙</span><span class="meal-name">Ужин</span>
-            </button>
-            <button class="food-meal-btn" data-meal="snack" onclick="toggleMeal('snack')">
-              <span>🍪</span><span class="meal-name">Перекус</span>
-            </button>
+            <button class="food-meal-btn" data-meal="breakfast" onclick="toggleMeal('breakfast')"><span>🌅</span><span class="meal-name">Завтрак</span></button>
+            <button class="food-meal-btn" data-meal="lunch" onclick="toggleMeal('lunch')"><span>☀️</span><span class="meal-name">Обед</span></button>
+            <button class="food-meal-btn" data-meal="dinner" onclick="toggleMeal('dinner')"><span>🌙</span><span class="meal-name">Ужин</span></button>
+            <button class="food-meal-btn" data-meal="snack" onclick="toggleMeal('snack')"><span>🍪</span><span class="meal-name">Перекус</span></button>
           </div>
-
           <div class="food-counters">
             <div class="food-counter">
               <div class="c-label"><span>🍳</span> Готовил</div>
@@ -1138,13 +743,12 @@
               </div>
             </div>
           </div>
-
           <div class="food-meals-label">Что кушал:</div>
           <textarea class="note-field" id="foodNoteField" placeholder="Овсянка, курица с рисом, салат..." maxlength="1000"></textarea>
           <div class="note-status" id="foodNoteStatus"></div>
         </div>
 
-        <!-- ПРИВЫЧКИ (заглушка) -->
+        <!-- ПРИВЫЧКИ -->
         <div class="card">
           <div class="card-title"><span class="icon">✅</span> Привычки сегодня</div>
           <div class="placeholder" style="padding: 24px;">
@@ -1154,114 +758,66 @@
         </div>
       </div>
 
-      <!-- 📊 НЕДЕЛЯ -->
+      <!-- НЕДЕЛЯ -->
       <div class="screen" id="screen-week">
         <div class="screen-header">
           <h1>Неделя</h1>
           <div class="sub" id="weekRange">—</div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">😴</span> Сон за неделю</div>
           <div id="weekSleepTable"></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">😊</span> Настроение за неделю</div>
           <div id="weekMoodTable"></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">🍎</span> Питание за неделю</div>
           <div id="weekFoodTable"></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">📋</span> Сетка привычек</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">📅</span>
-            <div class="text">Пн–Вс × блоки</div>
-          </div>
+          <div class="placeholder" style="padding: 24px;"><span class="big">📅</span><div class="text">Пн–Вс × блоки</div></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">🏃</span> Спорт и чтение</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">💪</span>
-            <div class="text">Дни + продуктивность</div>
-          </div>
+          <div class="placeholder" style="padding: 24px;"><span class="big">💪</span><div class="text">Дни + продуктивность</div></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">⚖️</span> Вес</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">⚖️</span>
-            <div class="text">Взвешивание раз в неделю</div>
-          </div>
+          <div class="placeholder" style="padding: 24px;"><span class="big">⚖️</span><div class="text">Взвешивание раз в неделю</div></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="icon">🏆</span> Итоги недели</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">🏆</span>
-            <div class="text">Баллы, «что улучшить», новая неделя</div>
-          </div>
+          <div class="placeholder" style="padding: 24px;"><span class="big">🏆</span><div class="text">Баллы, «что улучшить», новая неделя</div></div>
         </div>
       </div>
 
-      <!-- 🎯 ЦЕЛИ -->
+      <!-- ЦЕЛИ -->
       <div class="screen" id="screen-goals">
-        <div class="screen-header">
-          <h1>Цели</h1>
-          <div class="sub">К чему идём</div>
-        </div>
-        <div class="placeholder">
-          <span class="big">🎯</span>
-          <div class="text">Краткосрочные и долгосрочные цели с прогрессом</div>
-        </div>
+        <div class="screen-header"><h1>Цели</h1><div class="sub">К чему идём</div></div>
+        <div class="placeholder"><span class="big">🎯</span><div class="text">Краткосрочные и долгосрочные цели с прогрессом</div></div>
       </div>
 
-      <!-- 📈 СТАТЫ -->
+      <!-- СТАТЫ -->
       <div class="screen" id="screen-stats">
-        <div class="screen-header">
-          <h1>Статистика</h1>
-          <div class="sub">День · Неделя · Месяц</div>
-        </div>
-        <div class="placeholder">
-          <span class="big">📈</span>
-          <div class="text">Графики, streak'и, архив, финансы</div>
-        </div>
+        <div class="screen-header"><h1>Статистика</h1><div class="sub">День · Неделя · Месяц</div></div>
+        <div class="placeholder"><span class="big">📈</span><div class="text">Графики, streak'и, архив, финансы</div></div>
       </div>
 
     </div>
 
     <nav class="tabbar">
-      <button class="tab active" data-screen="home">
-        <span class="icon">🏠</span>
-        <span>Главная</span>
-      </button>
-      <button class="tab" data-screen="day">
-        <span class="icon">📅</span>
-        <span>День</span>
-      </button>
-      <button class="tab" data-screen="week">
-        <span class="icon">📊</span>
-        <span>Неделя</span>
-      </button>
-      <button class="tab" data-screen="goals">
-        <span class="icon">🎯</span>
-        <span>Цели</span>
-      </button>
-      <button class="tab" data-screen="stats">
-        <span class="icon">📈</span>
-        <span>Статы</span>
-      </button>
+      <button class="tab active" data-screen="home"><span class="icon">🏠</span><span>Главная</span></button>
+      <button class="tab" data-screen="day"><span class="icon">📅</span><span>День</span></button>
+      <button class="tab" data-screen="week"><span class="icon">📊</span><span>Неделя</span></button>
+      <button class="tab" data-screen="goals"><span class="icon">🎯</span><span>Цели</span></button>
+      <button class="tab" data-screen="stats"><span class="icon">📈</span><span>Статы</span></button>
     </nav>
-
   </div>
 
   <script>
-    /* ============ TELEGRAM ============ */
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
@@ -1272,11 +828,8 @@
     const userNameEl = document.getElementById('userName');
     if (user?.first_name) userNameEl.textContent = user.first_name;
 
-    /* ============ ДАТЫ ============ */
     const now = new Date();
-    const dateStr = now.toLocaleDateString('ru-RU', {
-      weekday: 'long', day: 'numeric', month: 'long'
-    });
+    const dateStr = now.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
     document.getElementById('todayDate').textContent = dateStr;
     document.getElementById('dayDate').textContent = dateStr;
 
@@ -1292,7 +845,6 @@
     }
     document.getElementById('weekRange').textContent = getWeekRange();
 
-    /* ============ НАВИГАЦИЯ ============ */
     const tabs = document.querySelectorAll('.tab');
     const screens = {};
     document.querySelectorAll('.screen').forEach(s => {
@@ -1305,7 +857,6 @@
       tabs.forEach(t => t.classList.toggle('active', t.dataset.screen === name));
       document.querySelector('.content').scrollTop = 0;
       tg.HapticFeedback?.selectionChanged();
-
       if (name === 'week') {
         renderWeekSleep();
         renderWeekMood();
@@ -1317,7 +868,6 @@
       tab.addEventListener('click', () => switchScreen(tab.dataset.screen));
     });
 
-    /* ============ ЛОГИЧЕСКАЯ ДАТА ============ */
     let dayStartHour = 4;
 
     function getLogicalDate() {
@@ -1346,14 +896,10 @@
     }
 
     function escapeHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    /* ============ ВОДА ============ */
+    /* ВОДА */
     let waterCurrent = 0;
     let waterGoal = 2500;
     const WATER_KEY = 'water_v1';
@@ -1361,47 +907,37 @@
     const SLIDER_STEP = 50;
     const BOTTLE_H = 320;
 
-    const waterRect    = document.getElementById('waterRect');
-    const wavePath     = document.getElementById('wavePath');
-    const waterPct     = document.getElementById('waterPercent');
+    const waterRect = document.getElementById('waterRect');
+    const wavePath = document.getElementById('wavePath');
+    const waterPct = document.getElementById('waterPercent');
     const waterAmountEl = document.getElementById('waterAmount');
-    const waterGoalEl  = document.getElementById('waterGoal');
-    const waterRemain  = document.getElementById('waterRemain');
-    const bottleWrap   = document.getElementById('bottleWrap');
-    const vSlider      = document.getElementById('vSlider');
-    const vSliderFill  = document.getElementById('vSliderFill');
+    const waterGoalEl = document.getElementById('waterGoal');
+    const waterRemain = document.getElementById('waterRemain');
+    const bottleWrap = document.getElementById('bottleWrap');
+    const vSlider = document.getElementById('vSlider');
+    const vSliderFill = document.getElementById('vSliderFill');
     const vSliderThumb = document.getElementById('vSliderThumb');
 
     function renderWater(animate = true) {
       const pct = Math.min(waterCurrent / waterGoal, 1);
       const waterH = BOTTLE_H * pct;
       const waterY = BOTTLE_H - waterH;
-
       if (!animate) waterRect.style.transition = 'none';
       waterRect.setAttribute('y', waterY);
       waterRect.setAttribute('height', waterH || 0);
       wavePath.setAttribute('transform', `translate(0, ${waterY})`);
-
       waterPct.textContent = Math.round(pct * 100) + '%';
       waterPct.classList.toggle('high', pct > 0.5);
-
       const sliderPct = Math.min(waterCurrent / SLIDER_MAX, 1);
       vSliderFill.style.height = (sliderPct * 100) + '%';
       vSliderThumb.style.bottom = (sliderPct * 100) + '%';
-
       waterAmountEl.textContent = waterCurrent;
       waterGoalEl.textContent = waterGoal;
       const remain = waterGoal - waterCurrent;
-      waterRemain.textContent = remain > 0
-        ? `Осталось ${remain} мл`
-        : `Цель достигнута! +${-remain} мл 💪`;
-
+      waterRemain.textContent = remain > 0 ? `Осталось ${remain} мл` : `Цель достигнута! +${-remain} мл 💪`;
       const homeVal = document.getElementById('homeWaterValue');
       if (homeVal) homeVal.textContent = `${waterCurrent} / ${waterGoal}`;
-
-      if (!animate) {
-        requestAnimationFrame(() => { waterRect.style.transition = ''; });
-      }
+      if (!animate) requestAnimationFrame(() => { waterRect.style.transition = ''; });
     }
 
     function addWater(ml) {
@@ -1426,19 +962,9 @@
       tg.HapticFeedback?.notificationOccurred('success');
       const toast = document.createElement('div');
       toast.textContent = '🎉 Цель по воде достигнута!';
-      toast.style.cssText = `
-        position: fixed; top: 50%; left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        background: linear-gradient(135deg, #4ade80, #fb923c);
-        color: #14110f; padding: 16px 24px; border-radius: 16px;
-        font-size: 17px; font-weight: 700; z-index: 200;
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      `;
+      toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:linear-gradient(135deg,#4ade80,#fb923c);color:#14110f;padding:16px 24px;border-radius:16px;font-size:17px;font-weight:700;z-index:200;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 10px 40px rgba(0,0,0,0.5);text-align:center;';
       document.body.appendChild(toast);
-      requestAnimationFrame(() => {
-        toast.style.transform = 'translate(-50%, -50%) scale(1)';
-      });
+      requestAnimationFrame(() => { toast.style.transform = 'translate(-50%, -50%) scale(1)'; });
       setTimeout(() => {
         bottleWrap.classList.remove('celebrating');
         toast.style.transform = 'translate(-50%, -50%) scale(0)';
@@ -1447,56 +973,22 @@
     }
 
     function saveWater() {
-      const data = JSON.stringify({
-        date: getLogicalDate(),
-        current: waterCurrent,
-        goal: waterGoal,
-        dayStartHour
-      });
-      tg.CloudStorage.setItem(WATER_KEY, data, (err) => {
-        if (err) console.warn('CloudStorage error:', err);
-      });
+      const data = JSON.stringify({ date: getLogicalDate(), current: waterCurrent, goal: waterGoal, dayStartHour });
+      tg.CloudStorage.setItem(WATER_KEY, data, (err) => { if (err) console.warn(err); });
     }
 
     function loadWater() {
       tg.CloudStorage.getItem(WATER_KEY, (err, value) => {
-        if (err || !value) { renderWater(false); showFirstTimeHint(); return; }
+        if (err || !value) { renderWater(false); return; }
         try {
           const data = JSON.parse(value);
           if (data.goal) waterGoal = data.goal;
           if (data.dayStartHour != null) dayStartHour = data.dayStartHour;
-          if (data.date === getLogicalDate()) {
-            waterCurrent = data.current || 0;
-          } else {
-            waterCurrent = 0;
-            saveWater();
-          }
+          if (data.date === getLogicalDate()) waterCurrent = data.current || 0;
+          else { waterCurrent = 0; saveWater(); }
           renderWater(false);
         } catch (e) { renderWater(false); }
       });
-    }
-
-    function showFirstTimeHint() {
-      const hint = document.createElement('div');
-      hint.textContent = '💡 Настрой свою норму в ⚙️';
-      hint.style.cssText = `
-        position: fixed; bottom: 90px; left: 50%;
-        transform: translateX(-50%) translateY(20px);
-        background: var(--card-2); color: var(--text);
-        padding: 10px 16px; border-radius: 12px;
-        font-size: 13px; z-index: 50; opacity: 0;
-        transition: opacity 0.4s, transform 0.4s;
-        border: 1px solid var(--border); box-shadow: var(--shadow);
-      `;
-      document.body.appendChild(hint);
-      requestAnimationFrame(() => {
-        hint.style.opacity = '1';
-        hint.style.transform = 'translateX(-50%) translateY(0)';
-      });
-      setTimeout(() => {
-        hint.style.opacity = '0';
-        setTimeout(() => hint.remove(), 400);
-      }, 3500);
     }
 
     let dragging = false;
@@ -1550,9 +1042,7 @@
         const newHour = parseInt(backdrop.querySelector('#hourInput').value.split(':')[0], 10);
         if (!isNaN(newGoal) && newGoal >= 500 && newGoal <= 6000) waterGoal = newGoal;
         if (!isNaN(newHour) && newHour >= 0 && newHour <= 12) dayStartHour = newHour;
-        saveWater();
-        saveSleep();
-        saveFood();
+        saveWater(); saveSleep(); saveFood();
         renderWater();
         backdrop.remove();
         tg.HapticFeedback?.notificationOccurred('success');
@@ -1560,36 +1050,28 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ============ СОН ============ */
+    /* СОН */
     const SLEEP_KEY = 'sleep_v1';
     const SLEEP_QUALITY = [
-      { emoji: '😫', name: 'Ужасно' },
-      { emoji: '🥱', name: 'Очень плохо' },
-      { emoji: '😵', name: 'Плохо' },
-      { emoji: '😑', name: 'Так себе' },
-      { emoji: '😐', name: 'Средне' },
-      { emoji: '😌', name: 'Неплохо' },
-      { emoji: '😊', name: 'Хорошо' },
-      { emoji: '😴', name: 'Отлично' },
-      { emoji: '⚡', name: 'Супер' },
-      { emoji: '🌟', name: 'Идеально' },
+      { emoji: '😫', name: 'Ужасно' }, { emoji: '🥱', name: 'Очень плохо' },
+      { emoji: '😵', name: 'Плохо' }, { emoji: '😑', name: 'Так себе' },
+      { emoji: '😐', name: 'Средне' }, { emoji: '😌', name: 'Неплохо' },
+      { emoji: '😊', name: 'Хорошо' }, { emoji: '😴', name: 'Отлично' },
+      { emoji: '⚡', name: 'Супер' }, { emoji: '🌟', name: 'Идеально' },
     ];
 
-    let sleepNormMin = 7.5;
-    let sleepNormMax = 9;
-    let sleepBedtime = null;
-    let sleepWakeup  = null;
-    let sleepQuality = null;
+    let sleepNormMin = 7.5, sleepNormMax = 9;
+    let sleepBedtime = null, sleepWakeup = null, sleepQuality = null;
 
-    const bedtimeWrap   = document.getElementById('bedtimeWrap');
-    const wakeupWrap    = document.getElementById('wakeupWrap');
-    const bedtimeValue  = document.getElementById('bedtimeValue');
-    const wakeupValue   = document.getElementById('wakeupValue');
+    const bedtimeWrap = document.getElementById('bedtimeWrap');
+    const wakeupWrap = document.getElementById('wakeupWrap');
+    const bedtimeValue = document.getElementById('bedtimeValue');
+    const wakeupValue = document.getElementById('wakeupValue');
     const sleepDurationBox = document.getElementById('sleepDurationBox');
     const sleepDurationValue = document.getElementById('sleepDurationValue');
     const sleepNormBadge = document.getElementById('sleepNormBadge');
-    const qualityName   = document.getElementById('qualityName');
-    const qualityScale  = document.getElementById('qualityScale');
+    const qualityName = document.getElementById('qualityName');
+    const qualityScale = document.getElementById('qualityScale');
 
     function renderQualityScale() {
       qualityScale.innerHTML = '';
@@ -1630,8 +1112,7 @@
     function formatDuration(minutes) {
       const h = Math.floor(minutes / 60);
       const m = minutes % 60;
-      if (m === 0) return `${h}ч`;
-      return `${h}ч ${m}м`;
+      return m === 0 ? `${h}ч` : `${h}ч ${m}м`;
     }
 
     function checkNorm(minutes) {
@@ -1665,14 +1146,8 @@
         const ok = checkNorm(dur);
         sleepNormBadge.textContent = ok ? '✅ В норме' : '⚠️ Не в норме';
         sleepNormBadge.className = 'norm-badge ' + (ok ? 'ok' : 'bad');
-      } else {
-        sleepDurationBox.style.display = 'none';
-      }
-      if (sleepQuality) {
-        qualityName.textContent = SLEEP_QUALITY[sleepQuality - 1].name;
-      } else {
-        qualityName.textContent = 'не выбрано';
-      }
+      } else sleepDurationBox.style.display = 'none';
+      qualityName.textContent = sleepQuality ? SLEEP_QUALITY[sleepQuality - 1].name : 'не выбрано';
       renderQualityScale();
     }
 
@@ -1719,17 +1194,10 @@
 
     function saveSleep() {
       const data = JSON.stringify({
-        date: getLogicalDate(),
-        bedtime: sleepBedtime,
-        wakeup: sleepWakeup,
-        quality: sleepQuality,
-        normMin: sleepNormMin,
-        normMax: sleepNormMax,
-        dayStartHour
+        date: getLogicalDate(), bedtime: sleepBedtime, wakeup: sleepWakeup,
+        quality: sleepQuality, normMin: sleepNormMin, normMax: sleepNormMax, dayStartHour
       });
-      tg.CloudStorage.setItem(SLEEP_KEY, data, (err) => {
-        if (err) console.warn('CloudStorage error:', err);
-      });
+      tg.CloudStorage.setItem(SLEEP_KEY, data, (err) => { if (err) console.warn(err); });
       updateSleepHistory();
     }
 
@@ -1743,13 +1211,9 @@
           if (data.dayStartHour != null) dayStartHour = data.dayStartHour;
           if (data.date === getLogicalDate()) {
             sleepBedtime = data.bedtime || null;
-            sleepWakeup  = data.wakeup  || null;
+            sleepWakeup = data.wakeup || null;
             sleepQuality = data.quality || null;
-          } else {
-            sleepBedtime = null;
-            sleepWakeup  = null;
-            sleepQuality = null;
-          }
+          } else { sleepBedtime = null; sleepWakeup = null; sleepQuality = null; }
           renderSleep();
           updateHomeSleep();
         } catch (e) { renderSleep(); }
@@ -1778,8 +1242,7 @@
         const minV = parseFloat(backdrop.querySelector('#normMinInput').value);
         const maxV = parseFloat(backdrop.querySelector('#normMaxInput').value);
         if (!isNaN(minV) && !isNaN(maxV) && minV > 0 && maxV > minV && maxV <= 15) {
-          sleepNormMin = minV;
-          sleepNormMax = maxV;
+          sleepNormMin = minV; sleepNormMax = maxV;
           saveSleep();
           renderSleep();
           tg.HapticFeedback?.notificationOccurred('success');
@@ -1789,21 +1252,18 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ============ ИСТОРИЯ СНА ============ */
+    /* ИСТОРИЯ СНА */
     const SLEEP_HISTORY_KEY = 'sleep_history_v1';
     let sleepHistory = {};
 
     function saveSleepHistory() {
-      tg.CloudStorage.setItem(SLEEP_HISTORY_KEY, JSON.stringify(sleepHistory), (err) => {
-        if (err) console.warn('History save error', err);
-      });
+      tg.CloudStorage.setItem(SLEEP_HISTORY_KEY, JSON.stringify(sleepHistory), (err) => { if (err) console.warn(err); });
     }
 
     function loadSleepHistory(cb) {
       tg.CloudStorage.getItem(SLEEP_HISTORY_KEY, (err, value) => {
         if (err || !value) { sleepHistory = {}; cb && cb(); return; }
-        try { sleepHistory = JSON.parse(value) || {}; }
-        catch (e) { sleepHistory = {}; }
+        try { sleepHistory = JSON.parse(value) || {}; } catch (e) { sleepHistory = {}; }
         cb && cb();
       });
     }
@@ -1812,15 +1272,8 @@
       const date = getLogicalDate();
       const dur = calcDuration(sleepBedtime, sleepWakeup);
       if (sleepBedtime || sleepWakeup || sleepQuality) {
-        sleepHistory[date] = {
-          bedtime: sleepBedtime,
-          wakeup: sleepWakeup,
-          quality: sleepQuality,
-          duration: dur
-        };
-      } else {
-        delete sleepHistory[date];
-      }
+        sleepHistory[date] = { bedtime: sleepBedtime, wakeup: sleepWakeup, quality: sleepQuality, duration: dur };
+      } else delete sleepHistory[date];
       saveSleepHistory();
     }
 
@@ -1829,66 +1282,36 @@
       if (!container) return;
       const days = getWeekDays();
       const rows = days.map(d => {
-        const entry = sleepHistory[d.date];
-        if (!entry || (!entry.bedtime && !entry.wakeup && !entry.quality)) {
-          return `<div class="wk-sleep-row empty">
-            <span class="wk-day">${d.name}</span>
-            <span class="wk-time">—</span>
-            <span class="wk-dur">—</span>
-            <span class="wk-qual">—</span>
-            <span class="wk-badge">—</span>
-          </div>`;
+        const e = sleepHistory[d.date];
+        if (!e || (!e.bedtime && !e.wakeup && !e.quality)) {
+          return `<div class="wk-sleep-row empty"><span class="wk-day">${d.name}</span><span class="wk-time">—</span><span class="wk-dur">—</span><span class="wk-qual">—</span><span class="wk-badge">—</span></div>`;
         }
-        const dur = entry.duration;
-        const durStr = dur ? formatDuration(dur) : '—';
-        const ok = dur ? checkNorm(dur) : false;
-        const badge = dur ? (ok ? '✅' : '⚠️') : '—';
-        const q = entry.quality ? SLEEP_QUALITY[entry.quality - 1].emoji : '—';
-        return `<div class="wk-sleep-row">
-          <span class="wk-day">${d.name}</span>
-          <span class="wk-time">${entry.bedtime || '—'} → ${entry.wakeup || '—'}</span>
-          <span class="wk-dur">${durStr}</span>
-          <span class="wk-qual">${q}</span>
-          <span class="wk-badge">${badge}</span>
-        </div>`;
+        const durStr = e.duration ? formatDuration(e.duration) : '—';
+        const ok = e.duration ? checkNorm(e.duration) : false;
+        const badge = e.duration ? (ok ? '✅' : '⚠️') : '—';
+        const q = e.quality ? SLEEP_QUALITY[e.quality - 1].emoji : '—';
+        return `<div class="wk-sleep-row"><span class="wk-day">${d.name}</span><span class="wk-time">${e.bedtime || '—'} → ${e.wakeup || '—'}</span><span class="wk-dur">${durStr}</span><span class="wk-qual">${q}</span><span class="wk-badge">${badge}</span></div>`;
       }).join('');
-
       const filled = days.map(d => sleepHistory[d.date]).filter(e => e && e.duration);
       let stats = '';
       if (filled.length > 0) {
         const avgDur = Math.round(filled.reduce((s, e) => s + e.duration, 0) / filled.length);
         const inNorm = filled.filter(e => checkNorm(e.duration)).length;
         const withQ = filled.filter(e => e.quality);
-        const avgQ = withQ.length > 0
-          ? (withQ.reduce((s, e) => s + e.quality, 0) / withQ.length).toFixed(1)
-          : '—';
-        stats = `<div class="wk-stats">
-          <div class="wk-stat"><div class="wk-stat-val">${formatDuration(avgDur)}</div><div class="wk-stat-label">Средняя длит.</div></div>
-          <div class="wk-stat"><div class="wk-stat-val">${avgQ}</div><div class="wk-stat-label">Средн. качество</div></div>
-          <div class="wk-stat"><div class="wk-stat-val">${inNorm}/${filled.length}</div><div class="wk-stat-label">Дней в норме</div></div>
-        </div>`;
+        const avgQ = withQ.length > 0 ? (withQ.reduce((s, e) => s + e.quality, 0) / withQ.length).toFixed(1) : '—';
+        stats = `<div class="wk-stats"><div class="wk-stat"><div class="wk-stat-val">${formatDuration(avgDur)}</div><div class="wk-stat-label">Средняя длит.</div></div><div class="wk-stat"><div class="wk-stat-val">${avgQ}</div><div class="wk-stat-label">Средн. качество</div></div><div class="wk-stat"><div class="wk-stat-val">${inNorm}/${filled.length}</div><div class="wk-stat-label">Дней в норме</div></div></div>`;
       }
-
-      container.innerHTML = `
-        <div class="wk-sleep-header">
-          <span class="wk-day">День</span><span class="wk-time">Время</span>
-          <span class="wk-dur">Длит.</span><span class="wk-qual">Кач.</span><span class="wk-badge"></span>
-        </div>${rows}${stats}`;
+      container.innerHTML = `<div class="wk-sleep-header"><span class="wk-day">День</span><span class="wk-time">Время</span><span class="wk-dur">Длит.</span><span class="wk-qual">Кач.</span><span class="wk-badge"></span></div>${rows}${stats}`;
     }
 
-    /* ============ НАСТРОЕНИЕ ============ */
+    /* НАСТРОЕНИЕ */
     const MOOD_HISTORY_KEY = 'mood_history_v1';
     const MOOD_LEVELS = [
-      { emoji: '😭', name: 'Ужасно' },
-      { emoji: '😢', name: 'Очень плохо' },
-      { emoji: '😞', name: 'Плохо' },
-      { emoji: '😕', name: 'Так себе' },
-      { emoji: '😐', name: 'Нормально' },
-      { emoji: '🙂', name: 'Неплохо' },
-      { emoji: '😊', name: 'Хорошо' },
-      { emoji: '😁', name: 'Отлично' },
-      { emoji: '😄', name: 'Супер' },
-      { emoji: '🤩', name: 'Великолепно' },
+      { emoji: '😭', name: 'Ужасно' }, { emoji: '😢', name: 'Очень плохо' },
+      { emoji: '😞', name: 'Плохо' }, { emoji: '😕', name: 'Так себе' },
+      { emoji: '😐', name: 'Нормально' }, { emoji: '🙂', name: 'Неплохо' },
+      { emoji: '😊', name: 'Хорошо' }, { emoji: '😁', name: 'Отлично' },
+      { emoji: '😄', name: 'Супер' }, { emoji: '🤩', name: 'Великолепно' },
     ];
     let moodHistory = {};
     let moodViewDate = getLogicalDate();
@@ -1920,9 +1343,7 @@
         btn.onclick = () => selectMood(level);
         (i < 5 ? moodScaleRow1 : moodScaleRow2).appendChild(btn);
       });
-      moodSelectedName.innerHTML = currentMood
-        ? `Настроение: <b>${MOOD_LEVELS[currentMood - 1].name}</b>`
-        : 'Настроение не выбрано';
+      moodSelectedName.innerHTML = currentMood ? `Настроение: <b>${MOOD_LEVELS[currentMood - 1].name}</b>` : 'Настроение не выбрано';
     }
 
     function selectMood(level) {
@@ -1995,16 +1416,13 @@
     function saveMoodHistory() {
       const keys = Object.keys(moodHistory).sort();
       if (keys.length > 60) keys.slice(0, keys.length - 60).forEach(k => delete moodHistory[k]);
-      tg.CloudStorage.setItem(MOOD_HISTORY_KEY, JSON.stringify(moodHistory), (err) => {
-        if (err) console.warn('Mood save error', err);
-      });
+      tg.CloudStorage.setItem(MOOD_HISTORY_KEY, JSON.stringify(moodHistory), (err) => { if (err) console.warn(err); });
     }
 
     function loadMoodHistory(cb) {
       tg.CloudStorage.getItem(MOOD_HISTORY_KEY, (err, value) => {
         if (err || !value) { moodHistory = {}; cb && cb(); return; }
-        try { moodHistory = JSON.parse(value) || {}; }
-        catch (e) { moodHistory = {}; }
+        try { moodHistory = JSON.parse(value) || {}; } catch (e) { moodHistory = {}; }
         cb && cb();
       });
     }
@@ -2022,82 +1440,56 @@
       const days = getWeekDays();
       let totalMood = 0, moodCount = 0;
       const rows = days.map(d => {
-        const entry = moodHistory[d.date];
-        if (!entry || !entry.mood) {
-          return `<div class="mood-week-row empty">
-            <span class="mood-emoji">—</span>
-            <span>${d.name}</span>
-            <span class="mood-note">—</span>
-          </div>`;
+        const e = moodHistory[d.date];
+        if (!e || !e.mood) {
+          return `<div class="mood-week-row empty"><span class="mood-emoji">—</span><span>${d.name}</span><span class="mood-note">—</span></div>`;
         }
-        totalMood += entry.mood;
+        totalMood += e.mood;
         moodCount++;
-        const emoji = MOOD_LEVELS[entry.mood - 1].emoji;
-        const note = entry.note ? entry.note : '';
-        return `<div class="mood-week-row">
-          <span class="mood-emoji">${emoji}</span>
-          <span>${d.name}</span>
-          <span class="mood-note">${escapeHtml(note)}</span>
-        </div>`;
+        return `<div class="mood-week-row"><span class="mood-emoji">${MOOD_LEVELS[e.mood - 1].emoji}</span><span>${d.name}</span><span class="mood-note">${escapeHtml(e.note || '')}</span></div>`;
       }).join('');
-      const stats = moodCount > 0
-        ? `<div class="mood-week-stats"><span>Среднее за неделю:</span><span class="val">${(totalMood / moodCount).toFixed(1)} / 10</span></div>`
-        : '';
+      const stats = moodCount > 0 ? `<div class="mood-week-stats"><span>Среднее за неделю:</span><span class="val">${(totalMood / moodCount).toFixed(1)} / 10</span></div>` : '';
       container.innerHTML = rows + stats;
     }
 
-    /* ============ ПИТАНИЕ ============ */
+    /* ПИТАНИЕ */
     const FOOD_KEY = 'food_v1';
     const FOOD_HISTORY_KEY = 'food_history_v1';
 
     let foodCalories = 0;
-    let foodCalGoal = null;      // null = без цели
+    let foodCalGoal = null;
     let foodMeals = { breakfast: false, lunch: false, dinner: false, snack: false };
-    let foodCooked = 0;
-    let foodCafe = 0;
-    let foodNote = '';
+    let foodCooked = 0, foodCafe = 0, foodNote = '';
     let foodHistory = {};
     let foodNoteDebounce = null;
 
     const foodCaloriesInput = document.getElementById('foodCaloriesInput');
     const foodCalBar = document.getElementById('foodCalBar');
     const foodCalBarFill = document.getElementById('foodCalBarFill');
+    const foodCalGoalEl = document.getElementById('foodCalGoalEl');
     const foodCookedVal = document.getElementById('foodCookedVal');
     const foodCafeVal = document.getElementById('foodCafeVal');
     const foodNoteField = document.getElementById('foodNoteField');
     const foodNoteStatus = document.getElementById('foodNoteStatus');
 
-    function renderFood(animate = true) {
-      // Калории
-      if (document.activeElement !== foodCaloriesInput) {
-        foodCaloriesInput.value = foodCalories || '';
-      }
-      // Прогресс-бар
+    function renderFood() {
+      if (document.activeElement !== foodCaloriesInput) foodCaloriesInput.value = foodCalories || '';
       if (foodCalGoal && foodCalGoal > 0) {
         foodCalBar.style.display = 'block';
-        foodCalGoal.style.display = 'block';
+        foodCalGoalEl.style.display = 'block';
         const pct = Math.min(foodCalories / foodCalGoal, 1);
         foodCalBarFill.style.width = (pct * 100) + '%';
-        foodCalGoal.textContent = `Цель: ${foodCalGoal} ккал`;
+        foodCalGoalEl.textContent = `Цель: ${foodCalGoal} ккал`;
       } else {
         foodCalBar.style.display = 'none';
-        foodCalGoal.style.display = 'none';
+        foodCalGoalEl.style.display = 'none';
       }
-
-      // Приёмы пищи
       document.querySelectorAll('.food-meal-btn').forEach(btn => {
         btn.classList.toggle('done', !!foodMeals[btn.dataset.meal]);
       });
-
-      // Счётчики
       foodCookedVal.textContent = foodCooked;
       foodCafeVal.textContent = foodCafe;
-
-      // Заметка
-      if (document.activeElement !== foodNoteField) {
-        foodNoteField.value = foodNote || '';
-      }
-
+      if (document.activeElement !== foodNoteField) foodNoteField.value = foodNote || '';
       updateHomeFood();
     }
 
@@ -2105,29 +1497,15 @@
       const homeVal = document.getElementById('homeFoodValue');
       if (!homeVal) return;
       const mealsCount = Object.values(foodMeals).filter(Boolean).length;
-      if (foodCalories || mealsCount) {
-        homeVal.textContent = `${foodCalories} ккал · ${mealsCount} приёма`;
-      } else {
-        homeVal.textContent = '—';
-      }
+      homeVal.textContent = (foodCalories || mealsCount) ? `${foodCalories} ккал · ${mealsCount} приёма` : '—';
     }
 
     function saveFood() {
-      // Сохраняем в основной ключ
       const data = JSON.stringify({
-        date: getLogicalDate(),
-        calories: foodCalories,
-        goal: foodCalGoal,
-        meals: foodMeals,
-        cooked: foodCooked,
-        cafe: foodCafe,
-        note: foodNote,
-        dayStartHour
+        date: getLogicalDate(), calories: foodCalories, goal: foodCalGoal,
+        meals: foodMeals, cooked: foodCooked, cafe: foodCafe, note: foodNote, dayStartHour
       });
-      tg.CloudStorage.setItem(FOOD_KEY, data, (err) => {
-        if (err) console.warn('Food save error', err);
-      });
-      // Обновляем историю
+      tg.CloudStorage.setItem(FOOD_KEY, data, (err) => { if (err) console.warn(err); });
       updateFoodHistory();
     }
 
@@ -2147,22 +1525,22 @@
           } else {
             foodCalories = 0;
             foodMeals = { breakfast: false, lunch: false, dinner: false, snack: false };
-            foodCooked = 0;
-            foodCafe = 0;
-            foodNote = '';
+            foodCooked = 0; foodCafe = 0; foodNote = '';
           }
           renderFood();
         } catch (e) { renderFood(); }
       });
     }
 
-    // Калории — ввод
     foodCaloriesInput.addEventListener('input', () => {
       const v = parseInt(foodCaloriesInput.value, 10);
       foodCalories = isNaN(v) ? 0 : Math.max(0, v);
       saveFood();
       updateHomeFood();
-      renderFood(false);
+      if (foodCalGoal && foodCalGoal > 0) {
+        const pct = Math.min(foodCalories / foodCalGoal, 1);
+        foodCalBarFill.style.width = (pct * 100) + '%';
+      }
     });
 
     function addCalories(amount) {
@@ -2173,7 +1551,6 @@
       tg.HapticFeedback?.impactOccurred('light');
     }
 
-    // Приёмы пищи
     function toggleMeal(meal) {
       foodMeals[meal] = !foodMeals[meal];
       saveFood();
@@ -2181,7 +1558,6 @@
       tg.HapticFeedback?.selectionChanged();
     }
 
-    // Счётчики
     function changeFoodCounter(type, delta) {
       if (type === 'cooked') foodCooked = Math.max(0, foodCooked + delta);
       else foodCafe = Math.max(0, foodCafe + delta);
@@ -2190,7 +1566,6 @@
       tg.HapticFeedback?.impactOccurred('light');
     }
 
-    // Заметка
     foodNoteField.addEventListener('input', () => {
       foodNoteStatus.textContent = '...';
       foodNoteStatus.classList.remove('saved');
@@ -2209,7 +1584,6 @@
       }, 1000);
     });
 
-    // Настройки питания
     function openFoodSettings() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -2243,20 +1617,16 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ============ ИСТОРИЯ ПИТАНИЯ ============ */
     function saveFoodHistory() {
       const keys = Object.keys(foodHistory).sort();
       if (keys.length > 60) keys.slice(0, keys.length - 60).forEach(k => delete foodHistory[k]);
-      tg.CloudStorage.setItem(FOOD_HISTORY_KEY, JSON.stringify(foodHistory), (err) => {
-        if (err) console.warn('Food history save error', err);
-      });
+      tg.CloudStorage.setItem(FOOD_HISTORY_KEY, JSON.stringify(foodHistory), (err) => { if (err) console.warn(err); });
     }
 
     function loadFoodHistory(cb) {
       tg.CloudStorage.getItem(FOOD_HISTORY_KEY, (err, value) => {
         if (err || !value) { foodHistory = {}; cb && cb(); return; }
-        try { foodHistory = JSON.parse(value) || {}; }
-        catch (e) { foodHistory = {}; }
+        try { foodHistory = JSON.parse(value) || {}; } catch (e) { foodHistory = {}; }
         cb && cb();
       });
     }
@@ -2265,17 +1635,8 @@
       const date = getLogicalDate();
       const mealsCount = Object.values(foodMeals).filter(Boolean).length;
       if (foodCalories || mealsCount || foodCooked || foodCafe || foodNote) {
-        foodHistory[date] = {
-          calories: foodCalories,
-          meals: { ...foodMeals },
-          mealsCount,
-          cooked: foodCooked,
-          cafe: foodCafe,
-          note: foodNote
-        };
-      } else {
-        delete foodHistory[date];
-      }
+        foodHistory[date] = { calories: foodCalories, meals: { ...foodMeals }, mealsCount, cooked: foodCooked, cafe: foodCafe, note: foodNote };
+      } else delete foodHistory[date];
       saveFoodHistory();
     }
 
@@ -2283,61 +1644,30 @@
       const container = document.getElementById('weekFoodTable');
       if (!container) return;
       const days = getWeekDays();
-
       const rows = days.map(d => {
-        const entry = foodHistory[d.date];
-        if (!entry || (!entry.calories && !entry.mealsCount)) {
-          return `<div class="wk-food-row empty">
-            <span class="wk-day">${d.name}</span>
-            <span class="wk-food-meals">—</span>
-            <span class="wk-food-kcal">—</span>
-            <span class="wk-food-meals">—</span>
-          </div>`;
+        const e = foodHistory[d.date];
+        if (!e || (!e.calories && !e.mealsCount)) {
+          return `<div class="wk-food-row empty"><span class="wk-day">${d.name}</span><span class="wk-food-kcal">—</span><span class="wk-food-meals">—</span><span class="wk-food-meals">—</span></div>`;
         }
-        return `<div class="wk-food-row">
-          <span class="wk-day">${d.name}</span>
-          <span class="wk-food-kcal">${entry.calories || 0}</span>
-          <span class="wk-food-meals">${entry.mealsCount || 0}</span>
-          <span class="wk-food-meals">${entry.cooked || 0}/${entry.cafe || 0}</span>
-        </div>`;
+        return `<div class="wk-food-row"><span class="wk-day">${d.name}</span><span class="wk-food-kcal">${e.calories || 0}</span><span class="wk-food-meals">${e.mealsCount || 0}</span><span class="wk-food-meals">${e.cooked || 0}/${e.cafe || 0}</span></div>`;
       }).join('');
-
       const filled = days.map(d => foodHistory[d.date]).filter(e => e && e.calories);
       let stats = '';
       if (filled.length > 0) {
         const avgCal = Math.round(filled.reduce((s, e) => s + e.calories, 0) / filled.length);
         const totalMeals = filled.reduce((s, e) => s + (e.mealsCount || 0), 0);
-        stats = `<div class="wk-food-stats">
-          <div class="wk-food-stat"><div class="wk-food-stat-val">${avgCal}</div><div class="wk-food-stat-label">Средн. ккал</div></div>
-          <div class="wk-food-stat"><div class="wk-food-stat-val">${totalMeals}</div><div class="wk-food-stat-label">Всего приёмов</div></div>
-        </div>`;
+        stats = `<div class="wk-food-stats"><div class="wk-food-stat"><div class="wk-food-stat-val">${avgCal}</div><div class="wk-food-stat-label">Средн. ккал</div></div><div class="wk-food-stat"><div class="wk-food-stat-val">${totalMeals}</div><div class="wk-food-stat-label">Всего приёмов</div></div></div>`;
       }
-
-      // Блюда по дням
       const dishes = days.map(d => {
-        const entry = foodHistory[d.date];
-        if (!entry || !entry.note) return '';
-        return `<div class="wk-food-dish-day"><b>${d.name}:</b><span>${escapeHtml(entry.note)}</span></div>`;
+        const e = foodHistory[d.date];
+        if (!e || !e.note) return '';
+        return `<div class="wk-food-dish-day"><b>${d.name}:</b><span>${escapeHtml(e.note)}</span></div>`;
       }).filter(Boolean).join('');
-
-      const dishesBlock = dishes
-        ? `<div class="wk-food-dishes"><div class="wk-food-dishes-title">Что кушал</div>${dishes}</div>`
-        : '';
-
-      container.innerHTML = `
-        <div class="wk-food-header">
-          <span class="wk-day">День</span>
-          <span class="wk-food-kcal">Ккал</span>
-          <span class="wk-food-meals">Приёмы</span>
-          <span class="wk-food-meals">Гот/Кафе</span>
-        </div>
-        ${rows}
-        ${stats}
-        ${dishesBlock}
-      `;
+      const dishesBlock = dishes ? `<div class="wk-food-dishes"><div class="wk-food-dishes-title">Что кушал</div>${dishes}</div>` : '';
+      container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
     }
 
-    /* ============ СТАРТ ============ */
+    /* СТАРТ */
     loadWater();
     loadSleep();
     loadSleepHistory(() => { renderWeekSleep(); });
@@ -2348,9 +1678,7 @@
       updateHomeMood();
       renderWeekMood();
     });
-    loadFoodHistory(() => {
-      renderWeekFood();
-    });
+    loadFoodHistory(() => { renderWeekFood(); });
     loadFood();
   </script>
 </body>
