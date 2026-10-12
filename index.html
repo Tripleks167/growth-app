@@ -2442,7 +2442,32 @@
     }
 
     // === НЕДЕЛЯ: viewWeekMonday ===
-    const ARCHIVE_LIMIT = 24; // сколько недель назад можно листать
+    // Минимальная неделя с данными (или 24 недели назад, если данных мало)
+    function getMinArchiveWeek() {
+      const currentKey = getCurrentWeekKey();
+      const fallbackMin = shiftWeekKey(currentKey, -24);
+      const allDates = [];
+      Object.keys(waterHistory).forEach(d => allDates.push(d));
+      Object.keys(stepsHistory).forEach(d => allDates.push(d));
+      Object.keys(sleepHistory).forEach(d => allDates.push(d));
+      Object.keys(moodHistory).forEach(d => allDates.push(d));
+      Object.keys(foodHistory).forEach(d => allDates.push(d));
+      Object.keys(sportData).forEach(d => allDates.push(d));
+      Object.keys(readData).forEach(d => allDates.push(d));
+      Object.keys(habitsData.weeks || {}).forEach(w => {
+        const wk = habitsData.weeks[w];
+        if (wk && wk.checks) {
+          Object.keys(wk.checks).forEach(hid => {
+            Object.keys(wk.checks[hid] || {}).forEach(d => allDates.push(d));
+          });
+        }
+      });
+      if (allDates.length === 0) return currentKey;
+      let earliest = allDates[0];
+      allDates.forEach(d => { if (d < earliest) earliest = d; });
+      const earliestWeek = getMondayOfDate(earliest);
+      return earliestWeek < fallbackMin ? fallbackMin : earliestWeek;
+    }
 
     function getMondayOfDate(dateStr) {
       const d = new Date(dateStr + 'T12:00:00');
@@ -2471,7 +2496,7 @@
       initViewWeek();
       const newKey = shiftWeekKey(viewWeekMonday, delta);
       const currentKey = getCurrentWeekKey();
-      const minKey = shiftWeekKey(currentKey, -ARCHIVE_LIMIT);
+      const minKey = getMinArchiveWeek();
       if (newKey > currentKey) return;
       if (newKey < minKey) return;
       viewWeekMonday = newKey;
@@ -5719,7 +5744,7 @@
     function renderWeekAll() {
       initViewWeek();
       const currentKey = getCurrentWeekKey();
-      const minKey = shiftWeekKey(currentKey, -ARCHIVE_LIMIT);
+      const minKey = getMinArchiveWeek();
       const isCurrent = isViewingCurrentWeek();
 
       // Заголовок
