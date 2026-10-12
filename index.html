@@ -5238,7 +5238,12 @@
 
     function finShiftMonth(delta) {
       initFinView();
-      finViewMonth = shiftMonth(finViewMonth, delta);
+      const currentMonth = getMonthKey(getLogicalDate());
+      const newMonth = shiftMonth(finViewMonth, delta);
+      const minMonth = shiftMonth(currentMonth, -5);
+      if (newMonth < minMonth) return;
+      if (newMonth > currentMonth) return;
+      finViewMonth = newMonth;
       renderFinances();
       tg.HapticFeedback?.selectionChanged();
     }
@@ -5255,7 +5260,9 @@
       labelEl.textContent = formatMonthLabel(finViewMonth);
 
       const currentMonth = getMonthKey(getLogicalDate());
+      const minMonth = shiftMonth(currentMonth, -5);
       nextBtn.disabled = finViewMonth >= currentMonth;
+      prevBtn.disabled = finViewMonth <= minMonth;
 
       const rec = finances[finViewMonth];
       if (rec) {
