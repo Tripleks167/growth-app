@@ -13,15 +13,14 @@
     }
 
     :root {
-      /* Тёмная тема — своя палитра */
       --bg: #14110f;
       --bg-2: #1d1a17;
       --card: #221e1a;
       --card-2: #2a2521;
       --text: #f0e9e0;
       --text-dim: #a89e93;
-      --accent: #4ade80;        /* зелёный */
-      --accent-2: #fb923c;      /* оранжевый */
+      --accent: #4ade80;
+      --accent-2: #fb923c;
       --accent-grad: linear-gradient(135deg, #4ade80 0%, #fb923c 100%);
       --border: rgba(255,255,255,0.06);
       --shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -39,7 +38,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ============ КАРКАС ============ */
     .app {
       height: 100vh;
       height: 100dvh;
@@ -54,10 +52,8 @@
       padding: 20px 16px 12px;
       scroll-behavior: smooth;
     }
-
     .content::-webkit-scrollbar { width: 0; }
 
-    /* ============ ЭКРАНЫ ============ */
     .screen {
       display: none;
       animation: fadeIn 0.3s ease;
@@ -69,10 +65,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ============ ЗАГОЛОВКИ ============ */
-    .screen-header {
-      margin-bottom: 20px;
-    }
+    .screen-header { margin-bottom: 20px; }
     .screen-header h1 {
       font-size: 26px;
       font-weight: 700;
@@ -85,7 +78,6 @@
       text-transform: capitalize;
     }
 
-    /* Приветствие на главной */
     .greeting {
       font-size: 26px;
       font-weight: 700;
@@ -99,7 +91,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* ============ КАРТОЧКИ ============ */
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -107,7 +98,6 @@
       padding: 16px;
       margin-bottom: 12px;
       box-shadow: var(--shadow);
-      transition: transform 0.2s;
     }
 
     .card-title {
@@ -120,7 +110,6 @@
     }
     .card-title .icon { font-size: 18px; }
 
-    /* Заглушка "тут будет..." */
     .placeholder {
       background: var(--card);
       border: 1px dashed var(--border);
@@ -134,11 +123,8 @@
       margin-bottom: 8px;
       display: block;
     }
-    .placeholder .text {
-      font-size: 14px;
-    }
+    .placeholder .text { font-size: 14px; }
 
-    /* Быстрая сводка на главной */
     .summary-row {
       display: flex;
       align-items: center;
@@ -159,7 +145,276 @@
       color: var(--accent);
     }
 
-    /* ============ НИЖНЕЕ МЕНЮ ============ */
+    /* ============ ВОДА ============ */
+    .water-card {
+      position: relative;
+      padding: 16px;
+    }
+
+    .water-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .water-header .title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .gear-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      opacity: 0.7;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .gear-btn:active {
+      opacity: 1;
+      transform: scale(0.9) rotate(45deg);
+    }
+
+    .water-body {
+      display: flex;
+      align-items: stretch;
+      gap: 16px;
+      height: 280px;
+    }
+
+    .slider-wrap {
+      position: relative;
+      width: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+    .slider-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .v-slider {
+      position: relative;
+      flex: 1;
+      width: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      margin: 8px 0;
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .v-slider-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, #4fc3f7, #81d4fa);
+      border-radius: 3px;
+      transition: height 0.15s;
+      pointer-events: none;
+      box-shadow: 0 0 12px rgba(79, 195, 247, 0.5);
+    }
+
+    .v-slider-thumb {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(79, 195, 247, 0.7), 0 0 0 3px rgba(79, 195, 247, 0.25);
+      pointer-events: none;
+      transition: bottom 0.15s;
+    }
+    .v-slider-thumb.dragging {
+      transition: none;
+      transform: translate(-50%, 50%) scale(1.2);
+    }
+
+    .bottle-wrap {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bottle-svg {
+      width: 100%;
+      max-width: 140px;
+      height: 240px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+      transition: filter 0.6s;
+    }
+
+    .bottle-wrap.celebrating .bottle-svg {
+      filter: drop-shadow(0 0 20px rgba(79, 195, 247, 0.9))
+              drop-shadow(0 0 40px rgba(74, 222, 128, 0.6));
+      animation: bottleGlow 1s ease-in-out infinite alternate;
+    }
+    @keyframes bottleGlow {
+      from { transform: scale(1); }
+      to   { transform: scale(1.03); }
+    }
+
+    .water-percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a73e8;
+      text-shadow: 0 1px 4px rgba(255,255,255,0.9);
+      pointer-events: none;
+      transition: color 0.3s, text-shadow 0.3s;
+      z-index: 2;
+    }
+    .water-percent.high {
+      color: #fff;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+    }
+
+    .water-stats {
+      text-align: center;
+      margin-top: 12px;
+    }
+    .water-amount {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .water-amount .goal {
+      color: var(--text-dim);
+      font-weight: 500;
+      font-size: 16px;
+    }
+    .water-remain {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .water-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .water-buttons button {
+      background: var(--card-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.2s;
+      font-family: inherit;
+    }
+    .water-buttons button:active {
+      transform: scale(0.95);
+      background: var(--accent);
+      color: #14110f;
+    }
+    .water-buttons button.reset {
+      grid-column: span 3;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    /* Модалка */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-backdrop.show { display: flex; }
+
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      width: 100%;
+      max-width: 340px;
+      box-shadow: var(--shadow);
+      animation: modalIn 0.25s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal h3 {
+      margin: 0 0 16px;
+      font-size: 18px;
+    }
+    .modal label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      margin-top: 12px;
+    }
+    .modal input[type="number"],
+    .modal input[type="time"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      color: var(--text);
+      font-size: 16px;
+      font-family: inherit;
+      outline: none;
+    }
+    .modal input:focus { border-color: var(--accent); }
+
+    .modal-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .modal-buttons button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.1s;
+    }
+    .modal-buttons button:active { transform: scale(0.97); }
+    .modal-buttons .save {
+      background: var(--accent-grad);
+      color: #14110f;
+    }
+    .modal-buttons .cancel {
+      background: var(--card-2);
+      color: var(--text);
+    }
+
+    /* ============ МЕНЮ ============ */
     .tabbar {
       display: flex;
       background: var(--bg-2);
@@ -196,15 +451,12 @@
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter: grayscale(1) opacity(0.6);
     }
-    .tab.active {
-      color: var(--accent);
-    }
+
+    .tab.active { color: var(--accent); }
     .tab.active .icon {
       transform: translateY(-3px) scale(1.15);
       filter: none;
     }
-
-    /* Точка-индикатор под активным табом */
     .tab.active::after {
       content: '';
       position: absolute;
@@ -221,7 +473,7 @@
 
     <div class="content">
 
-      <!-- ============ 🏠 ГЛАВНАЯ ============ -->
+      <!-- 🏠 ГЛАВНАЯ -->
       <div class="screen active" id="screen-home">
         <div class="screen-header">
           <h1 class="greeting">Привет, <span class="name" id="userName">друг</span>!</h1>
@@ -232,7 +484,7 @@
           <div class="card-title"><span class="icon">📋</span> Сводка дня</div>
           <div class="summary-row">
             <div class="label"><span>💧</span> Вода</div>
-            <div class="value">— / —</div>
+            <div class="value" id="homeWaterValue">— / —</div>
           </div>
           <div class="summary-row">
             <div class="label"><span>😴</span> Сон</div>
@@ -258,21 +510,97 @@
         </div>
       </div>
 
-      <!-- ============ 📅 ДЕНЬ ============ -->
+      <!-- 📅 ДЕНЬ -->
       <div class="screen" id="screen-day">
         <div class="screen-header">
           <h1>День</h1>
           <div class="sub" id="dayDate">Сегодня</div>
         </div>
 
-        <div class="card">
-          <div class="card-title"><span class="icon">💧</span> Вода</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">🍶</span>
-            <div class="text">Бутылка и ползунок — на следующем шаге</div>
+        <!-- ВОДА -->
+        <div class="card water-card">
+          <div class="water-header">
+            <div class="title"><span>💧</span> Вода</div>
+            <button class="gear-btn" onclick="openWaterSettings()" aria-label="Настройки воды">⚙️</button>
+          </div>
+
+          <div class="water-body">
+            <div class="slider-wrap">
+              <div class="slider-label" id="sliderMaxLabel">4л</div>
+              <div class="v-slider" id="vSlider">
+                <div class="v-slider-fill" id="vSliderFill"></div>
+                <div class="v-slider-thumb" id="vSliderThumb"></div>
+              </div>
+              <div class="slider-label">0</div>
+            </div>
+
+            <div class="bottle-wrap" id="bottleWrap">
+              <svg class="bottle-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#81d4fa"/>
+                    <stop offset="100%" stop-color="#0288d1"/>
+                  </linearGradient>
+                  <clipPath id="bottleClip">
+                    <path d="M 60 20 L 100 20 L 100 60
+                             Q 100 70 110 80
+                             L 140 110
+                             Q 150 120 150 140
+                             L 150 280
+                             Q 150 310 120 310
+                             L 40 310
+                             Q 10 310 10 280
+                             L 10 140
+                             Q 10 120 20 110
+                             L 50 80
+                             Q 60 70 60 60 Z"/>
+                  </clipPath>
+                </defs>
+
+                <path d="M 60 20 L 100 20 L 100 60
+                         Q 100 70 110 80
+                         L 140 110
+                         Q 150 120 150 140
+                         L 150 280
+                         Q 150 310 120 310
+                         L 40 310
+                         Q 10 310 10 280
+                         L 10 140
+                         Q 10 120 20 110
+                         L 50 80
+                         Q 60 70 60 60 Z"
+                      fill="rgba(200,230,255,0.12)"
+                      stroke="rgba(120,180,230,0.5)"
+                      stroke-width="3"/>
+
+                <g clip-path="url(#bottleClip)">
+                  <rect id="waterRect" x="0" y="320" width="160" height="320" fill="url(#waterGrad)"/>
+                  <path id="wavePath"
+                        d="M -20 0 Q 20 -10 60 0 T 140 0 T 220 0 L 220 20 L -20 20 Z"
+                        fill="#81d4fa" opacity="0.85"/>
+                </g>
+              </svg>
+              <div class="water-percent" id="waterPercent">0%</div>
+            </div>
+          </div>
+
+          <div class="water-stats">
+            <div class="water-amount">
+              <span id="waterAmount">0</span>
+              <span class="goal">/ <span id="waterGoal">2500</span> мл</span>
+            </div>
+            <div class="water-remain" id="waterRemain">Осталось 2500 мл</div>
+          </div>
+
+          <div class="water-buttons">
+            <button onclick="addWater(100)">+100</button>
+            <button onclick="addWater(250)">+250</button>
+            <button onclick="addWater(500)">+500</button>
+            <button class="reset" onclick="resetWater()">Сбросить</button>
           </div>
         </div>
 
+        <!-- СОН (заглушка) -->
         <div class="card">
           <div class="card-title"><span class="icon">😴</span> Сон</div>
           <div class="placeholder" style="padding: 24px;">
@@ -281,6 +609,7 @@
           </div>
         </div>
 
+        <!-- НАСТРОЕНИЕ (заглушка) -->
         <div class="card">
           <div class="card-title"><span class="icon">😊</span> Настроение и дневник</div>
           <div class="placeholder" style="padding: 24px;">
@@ -289,6 +618,7 @@
           </div>
         </div>
 
+        <!-- ПИТАНИЕ (заглушка) -->
         <div class="card">
           <div class="card-title"><span class="icon">🍎</span> Питание</div>
           <div class="placeholder" style="padding: 24px;">
@@ -297,6 +627,7 @@
           </div>
         </div>
 
+        <!-- ПРИВЫЧКИ (заглушка) -->
         <div class="card">
           <div class="card-title"><span class="icon">✅</span> Привычки сегодня</div>
           <div class="placeholder" style="padding: 24px;">
@@ -306,7 +637,7 @@
         </div>
       </div>
 
-      <!-- ============ 📊 НЕДЕЛЯ ============ -->
+      <!-- 📊 НЕДЕЛЯ -->
       <div class="screen" id="screen-week">
         <div class="screen-header">
           <h1>Неделя</h1>
@@ -346,26 +677,24 @@
         </div>
       </div>
 
-      <!-- ============ 🎯 ЦЕЛИ ============ -->
+      <!-- 🎯 ЦЕЛИ -->
       <div class="screen" id="screen-goals">
         <div class="screen-header">
           <h1>Цели</h1>
           <div class="sub">К чему идём</div>
         </div>
-
         <div class="placeholder">
           <span class="big">🎯</span>
           <div class="text">Краткосрочные и долгосрочные цели с прогрессом</div>
         </div>
       </div>
 
-      <!-- ============ 📈 СТАТЫ ============ -->
+      <!-- 📈 СТАТЫ -->
       <div class="screen" id="screen-stats">
         <div class="screen-header">
           <h1>Статистика</h1>
           <div class="sub">День · Неделя · Месяц</div>
         </div>
-
         <div class="placeholder">
           <span class="big">📈</span>
           <div class="text">Графики, streak'и, архив, финансы</div>
@@ -374,7 +703,7 @@
 
     </div>
 
-    <!-- ============ МЕНЮ ============ -->
+    <!-- МЕНЮ -->
     <nav class="tabbar">
       <button class="tab active" data-screen="home">
         <span class="icon">🏠</span>
@@ -401,22 +730,18 @@
   </div>
 
   <script>
+    /* ============ TELEGRAM ============ */
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
-
-    // Цвета шапки под тему
     tg.setHeaderColor?.('#14110f');
     tg.setBackgroundColor?.('#14110f');
 
-    // Имя пользователя
     const user = tg.initDataUnsafe?.user;
     const userNameEl = document.getElementById('userName');
-    if (user?.first_name) {
-      userNameEl.textContent = user.first_name;
-    }
+    if (user?.first_name) userNameEl.textContent = user.first_name;
 
-    // Даты
+    /* ============ ДАТЫ ============ */
     const now = new Date();
     const dateStr = now.toLocaleDateString('ru-RU', {
       weekday: 'long', day: 'numeric', month: 'long'
@@ -424,10 +749,9 @@
     document.getElementById('todayDate').textContent = dateStr;
     document.getElementById('dayDate').textContent = dateStr;
 
-    // Диапазон недели (Пн–Вс)
     function getWeekRange() {
       const d = new Date();
-      const day = d.getDay() || 7; // вс = 7
+      const day = d.getDay() || 7;
       const monday = new Date(d);
       monday.setDate(d.getDate() - day + 1);
       const sunday = new Date(monday);
@@ -437,7 +761,7 @@
     }
     document.getElementById('weekRange').textContent = getWeekRange();
 
-    // Переключение табов
+    /* ============ НАВИГАЦИЯ ============ */
     const tabs = document.querySelectorAll('.tab');
     const screens = {};
     document.querySelectorAll('.screen').forEach(s => {
@@ -448,16 +772,258 @@
       Object.values(screens).forEach(s => s.classList.remove('active'));
       screens[name]?.classList.add('active');
       tabs.forEach(t => t.classList.toggle('active', t.dataset.screen === name));
-
-      // Скролл наверх при переключении
       document.querySelector('.content').scrollTop = 0;
-
       tg.HapticFeedback?.selectionChanged();
     }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => switchScreen(tab.dataset.screen));
     });
+
+    /* ============ ВОДА ============ */
+    let waterCurrent = 0;
+    let waterGoal = 2500;
+    let dayStartHour = 4;
+
+    const WATER_KEY = 'water_v1';
+    const SLIDER_MAX = 4000;
+    const SLIDER_STEP = 50;
+    const BOTTLE_H = 320;
+
+    function getLogicalDate() {
+      const n = new Date();
+      if (n.getHours() < dayStartHour) n.setDate(n.getDate() - 1);
+      return n.toISOString().slice(0, 10);
+    }
+
+    const waterRect    = document.getElementById('waterRect');
+    const wavePath     = document.getElementById('wavePath');
+    const waterPct     = document.getElementById('waterPercent');
+    const waterAmountEl = document.getElementById('waterAmount');
+    const waterGoalEl  = document.getElementById('waterGoal');
+    const waterRemain  = document.getElementById('waterRemain');
+    const bottleWrap   = document.getElementById('bottleWrap');
+    const vSlider      = document.getElementById('vSlider');
+    const vSliderFill  = document.getElementById('vSliderFill');
+    const vSliderThumb = document.getElementById('vSliderThumb');
+
+    function renderWater(animate = true) {
+      const pct = Math.min(waterCurrent / waterGoal, 1);
+      const waterH = BOTTLE_H * pct;
+      const waterY = BOTTLE_H - waterH;
+
+      if (!animate) waterRect.style.transition = 'none';
+      waterRect.setAttribute('y', waterY);
+      waterRect.setAttribute('height', waterH || 0);
+      wavePath.setAttribute('transform', `translate(0, ${waterY})`);
+
+      const pctInt = Math.round(pct * 100);
+      waterPct.textContent = pctInt + '%';
+      waterPct.classList.toggle('high', pct > 0.5);
+
+      const sliderPct = Math.min(waterCurrent / SLIDER_MAX, 1);
+      vSliderFill.style.height = (sliderPct * 100) + '%';
+      vSliderThumb.style.bottom = (sliderPct * 100) + '%';
+
+      waterAmountEl.textContent = waterCurrent;
+      waterGoalEl.textContent = waterGoal;
+      const remain = waterGoal - waterCurrent;
+      waterRemain.textContent = remain > 0
+        ? `Осталось ${remain} мл`
+        : `Цель достигнута! +${-remain} мл 💪`;
+
+      // Сводка на главной
+      const homeVal = document.getElementById('homeWaterValue');
+      if (homeVal) homeVal.textContent = `${waterCurrent} / ${waterGoal}`;
+
+      if (!animate) {
+        requestAnimationFrame(() => { waterRect.style.transition = ''; });
+      }
+    }
+
+    function addWater(ml) {
+      const before = waterCurrent;
+      waterCurrent = Math.max(0, Math.min(waterCurrent + ml, SLIDER_MAX));
+      saveWater();
+      renderWater();
+      tg.HapticFeedback?.impactOccurred('light');
+      if (before < waterGoal && waterCurrent >= waterGoal) celebrateWater();
+    }
+
+    function resetWater() {
+      if (!confirm('Сбросить прогресс за сегодня?')) return;
+      waterCurrent = 0;
+      saveWater();
+      renderWater();
+      tg.HapticFeedback?.notificationOccurred('warning');
+    }
+
+    function celebrateWater() {
+      bottleWrap.classList.add('celebrating');
+      tg.HapticFeedback?.notificationOccurred('success');
+
+      const toast = document.createElement('div');
+      toast.textContent = '🎉 Цель по воде достигнута!';
+      toast.style.cssText = `
+        position: fixed; top: 50%; left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        background: linear-gradient(135deg, #4ade80, #fb923c);
+        color: #14110f; padding: 16px 24px; border-radius: 16px;
+        font-size: 17px; font-weight: 700; z-index: 200;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        text-align: center;
+      `;
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+
+      setTimeout(() => {
+        bottleWrap.classList.remove('celebrating');
+        toast.style.transform = 'translate(-50%, -50%) scale(0)';
+        setTimeout(() => toast.remove(), 400);
+      }, 2000);
+    }
+
+    function saveWater() {
+      const data = JSON.stringify({
+        date: getLogicalDate(),
+        current: waterCurrent,
+        goal: waterGoal,
+        dayStartHour
+      });
+      tg.CloudStorage.setItem(WATER_KEY, data, (err) => {
+        if (err) console.warn('CloudStorage error:', err);
+      });
+    }
+
+    function loadWater() {
+      tg.CloudStorage.getItem(WATER_KEY, (err, value) => {
+        if (err || !value) {
+          renderWater(false);
+          showFirstTimeHint();
+          return;
+        }
+        try {
+          const data = JSON.parse(value);
+          if (data.goal) waterGoal = data.goal;
+          if (data.dayStartHour != null) dayStartHour = data.dayStartHour;
+          if (data.date === getLogicalDate()) {
+            waterCurrent = data.current || 0;
+          } else {
+            waterCurrent = 0;
+            saveWater();
+          }
+          renderWater(false);
+        } catch (e) {
+          console.warn('Parse error', e);
+          renderWater(false);
+        }
+      });
+    }
+
+    function showFirstTimeHint() {
+      const hint = document.createElement('div');
+      hint.textContent = '💡 Настрой свою норму в ⚙️';
+      hint.style.cssText = `
+        position: fixed; bottom: 90px; left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--card-2); color: var(--text);
+        padding: 10px 16px; border-radius: 12px;
+        font-size: 13px; z-index: 50; opacity: 0;
+        transition: opacity 0.4s, transform 0.4s;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      `;
+      document.body.appendChild(hint);
+      requestAnimationFrame(() => {
+        hint.style.opacity = '1';
+        hint.style.transform = 'translateX(-50%) translateY(0)';
+      });
+      setTimeout(() => {
+        hint.style.opacity = '0';
+        setTimeout(() => hint.remove(), 400);
+      }, 3500);
+    }
+
+    /* ПОЛЗУНОК */
+    let dragging = false;
+
+    function updateFromSlider(clientY) {
+      const rect = vSlider.getBoundingClientRect();
+      const relY = rect.bottom - clientY;
+      const pct = Math.max(0, Math.min(relY / rect.height, 1));
+      const raw = pct * SLIDER_MAX;
+      const snapped = Math.round(raw / SLIDER_STEP) * SLIDER_STEP;
+      waterCurrent = Math.min(snapped, SLIDER_MAX);
+      saveWater();
+      renderWater();
+    }
+
+    vSlider.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      vSliderThumb.classList.add('dragging');
+      vSlider.setPointerCapture(e.pointerId);
+      updateFromSlider(e.clientY);
+    });
+
+    vSlider.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      updateFromSlider(e.clientY);
+    });
+
+    vSlider.addEventListener('pointerup', () => {
+      dragging = false;
+      vSliderThumb.classList.remove('dragging');
+      tg.HapticFeedback?.selectionChanged();
+    });
+
+    vSlider.addEventListener('pointercancel', () => {
+      dragging = false;
+      vSliderThumb.classList.remove('dragging');
+    });
+
+    /* НАСТРОЙКИ ВОДЫ */
+    function openWaterSettings() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>⚙️ Настройки воды</h3>
+          <label>Норма в день (мл)</label>
+          <input type="number" id="goalInput" min="500" max="6000" step="50" value="${waterGoal}">
+          <label>Новый день начинается в</label>
+          <input type="time" id="hourInput" value="${String(dayStartHour).padStart(2,'0')}:00">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const newGoal = parseInt(backdrop.querySelector('#goalInput').value, 10);
+        const newHour = parseInt(backdrop.querySelector('#hourInput').value.split(':')[0], 10);
+
+        if (!isNaN(newGoal) && newGoal >= 500 && newGoal <= 6000) waterGoal = newGoal;
+        if (!isNaN(newHour) && newHour >= 0 && newHour <= 12) dayStartHour = newHour;
+
+        saveWater();
+        renderWater();
+        backdrop.remove();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+
+      backdrop.onclick = (e) => {
+        if (e.target === backdrop) backdrop.remove();
+      };
+    }
+
+    /* СТАРТ */
+    loadWater();
   </script>
 </body>
 </html>
