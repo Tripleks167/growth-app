@@ -733,15 +733,6 @@
       transition: stroke-dashoffset 0.6s, stroke 0.4s;
     }
 
-    /* ← ВОТ ЭТО ДОБАВЛЯЕМ СЮДА */
-    .mini-bottle {
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-
     /* ВЕС */
     .weight-current { text-align: center; padding: 10px 0 16px; }
     .weight-value {
@@ -2456,10 +2447,11 @@
     }
 
     // === НЕДЕЛЯ: viewWeekMonday ===
-    // Минимальная неделя с данными (или 24 недели назад, если данных мало)
+       // Минимальная неделя с данными (или 24 недели назад, если данных мало)
     function getMinArchiveWeek() {
       const currentKey = getCurrentWeekKey();
       const fallbackMin = shiftWeekKey(currentKey, -24);
+      // Собираем все даты из всех источников
       const allDates = [];
       Object.keys(waterHistory).forEach(d => allDates.push(d));
       Object.keys(stepsHistory).forEach(d => allDates.push(d));
@@ -2468,6 +2460,7 @@
       Object.keys(foodHistory).forEach(d => allDates.push(d));
       Object.keys(sportData).forEach(d => allDates.push(d));
       Object.keys(readData).forEach(d => allDates.push(d));
+      // Привычки тоже
       Object.keys(habitsData.weeks || {}).forEach(w => {
         const wk = habitsData.weeks[w];
         if (wk && wk.checks) {
@@ -2477,9 +2470,11 @@
         }
       });
       if (allDates.length === 0) return currentKey;
+      // Находим самую раннюю дату
       let earliest = allDates[0];
       allDates.forEach(d => { if (d < earliest) earliest = d; });
       const earliestWeek = getMondayOfDate(earliest);
+      // Не раньше fallbackMin (24 недели назад)
       return earliestWeek < fallbackMin ? fallbackMin : earliestWeek;
     }
 
@@ -2613,7 +2608,7 @@
       const remain = waterGoal - waterCurrent;
       waterRemain.textContent = remain > 0 ? `Осталось ${remain} мл` : `Цель достигнута! +${-remain} мл 💪`;
       const homeVal = document.getElementById('homeWaterValue');
-      if (homeVal) homeVal.innerHTML = `${waterCurrent} / ${waterGoal} ${miniBottleSvg(pct)}`;
+      if (homeVal) homeVal.textContent = `${waterCurrent} / ${waterGoal}`;
       if (!animate) requestAnimationFrame(() => { waterRect.style.transition = ''; });
     }
     function addWater(ml) {
@@ -2786,53 +2781,17 @@
         stepsRemain.classList.add('done');
       }
       if (document.activeElement !== stepsInput) stepsInput.value = stepsCurrent || '';
-
-      // === ОБНОВЛЕНИЕ СВОДКИ — С СОЗДАНИЕМ, ЕСЛИ НЕТ ===
-      let homeSteps = document.getElementById('homeStepsValue');
-      if (!homeSteps) {
-        const cards = document.querySelectorAll('#screen-home .card');
-        for (const card of cards) {
-          const title = card.querySelector('.card-title');
-          if (title && title.textContent.includes('Сводка дня')) {
-            const newRow = document.createElement('div');
-            newRow.className = 'summary-row clickable';
-            newRow.onclick = () => switchScreen('day');
-            newRow.innerHTML = '<div class="label"><span>👟</span> Шаги</div><div class="value" id="homeStepsValue">— / —</div>';
-            const waterRow = card.querySelector('.summary-row');
-            if (waterRow && waterRow.nextSibling) {
-              card.insertBefore(newRow, waterRow.nextSibling);
-            } else {
-              card.appendChild(newRow);
-            }
-            homeSteps = document.getElementById('homeStepsValue');
-            break;
-          }
-        }
-      }
-      if (homeSteps) {
-        homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
-      }
-      // === КОНЕЦ ===
-
+      const homeSteps = document.getElementById('homeStepsValue');
+      if (homeSteps) homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
       if (!animate) requestAnimationFrame(() => { stepsRingFill.style.transition = ''; });
     }
-    function miniBottleSvg(pct) {
+    function miniRingSvg(pct) {
       const p = Math.max(0, Math.min(pct, 1));
-      // Тело бутылки: от y=4 (горлышко) до y=33 (дно)
-      // Вода: внутри тела, от низа (y=33) вверх
-      const topY = 9;        // где заканчивается горлышко
-      const bottomY = 32;    // дно
-      const bodyH = bottomY - topY;
-      const waterH = bodyH * p;
-      const waterY = bottomY - waterH;
-      const waterColor = p > 0.5 ? '#4fc3f7' : '#81d4fa';
-      return `<svg class="mini-bottle" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-        <!-- Вода (рисуется ПЕРВОЙ, потом стекло поверх, но вода внутри стекла) -->
-        <!-- Рисуем тело стекла, потом воду внутри, потом горлышко -->
-        <rect x="9" y="${waterY}" width="18" height="${waterH}" rx="2" fill="${waterColor}"/>
-        <path d="M 15 3 L 21 3 L 21 9 Q 21 10 23 11 L 28 15 Q 30 17 30 20 L 30 30 Q 30 33 27 33 L 9 33 Q 6 33 6 30 L 6 20 Q 6 17 8 15 L 13 11 Q 15 10 15 9 Z"
-              fill="none" stroke="rgba(120,180,230,0.7)" stroke-width="1.5" stroke-linejoin="round"/>
-      </svg>`;
+      const r = 14;
+      const c = 2 * Math.PI * r;
+      const off = c * (1 - p);
+      const color = stepsColor(p);
+      return `<svg class="mini-ring" viewBox="0 0 36 36"><circle class="mr-bg" cx="18" cy="18" r="${r}"/><circle class="mr-fill" cx="18" cy="18" r="${r}" stroke="${color}" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 18 18)"/></svg>`;
     }
     function addSteps(n) {
       const before = stepsCurrent;
@@ -2861,17 +2820,13 @@
         setTimeout(() => toast.remove(), 400);
       }, 2000);
     }
-    
     function saveSteps() {
       const data = JSON.stringify({ date: getLogicalDate(), current: stepsCurrent, goal: stepsGoal, dayStartHour });
       tg.CloudStorage.setItem(STEPS_KEY, data, (err) => { if (err) console.warn(err); });
     }
     function loadSteps() {
       tg.CloudStorage.getItem(STEPS_KEY, (err, value) => {
-        if (err || !value) { 
-          renderSteps(false); 
-          return; 
-        }
+        if (err || !value) { renderSteps(false); return; }
         try {
           const data = JSON.parse(value);
           if (data.goal) stepsGoal = data.goal;
@@ -2879,16 +2834,7 @@
           if (data.date === getLogicalDate()) stepsCurrent = data.current || 0;
           else { stepsCurrent = 0; saveSteps(); }
           renderSteps(false);
-          // Явно обновляем сводку
-          const homeSteps = document.getElementById('homeStepsValue');
-          if (homeSteps) {
-            const pct = Math.min(stepsCurrent / stepsGoal, 1);
-            homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
-          }
-        } catch (e) { 
-          console.warn('loadSteps error:', e);
-          renderSteps(false); 
-        }
+        } catch (e) { renderSteps(false); }
       });
     }
     function saveStepsHistory() {
