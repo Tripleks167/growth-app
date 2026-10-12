@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Вода</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: var(--tg-theme-bg-color, #ffffff);
+      color: var(--tg-theme-text-color, #000000);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    .subtitle { font-size: 13px; opacity: 0.6; margin-bottom: 16px; }
+
+    /* Бутылка */
+    .bottle-wrap {
+      position: relative;
+      width: 160px;
+      height: 320px;
+      margin-bottom: 16px;
+    }
+
+    .bottle-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+    }
+
+    /* Маска для воды — обрезает по форме бутылки */
+    .water-clip {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .wave {
+      animation: wave 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-10px); }
+    }
+
+    /* Проценты внутри бутылки */
+    .percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a73e8;
+      text-shadow: 0 1px 4px rgba(255,255,255,0.8);
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    /* Инфо-карточка */
+    .stats {
+      background: var(--tg-theme-secondary-bg-color, #f2f2f2);
+      border-radius: 14px;
+      padding: 12px 20px;
+      text-align: center;
+      margin-bottom: 16px;
+      min-width: 240px;
+    }
+    .stats .amount { font-size: 22px; font-weight: 700; }
+    .stats .goal { font-size: 13px; opacity: 0.6; margin-top: 2px; }
+
+    /* Кнопки добавления */
+    .add-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .add-buttons button {
+      background: var(--tg-theme-button-color, #2481cc);
+      color: var(--tg-theme-button-text-color, #ffffff);
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+      flex: 1;
+      min-width: 80px;
+    }
+    .add-buttons button:active { transform: scale(0.95); opacity: 0.8; }
+
+    /* Вторичные кнопки */
+    .secondary {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .secondary button {
+      background: transparent;
+      color: var(--tg-theme-text-color, #000);
+      border: 1px solid var(--tg-theme-hint-color, #ccc);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      flex: 1;
+      opacity: 0.7;
+    }
+    .secondary button:active { opacity: 1; }
+
+    /* Всплывашка при достижении цели */
+    .celebrate {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 10;
+    }
+    .celebrate.show { transform: translate(-50%, -50%) scale(1); }
+  </style>
+</head>
+<body>
+  <h1>💧 Вода</h1>
+  <div class="subtitle" id="today">Сегодня</div>
+
+  <div class="bottle-wrap">
+    <svg class="bottle-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4fc3f7"/>
+          <stop offset="100%" stop-color="#1a73e8"/>
+        </linearGradient>
+
+        <clipPath id="bottleClip">
+          <!-- Форма бутылки: горлышко + тело с закруглениями -->
+          <path d="M 60 20 L 100 20 L 100 60 
+                   Q 100 70 110 80 
+                   L 140 110 
+                   Q 150 120 150 140 
+                   L 150 280 
+                   Q 150 310 120 310 
+                   L 40 310 
+                   Q 10 310 10 280 
+                   L 10 140 
+                   Q 10 120 20 110 
+                   L 50 80 
+                   Q 60 70 60 60 Z"/>
+        </clipPath>
+      </defs>
+
+      <!-- Тело бутылки (стекло) -->
+      <path d="M 60 20 L 100 20 L 100 60 
+               Q 100 70 110 80 
+               L 140 110 
+               Q 150 120 150 140 
+               L 150 280 
+               Q 150 310 120 310 
+               L 40 310 
+               Q 10 310 10 280 
+               L 10 140 
+               Q 10 120 20 110 
+               L 50 80 
+               Q 60 70 60 60 Z"
+            fill="rgba(200,230,255,0.25)" 
+            stroke="rgba(120,180,230,0.6)" 
+            stroke-width="3"/>
+
+      <!-- Вода внутри (обрезана по форме бутылки) -->
+      <g clip-path="url(#bottleClip)">
+        <!-- Прямоугольник воды, который двигаем вверх/вниз -->
+        <rect id="water" 
+              x="0" y="320" width="160" height="320" 
+              fill="url(#waterGrad)"
+              class="water-clip"/>
+        <!-- Волна на поверхности воды -->
+        <path id="wavePath" 
+              class="wave"
+              d="M -20 0 Q 20 -10 60 0 T 140 0 T 220 0 L 220 20 L -20 20 Z"
+              fill="#4fc3f7"
+              opacity="0.9"/>
+      </g>
+    </svg>
+    <div class="percent" id="percentText">0%</div>
+  </div>
+
+  <div class="stats">
+    <div class="amount"><span id="amount">0</span> / <span id="goal">2000</span> мл</div>
+    <div class="goal" id="remainText">Осталось 2000 мл</div>
+  </div>
+
+  <div class="add-buttons">
+    <button onclick="addWater(100)">+100</button>
+    <button onclick="addWater(250)">+250</button>
+    <button onclick="addWater(500)">+500</button>
+  </div>
+
+  <div class="secondary">
+    <button onclick="addWater(-100)">−100</button>
+    <button onclick="resetWater()">Сбросить</button>
+  </div>
+
+  <div class="celebrate" id="celebrate">🎉 Цель достигнута!</div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+    tg.setHeaderColor?.('secondary_bg_color');
+
+    // === Настройки ===
+    let GOAL = 2000;        // цель в мл
+    let current = 0;        // сколько выпито сегодня
+
+    // Ключ для CloudStorage — свой для каждого пользователя (CloudStorage и так привязан к аккаунту)
+    const STORAGE_KEY = 'water_data';
+    const todayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+    // === Элементы ===
+    const waterEl    = document.getElementById('water');
+    const waveEl     = document.getElementById('wavePath');
+    const percentEl  = document.getElementById('percentText');
+    const amountEl   = document.getElementById('amount');
+    const goalEl     = document.getElementById('goal');
+    const remainEl   = document.getElementById('remainText');
+    const celebrate  = document.getElementById('celebrate');
+    const todayEl    = document.getElementById('today');
+
+    // Русская дата
+    todayEl.textContent = new Date().toLocaleDateString('ru-RU', { 
+      weekday: 'long', day: 'numeric', month: 'long' 
+    });
+
+    const BOTTLE_HEIGHT = 320; // высота бутылки в SVG
+
+    function render(animate = true) {
+      const percent = Math.min(current / GOAL, 1);
+      const waterHeight = BOTTLE_HEIGHT * percent;
+      const waterY = BOTTLE_HEIGHT - waterHeight;
+
+      if (!animate) waterEl.style.transition = 'none';
+
+      // Двигаем воду
+      waterEl.setAttribute('y', waterY);
+      waterEl.setAttribute('height', waterHeight || 0);
+
+      // Волна едет вместе с поверхностью воды
+      waveEl.setAttribute('transform', `translate(0, ${waterY})`);
+
+      if (!animate) {
+        requestAnimationFrame(() => {
+          waterEl.style.transition = '';
+        });
+      }
+
+      // Тексты
+      const pct = Math.round(percent * 100);
+      percentEl.textContent = pct + '%';
+      percentEl.style.opacity = percent > 0.15 ? 1 : 1; // можно скрывать на маленьком уровне
+      percentEl.style.color = percent > 0.5 ? '#ffffff' : '#1a73e8';
+      percentEl.style.textShadow = percent > 0.5 ? '0 1px 4px rgba(0,0,0,0.4)' : '0 1px 4px rgba(255,255,255,0.8)';
+
+      amountEl.textContent = current;
+      goalEl.textContent = GOAL;
+
+      const remain = Math.max(GOAL - current, 0);
+      remainEl.textContent = remain > 0 
+        ? `Осталось ${remain} мл` 
+        : `Цель достигнута! +${current - GOAL} мл 💪`;
+    }
+
+    function addWater(ml) {
+      const before = current;
+      current = Math.max(0, current + ml);
+      save();
+      render();
+      // Анимация всплывашки при достижении цели
+      if (before < GOAL && current >= GOAL) {
+        celebrate.classList.add('show');
+        tg.HapticFeedback?.notificationOccurred('success');
+        setTimeout(() => celebrate.classList.remove('show'), 1800);
+      } else {
+        tg.HapticFeedback?.impactOccurred('light');
+      }
+    }
+
+    function resetWater() {
+      if (!confirm('Сбросить прогресс за сегодня?')) return;
+      current = 0;
+      save();
+      render();
+      tg.HapticFeedback?.notificationOccurred('warning');
+    }
+
+    // === Сохранение в CloudStorage ===
+    function save() {
+      const data = JSON.stringify({ date: todayKey, current, goal: GOAL });
+      tg.CloudStorage.setItem(STORAGE_KEY, data, (err) => {
+        if (err) console.warn('CloudStorage error:', err);
+      });
+    }
+
+    function load() {
+      tg.CloudStorage.getItem(STORAGE_KEY, (err, value) => {
+        if (err || !value) {
+          render(false);
+          return;
+        }
+        try {
+          const data = JSON.parse(value);
+          // Если данные за другой день — сбрасываем счётчик, но оставляем цель
+          if (data.date === todayKey) {
+            current = data.current || 0;
+          } else {
+            current = 0;
+            save(); // сразу сохраняем "новый день"
+          }
+          if (data.goal) GOAL = data.goal;
+          render(false);
+        } catch (e) {
+          console.warn('Parse error', e);
+          render(false);
+        }
+      });
+    }
+
+    load();
+  </script>
+</body>
+</html>
