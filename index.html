@@ -4974,25 +4974,23 @@
         <div class="chart-avg">Среднее: <b>${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</b></div>
       </div>`;
 
-      // === ПРИВЫЧКИ ===
+            // === ПРИВЫЧКИ ===
       const checks = getWeekChecks();
       let habPossible = 0, habDone = 0;
       habitsConfig.blocks.forEach(block => {
         if (block.type === 'sport' || block.type === 'read') return;
         block.habits.forEach(h => {
           if (block.type === 'daily') {
+            habPossible += 7;  // вся неделя
             for (let i = 0; i < 7; i++) {
               const d = new Date(currentWeekMonday + 'T12:00:00');
               d.setDate(d.getDate() + i);
               const dateStr = d.toISOString().slice(0, 10);
-              // Не считаем будущее
-              if (dateStr > getLogicalDate()) continue;
-              habPossible++;
               if (checks[h.id] && checks[h.id][dateStr]) habDone++;
             }
           } else {
-            // Weekly — только если уже прошло воскресенье или если уже отмечено
-            habPossible++;
+            // Weekly — 1 раз за неделю
+            habPossible += 1;
             if (checks[h.id]) {
               const hasAny = Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
               if (hasAny) habDone++;
@@ -5001,19 +4999,6 @@
         });
       });
       const habPct = habPossible > 0 ? Math.round((habDone / habPossible) * 100) : 0;
-
-      html += `<div class="chart-block">
-        <div class="chart-title">✅ Привычки</div>
-        <div class="progress-wrap">
-          <div class="progress-bar-outer">
-            <div class="progress-bar-inner" style="width: ${habPct}%"></div>
-          </div>
-          <div class="progress-info">
-            <span class="val">${habDone} / ${habPossible}</span>
-            <span class="pct">${habPct}%</span>
-          </div>
-        </div>
-      </div>`;
 
       // === СПОРТ И ЧТЕНИЕ (числа) ===
       let sportCount = 0, readCount = 0;
