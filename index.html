@@ -25,6 +25,8 @@
       --sleep-grad: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
       --food: #fbbf24;
       --food-grad: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
+      --habit: #4ade80;
+      --habit-grad: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
     }
 
     html, body {
@@ -384,8 +386,6 @@
       box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35);
     }
     .food-meal-btn.done .meal-name { color: rgba(20, 17, 15, 0.8); }
-
-    /* КОМПАКТНЫЕ СЧЁТЧИКИ */
     .food-counters {
       display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
       margin-bottom: 12px;
@@ -419,6 +419,195 @@
     .food-counter .c-val {
       font-size: 13px; font-weight: 700; min-width: 16px;
       text-align: center; font-variant-numeric: tabular-nums;
+    }
+
+    /* ПРИВЫЧКИ */
+    .habit-block {
+      margin-bottom: 14px;
+    }
+    .habit-block-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .habit-block-title {
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .habit-block-title .count {
+      font-size: 11px; color: var(--text-dim); font-weight: 500;
+    }
+    .habit-block-progress {
+      font-size: 11px; color: var(--text-dim);
+      font-weight: 600;
+      padding: 2px 8px;
+      background: var(--card-2);
+      border-radius: 10px;
+    }
+    .habit-block-progress.done {
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.15);
+    }
+
+    .habit-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+    .habit-item:active { transform: scale(0.98); }
+    .habit-item.done {
+      background: rgba(74, 222, 128, 0.08);
+      border-color: rgba(74, 222, 128, 0.3);
+    }
+    .habit-check {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 14px;
+      color: transparent;
+    }
+    .habit-item.done .habit-check {
+      background: var(--habit-grad);
+      border-color: var(--habit);
+      color: #14110f;
+      font-weight: 900;
+    }
+    .habit-text {
+      flex: 1;
+      font-size: 13px;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    .habit-item.done .habit-text {
+      color: var(--text-dim);
+    }
+    .habit-week-progress {
+      font-size: 10px;
+      color: var(--text-dim);
+      font-weight: 600;
+      flex-shrink: 0;
+      padding: 2px 6px;
+      background: var(--bg-2);
+      border-radius: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Сетка недели */
+    .week-grid-wrap {
+      overflow-x: auto;
+      margin: 0 -16px;
+      padding: 0 16px;
+    }
+    .week-grid-wrap::-webkit-scrollbar { height: 0; }
+    .week-grid {
+      display: inline-block;
+      min-width: 100%;
+      font-size: 12px;
+    }
+    .week-grid-row {
+      display: grid;
+      grid-template-columns: 140px repeat(7, 32px) 44px;
+      gap: 4px;
+      align-items: center;
+      padding: 6px 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .week-grid-row.head {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .week-grid-row.block-header {
+      background: rgba(74, 222, 128, 0.06);
+      border-radius: 6px;
+      margin-top: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--habit);
+      padding: 8px 4px;
+      grid-template-columns: 1fr;
+    }
+    .week-cell-name {
+      font-size: 11px;
+      line-height: 1.2;
+      padding-right: 4px;
+    }
+    .week-cell-day {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: transparent;
+      margin: 0 auto;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+    .week-cell-day:active { transform: scale(0.9); }
+    .week-cell-day.done {
+      background: var(--habit-grad);
+      border-color: var(--habit);
+      color: #14110f;
+      font-weight: 900;
+    }
+    .week-cell-day.future {
+      opacity: 0.3;
+      cursor: default;
+    }
+    .week-cell-day.blocked {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .week-cell-percent {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--habit);
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Итоги недели */
+    .week-summary-box {
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(251, 146, 60, 0.05));
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .week-summary-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--habit);
+    }
+    .week-summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 4px 0;
+    }
+    .week-summary-row .val { font-weight: 700; }
+    .week-summary-total {
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+      padding-top: 8px;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     /* ТАБЛИЦЫ */
@@ -520,6 +709,8 @@
       border-radius: var(--radius); padding: 20px;
       width: 100%; max-width: 340px; box-shadow: var(--shadow);
       animation: modalIn 0.25s ease;
+      max-height: 85vh;
+      overflow-y: auto;
     }
     @keyframes modalIn {
       from { opacity: 0; transform: scale(0.9) translateY(20px); }
@@ -531,7 +722,8 @@
       margin-bottom: 6px; margin-top: 12px;
     }
     .modal input[type="number"],
-    .modal input[type="time"] {
+    .modal input[type="time"],
+    .modal input[type="text"] {
       width: 100%; padding: 12px; border-radius: 10px;
       border: 1px solid var(--border); background: var(--bg-2);
       color: var(--text); font-size: 16px; font-family: inherit;
@@ -551,6 +743,58 @@
     .modal-buttons button:active { transform: scale(0.97); }
     .modal-buttons .save { background: var(--accent-grad); color: #14110f; }
     .modal-buttons .cancel { background: var(--card-2); color: var(--text); }
+
+    /* Редактор привычек */
+    .edit-habit-list {
+      margin-bottom: 12px;
+    }
+    .edit-habit-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px;
+      background: var(--card-2);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    .edit-habit-row .e-text {
+      flex: 1;
+      word-break: break-word;
+    }
+    .edit-habit-row .e-btn {
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit;
+      padding: 0; line-height: 1;
+      flex-shrink: 0;
+    }
+    .edit-habit-row .e-btn:active { transform: scale(0.9); }
+    .edit-habit-row .e-btn.danger { color: #fb923c; }
+
+    .add-habit-btn {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .add-habit-btn:active { background: var(--card-2); }
+    .add-habit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      color: var(--text-dim);
+    }
 
     /* МЕНЮ */
     .tabbar {
@@ -600,7 +844,7 @@
           <div class="summary-row"><div class="label"><span>😴</span> Сон</div><div class="value" id="homeSleepValue">—</div></div>
           <div class="summary-row"><div class="label"><span>😊</span> Настроение</div><div class="value" id="homeMoodValue">—</div></div>
           <div class="summary-row"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
-          <div class="summary-row"><div class="label"><span>✅</span> Привычки</div><div class="value">— / —</div></div>
+          <div class="summary-row"><div class="label"><span>✅</span> Привычки</div><div class="value" id="homeHabitsValue">— / —</div></div>
         </div>
         <div class="placeholder">
           <span class="big">✨</span>
@@ -644,7 +888,7 @@
                 <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"
                       fill="rgba(200,230,255,0.12)" stroke="rgba(120,180,230,0.5)" stroke-width="3"/>
                 <g clip-path="url(#bottleClip)">
-                  <rect id="waterRect" x="0" y="320" width="160" height="320" fill="url(#waterGrad)"/>
+                  <rect id="waterRect" x="0" y="0" width="160" height="0" fill="url(#waterGrad)"/>
                   <path id="wavePath" d="M -20 0 Q 20 -10 60 0 T 140 0 T 220 0 L 220 20 L -20 20 Z" fill="#81d4fa" opacity="0.85"/>
                 </g>
               </svg>
@@ -755,13 +999,13 @@
           <div class="note-status" id="foodNoteStatus"></div>
         </div>
 
-        <!-- ПРИВЫЧКИ -->
+        <!-- ПРИВЫЧКИ (сегодня) -->
         <div class="card">
-          <div class="card-title"><span class="icon">✅</span> Привычки сегодня</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">📋</span>
-            <div class="text">Блоки привычек с галочками</div>
+          <div class="card-head">
+            <div class="title"><span>✅</span> Привычки сегодня</div>
+            <button class="gear-btn" onclick="openHabitsEditor()">⚙️</button>
           </div>
+          <div id="dayHabitsList"></div>
         </div>
       </div>
 
@@ -771,33 +1015,37 @@
           <h1>Неделя</h1>
           <div class="sub" id="weekRange">—</div>
         </div>
+
+        <!-- Итоги недели (воскресенье после 20:00) -->
+        <div id="weekSummaryContainer"></div>
+
+        <!-- Сетка привычек -->
+        <div class="card">
+          <div class="card-head">
+            <div class="title"><span>📋</span> Сетка привычек</div>
+            <button class="gear-btn" onclick="openHabitsEditor()">⚙️</button>
+          </div>
+          <div class="week-grid-wrap">
+            <div class="week-grid" id="weekHabitsGrid"></div>
+          </div>
+        </div>
+
+        <!-- Сон -->
         <div class="card">
           <div class="card-title"><span class="icon">😴</span> Сон за неделю</div>
           <div id="weekSleepTable"></div>
         </div>
+
+        <!-- Настроение -->
         <div class="card">
           <div class="card-title"><span class="icon">😊</span> Настроение за неделю</div>
           <div id="weekMoodTable"></div>
         </div>
+
+        <!-- Питание -->
         <div class="card">
           <div class="card-title"><span class="icon">🍎</span> Питание за неделю</div>
           <div id="weekFoodTable"></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="icon">📋</span> Сетка привычек</div>
-          <div class="placeholder" style="padding: 24px;"><span class="big">📅</span><div class="text">Пн–Вс × блоки</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="icon">🏃</span> Спорт и чтение</div>
-          <div class="placeholder" style="padding: 24px;"><span class="big">💪</span><div class="text">Дни + продуктивность</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="icon">⚖️</span> Вес</div>
-          <div class="placeholder" style="padding: 24px;"><span class="big">⚖️</span><div class="text">Взвешивание раз в неделю</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="icon">🏆</span> Итоги недели</div>
-          <div class="placeholder" style="padding: 24px;"><span class="big">🏆</span><div class="text">Баллы, «что улучшить», новая неделя</div></div>
         </div>
       </div>
 
@@ -864,7 +1112,10 @@
       tabs.forEach(t => t.classList.toggle('active', t.dataset.screen === name));
       document.querySelector('.content').scrollTop = 0;
       tg.HapticFeedback?.selectionChanged();
+      if (name === 'day') renderDayHabits();
       if (name === 'week') {
+        renderWeekHabitsGrid();
+        renderWeekSummary();
         renderWeekSleep();
         renderWeekMood();
         renderWeekFood();
@@ -1049,7 +1300,7 @@
         const newHour = parseInt(backdrop.querySelector('#hourInput').value.split(':')[0], 10);
         if (!isNaN(newGoal) && newGoal >= 500 && newGoal <= 6000) waterGoal = newGoal;
         if (!isNaN(newHour) && newHour >= 0 && newHour <= 12) dayStartHour = newHour;
-        saveWater(); saveSleep(); saveFood();
+        saveWater(); saveSleep(); saveFood(); saveHabitsConfig();
         renderWater();
         backdrop.remove();
         tg.HapticFeedback?.notificationOccurred('success');
@@ -1674,6 +1925,562 @@
       container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
     }
 
+    /* ============ ПРИВЫЧКИ ============ */
+    const HABITS_CONFIG_KEY = 'habits_config_v1';
+    const HABITS_DATA_KEY = 'habits_data_v1';
+
+    // Структура конфига: { blocks: [ { id, title, emoji, type: 'daily'|'weekly', habits: [{id, text}] } ] }
+    // type: 'daily' — каждый день, 'weekly' — 1 раз в неделю
+    // Структура данных: { weeks: { "YYYY-MM-DD"(понедельник): { checks: { "habitId": { "YYYY-MM-DD": true } } } } }
+
+    const DEFAULT_HABITS_CONFIG = {
+      blocks: [
+        {
+          id: 'sleep',
+          title: 'Сон',
+          emoji: '💤',
+          type: 'daily',
+          habits: [
+            { id: 'h_sleep_1', text: 'Лёг(ла) спать в 23:00–00:30' },
+            { id: 'h_sleep_2', text: 'Встал(а) в 6:30–8:00' },
+            { id: 'h_sleep_3', text: 'Сон 7,5–9 часов' },
+            { id: 'h_sleep_4', text: 'Без дневного сна' },
+            { id: 'h_sleep_5', text: 'Телефон не в кровати до 19:30' },
+          ]
+        },
+        {
+          id: 'base',
+          title: 'Базовый',
+          emoji: '🧱',
+          type: 'daily',
+          habits: [
+            { id: 'h_base_1', text: 'Умыться / почистить зубы' },
+            { id: 'h_base_2', text: 'Нормальная еда' },
+            { id: 'h_base_3', text: 'Помыть посуду' },
+            { id: 'h_base_4', text: 'Убрать за кошкой' },
+            { id: 'h_base_5', text: '5–10 минут уборки' },
+          ]
+        },
+        {
+          id: 'clean',
+          title: 'Уборка',
+          emoji: '🧹',
+          type: 'weekly',
+          habits: [
+            { id: 'h_clean_1', text: 'Генеральная уборка' },
+          ]
+        },
+      ]
+    };
+
+    let habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
+    let habitsData = { weeks: {} };
+    let currentWeekMonday = null;
+
+    function getMonday(date = new Date()) {
+      const d = new Date(date);
+      const day = d.getDay() || 7;
+      d.setDate(d.getDate() - day + 1);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+
+    function getCurrentWeekKey() {
+      const m = getMonday();
+      return m.toISOString().slice(0, 10);
+    }
+
+    function initHabitsData() {
+      currentWeekMonday = getCurrentWeekKey();
+      if (!habitsData.weeks) habitsData.weeks = {};
+      if (!habitsData.weeks[currentWeekMonday]) {
+        habitsData.weeks[currentWeekMonday] = { checks: {} };
+      }
+    }
+
+    function getWeekChecks() {
+      if (!habitsData.weeks[currentWeekMonday]) {
+        habitsData.weeks[currentWeekMonday] = { checks: {} };
+      }
+      return habitsData.weeks[currentWeekMonday].checks;
+    }
+
+    function saveHabitsConfig() {
+      tg.CloudStorage.setItem(HABITS_CONFIG_KEY, JSON.stringify(habitsConfig), (err) => {
+        if (err) console.warn('Habits config save error', err);
+      });
+    }
+
+    function saveHabitsData() {
+      // Ограничим архив 12 неделями
+      if (habitsData.weeks) {
+        const keys = Object.keys(habitsData.weeks).sort();
+        if (keys.length > 12) {
+          keys.slice(0, keys.length - 12).forEach(k => delete habitsData.weeks[k]);
+        }
+      }
+      tg.CloudStorage.setItem(HABITS_DATA_KEY, JSON.stringify(habitsData), (err) => {
+        if (err) console.warn('Habits data save error', err);
+      });
+    }
+
+    function loadHabitsConfig(cb) {
+      tg.CloudStorage.getItem(HABITS_CONFIG_KEY, (err, value) => {
+        if (err || !value) {
+          habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
+          cb && cb();
+          return;
+        }
+        try {
+          const parsed = JSON.parse(value);
+          if (parsed && Array.isArray(parsed.blocks)) habitsConfig = parsed;
+          else habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
+        } catch (e) {
+          habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
+        }
+        cb && cb();
+      });
+    }
+
+    function loadHabitsData(cb) {
+      tg.CloudStorage.getItem(HABITS_DATA_KEY, (err, value) => {
+        if (err || !value) { habitsData = { weeks: {} }; cb && cb(); return; }
+        try {
+          const parsed = JSON.parse(value);
+          habitsData = parsed && parsed.weeks ? parsed : { weeks: {} };
+        } catch (e) {
+          habitsData = { weeks: {} };
+        }
+        cb && cb();
+      });
+    }
+
+    // Отметка привычки
+    function toggleHabit(habitId, dateStr) {
+      const checks = getWeekChecks();
+      if (!checks[habitId]) checks[habitId] = {};
+      if (checks[habitId][dateStr]) delete checks[habitId][dateStr];
+      else checks[habitId][dateStr] = true;
+      saveHabitsData();
+      renderDayHabits();
+      renderWeekHabitsGrid();
+      renderWeekSummary();
+      updateHomeHabits();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    // === «День»: привычки сегодня ===
+    function renderDayHabits() {
+      const container = document.getElementById('dayHabitsList');
+      if (!container) return;
+      const today = getLogicalDate();
+      const checks = getWeekChecks();
+
+      let html = '';
+      habitsConfig.blocks.forEach(block => {
+        if (block.type !== 'daily') return; // в «Дне» только daily
+
+        // Прогресс блока за сегодня
+        let doneToday = 0;
+        block.habits.forEach(h => {
+          if (checks[h.id] && checks[h.id][today]) doneToday++;
+        });
+        const total = block.habits.length;
+
+        html += `<div class="habit-block">
+          <div class="habit-block-head">
+            <div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${doneToday}/${total})</span></div>
+          </div>`;
+
+        block.habits.forEach(h => {
+          const done = checks[h.id] && checks[h.id][today];
+          html += `<div class="habit-item ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}', '${today}')">
+            <div class="habit-check">✓</div>
+            <div class="habit-text">${escapeHtml(h.text)}</div>
+          </div>`;
+        });
+
+        html += `</div>`;
+      });
+
+      // Еженедельные (уборка) — показываем, если за эту неделю ещё не отмечено
+      habitsConfig.blocks.forEach(block => {
+        if (block.type !== 'weekly') return;
+        let doneThisWeek = false;
+        block.habits.forEach(h => {
+          if (checks[h.id]) {
+            // есть хоть одна отметка за неделю
+            const days = Object.keys(checks[h.id]);
+            if (days.some(d => d >= currentWeekMonday && d <= getWeekEnd())) doneThisWeek = true;
+          }
+        });
+
+        html += `<div class="habit-block">
+          <div class="habit-block-head">
+            <div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${doneThisWeek ? '1/1' : '0/1'} за неделю)</span></div>
+          </div>`;
+
+        block.habits.forEach(h => {
+          const done = checks[h.id] && checks[h.id][today];
+          const wasDoneThisWeek = checks[h.id] && Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
+          const blocked = wasDoneThisWeek && !done;
+          html += `<div class="habit-item ${done || wasDoneThisWeek ? 'done' : ''} ${blocked ? 'blocked' : ''}" onclick="${blocked ? '' : `toggleHabit('${h.id}', '${today}')`}">
+            <div class="habit-check">✓</div>
+            <div class="habit-text">${escapeHtml(h.text)} ${wasDoneThisWeek && !done ? ' (уже сделано на этой неделе)' : ''}</div>
+          </div>`;
+        });
+
+        html += `</div>`;
+      });
+
+      container.innerHTML = html || '<div class="placeholder" style="padding:20px;"><span class="big">📋</span><div class="text">Нет привычек. Открой ⚙️ чтобы добавить</div></div>';
+    }
+
+    function getWeekEnd() {
+      const m = new Date(currentWeekMonday + 'T12:00:00');
+      m.setDate(m.getDate() + 6);
+      return m.toISOString().slice(0, 10);
+    }
+
+    // === «Неделя»: сетка ===
+    function renderWeekHabitsGrid() {
+      const grid = document.getElementById('weekHabitsGrid');
+      if (!grid) return;
+      const days = getWeekDays();
+      const checks = getWeekChecks();
+
+      let html = `<div class="week-grid-row head">
+        <div class="week-cell-name">Привычка</div>
+        ${days.map(d => `<div style="text-align:center;">${d.name}</div>`).join('')}
+        <div style="text-align:center;">%</div>
+      </div>`;
+
+      habitsConfig.blocks.forEach(block => {
+        html += `<div class="week-grid-row block-header">${block.emoji} ${escapeHtml(block.title)}${block.type === 'weekly' ? ' (1 раз в неделю)' : ''}</div>`;
+
+        block.habits.forEach(h => {
+          // Считаем % выполнения за неделю
+          let doneCount = 0;
+          if (block.type === 'daily') {
+            days.forEach(d => {
+              if (checks[h.id] && checks[h.id][d.date]) doneCount++;
+            });
+          } else {
+            // weekly — 1 раз за неделю
+            if (checks[h.id]) {
+              const hasAny = Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
+              doneCount = hasAny ? 1 : 0;
+            }
+          }
+          const percent = block.type === 'daily' 
+            ? Math.round((doneCount / 7) * 100)
+            : (doneCount ? 100 : 0);
+
+          html += `<div class="week-grid-row">
+            <div class="week-cell-name">${escapeHtml(h.text)}</div>`;
+
+          days.forEach(d => {
+            const done = checks[h.id] && checks[h.id][d.date];
+            const future = d.isFuture;
+            const cells = [];
+            if (block.type === 'weekly') {
+              // Показать только одну галочку за неделю
+              const wasDoneThisWeek = checks[h.id] && Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
+              const blocked = wasDoneThisWeek && !done;
+              html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''} ${blocked ? 'blocked' : ''}"
+                onclick="${future || blocked ? '' : `toggleHabit('${h.id}', '${d.date}')`}">✓</div>`;
+            } else {
+              html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}"
+                onclick="${future ? '' : `toggleHabit('${h.id}', '${d.date}')`}">✓</div>`;
+            }
+          });
+
+          html += `<div class="week-cell-percent">${percent}%</div>`;
+          html += `</div>`;
+        });
+      });
+
+      grid.innerHTML = html;
+    }
+
+    // === Итоги недели ===
+    function renderWeekSummary() {
+      const container = document.getElementById('weekSummaryContainer');
+      if (!container) return;
+
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0 = вс
+      const hour = now.getHours();
+      // Показываем итоги только в воскресенье после 20:00
+      const isSundayEvening = dayOfWeek === 0 && hour >= 20;
+
+      if (!isSundayEvening) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const checks = getWeekChecks();
+      let totalPossible = 0;
+      let totalDone = 0;
+      let blockStats = [];
+
+      habitsConfig.blocks.forEach(block => {
+        let blockPossible = 0;
+        let blockDone = 0;
+
+        block.habits.forEach(h => {
+          if (block.type === 'daily') {
+            blockPossible += 7;
+            for (let i = 0; i < 7; i++) {
+              const d = new Date(currentWeekMonday + 'T12:00:00');
+              d.setDate(d.getDate() + i);
+              const dateStr = d.toISOString().slice(0, 10);
+              if (checks[h.id] && checks[h.id][dateStr]) blockDone++;
+            }
+          } else {
+            blockPossible += 1;
+            if (checks[h.id]) {
+              const hasAny = Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
+              if (hasAny) blockDone++;
+            }
+          }
+        });
+
+        totalPossible += blockPossible;
+        totalDone += blockDone;
+        blockStats.push({
+          title: block.title,
+          emoji: block.emoji,
+          done: blockDone,
+          possible: blockPossible
+        });
+      });
+
+      const percent = totalPossible > 0 ? Math.round((totalDone / totalPossible) * 100) : 0;
+
+      container.innerHTML = `
+        <div class="week-summary-box">
+          <div class="week-summary-title">🏆 Итоги недели</div>
+          ${blockStats.map(b => `
+            <div class="week-summary-row">
+              <span>${b.emoji} ${escapeHtml(b.title)}</span>
+              <span class="val">${b.done} / ${b.possible}</span>
+            </div>
+          `).join('')}
+          <div class="week-summary-row week-summary-total">
+            <span>Итого</span>
+            <span class="val">${totalDone} / ${totalPossible} (${percent}%)</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateHomeHabits() {
+      const homeVal = document.getElementById('homeHabitsValue');
+      if (!homeVal) return;
+      const today = getLogicalDate();
+      const checks = getWeekChecks();
+      let done = 0, total = 0;
+
+      habitsConfig.blocks.forEach(block => {
+        if (block.type !== 'daily') return;
+        block.habits.forEach(h => {
+          total++;
+          if (checks[h.id] && checks[h.id][today]) done++;
+        });
+      });
+
+      // Weekly блоки
+      habitsConfig.blocks.forEach(block => {
+        if (block.type !== 'weekly') return;
+        block.habits.forEach(h => {
+          total++;
+          if (checks[h.id] && checks[h.id][today]) done++;
+        });
+      });
+
+      homeVal.textContent = total > 0 ? `${done} / ${total}` : '— / —';
+    }
+
+    // === Редактор привычек ===
+    function openHabitsEditor() {
+      renderHabitsEditor();
+    }
+
+    function renderHabitsEditor() {
+      // Закрыть предыдущую модалку, если есть
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal" id="habitsEditorModal"></div>`;
+      document.body.appendChild(backdrop);
+
+      const modal = backdrop.querySelector('#habitsEditorModal');
+      modal.innerHTML = `
+        <h3>⚙️ Редактор привычек</h3>
+        <div id="habitsEditorContent"></div>
+        <div class="modal-buttons">
+          <button class="cancel" id="closeEditorBtn">Готово</button>
+        </div>
+      `;
+
+      renderHabitsEditorContent();
+
+      backdrop.querySelector('#closeEditorBtn').onclick = () => {
+        backdrop.remove();
+        renderDayHabits();
+        renderWeekHabitsGrid();
+        renderWeekSummary();
+        updateHomeHabits();
+      };
+
+      backdrop.onclick = (e) => {
+        if (e.target === backdrop) {
+          backdrop.remove();
+          renderDayHabits();
+          renderWeekHabitsGrid();
+          renderWeekSummary();
+          updateHomeHabits();
+        }
+      };
+    }
+
+    function renderHabitsEditorContent() {
+      const content = document.getElementById('habitsEditorContent');
+      if (!content) return;
+
+      let html = '';
+      habitsConfig.blocks.forEach((block, blockIndex) => {
+        html += `<div style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;color:var(--habit);margin-bottom:8px;">
+            ${block.emoji} ${escapeHtml(block.title)}
+            <span style="font-size:11px;color:var(--text-dim);font-weight:500;">
+              ${block.type === 'daily' ? '(каждый день)' : '(1 раз в неделю)'}
+            </span>
+          </div>
+          <div class="edit-habit-list">`;
+
+        block.habits.forEach((h, habitIndex) => {
+          html += `<div class="edit-habit-row">
+            <span class="e-text">${escapeHtml(h.text)}</span>
+            <button class="e-btn" onclick="editHabitName(${blockIndex}, ${habitIndex})" title="Переименовать">✎</button>
+            <button class="e-btn" onclick="moveHabitUp(${blockIndex}, ${habitIndex})" title="Вверх">↑</button>
+            <button class="e-btn" onclick="moveHabitDown(${blockIndex}, ${habitIndex})" title="Вниз">↓</button>
+            <button class="e-btn danger" onclick="deleteHabit(${blockIndex}, ${habitIndex})" title="Удалить">✕</button>
+          </div>`;
+        });
+
+        html += `</div>`;
+        html += `<button class="add-habit-btn" onclick="addHabit(${blockIndex})" ${block.habits.length >= 10 ? 'disabled' : ''}>
+          ${block.habits.length >= 10 ? 'Максимум 10 привычек' : '+ Добавить привычку'}
+        </button>`;
+        html += `</div>`;
+      });
+
+      content.innerHTML = html;
+    }
+
+    function addHabit(blockIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block || block.habits.length >= 10) return;
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>Новая привычка</h3>
+          <label>Название</label>
+          <input type="text" id="newHabitText" placeholder="Например: Помыть посуду" maxlength="100">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Добавить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      const input = backdrop.querySelector('#newHabitText');
+      setTimeout(() => input.focus(), 100);
+
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const text = input.value.trim();
+        if (!text) { backdrop.remove(); return; }
+        const id = 'h_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+        block.habits.push({ id, text });
+        saveHabitsConfig();
+        backdrop.remove();
+        renderHabitsEditorContent();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function editHabitName(blockIndex, habitIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      const habit = block?.habits[habitIndex];
+      if (!habit) return;
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>Переименовать</h3>
+          <label>Название привычки</label>
+          <input type="text" id="editHabitText" value="${escapeHtml(habit.text)}" maxlength="100">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      const input = backdrop.querySelector('#editHabitText');
+      setTimeout(() => input.focus(), 100);
+
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const text = input.value.trim();
+        if (!text) { backdrop.remove(); return; }
+        habit.text = text;
+        saveHabitsConfig();
+        backdrop.remove();
+        renderHabitsEditorContent();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function deleteHabit(blockIndex, habitIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block) return;
+      if (!confirm(`Удалить привычку «${block.habits[habitIndex].text}»?`)) return;
+      block.habits.splice(habitIndex, 1);
+      saveHabitsConfig();
+      renderHabitsEditorContent();
+      tg.HapticFeedback?.notificationOccurred('warning');
+    }
+
+    function moveHabitUp(blockIndex, habitIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block || habitIndex <= 0) return;
+      [block.habits[habitIndex - 1], block.habits[habitIndex]] = [block.habits[habitIndex], block.habits[habitIndex - 1]];
+      saveHabitsConfig();
+      renderHabitsEditorContent();
+    }
+
+    function moveHabitDown(blockIndex, habitIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block || habitIndex >= block.habits.length - 1) return;
+      [block.habits[habitIndex + 1], block.habits[habitIndex]] = [block.habits[habitIndex], block.habits[habitIndex + 1]];
+      saveHabitsConfig();
+      renderHabitsEditorContent();
+    }
+
     /* СТАРТ */
     loadWater();
     loadSleep();
@@ -1687,6 +2494,16 @@
     });
     loadFoodHistory(() => { renderWeekFood(); });
     loadFood();
+
+    loadHabitsConfig(() => {
+      loadHabitsData(() => {
+        initHabitsData();
+        renderDayHabits();
+        renderWeekHabitsGrid();
+        renderWeekSummary();
+        updateHomeHabits();
+      });
+    });
   </script>
 </body>
 </html>
