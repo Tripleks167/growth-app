@@ -27,6 +27,8 @@
       --radius: 16px;
       --sleep: #a78bfa;
       --sleep-grad: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
+      --food: #fbbf24;
+      --food-grad: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
     }
 
     html, body {
@@ -56,10 +58,7 @@
     }
     .content::-webkit-scrollbar { width: 0; }
 
-    .screen {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
+    .screen { display: none; animation: fadeIn 0.3s ease; }
     .screen.active { display: block; }
 
     @keyframes fadeIn {
@@ -147,7 +146,6 @@
       color: var(--accent);
     }
 
-    /* Заголовок карточки с шестерёнкой */
     .card-head {
       display: flex;
       justify-content: space-between;
@@ -176,7 +174,6 @@
     }
 
     /* ============ ВОДА ============ */
-    .water-card { padding: 16px; }
     .water-body {
       display: flex;
       align-items: stretch;
@@ -277,14 +274,8 @@
       color: #fff;
       text-shadow: 0 1px 6px rgba(0,0,0,0.5);
     }
-    .water-stats {
-      text-align: center;
-      margin-top: 12px;
-    }
-    .water-amount {
-      font-size: 20px;
-      font-weight: 700;
-    }
+    .water-stats { text-align: center; margin-top: 12px; }
+    .water-amount { font-size: 20px; font-weight: 700; }
     .water-amount .goal {
       color: var(--text-dim);
       font-weight: 500;
@@ -369,37 +360,22 @@
       margin-bottom: 14px;
       border: 1px solid var(--border);
     }
-    .sleep-duration .dur-label {
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-    .sleep-duration .dur-value {
-      font-size: 18px;
-      font-weight: 700;
-    }
+    .sleep-duration .dur-label { font-size: 13px; color: var(--text-dim); }
+    .sleep-duration .dur-value { font-size: 18px; font-weight: 700; }
     .sleep-duration .norm-badge {
       font-size: 12px;
       padding: 3px 10px;
       border-radius: 20px;
       font-weight: 600;
     }
-    .norm-badge.ok {
-      background: rgba(74, 222, 128, 0.15);
-      color: #4ade80;
-    }
-    .norm-badge.bad {
-      background: rgba(251, 146, 60, 0.15);
-      color: #fb923c;
-    }
+    .norm-badge.ok { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
+    .norm-badge.bad { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
     .quality-label {
       font-size: 13px;
       color: var(--text-dim);
       margin-bottom: 8px;
     }
-    .quality-label .selected-name {
-      color: var(--text);
-      font-weight: 600;
-    }
+    .quality-label .selected-name { color: var(--text); font-weight: 600; }
     .quality-scale {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
@@ -421,11 +397,7 @@
       align-items: center;
       gap: 2px;
     }
-    .quality-btn .num {
-      font-size: 9px;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
+    .quality-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .quality-btn:active { transform: scale(0.9); }
     .quality-btn.selected {
       background: var(--sleep-grad);
@@ -433,11 +405,9 @@
       transform: scale(1.05);
       box-shadow: 0 4px 16px rgba(167, 139, 250, 0.4);
     }
-    .quality-btn.selected .num {
-      color: rgba(255,255,255,0.9);
-    }
+    .quality-btn.selected .num { color: rgba(255,255,255,0.9); }
 
-    /* ============ НАСТРОЕНИЕ + ДНЕВНИК ============ */
+    /* ============ НАСТРОЕНИЕ ============ */
     .mood-header {
       display: flex;
       justify-content: space-between;
@@ -474,10 +444,7 @@
       padding: 0;
     }
     .date-nav button:active { transform: scale(0.9); }
-    .date-nav button:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
+    .date-nav button:disabled { opacity: 0.3; cursor: default; }
     .mood-scale-row {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -498,13 +465,8 @@
       flex-direction: column;
       align-items: center;
       gap: 2px;
-      position: relative;
     }
-    .mood-btn .num {
-      font-size: 9px;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
+    .mood-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .mood-btn:active { transform: scale(0.9); }
     .mood-btn.selected {
       background: var(--accent-grad);
@@ -512,13 +474,8 @@
       transform: scale(1.05);
       box-shadow: 0 4px 16px rgba(74, 222, 128, 0.4);
     }
-    .mood-btn.selected .num {
-      color: rgba(20, 17, 15, 0.8);
-    }
-    .mood-btn:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
+    .mood-btn.selected .num { color: rgba(20, 17, 15, 0.8); }
+    .mood-btn:disabled { opacity: 0.5; cursor: default; }
     .mood-selected-name {
       text-align: center;
       font-size: 13px;
@@ -526,9 +483,7 @@
       margin-bottom: 14px;
       min-height: 18px;
     }
-    .mood-selected-name b {
-      color: var(--text);
-    }
+    .mood-selected-name b { color: var(--text); }
     .note-field {
       width: 100%;
       min-height: 80px;
@@ -557,7 +512,211 @@
     }
     .note-status.saved { color: var(--accent); }
 
-    /* Недельная таблица настроения */
+    /* ============ ПИТАНИЕ ============ */
+    .food-calories-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      align-items: stretch;
+    }
+    .food-calories-input {
+      flex: 1;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 700;
+      font-family: inherit;
+      outline: none;
+      text-align: center;
+      transition: border-color 0.2s;
+      font-variant-numeric: tabular-nums;
+      min-width: 0;
+    }
+    .food-calories-input:focus { border-color: var(--food); }
+    .food-calories-input::placeholder { color: var(--text-dim); font-weight: 500; }
+    .food-quick-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.2s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .food-quick-btn:active {
+      transform: scale(0.95);
+      background: var(--food);
+      color: #14110f;
+    }
+
+    .food-cal-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .food-cal-bar-fill {
+      height: 100%;
+      background: var(--food-grad);
+      border-radius: 3px;
+      width: 0;
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .food-cal-goal {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: right;
+      margin-top: -10px;
+      margin-bottom: 14px;
+    }
+
+    .food-meals-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .food-meals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .food-meal-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 4px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      line-height: 1.2;
+    }
+    .food-meal-btn .meal-name {
+      font-size: 9px;
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .food-meal-btn:active { transform: scale(0.9); }
+    .food-meal-btn.done {
+      background: var(--food-grad);
+      border-color: var(--food);
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35);
+    }
+    .food-meal-btn.done .meal-name { color: rgba(20, 17, 15, 0.8); }
+
+    .food-counters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .food-counter {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .food-counter .c-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+    .food-counter .c-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .food-counter .c-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      padding: 0;
+      line-height: 1;
+    }
+    .food-counter .c-btn:active { transform: scale(0.9); }
+    .food-counter .c-val {
+      font-size: 16px;
+      font-weight: 700;
+      min-width: 22px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============ ТАБЛИЦЫ ============ */
+    .wk-sleep-header, .wk-sleep-row {
+      display: grid;
+      grid-template-columns: 32px 1fr 55px 36px 28px;
+      gap: 6px;
+      padding: 8px 6px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .wk-sleep-header {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .wk-sleep-row { font-variant-numeric: tabular-nums; }
+    .wk-sleep-row.empty { opacity: 0.4; }
+    .wk-day { font-weight: 600; }
+    .wk-time { color: var(--text-dim); font-size: 11px; }
+    .wk-dur { font-weight: 600; }
+    .wk-qual { text-align: center; font-size: 14px; }
+    .wk-badge { text-align: right; font-size: 12px; }
+    .wk-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-stat {
+      text-align: center;
+      background: var(--card-2);
+      border-radius: 10px;
+      padding: 10px 6px;
+    }
+    .wk-stat-val { font-size: 15px; font-weight: 700; color: var(--sleep); }
+    .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    /* Неделя настроения */
     .mood-week-row {
       display: grid;
       grid-template-columns: 32px 32px 1fr;
@@ -587,61 +746,69 @@
       border-radius: 12px;
       font-size: 13px;
     }
-    .mood-week-stats .val {
-      font-weight: 700;
-      color: var(--accent);
-    }
+    .mood-week-stats .val { font-weight: 700; color: var(--accent); }
 
-    /* ============ ТАБЛИЦА СНА ЗА НЕДЕЛЮ ============ */
-    .wk-sleep-header, .wk-sleep-row {
+    /* Неделя питания */
+    .wk-food-header, .wk-food-row {
       display: grid;
-      grid-template-columns: 32px 1fr 55px 36px 28px;
+      grid-template-columns: 32px 1fr 60px 60px;
       gap: 6px;
       padding: 8px 6px;
       font-size: 12px;
       align-items: center;
       border-bottom: 1px solid var(--border);
     }
-    .wk-sleep-header {
+    .wk-food-header {
       color: var(--text-dim);
       font-weight: 600;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.3px;
     }
-    .wk-sleep-row {
-      font-variant-numeric: tabular-nums;
-    }
-    .wk-sleep-row.empty { opacity: 0.4; }
-    .wk-day { font-weight: 600; }
-    .wk-time { color: var(--text-dim); font-size: 11px; }
-    .wk-dur { font-weight: 600; }
-    .wk-qual { text-align: center; font-size: 14px; }
-    .wk-badge { text-align: right; font-size: 12px; }
-    .wk-stats {
+    .wk-food-row { font-variant-numeric: tabular-nums; }
+    .wk-food-row.empty { opacity: 0.4; }
+    .wk-food-kcal { font-weight: 700; text-align: right; }
+    .wk-food-meals { text-align: center; color: var(--text-dim); }
+    .wk-food-stats {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-top: 14px;
       padding-top: 14px;
       border-top: 1px solid var(--border);
     }
-    .wk-stat {
+    .wk-food-stat {
       text-align: center;
       background: var(--card-2);
       border-radius: 10px;
       padding: 10px 6px;
     }
-    .wk-stat-val {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--sleep);
+    .wk-food-stat-val { font-size: 15px; font-weight: 700; color: var(--food); }
+    .wk-food-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    .wk-food-dishes {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
     }
-    .wk-stat-label {
-      font-size: 10px;
+    .wk-food-dishes-title {
+      font-size: 12px;
       color: var(--text-dim);
-      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
+    .wk-food-dish-day {
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .wk-food-dish-day b {
+      color: var(--food);
+      margin-right: 6px;
+    }
+    .wk-food-dish-day span { color: var(--text-dim); }
 
     /* ============ МОДАЛКА ============ */
     .modal-backdrop {
@@ -670,10 +837,7 @@
       from { opacity: 0; transform: scale(0.9) translateY(20px); }
       to   { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .modal h3 {
-      margin: 0 0 16px;
-      font-size: 18px;
-    }
+    .modal h3 { margin: 0 0 16px; font-size: 18px; }
     .modal label {
       display: block;
       font-size: 13px;
@@ -694,6 +858,12 @@
       outline: none;
     }
     .modal input:focus { border-color: var(--accent); }
+    .modal-hint {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
     .modal-buttons {
       display: flex;
       gap: 8px;
@@ -798,12 +968,12 @@
             <div class="value" id="homeMoodValue">—</div>
           </div>
           <div class="summary-row">
-            <div class="label"><span>✅</span> Привычки</div>
-            <div class="value">— / —</div>
+            <div class="label"><span>🍎</span> Питание</div>
+            <div class="value" id="homeFoodValue">—</div>
           </div>
           <div class="summary-row">
-            <div class="label"><span>🍎</span> Питание</div>
-            <div class="value">—</div>
+            <div class="label"><span>✅</span> Привычки</div>
+            <div class="value">— / —</div>
           </div>
         </div>
 
@@ -821,12 +991,11 @@
         </div>
 
         <!-- ВОДА -->
-        <div class="card water-card">
+        <div class="card">
           <div class="card-head">
             <div class="title"><span>💧</span> Вода</div>
             <button class="gear-btn" onclick="openWaterSettings()">⚙️</button>
           </div>
-
           <div class="water-body">
             <div class="slider-wrap">
               <div class="slider-label">4л</div>
@@ -836,7 +1005,6 @@
               </div>
               <div class="slider-label">0</div>
             </div>
-
             <div class="bottle-wrap" id="bottleWrap">
               <svg class="bottle-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -845,46 +1013,19 @@
                     <stop offset="100%" stop-color="#0288d1"/>
                   </linearGradient>
                   <clipPath id="bottleClip">
-                    <path d="M 60 20 L 100 20 L 100 60
-                             Q 100 70 110 80
-                             L 140 110
-                             Q 150 120 150 140
-                             L 150 280
-                             Q 150 310 120 310
-                             L 40 310
-                             Q 10 310 10 280
-                             L 10 140
-                             Q 10 120 20 110
-                             L 50 80
-                             Q 60 70 60 60 Z"/>
+                    <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"/>
                   </clipPath>
                 </defs>
-                <path d="M 60 20 L 100 20 L 100 60
-                         Q 100 70 110 80
-                         L 140 110
-                         Q 150 120 150 140
-                         L 150 280
-                         Q 150 310 120 310
-                         L 40 310
-                         Q 10 310 10 280
-                         L 10 140
-                         Q 10 120 20 110
-                         L 50 80
-                         Q 60 70 60 60 Z"
-                      fill="rgba(200,230,255,0.12)"
-                      stroke="rgba(120,180,230,0.5)"
-                      stroke-width="3"/>
+                <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"
+                      fill="rgba(200,230,255,0.12)" stroke="rgba(120,180,230,0.5)" stroke-width="3"/>
                 <g clip-path="url(#bottleClip)">
                   <rect id="waterRect" x="0" y="320" width="160" height="320" fill="url(#waterGrad)"/>
-                  <path id="wavePath"
-                        d="M -20 0 Q 20 -10 60 0 T 140 0 T 220 0 L 220 20 L -20 20 Z"
-                        fill="#81d4fa" opacity="0.85"/>
+                  <path id="wavePath" d="M -20 0 Q 20 -10 60 0 T 140 0 T 220 0 L 220 20 L -20 20 Z" fill="#81d4fa" opacity="0.85"/>
                 </g>
               </svg>
               <div class="water-percent" id="waterPercent">0%</div>
             </div>
           </div>
-
           <div class="water-stats">
             <div class="water-amount">
               <span id="waterAmount">0</span>
@@ -892,7 +1033,6 @@
             </div>
             <div class="water-remain" id="waterRemain">Осталось 2500 мл</div>
           </div>
-
           <div class="water-buttons">
             <button onclick="addWater(100)">+100</button>
             <button onclick="addWater(250)">+250</button>
@@ -907,7 +1047,6 @@
             <div class="title"><span>😴</span> Сон</div>
             <button class="gear-btn" onclick="openSleepSettings()">⚙️</button>
           </div>
-
           <div class="sleep-row">
             <div class="time-input-wrap" id="bedtimeWrap" onclick="pickTime('bedtime')">
               <div class="label">Отбой</div>
@@ -918,7 +1057,6 @@
               <div class="value empty" id="wakeupValue">—:—</div>
             </div>
           </div>
-
           <div class="sleep-duration" id="sleepDurationBox" style="display:none;">
             <div>
               <div class="dur-label">Длительность</div>
@@ -926,14 +1064,13 @@
             </div>
             <div class="norm-badge" id="sleepNormBadge">—</div>
           </div>
-
           <div class="quality-label">
             Качество: <span class="selected-name" id="qualityName">не выбрано</span>
           </div>
           <div class="quality-scale" id="qualityScale"></div>
         </div>
 
-        <!-- НАСТРОЕНИЕ + ДНЕВНИК -->
+        <!-- НАСТРОЕНИЕ -->
         <div class="card">
           <div class="mood-header">
             <div class="title"><span>😊</span> Настроение и дневник</div>
@@ -943,22 +1080,68 @@
               <button id="moodNextDay" onclick="moodShiftDay(1)">›</button>
             </div>
           </div>
-
           <div class="mood-scale-row" id="moodScaleRow1"></div>
           <div class="mood-scale-row" id="moodScaleRow2"></div>
           <div class="mood-selected-name" id="moodSelectedName">Настроение не выбрано</div>
-
           <textarea class="note-field" id="noteField" placeholder="Заметка дня..." maxlength="500"></textarea>
           <div class="note-status" id="noteStatus"></div>
         </div>
 
-        <!-- ПИТАНИЕ (заглушка) -->
+        <!-- ПИТАНИЕ -->
         <div class="card">
-          <div class="card-title"><span class="icon">🍎</span> Питание</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">🥗</span>
-            <div class="text">Калории, приёмы, готовил/кафе</div>
+          <div class="card-head">
+            <div class="title"><span>🍎</span> Питание</div>
+            <button class="gear-btn" onclick="openFoodSettings()">⚙️</button>
           </div>
+
+          <div class="food-calories-row">
+            <input type="number" class="food-calories-input" id="foodCaloriesInput" placeholder="0 ккал" min="0" max="20000" step="10">
+            <button class="food-quick-btn" onclick="addCalories(100)">+100</button>
+            <button class="food-quick-btn" onclick="addCalories(500)">+500</button>
+          </div>
+          <div class="food-cal-bar" id="foodCalBar" style="display:none;">
+            <div class="food-cal-bar-fill" id="foodCalBarFill"></div>
+          </div>
+          <div class="food-cal-goal" id="foodCalGoal" style="display:none;"></div>
+
+          <div class="food-meals-label">Приёмы пищи:</div>
+          <div class="food-meals-grid">
+            <button class="food-meal-btn" data-meal="breakfast" onclick="toggleMeal('breakfast')">
+              <span>🌅</span><span class="meal-name">Завтрак</span>
+            </button>
+            <button class="food-meal-btn" data-meal="lunch" onclick="toggleMeal('lunch')">
+              <span>☀️</span><span class="meal-name">Обед</span>
+            </button>
+            <button class="food-meal-btn" data-meal="dinner" onclick="toggleMeal('dinner')">
+              <span>🌙</span><span class="meal-name">Ужин</span>
+            </button>
+            <button class="food-meal-btn" data-meal="snack" onclick="toggleMeal('snack')">
+              <span>🍪</span><span class="meal-name">Перекус</span>
+            </button>
+          </div>
+
+          <div class="food-counters">
+            <div class="food-counter">
+              <div class="c-label"><span>🍳</span> Готовил</div>
+              <div class="c-controls">
+                <button class="c-btn" onclick="changeFoodCounter('cooked', -1)">−</button>
+                <span class="c-val" id="foodCookedVal">0</span>
+                <button class="c-btn" onclick="changeFoodCounter('cooked', 1)">+</button>
+              </div>
+            </div>
+            <div class="food-counter">
+              <div class="c-label"><span>🍴</span> Кафе</div>
+              <div class="c-controls">
+                <button class="c-btn" onclick="changeFoodCounter('cafe', -1)">−</button>
+                <span class="c-val" id="foodCafeVal">0</span>
+                <button class="c-btn" onclick="changeFoodCounter('cafe', 1)">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="food-meals-label">Что кушал:</div>
+          <textarea class="note-field" id="foodNoteField" placeholder="Овсянка, курица с рисом, салат..." maxlength="1000"></textarea>
+          <div class="note-status" id="foodNoteStatus"></div>
         </div>
 
         <!-- ПРИВЫЧКИ (заглушка) -->
@@ -986,6 +1169,11 @@
         <div class="card">
           <div class="card-title"><span class="icon">😊</span> Настроение за неделю</div>
           <div id="weekMoodTable"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span class="icon">🍎</span> Питание за неделю</div>
+          <div id="weekFoodTable"></div>
         </div>
 
         <div class="card">
@@ -1121,6 +1309,7 @@
       if (name === 'week') {
         renderWeekSleep();
         renderWeekMood();
+        renderWeekFood();
       }
     }
 
@@ -1137,7 +1326,6 @@
       return n.toISOString().slice(0, 10);
     }
 
-    // Универсальные дни недели
     function getWeekDays() {
       const d = new Date();
       const day = d.getDay() || 7;
@@ -1157,10 +1345,17 @@
       return days;
     }
 
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
     /* ============ ВОДА ============ */
     let waterCurrent = 0;
     let waterGoal = 2500;
-
     const WATER_KEY = 'water_v1';
     const SLIDER_MAX = 4000;
     const SLIDER_STEP = 50;
@@ -1187,8 +1382,7 @@
       waterRect.setAttribute('height', waterH || 0);
       wavePath.setAttribute('transform', `translate(0, ${waterY})`);
 
-      const pctInt = Math.round(pct * 100);
-      waterPct.textContent = pctInt + '%';
+      waterPct.textContent = Math.round(pct * 100) + '%';
       waterPct.classList.toggle('high', pct > 0.5);
 
       const sliderPct = Math.min(waterCurrent / SLIDER_MAX, 1);
@@ -1230,7 +1424,6 @@
     function celebrateWater() {
       bottleWrap.classList.add('celebrating');
       tg.HapticFeedback?.notificationOccurred('success');
-
       const toast = document.createElement('div');
       toast.textContent = '🎉 Цель по воде достигнута!';
       toast.style.cssText = `
@@ -1241,7 +1434,6 @@
         font-size: 17px; font-weight: 700; z-index: 200;
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        text-align: center;
       `;
       document.body.appendChild(toast);
       requestAnimationFrame(() => {
@@ -1268,11 +1460,7 @@
 
     function loadWater() {
       tg.CloudStorage.getItem(WATER_KEY, (err, value) => {
-        if (err || !value) {
-          renderWater(false);
-          showFirstTimeHint();
-          return;
-        }
+        if (err || !value) { renderWater(false); showFirstTimeHint(); return; }
         try {
           const data = JSON.parse(value);
           if (data.goal) waterGoal = data.goal;
@@ -1284,10 +1472,7 @@
             saveWater();
           }
           renderWater(false);
-        } catch (e) {
-          console.warn('Parse error', e);
-          renderWater(false);
-        }
+        } catch (e) { renderWater(false); }
       });
     }
 
@@ -1301,8 +1486,7 @@
         padding: 10px 16px; border-radius: 12px;
         font-size: 13px; z-index: 50; opacity: 0;
         transition: opacity 0.4s, transform 0.4s;
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
+        border: 1px solid var(--border); box-shadow: var(--shadow);
       `;
       document.body.appendChild(hint);
       requestAnimationFrame(() => {
@@ -1316,7 +1500,6 @@
     }
 
     let dragging = false;
-
     function updateFromSlider(clientY) {
       const rect = vSlider.getBoundingClientRect();
       const relY = rect.bottom - clientY;
@@ -1327,17 +1510,13 @@
       saveWater();
       renderWater();
     }
-
     vSlider.addEventListener('pointerdown', (e) => {
       dragging = true;
       vSliderThumb.classList.add('dragging');
       vSlider.setPointerCapture(e.pointerId);
       updateFromSlider(e.clientY);
     });
-    vSlider.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
-      updateFromSlider(e.clientY);
-    });
+    vSlider.addEventListener('pointermove', (e) => { if (dragging) updateFromSlider(e.clientY); });
     vSlider.addEventListener('pointerup', () => {
       dragging = false;
       vSliderThumb.classList.remove('dragging');
@@ -1365,7 +1544,6 @@
         </div>
       `;
       document.body.appendChild(backdrop);
-
       backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
       backdrop.querySelector('#saveBtn').onclick = () => {
         const newGoal = parseInt(backdrop.querySelector('#goalInput').value, 10);
@@ -1374,18 +1552,16 @@
         if (!isNaN(newHour) && newHour >= 0 && newHour <= 12) dayStartHour = newHour;
         saveWater();
         saveSleep();
+        saveFood();
         renderWater();
         backdrop.remove();
         tg.HapticFeedback?.notificationOccurred('success');
       };
-      backdrop.onclick = (e) => {
-        if (e.target === backdrop) backdrop.remove();
-      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
     /* ============ СОН ============ */
     const SLEEP_KEY = 'sleep_v1';
-
     const SLEEP_QUALITY = [
       { emoji: '😫', name: 'Ужасно' },
       { emoji: '🥱', name: 'Очень плохо' },
@@ -1473,7 +1649,6 @@
         bedtimeValue.classList.add('empty');
         bedtimeWrap.classList.remove('filled');
       }
-
       if (sleepWakeup) {
         wakeupValue.textContent = sleepWakeup;
         wakeupValue.classList.remove('empty');
@@ -1483,7 +1658,6 @@
         wakeupValue.classList.add('empty');
         wakeupWrap.classList.remove('filled');
       }
-
       const dur = calcDuration(sleepBedtime, sleepWakeup);
       if (dur) {
         sleepDurationBox.style.display = 'flex';
@@ -1494,7 +1668,6 @@
       } else {
         sleepDurationBox.style.display = 'none';
       }
-
       if (sleepQuality) {
         qualityName.textContent = SLEEP_QUALITY[sleepQuality - 1].name;
       } else {
@@ -1529,7 +1702,6 @@
       document.body.appendChild(backdrop);
       const input = backdrop.querySelector('#timeInput');
       setTimeout(() => input.focus(), 100);
-
       backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
       backdrop.querySelector('#saveBtn').onclick = () => {
         const val = input.value;
@@ -1542,9 +1714,7 @@
         backdrop.remove();
         tg.HapticFeedback?.notificationOccurred('success');
       };
-      backdrop.onclick = (e) => {
-        if (e.target === backdrop) backdrop.remove();
-      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
     function saveSleep() {
@@ -1565,10 +1735,7 @@
 
     function loadSleep() {
       tg.CloudStorage.getItem(SLEEP_KEY, (err, value) => {
-        if (err || !value) {
-          renderSleep();
-          return;
-        }
+        if (err || !value) { renderSleep(); return; }
         try {
           const data = JSON.parse(value);
           if (data.normMin != null) sleepNormMin = data.normMin;
@@ -1585,10 +1752,7 @@
           }
           renderSleep();
           updateHomeSleep();
-        } catch (e) {
-          console.warn('Parse error', e);
-          renderSleep();
-        }
+        } catch (e) { renderSleep(); }
       });
     }
 
@@ -1622,9 +1786,7 @@
         }
         backdrop.remove();
       };
-      backdrop.onclick = (e) => {
-        if (e.target === backdrop) backdrop.remove();
-      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
     /* ============ ИСТОРИЯ СНА ============ */
@@ -1669,28 +1831,26 @@
       const rows = days.map(d => {
         const entry = sleepHistory[d.date];
         if (!entry || (!entry.bedtime && !entry.wakeup && !entry.quality)) {
-          return `
-            <div class="wk-sleep-row empty">
-              <span class="wk-day">${d.name}</span>
-              <span class="wk-time">—</span>
-              <span class="wk-dur">—</span>
-              <span class="wk-qual">—</span>
-              <span class="wk-badge">—</span>
-            </div>`;
+          return `<div class="wk-sleep-row empty">
+            <span class="wk-day">${d.name}</span>
+            <span class="wk-time">—</span>
+            <span class="wk-dur">—</span>
+            <span class="wk-qual">—</span>
+            <span class="wk-badge">—</span>
+          </div>`;
         }
         const dur = entry.duration;
         const durStr = dur ? formatDuration(dur) : '—';
         const ok = dur ? checkNorm(dur) : false;
         const badge = dur ? (ok ? '✅' : '⚠️') : '—';
         const q = entry.quality ? SLEEP_QUALITY[entry.quality - 1].emoji : '—';
-        return `
-          <div class="wk-sleep-row">
-            <span class="wk-day">${d.name}</span>
-            <span class="wk-time">${entry.bedtime || '—'} → ${entry.wakeup || '—'}</span>
-            <span class="wk-dur">${durStr}</span>
-            <span class="wk-qual">${q}</span>
-            <span class="wk-badge">${badge}</span>
-          </div>`;
+        return `<div class="wk-sleep-row">
+          <span class="wk-day">${d.name}</span>
+          <span class="wk-time">${entry.bedtime || '—'} → ${entry.wakeup || '—'}</span>
+          <span class="wk-dur">${durStr}</span>
+          <span class="wk-qual">${q}</span>
+          <span class="wk-badge">${badge}</span>
+        </div>`;
       }).join('');
 
       const filled = days.map(d => sleepHistory[d.date]).filter(e => e && e.duration);
@@ -1702,40 +1862,22 @@
         const avgQ = withQ.length > 0
           ? (withQ.reduce((s, e) => s + e.quality, 0) / withQ.length).toFixed(1)
           : '—';
-        stats = `
-          <div class="wk-stats">
-            <div class="wk-stat">
-              <div class="wk-stat-val">${formatDuration(avgDur)}</div>
-              <div class="wk-stat-label">Средняя длит.</div>
-            </div>
-            <div class="wk-stat">
-              <div class="wk-stat-val">${avgQ}</div>
-              <div class="wk-stat-label">Средн. качество</div>
-            </div>
-            <div class="wk-stat">
-              <div class="wk-stat-val">${inNorm}/${filled.length}</div>
-              <div class="wk-stat-label">Дней в норме</div>
-            </div>
-          </div>
-        `;
+        stats = `<div class="wk-stats">
+          <div class="wk-stat"><div class="wk-stat-val">${formatDuration(avgDur)}</div><div class="wk-stat-label">Средняя длит.</div></div>
+          <div class="wk-stat"><div class="wk-stat-val">${avgQ}</div><div class="wk-stat-label">Средн. качество</div></div>
+          <div class="wk-stat"><div class="wk-stat-val">${inNorm}/${filled.length}</div><div class="wk-stat-label">Дней в норме</div></div>
+        </div>`;
       }
 
       container.innerHTML = `
         <div class="wk-sleep-header">
-          <span class="wk-day">День</span>
-          <span class="wk-time">Время</span>
-          <span class="wk-dur">Длит.</span>
-          <span class="wk-qual">Кач.</span>
-          <span class="wk-badge"></span>
-        </div>
-        ${rows}
-        ${stats}
-      `;
+          <span class="wk-day">День</span><span class="wk-time">Время</span>
+          <span class="wk-dur">Длит.</span><span class="wk-qual">Кач.</span><span class="wk-badge"></span>
+        </div>${rows}${stats}`;
     }
 
-    /* ============ НАСТРОЕНИЕ + ДНЕВНИК ============ */
+    /* ============ НАСТРОЕНИЕ ============ */
     const MOOD_HISTORY_KEY = 'mood_history_v1';
-
     const MOOD_LEVELS = [
       { emoji: '😭', name: 'Ужасно' },
       { emoji: '😢', name: 'Очень плохо' },
@@ -1748,7 +1890,6 @@
       { emoji: '😄', name: 'Супер' },
       { emoji: '🤩', name: 'Великолепно' },
     ];
-
     let moodHistory = {};
     let moodViewDate = getLogicalDate();
     let noteDebounce = null;
@@ -1768,7 +1909,6 @@
       const currentEntry = moodHistory[moodViewDate];
       const currentMood = currentEntry?.mood || null;
       const isToday = moodViewDate === getLogicalDate();
-
       MOOD_LEVELS.forEach((lvl, i) => {
         const level = i + 1;
         const btn = document.createElement('button');
@@ -1780,7 +1920,6 @@
         btn.onclick = () => selectMood(level);
         (i < 5 ? moodScaleRow1 : moodScaleRow2).appendChild(btn);
       });
-
       moodSelectedName.innerHTML = currentMood
         ? `Настроение: <b>${MOOD_LEVELS[currentMood - 1].name}</b>`
         : 'Настроение не выбрано';
@@ -1799,9 +1938,8 @@
     function renderMoodDate() {
       const today = getLogicalDate();
       const isToday = moodViewDate === today;
-      if (isToday) {
-        moodDateLabel.textContent = 'Сегодня';
-      } else {
+      if (isToday) moodDateLabel.textContent = 'Сегодня';
+      else {
         const d = new Date(moodViewDate + 'T12:00:00');
         moodDateLabel.textContent = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
       }
@@ -1856,9 +1994,7 @@
 
     function saveMoodHistory() {
       const keys = Object.keys(moodHistory).sort();
-      if (keys.length > 60) {
-        keys.slice(0, keys.length - 60).forEach(k => delete moodHistory[k]);
-      }
+      if (keys.length > 60) keys.slice(0, keys.length - 60).forEach(k => delete moodHistory[k]);
       tg.CloudStorage.setItem(MOOD_HISTORY_KEY, JSON.stringify(moodHistory), (err) => {
         if (err) console.warn('Mood save error', err);
       });
@@ -1885,45 +2021,321 @@
       if (!container) return;
       const days = getWeekDays();
       let totalMood = 0, moodCount = 0;
-
       const rows = days.map(d => {
         const entry = moodHistory[d.date];
         if (!entry || !entry.mood) {
-          return `
-            <div class="mood-week-row empty">
-              <span class="mood-emoji">—</span>
-              <span>${d.name}</span>
-              <span class="mood-note">—</span>
-            </div>`;
+          return `<div class="mood-week-row empty">
+            <span class="mood-emoji">—</span>
+            <span>${d.name}</span>
+            <span class="mood-note">—</span>
+          </div>`;
         }
         totalMood += entry.mood;
         moodCount++;
         const emoji = MOOD_LEVELS[entry.mood - 1].emoji;
         const note = entry.note ? entry.note : '';
-        return `
-          <div class="mood-week-row">
-            <span class="mood-emoji">${emoji}</span>
-            <span>${d.name}</span>
-            <span class="mood-note">${escapeHtml(note)}</span>
-          </div>`;
+        return `<div class="mood-week-row">
+          <span class="mood-emoji">${emoji}</span>
+          <span>${d.name}</span>
+          <span class="mood-note">${escapeHtml(note)}</span>
+        </div>`;
       }).join('');
-
       const stats = moodCount > 0
-        ? `<div class="mood-week-stats">
-             <span>Среднее за неделю:</span>
-             <span class="val">${(totalMood / moodCount).toFixed(1)} / 10</span>
-           </div>`
+        ? `<div class="mood-week-stats"><span>Среднее за неделю:</span><span class="val">${(totalMood / moodCount).toFixed(1)} / 10</span></div>`
         : '';
-
       container.innerHTML = rows + stats;
     }
 
-    function escapeHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+    /* ============ ПИТАНИЕ ============ */
+    const FOOD_KEY = 'food_v1';
+    const FOOD_HISTORY_KEY = 'food_history_v1';
+
+    let foodCalories = 0;
+    let foodCalGoal = null;      // null = без цели
+    let foodMeals = { breakfast: false, lunch: false, dinner: false, snack: false };
+    let foodCooked = 0;
+    let foodCafe = 0;
+    let foodNote = '';
+    let foodHistory = {};
+    let foodNoteDebounce = null;
+
+    const foodCaloriesInput = document.getElementById('foodCaloriesInput');
+    const foodCalBar = document.getElementById('foodCalBar');
+    const foodCalBarFill = document.getElementById('foodCalBarFill');
+    const foodCalGoal = document.getElementById('foodCalGoal');
+    const foodCookedVal = document.getElementById('foodCookedVal');
+    const foodCafeVal = document.getElementById('foodCafeVal');
+    const foodNoteField = document.getElementById('foodNoteField');
+    const foodNoteStatus = document.getElementById('foodNoteStatus');
+
+    function renderFood(animate = true) {
+      // Калории
+      if (document.activeElement !== foodCaloriesInput) {
+        foodCaloriesInput.value = foodCalories || '';
+      }
+      // Прогресс-бар
+      if (foodCalGoal && foodCalGoal > 0) {
+        foodCalBar.style.display = 'block';
+        foodCalGoal.style.display = 'block';
+        const pct = Math.min(foodCalories / foodCalGoal, 1);
+        foodCalBarFill.style.width = (pct * 100) + '%';
+        foodCalGoal.textContent = `Цель: ${foodCalGoal} ккал`;
+      } else {
+        foodCalBar.style.display = 'none';
+        foodCalGoal.style.display = 'none';
+      }
+
+      // Приёмы пищи
+      document.querySelectorAll('.food-meal-btn').forEach(btn => {
+        btn.classList.toggle('done', !!foodMeals[btn.dataset.meal]);
+      });
+
+      // Счётчики
+      foodCookedVal.textContent = foodCooked;
+      foodCafeVal.textContent = foodCafe;
+
+      // Заметка
+      if (document.activeElement !== foodNoteField) {
+        foodNoteField.value = foodNote || '';
+      }
+
+      updateHomeFood();
+    }
+
+    function updateHomeFood() {
+      const homeVal = document.getElementById('homeFoodValue');
+      if (!homeVal) return;
+      const mealsCount = Object.values(foodMeals).filter(Boolean).length;
+      if (foodCalories || mealsCount) {
+        homeVal.textContent = `${foodCalories} ккал · ${mealsCount} приёма`;
+      } else {
+        homeVal.textContent = '—';
+      }
+    }
+
+    function saveFood() {
+      // Сохраняем в основной ключ
+      const data = JSON.stringify({
+        date: getLogicalDate(),
+        calories: foodCalories,
+        goal: foodCalGoal,
+        meals: foodMeals,
+        cooked: foodCooked,
+        cafe: foodCafe,
+        note: foodNote,
+        dayStartHour
+      });
+      tg.CloudStorage.setItem(FOOD_KEY, data, (err) => {
+        if (err) console.warn('Food save error', err);
+      });
+      // Обновляем историю
+      updateFoodHistory();
+    }
+
+    function loadFood() {
+      tg.CloudStorage.getItem(FOOD_KEY, (err, value) => {
+        if (err || !value) { renderFood(); return; }
+        try {
+          const data = JSON.parse(value);
+          if (data.goal != null) foodCalGoal = data.goal;
+          if (data.dayStartHour != null) dayStartHour = data.dayStartHour;
+          if (data.date === getLogicalDate()) {
+            foodCalories = data.calories || 0;
+            foodMeals = data.meals || { breakfast: false, lunch: false, dinner: false, snack: false };
+            foodCooked = data.cooked || 0;
+            foodCafe = data.cafe || 0;
+            foodNote = data.note || '';
+          } else {
+            foodCalories = 0;
+            foodMeals = { breakfast: false, lunch: false, dinner: false, snack: false };
+            foodCooked = 0;
+            foodCafe = 0;
+            foodNote = '';
+          }
+          renderFood();
+        } catch (e) { renderFood(); }
+      });
+    }
+
+    // Калории — ввод
+    foodCaloriesInput.addEventListener('input', () => {
+      const v = parseInt(foodCaloriesInput.value, 10);
+      foodCalories = isNaN(v) ? 0 : Math.max(0, v);
+      saveFood();
+      updateHomeFood();
+      renderFood(false);
+    });
+
+    function addCalories(amount) {
+      foodCalories = Math.max(0, foodCalories + amount);
+      foodCaloriesInput.value = foodCalories;
+      saveFood();
+      renderFood();
+      tg.HapticFeedback?.impactOccurred('light');
+    }
+
+    // Приёмы пищи
+    function toggleMeal(meal) {
+      foodMeals[meal] = !foodMeals[meal];
+      saveFood();
+      renderFood();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    // Счётчики
+    function changeFoodCounter(type, delta) {
+      if (type === 'cooked') foodCooked = Math.max(0, foodCooked + delta);
+      else foodCafe = Math.max(0, foodCafe + delta);
+      saveFood();
+      renderFood();
+      tg.HapticFeedback?.impactOccurred('light');
+    }
+
+    // Заметка
+    foodNoteField.addEventListener('input', () => {
+      foodNoteStatus.textContent = '...';
+      foodNoteStatus.classList.remove('saved');
+      clearTimeout(foodNoteDebounce);
+      foodNoteDebounce = setTimeout(() => {
+        foodNote = foodNoteField.value.trim();
+        saveFood();
+        foodNoteStatus.textContent = 'Сохранено ✓';
+        foodNoteStatus.classList.add('saved');
+        setTimeout(() => {
+          if (foodNoteStatus.textContent === 'Сохранено ✓') {
+            foodNoteStatus.textContent = '';
+            foodNoteStatus.classList.remove('saved');
+          }
+        }, 2000);
+      }, 1000);
+    });
+
+    // Настройки питания
+    function openFoodSettings() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      const goalVal = foodCalGoal == null ? '' : foodCalGoal;
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>⚙️ Настройки питания</h3>
+          <label>Цель по калориям (ккал)</label>
+          <input type="number" id="calGoalInput" min="0" max="20000" step="50" value="${goalVal}" placeholder="Оставь пустым — без цели">
+          <div class="modal-hint">Оставь пустым, чтобы не отслеживать процент выполнения.</div>
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const v = backdrop.querySelector('#calGoalInput').value.trim();
+        if (v === '') foodCalGoal = null;
+        else {
+          const n = parseInt(v, 10);
+          if (!isNaN(n) && n > 0) foodCalGoal = n;
+        }
+        saveFood();
+        renderFood();
+        backdrop.remove();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    /* ============ ИСТОРИЯ ПИТАНИЯ ============ */
+    function saveFoodHistory() {
+      const keys = Object.keys(foodHistory).sort();
+      if (keys.length > 60) keys.slice(0, keys.length - 60).forEach(k => delete foodHistory[k]);
+      tg.CloudStorage.setItem(FOOD_HISTORY_KEY, JSON.stringify(foodHistory), (err) => {
+        if (err) console.warn('Food history save error', err);
+      });
+    }
+
+    function loadFoodHistory(cb) {
+      tg.CloudStorage.getItem(FOOD_HISTORY_KEY, (err, value) => {
+        if (err || !value) { foodHistory = {}; cb && cb(); return; }
+        try { foodHistory = JSON.parse(value) || {}; }
+        catch (e) { foodHistory = {}; }
+        cb && cb();
+      });
+    }
+
+    function updateFoodHistory() {
+      const date = getLogicalDate();
+      const mealsCount = Object.values(foodMeals).filter(Boolean).length;
+      if (foodCalories || mealsCount || foodCooked || foodCafe || foodNote) {
+        foodHistory[date] = {
+          calories: foodCalories,
+          meals: { ...foodMeals },
+          mealsCount,
+          cooked: foodCooked,
+          cafe: foodCafe,
+          note: foodNote
+        };
+      } else {
+        delete foodHistory[date];
+      }
+      saveFoodHistory();
+    }
+
+    function renderWeekFood() {
+      const container = document.getElementById('weekFoodTable');
+      if (!container) return;
+      const days = getWeekDays();
+
+      const rows = days.map(d => {
+        const entry = foodHistory[d.date];
+        if (!entry || (!entry.calories && !entry.mealsCount)) {
+          return `<div class="wk-food-row empty">
+            <span class="wk-day">${d.name}</span>
+            <span class="wk-food-meals">—</span>
+            <span class="wk-food-kcal">—</span>
+            <span class="wk-food-meals">—</span>
+          </div>`;
+        }
+        return `<div class="wk-food-row">
+          <span class="wk-day">${d.name}</span>
+          <span class="wk-food-kcal">${entry.calories || 0}</span>
+          <span class="wk-food-meals">${entry.mealsCount || 0}</span>
+          <span class="wk-food-meals">${entry.cooked || 0}/${entry.cafe || 0}</span>
+        </div>`;
+      }).join('');
+
+      const filled = days.map(d => foodHistory[d.date]).filter(e => e && e.calories);
+      let stats = '';
+      if (filled.length > 0) {
+        const avgCal = Math.round(filled.reduce((s, e) => s + e.calories, 0) / filled.length);
+        const totalMeals = filled.reduce((s, e) => s + (e.mealsCount || 0), 0);
+        stats = `<div class="wk-food-stats">
+          <div class="wk-food-stat"><div class="wk-food-stat-val">${avgCal}</div><div class="wk-food-stat-label">Средн. ккал</div></div>
+          <div class="wk-food-stat"><div class="wk-food-stat-val">${totalMeals}</div><div class="wk-food-stat-label">Всего приёмов</div></div>
+        </div>`;
+      }
+
+      // Блюда по дням
+      const dishes = days.map(d => {
+        const entry = foodHistory[d.date];
+        if (!entry || !entry.note) return '';
+        return `<div class="wk-food-dish-day"><b>${d.name}:</b><span>${escapeHtml(entry.note)}</span></div>`;
+      }).filter(Boolean).join('');
+
+      const dishesBlock = dishes
+        ? `<div class="wk-food-dishes"><div class="wk-food-dishes-title">Что кушал</div>${dishes}</div>`
+        : '';
+
+      container.innerHTML = `
+        <div class="wk-food-header">
+          <span class="wk-day">День</span>
+          <span class="wk-food-kcal">Ккал</span>
+          <span class="wk-food-meals">Приёмы</span>
+          <span class="wk-food-meals">Гот/Кафе</span>
+        </div>
+        ${rows}
+        ${stats}
+        ${dishesBlock}
+      `;
     }
 
     /* ============ СТАРТ ============ */
@@ -1937,6 +2349,10 @@
       updateHomeMood();
       renderWeekMood();
     });
+    loadFoodHistory(() => {
+      renderWeekFood();
+    });
+    loadFood();
   </script>
 </body>
 </html>
