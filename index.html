@@ -384,33 +384,40 @@
       box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35);
     }
     .food-meal-btn.done .meal-name { color: rgba(20, 17, 15, 0.8); }
+
+    /* КОМПАКТНЫЕ СЧЁТЧИКИ */
     .food-counters {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-      margin-bottom: 14px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      margin-bottom: 12px;
     }
     .food-counter {
       background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px 12px;
+      border-radius: 10px; padding: 6px 10px;
       display: flex; align-items: center; justify-content: space-between;
-      gap: 8px;
+      gap: 4px;
+      font-size: 12px;
+      min-height: 36px;
     }
     .food-counter .c-label {
-      font-size: 12px; color: var(--text-dim);
-      display: flex; align-items: center; gap: 4px;
+      font-size: 11px; color: var(--text-dim);
+      display: flex; align-items: center; gap: 3px;
       flex: 1; min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .food-counter .c-controls { display: flex; align-items: center; gap: 4px; }
+    .food-counter .c-controls { display: flex; align-items: center; gap: 2px; }
     .food-counter .c-btn {
-      width: 28px; height: 28px; border-radius: 8px;
+      width: 22px; height: 22px; border-radius: 6px;
       border: 1px solid var(--border); background: var(--card);
-      color: var(--text); font-size: 16px; font-weight: 700;
+      color: var(--text); font-size: 13px; font-weight: 700;
       cursor: pointer; display: flex; align-items: center;
       justify-content: center; font-family: inherit;
       padding: 0; line-height: 1;
     }
     .food-counter .c-btn:active { transform: scale(0.9); }
     .food-counter .c-val {
-      font-size: 16px; font-weight: 700; min-width: 22px;
+      font-size: 13px; font-weight: 700; min-width: 16px;
       text-align: center; font-variant-numeric: tabular-nums;
     }
 
