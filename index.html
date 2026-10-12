@@ -31,6 +31,8 @@
       --sport-grad: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
       --read: #60a5fa;
       --read-grad: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
+      --steps: #22c55e;
+      --steps-grad: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
     }
 
     html, body {
@@ -110,13 +112,17 @@
     .summary-row {
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 0; border-bottom: 1px solid var(--border);
+      cursor: default;
     }
     .summary-row:last-child { border-bottom: none; }
+    .summary-row.clickable { cursor: pointer; }
+    .summary-row.clickable:active { opacity: 0.7; }
     .summary-row .label {
       display: flex; align-items: center; gap: 10px; font-size: 15px;
     }
     .summary-row .value {
       font-size: 15px; font-weight: 600; color: var(--accent);
+      display: flex; align-items: center; gap: 8px;
     }
 
     .card-head {
@@ -206,6 +212,126 @@
     }
     .water-buttons button.reset {
       grid-column: span 3; color: var(--text-dim); font-size: 13px;
+    }
+
+    /* ШАГИ */
+    .steps-body {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px; padding: 8px 0;
+    }
+    .steps-ring-wrap {
+      position: relative;
+      width: 150px; height: 150px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .steps-ring-svg {
+      width: 100%; height: 100%;
+      transform: rotate(-90deg);
+      transition: filter 0.6s;
+    }
+    .steps-ring-bg {
+      fill: none;
+      stroke: rgba(255,255,255,0.08);
+      stroke-width: 12;
+    }
+    .steps-ring-fill {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  stroke 0.4s;
+    }
+    .steps-ring-wrap.celebrating {
+      animation: stepsGlow 1s ease-in-out infinite alternate;
+    }
+    @keyframes stepsGlow {
+      from { filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6)); }
+      to   { filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.9)); }
+    }
+    .steps-ring-center {
+      position: absolute;
+      text-align: center;
+      pointer-events: none;
+    }
+    .steps-ring-center .st-num {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+    .steps-ring-center .st-goal {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 3px;
+    }
+    .steps-ring-center .st-pct {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--steps);
+      margin-top: 2px;
+    }
+    .steps-input-row {
+      display: flex; gap: 6px; width: 100%;
+      align-items: stretch;
+    }
+    .steps-input {
+      flex: 1;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 12px; color: var(--text);
+      font-size: 16px; font-weight: 700; font-family: inherit;
+      outline: none; text-align: center;
+      transition: border-color 0.2s;
+      font-variant-numeric: tabular-nums;
+      min-width: 0;
+    }
+    .steps-input:focus { border-color: var(--steps); }
+    .steps-input::placeholder { color: var(--text-dim); font-weight: 500; font-size: 13px; }
+    .steps-quick {
+      background: var(--card-2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 12px; padding: 0 10px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      transition: transform 0.1s, background 0.2s;
+      font-family: inherit; white-space: nowrap;
+    }
+    .steps-quick:active {
+      transform: scale(0.95); background: var(--steps); color: #14110f;
+    }
+    .steps-buttons {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 100%;
+    }
+    .steps-buttons button {
+      background: var(--card-2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: transform 0.1s, background 0.2s;
+      font-family: inherit;
+    }
+    .steps-buttons button:active {
+      transform: scale(0.95); background: var(--steps); color: #14110f;
+    }
+    .steps-remain {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .steps-remain.done {
+      color: var(--steps);
+      font-weight: 600;
+    }
+
+    /* Мини-круг для главной */
+    .mini-ring {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
+    }
+    .mini-ring svg { display: block; }
+    .mini-ring .mr-bg {
+      fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 4;
+    }
+    .mini-ring .mr-fill {
+      fill: none; stroke-width: 4;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s, stroke 0.4s;
     }
 
     /* СОН */
@@ -424,120 +550,7 @@
       font-size: 13px; font-weight: 700; min-width: 16px;
       text-align: center; font-variant-numeric: tabular-nums;
     }
-    /* ТАБЛИЦЫ */
-    .wk-sleep-header, .wk-sleep-row {
-      display: grid;
-      grid-template-columns: 34px 1fr 60px 40px 30px;
-      gap: 6px;
-      padding: 10px 8px;
-      font-size: 12px;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-      min-height: 36px;
-    }
-    .wk-sleep-header {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      background: var(--card-2);
-      border-radius: 8px 8px 0 0;
-      padding: 10px 8px;
-    }
-    .wk-sleep-row:last-child { border-bottom: none; }
-    .wk-sleep-row { font-variant-numeric: tabular-nums; }
-    .wk-sleep-row.empty { opacity: 0.4; }
-    .wk-day { font-weight: 600; }
-    .wk-time { color: var(--text-dim); font-size: 11px; }
-    .wk-dur { font-weight: 600; }
-    .wk-qual { text-align: center; font-size: 14px; }
-    .wk-badge { text-align: right; font-size: 12px; }
-    .wk-stats {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px; margin-top: 14px; padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-    .wk-stat {
-      text-align: center; background: var(--card-2);
-      border-radius: 10px; padding: 10px 6px;
-    }
-    .wk-stat-val { font-size: 15px; font-weight: 700; color: var(--sleep); }
-    .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
-    .mood-week-row {
-      display: grid;
-      grid-template-columns: 40px 32px 1fr;
-      gap: 10px;
-      align-items: center;
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
-      min-height: 36px;
-    }
-    .mood-week-row:last-of-type { border-bottom: none; }
-    .mood-week-row .mood-emoji { font-size: 20px; text-align: center; line-height: 1; }
-    .mood-week-row .mood-note {
-      color: var(--text-dim); font-size: 12px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .mood-week-row.empty { opacity: 0.4; }
-    .mood-week-stats {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 12px; padding: 10px 14px;
-      background: var(--card-2); border-radius: 12px; font-size: 13px;
-    }
-    .mood-week-stats .val { font-weight: 700; color: var(--accent); }
-
-    .wk-food-header, .wk-food-row {
-      display: grid;
-      grid-template-columns: 40px 60px 1fr 60px;
-      gap: 6px;
-      padding: 10px 8px;
-      font-size: 12px;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-      min-height: 36px;
-    }
-    .wk-food-header {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      background: var(--card-2);
-      border-radius: 8px 8px 0 0;
-    }
-    .wk-food-row:last-of-type { border-bottom: none; }
-    .wk-food-row { font-variant-numeric: tabular-nums; }
-    .wk-food-row.empty { opacity: 0.4; }
-    .wk-food-kcal { font-weight: 700; text-align: right; }
-    .wk-food-meals { text-align: center; color: var(--text-dim); }
-    .wk-food-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-top: 14px; padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-    .wk-food-stat {
-      text-align: center; background: var(--card-2);
-      border-radius: 10px; padding: 10px 6px;
-    }
-    .wk-food-stat-val { font-size: 15px; font-weight: 700; color: var(--food); }
-    .wk-food-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-    .wk-food-dishes {
-      margin-top: 16px; padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-    .wk-food-dishes-title {
-      font-size: 12px; color: var(--text-dim);
-      text-transform: uppercase; letter-spacing: 0.3px;
-      font-weight: 600; margin-bottom: 10px;
-    }
-    .wk-food-dish-day {
-      margin-bottom: 10px; font-size: 13px; line-height: 1.4;
-    }
-    .wk-food-dish-day b { color: var(--food); margin-right: 6px; }
-    .wk-food-dish-day span { color: var(--text-dim); }
     /* ПРИВЫЧКИ */
     .habit-block { margin-bottom: 14px; }
     .habit-block-head {
@@ -690,7 +703,7 @@
       font-size: 14px; font-weight: 700;
     }
 
-    /* СПОРТ / ЧТЕНИЕ — карточки */
+    /* СПОРТ / ЧТЕНИЕ / ШАГИ — карточки */
     .week-day-row {
       display: flex;
       align-items: flex-start;
@@ -704,13 +717,13 @@
       transition: background 0.2s, transform 0.1s;
     }
     .week-day-row:active { transform: scale(0.99); }
-    .week-day-row.empty {
-      opacity: 0.45;
-    }
+    .week-day-row.empty { opacity: 0.45; }
     .week-day-row.done {
       border-color: rgba(74, 222, 128, 0.3);
       background: rgba(74, 222, 128, 0.05);
     }
+    .week-day-row.no-click { cursor: default; }
+    .week-day-row.no-click:active { transform: none; }
     .week-day-name {
       font-weight: 700;
       font-size: 13px;
@@ -724,14 +737,8 @@
       line-height: 1.4;
       word-break: break-word;
     }
-    .week-day-content .emoji {
-      font-size: 16px;
-      margin-right: 4px;
-    }
-    .week-day-content .label {
-      color: var(--text-dim);
-      font-size: 12px;
-    }
+    .week-day-content .emoji { font-size: 16px; margin-right: 4px; }
+    .week-day-content .label { color: var(--text-dim); font-size: 12px; }
     .week-day-content .exercise-line {
       display: block;
       font-size: 12px;
@@ -739,9 +746,16 @@
       padding-left: 4px;
       margin-top: 2px;
     }
-    .week-day-content .exercise-line b {
-      color: var(--text);
+    .week-day-content .exercise-line b { color: var(--text); font-weight: 600; }
+    .week-day-content .steps-val {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .week-day-content .steps-pct {
+      color: var(--steps);
+      font-size: 12px;
       font-weight: 600;
+      margin-left: 4px;
     }
 
     .week-summary-mini {
@@ -753,6 +767,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
+    .week-summary-mini.three { grid-template-columns: 1fr 1fr 1fr; }
     .week-summary-mini .ws-item {
       background: var(--card-2);
       border-radius: 10px;
@@ -766,10 +781,43 @@
     }
     .week-summary-mini .ws-val.sport { color: var(--sport); }
     .week-summary-mini .ws-val.read { color: var(--read); }
+    .week-summary-mini .ws-val.steps { color: var(--steps); }
     .week-summary-mini .ws-label {
       font-size: 10px;
       color: var(--text-dim);
       margin-top: 2px;
+    }
+
+    /* Шаги за неделю — общий прогресс */
+    .steps-week-progress {
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      background: var(--card-2);
+      border-radius: 12px;
+    }
+    .steps-week-progress .swp-top {
+      display: flex; justify-content: space-between;
+      font-size: 13px; margin-bottom: 8px;
+    }
+    .steps-week-progress .swp-top .val {
+      font-weight: 700;
+    }
+    .steps-week-progress .swp-top .pct {
+      color: var(--steps);
+      font-weight: 700;
+    }
+    .steps-week-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .steps-week-bar-fill {
+      height: 100%;
+      background: var(--steps-grad);
+      border-radius: 4px;
+      width: 0;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     /* Модалка */
@@ -862,7 +910,7 @@
     .add-habit-btn:active { background: var(--card-2); }
     .add-habit-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--text-dim); }
 
-    /* Модалка спорта — виды */
+    /* Модалка спорта */
     .modal .type-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -914,7 +962,6 @@
       margin-bottom: 8px;
     }
 
-    /* Упражнения */
     .exercise-item {
       background: var(--card-2);
       border: 1px solid var(--border);
@@ -958,20 +1005,8 @@
       font-family: inherit;
       padding: 0; line-height: 1;
     }
-    .exercise-item .ex-last-hint {
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-top: 4px;
-      font-style: italic;
-    }
 
-    /* Смайлики — большие кнопки */
-    .emoji-scale {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-bottom: 8px;
-    }
+    /* Смайлики */
     .emoji-scale-10 {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -998,6 +1033,121 @@
       transform: scale(1.05);
     }
     .emoji-btn.selected .e-num { color: rgba(20,17,15,0.8); }
+
+    /* ТАБЛИЦЫ */
+    .wk-sleep-header, .wk-sleep-row {
+      display: grid;
+      grid-template-columns: 34px 1fr 60px 40px 30px;
+      gap: 6px;
+      padding: 10px 8px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      min-height: 36px;
+    }
+    .wk-sleep-header {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: var(--card-2);
+      border-radius: 8px 8px 0 0;
+      padding: 10px 8px;
+    }
+    .wk-sleep-row:last-child { border-bottom: none; }
+    .wk-sleep-row { font-variant-numeric: tabular-nums; }
+    .wk-sleep-row.empty { opacity: 0.4; }
+    .wk-day { font-weight: 600; }
+    .wk-time { color: var(--text-dim); font-size: 11px; }
+    .wk-dur { font-weight: 600; }
+    .wk-qual { text-align: center; font-size: 14px; }
+    .wk-badge { text-align: right; font-size: 12px; }
+    .wk-stats {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-stat {
+      text-align: center; background: var(--card-2);
+      border-radius: 10px; padding: 10px 6px;
+    }
+    .wk-stat-val { font-size: 15px; font-weight: 700; color: var(--sleep); }
+    .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    .mood-week-row {
+      display: grid;
+      grid-template-columns: 40px 32px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      min-height: 36px;
+    }
+    .mood-week-row:last-of-type { border-bottom: none; }
+    .mood-week-row .mood-emoji { font-size: 20px; text-align: center; line-height: 1; }
+    .mood-week-row .mood-note {
+      color: var(--text-dim); font-size: 12px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .mood-week-row.empty { opacity: 0.4; }
+    .mood-week-stats {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 12px; padding: 10px 14px;
+      background: var(--card-2); border-radius: 12px; font-size: 13px;
+    }
+    .mood-week-stats .val { font-weight: 700; color: var(--accent); }
+
+    .wk-food-header, .wk-food-row {
+      display: grid;
+      grid-template-columns: 40px 60px 1fr 60px;
+      gap: 6px;
+      padding: 10px 8px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      min-height: 36px;
+    }
+    .wk-food-header {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: var(--card-2);
+      border-radius: 8px 8px 0 0;
+    }
+    .wk-food-row:last-of-type { border-bottom: none; }
+    .wk-food-row { font-variant-numeric: tabular-nums; }
+    .wk-food-row.empty { opacity: 0.4; }
+    .wk-food-kcal { font-weight: 700; text-align: right; }
+    .wk-food-meals { text-align: center; color: var(--text-dim); }
+    .wk-food-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-food-stat {
+      text-align: center; background: var(--card-2);
+      border-radius: 10px; padding: 10px 6px;
+    }
+    .wk-food-stat-val { font-size: 15px; font-weight: 700; color: var(--food); }
+    .wk-food-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+    .wk-food-dishes {
+      margin-top: 16px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-food-dishes-title {
+      font-size: 12px; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.3px;
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .wk-food-dish-day {
+      margin-bottom: 10px; font-size: 13px; line-height: 1.4;
+    }
+    .wk-food-dish-day b { color: var(--food); margin-right: 6px; }
+    .wk-food-dish-day span { color: var(--text-dim); }
 
     /* МЕНЮ */
     .tabbar {
@@ -1043,11 +1193,12 @@
         </div>
         <div class="card">
           <div class="card-title"><span class="icon">📋</span> Сводка дня</div>
-          <div class="summary-row"><div class="label"><span>💧</span> Вода</div><div class="value" id="homeWaterValue">— / —</div></div>
-          <div class="summary-row"><div class="label"><span>😴</span> Сон</div><div class="value" id="homeSleepValue">—</div></div>
-          <div class="summary-row"><div class="label"><span>😊</span> Настроение</div><div class="value" id="homeMoodValue">—</div></div>
-          <div class="summary-row"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
-          <div class="summary-row"><div class="label"><span>✅</span> Привычки</div><div class="value" id="homeHabitsValue">— / —</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>💧</span> Вода</div><div class="value" id="homeWaterValue">— / —</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>👟</span> Шаги</div><div class="value" id="homeStepsValue">— / —</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>😴</span> Сон</div><div class="value" id="homeSleepValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>😊</span> Настроение</div><div class="value" id="homeMoodValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>✅</span> Привычки</div><div class="value" id="homeHabitsValue">— / —</div></div>
         </div>
         <div class="placeholder">
           <span class="big">✨</span>
@@ -1110,6 +1261,40 @@
             <button onclick="addWater(250)">+250</button>
             <button onclick="addWater(500)">+500</button>
             <button class="reset" onclick="resetWater()">Сбросить</button>
+          </div>
+        </div>
+
+        <!-- ШАГИ -->
+        <div class="card">
+          <div class="card-head">
+            <div class="title"><span>👟</span> Шаги</div>
+            <button class="gear-btn" onclick="openStepsSettings()">⚙️</button>
+          </div>
+          <div class="steps-body">
+            <div class="steps-ring-wrap" id="stepsRingWrap">
+              <svg class="steps-ring-svg" viewBox="0 0 150 150">
+                <circle class="steps-ring-bg" cx="75" cy="75" r="62"/>
+                <circle class="steps-ring-fill" id="stepsRingFill" cx="75" cy="75" r="62"
+                        stroke="#22c55e"
+                        stroke-dasharray="389.5"
+                        stroke-dashoffset="389.5"/>
+              </svg>
+              <div class="steps-ring-center">
+                <div class="st-num" id="stepsNum">0</div>
+                <div class="st-goal">из <span id="stepsGoalSmall">10 000</span></div>
+                <div class="st-pct" id="stepsPct">0%</div>
+              </div>
+            </div>
+            <div class="steps-remain" id="stepsRemain">Осталось 10 000 шагов</div>
+            <div class="steps-input-row">
+              <input type="number" class="steps-input" id="stepsInput" placeholder="Введи число" min="0" max="200000" step="100">
+              <button class="steps-quick" onclick="setStepsFromInput()">ОК</button>
+            </div>
+            <div class="steps-buttons">
+              <button onclick="addSteps(500)">+500</button>
+              <button onclick="addSteps(1000)">+1000</button>
+              <button onclick="addSteps(5000)">+5000</button>
+            </div>
           </div>
         </div>
 
@@ -1231,7 +1416,7 @@
           </div>
         </div>
 
-        <!-- СПОРТ ЗА НЕДЕЛЮ -->
+        <!-- СПОРТ -->
         <div class="card">
           <div class="card-head">
             <div class="title"><span>🏃</span> Спорт за неделю</div>
@@ -1241,13 +1426,24 @@
           <div id="weekSportSummary"></div>
         </div>
 
-        <!-- ЧТЕНИЕ ЗА НЕДЕЛЮ -->
+        <!-- ЧТЕНИЕ -->
         <div class="card">
           <div class="card-head">
             <div class="title"><span>📚</span> Чтение за неделю</div>
           </div>
           <div id="weekReadList"></div>
           <div id="weekReadSummary"></div>
+        </div>
+
+        <!-- ШАГИ ЗА НЕДЕЛЮ -->
+        <div class="card">
+          <div class="card-head">
+            <div class="title"><span>👟</span> Шаги за неделю</div>
+            <button class="gear-btn" onclick="openStepsSettings()">⚙️</button>
+          </div>
+          <div class="steps-week-progress" id="stepsWeekProgress"></div>
+          <div id="weekStepsList"></div>
+          <div id="weekStepsSummary"></div>
         </div>
 
         <div class="card">
@@ -1335,6 +1531,7 @@
         renderWeekSummary();
         renderWeekSport();
         renderWeekRead();
+        renderWeekSteps();
         renderWeekSleep();
         renderWeekMood();
         renderWeekFood();
@@ -1374,6 +1571,10 @@
 
     function escapeHtml(s) {
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function formatNum(n) {
+      return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     }
 
     /* ВОДА */
@@ -1519,12 +1720,244 @@
         const newHour = parseInt(backdrop.querySelector('#hourInput').value.split(':')[0], 10);
         if (!isNaN(newGoal) && newGoal >= 500 && newGoal <= 6000) waterGoal = newGoal;
         if (!isNaN(newHour) && newHour >= 0 && newHour <= 12) dayStartHour = newHour;
-        saveWater(); saveSleep(); saveFood(); saveHabitsConfig();
+        saveWater(); saveSleep(); saveFood(); saveHabitsConfig(); saveSteps();
         renderWater();
         backdrop.remove();
         tg.HapticFeedback?.notificationOccurred('success');
       };
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    /* ШАГИ */
+    const STEPS_KEY = 'steps_v1';
+    const STEPS_HISTORY_KEY = 'steps_history_v1';
+    let stepsCurrent = 0;
+    let stepsGoal = 10000;
+    let stepsHistory = {};
+    const RING_RADIUS = 62;
+    const RING_CIRC = 2 * Math.PI * RING_RADIUS; // ~389.5
+
+    const stepsRingFill = document.getElementById('stepsRingFill');
+    const stepsRingWrap = document.getElementById('stepsRingWrap');
+    const stepsNumEl = document.getElementById('stepsNum');
+    const stepsGoalSmall = document.getElementById('stepsGoalSmall');
+    const stepsPctEl = document.getElementById('stepsPct');
+    const stepsRemain = document.getElementById('stepsRemain');
+    const stepsInput = document.getElementById('stepsInput');
+
+    function stepsColor(pct) {
+      // от оранжевого (мало) к зелёному (много)
+      // pct 0 → #f97316, pct 1 → #22c55e
+      const c1 = { r: 249, g: 115, b: 22 };
+      const c2 = { r: 34, g: 197, b: 94 };
+      const t = Math.max(0, Math.min(pct, 1));
+      const r = Math.round(c1.r + (c2.r - c1.r) * t);
+      const g = Math.round(c1.g + (c2.g - c1.g) * t);
+      const b = Math.round(c1.b + (c2.b - c1.b) * t);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function renderSteps(animate = true) {
+      const pct = Math.min(stepsCurrent / stepsGoal, 1);
+      const offset = RING_CIRC * (1 - pct);
+      if (!animate) stepsRingFill.style.transition = 'none';
+      stepsRingFill.setAttribute('stroke-dashoffset', offset);
+      stepsRingFill.setAttribute('stroke', stepsColor(pct));
+      stepsNumEl.textContent = formatNum(stepsCurrent);
+      stepsGoalSmall.textContent = formatNum(stepsGoal);
+      stepsPctEl.textContent = Math.round(pct * 100) + '%';
+      const remain = stepsGoal - stepsCurrent;
+      if (remain > 0) {
+        stepsRemain.textContent = `Осталось ${formatNum(remain)} шагов`;
+        stepsRemain.classList.remove('done');
+      } else {
+        stepsRemain.textContent = `Цель достигнута! +${formatNum(-remain)} шагов 💪`;
+        stepsRemain.classList.add('done');
+      }
+      // Поле ввода
+      if (document.activeElement !== stepsInput) stepsInput.value = stepsCurrent || '';
+
+      // Главная
+      const homeSteps = document.getElementById('homeStepsValue');
+      if (homeSteps) {
+        homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
+      }
+      if (!animate) requestAnimationFrame(() => { stepsRingFill.style.transition = ''; });
+    }
+
+    function miniRingSvg(pct) {
+      const p = Math.max(0, Math.min(pct, 1));
+      const r = 14;
+      const c = 2 * Math.PI * r;
+      const off = c * (1 - p);
+      const color = stepsColor(p);
+      return `<svg class="mini-ring" viewBox="0 0 36 36">
+        <circle class="mr-bg" cx="18" cy="18" r="${r}"/>
+        <circle class="mr-fill" cx="18" cy="18" r="${r}"
+          stroke="${color}"
+          stroke-dasharray="${c.toFixed(1)}"
+          stroke-dashoffset="${off.toFixed(1)}"
+          transform="rotate(-90 18 18)"/>
+      </svg>`;
+    }
+
+    function addSteps(n) {
+      const before = stepsCurrent;
+      stepsCurrent = Math.max(0, Math.min(stepsCurrent + n, 200000));
+      saveSteps();
+      renderSteps();
+      updateStepsHistory();
+      tg.HapticFeedback?.impactOccurred('light');
+      if (before < stepsGoal && stepsCurrent >= stepsGoal) celebrateSteps();
+    }
+
+    function setStepsFromInput() {
+      const v = parseInt(stepsInput.value, 10);
+      stepsCurrent = isNaN(v) ? 0 : Math.max(0, Math.min(v, 200000));
+      saveSteps();
+      renderSteps();
+      updateStepsHistory();
+      tg.HapticFeedback?.notificationOccurred('success');
+    }
+
+    function celebrateSteps() {
+      stepsRingWrap.classList.add('celebrating');
+      tg.HapticFeedback?.notificationOccurred('success');
+      const toast = document.createElement('div');
+      toast.textContent = '🎉 10 000 шагов!';
+      toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:linear-gradient(135deg,#22c55e,#4ade80);color:#14110f;padding:16px 24px;border-radius:16px;font-size:17px;font-weight:700;z-index:200;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 10px 40px rgba(0,0,0,0.5);text-align:center;';
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => { toast.style.transform = 'translate(-50%, -50%) scale(1)'; });
+      setTimeout(() => {
+        stepsRingWrap.classList.remove('celebrating');
+        toast.style.transform = 'translate(-50%, -50%) scale(0)';
+        setTimeout(() => toast.remove(), 400);
+      }, 2000);
+    }
+
+    function saveSteps() {
+      const data = JSON.stringify({ date: getLogicalDate(), current: stepsCurrent, goal: stepsGoal, dayStartHour });
+      tg.CloudStorage.setItem(STEPS_KEY, data, (err) => { if (err) console.warn(err); });
+    }
+
+    function loadSteps() {
+      tg.CloudStorage.getItem(STEPS_KEY, (err, value) => {
+        if (err || !value) { renderSteps(false); return; }
+        try {
+          const data = JSON.parse(value);
+          if (data.goal) stepsGoal = data.goal;
+          if (data.dayStartHour != null) dayStartHour = data.dayStartHour;
+          if (data.date === getLogicalDate()) stepsCurrent = data.current || 0;
+          else { stepsCurrent = 0; saveSteps(); }
+          renderSteps(false);
+        } catch (e) { renderSteps(false); }
+      });
+    }
+
+    function saveStepsHistory() {
+      const keys = Object.keys(stepsHistory).sort();
+      if (keys.length > 90) keys.slice(0, keys.length - 90).forEach(k => delete stepsHistory[k]);
+      tg.CloudStorage.setItem(STEPS_HISTORY_KEY, JSON.stringify(stepsHistory), (err) => { if (err) console.warn(err); });
+    }
+    function loadStepsHistory(cb) {
+      tg.CloudStorage.getItem(STEPS_HISTORY_KEY, (err, value) => {
+        if (err || !value) { stepsHistory = {}; cb && cb(); return; }
+        try { stepsHistory = JSON.parse(value) || {}; } catch (e) { stepsHistory = {}; }
+        cb && cb();
+      });
+    }
+    function updateStepsHistory() {
+      const date = getLogicalDate();
+      if (stepsCurrent > 0) stepsHistory[date] = stepsCurrent;
+      else delete stepsHistory[date];
+      saveStepsHistory();
+    }
+
+    function openStepsSettings() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>⚙️ Настройки шагов</h3>
+          <label>Цель в день (шагов)</label>
+          <input type="number" id="stepsGoalInput" min="1000" max="50000" step="500" value="${stepsGoal}">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const newGoal = parseInt(backdrop.querySelector('#stepsGoalInput').value, 10);
+        if (!isNaN(newGoal) && newGoal >= 1000 && newGoal <= 50000) stepsGoal = newGoal;
+        saveSteps();
+        renderSteps();
+        backdrop.remove();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function renderWeekSteps() {
+      const listEl = document.getElementById('weekStepsList');
+      const sumEl = document.getElementById('weekStepsSummary');
+      const progEl = document.getElementById('stepsWeekProgress');
+      if (!listEl) return;
+      const days = getWeekDays();
+
+      let html = '';
+      let total = 0, daysWithSteps = 0, best = 0, bestDay = '';
+
+      days.forEach(d => {
+        const val = stepsHistory[d.date] || 0;
+        total += val;
+        if (val > 0) daysWithSteps++;
+        if (val > best) { best = val; bestDay = d.name; }
+
+        const pct = Math.min(Math.round((val / stepsGoal) * 100), 999);
+        const done = val >= stepsGoal;
+
+        if (val === 0) {
+          html += `<div class="week-day-row empty no-click">
+            <div class="week-day-name">${d.name}</div>
+            <div class="week-day-content"><span class="label">—</span></div>
+          </div>`;
+        } else {
+          html += `<div class="week-day-row done no-click">
+            <div class="week-day-name">${d.name}</div>
+            <div class="week-day-content">
+              <span class="steps-val">${formatNum(val)}</span>
+              <span class="steps-pct">${pct}%${done ? ' ✅' : ''}</span>
+            </div>
+          </div>`;
+        }
+      });
+
+      listEl.innerHTML = html;
+
+      const weekGoal = stepsGoal * 7;
+      const weekPct = Math.min(Math.round((total / weekGoal) * 100), 999);
+
+      if (progEl) {
+        progEl.innerHTML = `
+          <div class="swp-top">
+            <span class="val">${formatNum(total)} / ${formatNum(weekGoal)}</span>
+            <span class="pct">${weekPct}%</span>
+          </div>
+          <div class="steps-week-bar">
+            <div class="steps-week-bar-fill" style="width: ${Math.min(weekPct, 100)}%"></div>
+          </div>
+        `;
+      }
+
+      const avg = daysWithSteps > 0 ? Math.round(total / 7) : 0;
+      sumEl.innerHTML = `<div class="week-summary-mini three">
+        <div class="ws-item"><div class="ws-val steps">${formatNum(total)}</div><div class="ws-label">Всего</div></div>
+        <div class="ws-item"><div class="ws-val steps">${formatNum(avg)}</div><div class="ws-label">Средн/день</div></div>
+        <div class="ws-item"><div class="ws-val steps">${best ? formatNum(best) : '—'}</div><div class="ws-label">Лучший ${bestDay}</div></div>
+      </div>`;
     }
 
     /* СОН */
@@ -2117,11 +2550,10 @@
       container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
     }
 
-    /* ============ ПРИВЫЧКИ ============ */
+    /* ПРИВЫЧКИ */
     const HABITS_CONFIG_KEY = 'habits_config_v1';
     const HABITS_DATA_KEY = 'habits_data_v1';
 
-    // Типы блоков: 'daily' (каждый день), 'weekly' (1 раз в неделю), 'sport', 'read'
     const DEFAULT_HABITS_CONFIG = {
       blocks: [
         {
@@ -2146,21 +2578,15 @@
         },
         {
           id: 'sport', title: 'Спорт', emoji: '🏃', type: 'sport',
-          habits: [
-            { id: 'h_sport_1', text: 'Тренировка' },
-          ]
+          habits: [{ id: 'h_sport_1', text: 'Тренировка' }]
         },
         {
           id: 'read', title: 'Чтение', emoji: '📚', type: 'read',
-          habits: [
-            { id: 'h_read_1', text: 'Чтение' },
-          ]
+          habits: [{ id: 'h_read_1', text: 'Чтение' }]
         },
         {
           id: 'clean', title: 'Уборка', emoji: '🧹', type: 'weekly',
-          habits: [
-            { id: 'h_clean_1', text: 'Генеральная уборка' },
-          ]
+          habits: [{ id: 'h_clean_1', text: 'Генеральная уборка' }]
         },
       ]
     };
@@ -2224,7 +2650,6 @@
       });
     }
 
-    // Отметка обычной привычки
     function toggleHabit(habitId, dateStr) {
       const checks = getWeekChecks();
       if (!checks[habitId]) checks[habitId] = {};
@@ -2238,7 +2663,6 @@
       tg.HapticFeedback?.selectionChanged();
     }
 
-    // === «День»: привычки сегодня ===
     function renderDayHabits() {
       const container = document.getElementById('dayHabitsList');
       if (!container) return;
@@ -2248,16 +2672,13 @@
       let html = '';
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'daily') return;
-
         let doneToday = 0;
         block.habits.forEach(h => { if (checks[h.id] && checks[h.id][today]) doneToday++; });
         const total = block.habits.length;
-
         html += `<div class="habit-block">
           <div class="habit-block-head">
             <div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${doneToday}/${total})</span></div>
           </div>`;
-
         block.habits.forEach(h => {
           const done = checks[h.id] && checks[h.id][today];
           html += `<div class="habit-item ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}', '${today}')">
@@ -2265,11 +2686,9 @@
             <div class="habit-text">${escapeHtml(h.text)}</div>
           </div>`;
         });
-
         html += `</div>`;
       });
 
-      // Еженедельные (уборка) — показываем в «Дне» тоже
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'weekly') return;
         let wasDoneThisWeek = false;
@@ -2278,12 +2697,10 @@
             wasDoneThisWeek = true;
           }
         });
-
         html += `<div class="habit-block">
           <div class="habit-block-head">
             <div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${wasDoneThisWeek ? '1/1' : '0/1'} за неделю)</span></div>
           </div>`;
-
         block.habits.forEach(h => {
           const done = checks[h.id] && checks[h.id][today];
           const blocked = wasDoneThisWeek && !done;
@@ -2292,14 +2709,12 @@
             <div class="habit-text">${escapeHtml(h.text)} ${wasDoneThisWeek && !done ? ' ✓ на этой неделе' : ''}</div>
           </div>`;
         });
-
         html += `</div>`;
       });
 
       container.innerHTML = html || '<div class="placeholder" style="padding:20px;"><span class="big">📋</span><div class="text">Нет привычек. Открой ⚙️ чтобы добавить</div></div>';
     }
 
-    // === «Неделя»: сетка ===
     function renderWeekHabitsGrid() {
       const grid = document.getElementById('weekHabitsGrid');
       if (!grid) return;
@@ -2313,36 +2728,26 @@
       </div>`;
 
       habitsConfig.blocks.forEach(block => {
-        // Для спорта и чтения используем специальные обработчики
         if (block.type === 'sport' || block.type === 'read') {
           const habit = block.habits[0];
           if (!habit) return;
-
           html += `<div class="week-grid-row block-header">${block.emoji} ${escapeHtml(block.title)}</div>`;
-
           let doneCount = 0;
           days.forEach(d => { if (checks[habit.id] && checks[habit.id][d.date]) doneCount++; });
           const percent = Math.round((doneCount / 7) * 100);
-
           html += `<div class="week-grid-row">
             <div class="week-cell-name">${block.type === 'sport' ? 'Тренировка' : 'Чтение'}</div>`;
-
           days.forEach(d => {
             const done = checks[habit.id] && checks[habit.id][d.date];
             const future = d.isFuture;
-            // Для спорта/чтения тап идёт через toggleHabit (просто галочка)
             html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}"
               onclick="${future ? '' : `toggleHabit('${habit.id}', '${d.date}')`}">✓</div>`;
           });
-
-          html += `<div class="week-cell-percent">${percent}%</div>`;
-          html += `</div>`;
+          html += `<div class="week-cell-percent">${percent}%</div></div>`;
           return;
         }
 
-        // Обычные блоки
         html += `<div class="week-grid-row block-header">${block.emoji} ${escapeHtml(block.title)}${block.type === 'weekly' ? ' (1 раз в неделю)' : ''}</div>`;
-
         block.habits.forEach(h => {
           let doneCount = 0;
           if (block.type === 'daily') {
@@ -2354,10 +2759,8 @@
             }
           }
           const percent = block.type === 'daily' ? Math.round((doneCount / 7) * 100) : (doneCount ? 100 : 0);
-
           html += `<div class="week-grid-row">
             <div class="week-cell-name">${escapeHtml(h.text)}</div>`;
-
           days.forEach(d => {
             const done = checks[h.id] && checks[h.id][d.date];
             const future = d.isFuture;
@@ -2371,16 +2774,13 @@
                 onclick="${future ? '' : `toggleHabit('${h.id}', '${d.date}')`}">✓</div>`;
             }
           });
-
-          html += `<div class="week-cell-percent">${percent}%</div>`;
-          html += `</div>`;
+          html += `<div class="week-cell-percent">${percent}%</div></div>`;
         });
       });
 
       grid.innerHTML = html;
     }
 
-    // === Итоги недели ===
     function renderWeekSummary() {
       const container = document.getElementById('weekSummaryContainer');
       if (!container) return;
@@ -2394,7 +2794,7 @@
       const blockStats = [];
 
       habitsConfig.blocks.forEach(block => {
-        if (block.type === 'sport' || block.type === 'read') return; // Спорт/чтение — отдельно
+        if (block.type === 'sport' || block.type === 'read') return;
         let blockPossible = 0, blockDone = 0;
         block.habits.forEach(h => {
           if (block.type === 'daily') {
@@ -2418,28 +2818,16 @@
         blockStats.push({ title: block.title, emoji: block.emoji, done: blockDone, possible: blockPossible });
       });
 
-      // Спорт и чтение — отдельно
+      const daysList = getWeekDays();
       let sportDone = 0, readDone = 0;
       habitsConfig.blocks.forEach(block => {
         if (block.type === 'sport') {
           const h = block.habits[0];
-          if (h) days => {};
-        }
-      });
-      // Пересчёт спорта/чтения
-      const daysList = getWeekDays();
-      habitsConfig.blocks.forEach(block => {
-        if (block.type === 'sport') {
-          const h = block.habits[0];
-          if (h) {
-            daysList.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) sportDone++; });
-          }
+          if (h) daysList.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) sportDone++; });
         }
         if (block.type === 'read') {
           const h = block.habits[0];
-          if (h) {
-            daysList.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) readDone++; });
-          }
+          if (h) daysList.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) readDone++; });
         }
       });
 
@@ -2476,7 +2864,6 @@
       const today = getLogicalDate();
       const checks = getWeekChecks();
       let done = 0, total = 0;
-
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'daily' && block.type !== 'weekly') return;
         block.habits.forEach(h => {
@@ -2484,11 +2871,9 @@
           if (checks[h.id] && checks[h.id][today]) done++;
         });
       });
-
       homeVal.textContent = total > 0 ? `${done} / ${total}` : '— / —';
     }
 
-    /* Редактор привычек */
     function openHabitsEditor() { renderHabitsEditor(); }
     function renderHabitsEditor() {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
@@ -2496,7 +2881,6 @@
       backdrop.className = 'modal-backdrop show';
       backdrop.innerHTML = `<div class="modal" id="habitsEditorModal"></div>`;
       document.body.appendChild(backdrop);
-
       const modal = backdrop.querySelector('#habitsEditorModal');
       modal.innerHTML = `
         <h3>⚙️ Редактор привычек</h3>
@@ -2505,9 +2889,7 @@
           <button class="cancel" id="closeEditorBtn">Готово</button>
         </div>
       `;
-
       renderHabitsEditorContent();
-
       backdrop.querySelector('#closeEditorBtn').onclick = () => {
         backdrop.remove();
         renderDayHabits();
@@ -2531,7 +2913,6 @@
       if (!content) return;
       let html = '';
       habitsConfig.blocks.forEach((block, blockIndex) => {
-        // Спорт и Чтение — не редактируются здесь (только через ⚙️ спорта)
         if (block.type === 'sport' || block.type === 'read') {
           html += `<div style="margin-bottom:16px;">
             <div style="font-size:13px;font-weight:700;color:var(--sport);margin-bottom:8px;">
@@ -2541,7 +2922,6 @@
           </div>`;
           return;
         }
-
         html += `<div style="margin-bottom:16px;">
           <div style="font-size:13px;font-weight:700;color:var(--habit);margin-bottom:8px;">
             ${block.emoji} ${escapeHtml(block.title)}
@@ -2550,7 +2930,6 @@
             </span>
           </div>
           <div class="edit-habit-list">`;
-
         block.habits.forEach((h, habitIndex) => {
           html += `<div class="edit-habit-row">
             <span class="e-text">${escapeHtml(h.text)}</span>
@@ -2560,7 +2939,6 @@
             <button class="e-btn danger" onclick="deleteHabit(${blockIndex}, ${habitIndex})">✕</button>
           </div>`;
         });
-
         html += `</div>`;
         html += `<button class="add-habit-btn" onclick="addHabit(${blockIndex})" ${block.habits.length >= 10 ? 'disabled' : ''}>
           ${block.habits.length >= 10 ? 'Максимум 10 привычек' : '+ Добавить привычку'}
@@ -2659,16 +3037,14 @@
       renderHabitsEditorContent();
     }
 
-    /* ============ СПОРТ И ЧТЕНИЕ ============ */
+    /* СПОРТ И ЧТЕНИЕ */
     const SPORT_DATA_KEY = 'sport_data_v1';
     const READ_DATA_KEY = 'read_data_v1';
     const SPORT_TYPES_KEY = 'sport_types_v1';
 
-    // Смайлики
     const SPORT_EMOJIS = ['🛋️','🫠','🐌','🐢','🚶','🏃','💪','🏋️','🦾','🦍'];
     const READ_EMOJIS  = ['🥱📕','😪📕','😐📖','🤔📖','🙂📖','🤓📖','🧐📚','🧠📚','🧠⚡','🏆📚'];
 
-    // Стартовые виды нагрузки
     const DEFAULT_SPORT_TYPES = [
       { id: 'gym', emoji: '🏋️', name: 'Зал', mode: 'exercises' },
       { id: 'run', emoji: '🏃', name: 'Бег', mode: 'distance' },
@@ -2680,8 +3056,8 @@
       { id: 'fight', emoji: '🥊', name: 'Единоборства', mode: 'none' },
     ];
 
-    let sportData = {};   // { "YYYY-MM-DD": { mood, typeId, exercises: [{name,weight,reps,sets}], distance, time, note } }
-    let readData = {};    // { "YYYY-MM-DD": { mood, text, note } }
+    let sportData = {};
+    let readData = {};
     let sportTypes = JSON.parse(JSON.stringify(DEFAULT_SPORT_TYPES));
 
     function saveSportData() {
@@ -2723,7 +3099,6 @@
       });
     }
 
-    // Получить id привычки для спорта/чтения
     function getSportHabitId() {
       const b = habitsConfig.blocks.find(x => x.type === 'sport');
       return b && b.habits[0] ? b.habits[0].id : null;
@@ -2733,7 +3108,6 @@
       return b && b.habits[0] ? b.habits[0].id : null;
     }
 
-    // === Рендер «Спорт за неделю» ===
     function renderWeekSport() {
       const listEl = document.getElementById('weekSportList');
       const sumEl = document.getElementById('weekSportSummary');
@@ -2801,8 +3175,6 @@
       });
 
       listEl.innerHTML = html;
-
-      // Сводка
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
       sumEl.innerHTML = `<div class="week-summary-mini">
         <div class="ws-item"><div class="ws-val sport">${totalDone}</div><div class="ws-label">Тренировок</div></div>
@@ -2810,7 +3182,6 @@
       </div>`;
     }
 
-    // === Рендер «Чтение за неделю» ===
     function renderWeekRead() {
       const listEl = document.getElementById('weekReadList');
       const sumEl = document.getElementById('weekReadSummary');
@@ -2847,7 +3218,6 @@
       });
 
       listEl.innerHTML = html;
-
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
       sumEl.innerHTML = `<div class="week-summary-mini">
         <div class="ws-item"><div class="ws-val read">${totalDone}</div><div class="ws-label">Раз читал</div></div>
@@ -2855,7 +3225,6 @@
       </div>`;
     }
 
-    // === Модалка Спорта ===
     let sportModalState = null;
 
     function openSportModal(dateStr) {
@@ -2876,7 +3245,6 @@
       const s = sportModalState;
       if (!s) return;
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
       backdrop.innerHTML = `<div class="modal" id="sportModal"></div>`;
@@ -2888,26 +3256,20 @@
       const modal = backdrop.querySelector('#sportModal');
       modal.innerHTML = `
         <h3>🏃 Спорт — ${escapeHtml(dateLabel)}</h3>
-
         <label>Насколько продуктивно?</label>
         <div class="emoji-scale-10" id="sportEmojiScale"></div>
-
         <label>Вид нагрузки</label>
         <div class="type-grid" id="sportTypeGrid"></div>
         <button class="add-type-btn" onclick="addSportTypeCustom()">+ Добавить свой вид</button>
-
         <div id="sportTypeDetails"></div>
-
         <label>Заметка</label>
         <textarea class="note-field" id="sportNoteField" placeholder="Как прошло?" maxlength="500" style="min-height:60px;">${escapeHtml(s.note)}</textarea>
-
         <div class="modal-buttons">
           <button class="cancel" id="cancelBtn">Отмена</button>
           <button class="save" id="saveBtn">Сохранить</button>
         </div>
       `;
 
-      // Смайлики
       const emojiScale = modal.querySelector('#sportEmojiScale');
       SPORT_EMOJIS.forEach((e, i) => {
         const level = i + 1;
@@ -2922,7 +3284,6 @@
         emojiScale.appendChild(btn);
       });
 
-      // Виды нагрузки
       const typeGrid = modal.querySelector('#sportTypeGrid');
       sportTypes.forEach(t => {
         const btn = document.createElement('button');
@@ -2935,7 +3296,6 @@
         typeGrid.appendChild(btn);
       });
 
-      // Детали в зависимости от вида
       const detailsEl = modal.querySelector('#sportTypeDetails');
       const typeObj = sportTypes.find(t => t.id === s.typeId);
 
@@ -2971,17 +3331,11 @@
         updatePace();
       }
 
-      // Заметка
       const noteInp = modal.querySelector('#sportNoteField');
       noteInp.addEventListener('input', () => { s.note = noteInp.value; });
 
-      // Кнопки
-      backdrop.querySelector('#cancelBtn').onclick = () => {
-        backdrop.remove();
-        sportModalState = null;
-      };
+      backdrop.querySelector('#cancelBtn').onclick = () => { backdrop.remove(); sportModalState = null; };
       backdrop.querySelector('#saveBtn').onclick = () => {
-        // Проверяем, есть ли хоть что-то
         const hasData = s.mood || s.typeId || s.exercises.length || s.distance || s.time || s.note;
         if (hasData) {
           sportData[s.date] = {
@@ -2992,12 +3346,9 @@
             time: parseFloat(s.time) || null,
             note: s.note
           };
-        } else {
-          delete sportData[s.date];
-        }
+        } else delete sportData[s.date];
         saveSportData();
 
-        // Отметка галочки в сетке — если есть хоть что-то, ставим; если нет — снимаем
         const sportHabitId = getSportHabitId();
         if (sportHabitId) {
           const checks = getWeekChecks();
@@ -3006,7 +3357,6 @@
           else delete checks[sportHabitId][s.date];
           saveHabitsData();
         }
-
         backdrop.remove();
         sportModalState = null;
         renderWeekSport();
@@ -3042,7 +3392,6 @@
           else s.exercises[idx][field] = parseFloat(inp.value) || null;
         });
       });
-
       container.querySelectorAll('.ex-remove').forEach(btn => {
         btn.onclick = () => {
           const idx = parseInt(btn.dataset.idx, 10);
@@ -3050,7 +3399,6 @@
           renderExerciseDetails(container, s);
         };
       });
-
       container.querySelector('#addExerciseBtn').onclick = () => {
         s.exercises.push({ name: '', weight: null, reps: null, sets: null });
         renderExerciseDetails(container, s);
@@ -3079,7 +3427,6 @@
         </div>
       `;
       document.body.appendChild(backdrop);
-
       let selectedMode = 'none';
       backdrop.querySelectorAll('#modeGrid .type-btn').forEach(btn => {
         btn.onclick = () => {
@@ -3088,7 +3435,6 @@
           btn.classList.add('selected');
         };
       });
-
       backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
       backdrop.querySelector('#saveBtn').onclick = () => {
         const name = backdrop.querySelector('#newTypeName').value.trim();
@@ -3114,16 +3460,10 @@
           <button class="e-btn danger" onclick="deleteSportType(${i})">✕</button>
         </div>`;
       });
-      html += `</div>`;
-      html += `<div class="modal-buttons">
-        <button class="cancel" id="closeBtn">Готово</button>
-      </div>`;
+      html += `</div><div class="modal-buttons"><button class="cancel" id="closeBtn">Готово</button></div>`;
       backdrop.innerHTML = `<div class="modal">${html}</div>`;
       document.body.appendChild(backdrop);
-      backdrop.querySelector('#closeBtn').onclick = () => {
-        backdrop.remove();
-        renderWeekSport();
-      };
+      backdrop.querySelector('#closeBtn').onclick = () => { backdrop.remove(); renderWeekSport(); };
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
@@ -3143,7 +3483,6 @@
       openSportSettings();
     }
 
-    // === Модалка Чтения ===
     let readModalState = null;
 
     function openReadModal(dateStr) {
@@ -3218,7 +3557,6 @@
           else delete checks[readHabitId][s.date];
           saveHabitsData();
         }
-
         backdrop.remove();
         readModalState = null;
         renderWeekRead();
@@ -3231,6 +3569,7 @@
 
     /* СТАРТ */
     loadWater();
+    loadSteps();
     loadSleep();
     loadSleepHistory(() => { renderWeekSleep(); });
     loadMoodHistory(() => {
@@ -3248,13 +3587,17 @@
         loadSportData(() => {
           loadReadData(() => {
             loadSportTypes(() => {
-              initHabitsData();
-              renderDayHabits();
-              renderWeekHabitsGrid();
-              renderWeekSummary();
-              renderWeekSport();
-              renderWeekRead();
-              updateHomeHabits();
+              loadStepsHistory(() => {
+                initHabitsData();
+                renderDayHabits();
+                renderWeekHabitsGrid();
+                renderWeekSummary();
+                renderWeekSport();
+                renderWeekRead();
+                renderWeekSteps();
+                updateHomeHabits();
+                renderSteps(false);
+              });
             });
           });
         });
