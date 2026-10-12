@@ -58,6 +58,7 @@
       overflow-x: hidden;
       padding: 20px 16px 12px;
       scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
     .content::-webkit-scrollbar { width: 0; }
 
@@ -157,7 +158,10 @@
     .v-slider {
       position: relative; flex: 1; width: 6px;
       background: rgba(255,255,255,0.08); border-radius: 3px;
-      margin: 8px 0; cursor: pointer; touch-action: none; user-select: none;
+      margin: 8px 0; cursor: pointer;
+      touch-action: none; user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
     .v-slider-fill {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -212,6 +216,8 @@
       padding: 10px; font-size: 14px; font-weight: 600;
       cursor: pointer; transition: transform 0.1s, background 0.2s;
       font-family: inherit;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .water-buttons button:active {
       transform: scale(0.95); background: var(--accent); color: #14110f;
@@ -268,6 +274,8 @@
       font-size: 16px; font-weight: 700; font-family: inherit;
       outline: none; text-align: center;
       transition: border-color 0.2s; font-variant-numeric: tabular-nums; min-width: 0;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .steps-input:focus { border-color: var(--steps); }
     .steps-input::placeholder { color: var(--text-dim); font-weight: 500; font-size: 13px; }
@@ -277,6 +285,8 @@
       font-size: 12px; font-weight: 700; cursor: pointer;
       transition: transform 0.1s, background 0.2s;
       font-family: inherit; white-space: nowrap;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .steps-quick:active { transform: scale(0.95); background: var(--steps); color: #14110f; }
     .steps-buttons {
@@ -288,6 +298,8 @@
       padding: 10px; font-size: 13px; font-weight: 600;
       cursor: pointer; transition: transform 0.1s, background 0.2s;
       font-family: inherit;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .steps-buttons button:active {
       transform: scale(0.95); background: var(--steps); color: #14110f;
@@ -344,6 +356,8 @@
       cursor: pointer; font-family: inherit;
       transition: transform 0.1s, opacity 0.2s;
       margin-bottom: 16px;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .weight-btn:active { transform: scale(0.98); opacity: 0.9; }
     .weight-history-title {
@@ -444,6 +458,8 @@
       line-height: 1;
       font-family: inherit;
       flex-shrink: 0;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .goal-menu-btn:active { opacity: 0.6; }
 
@@ -556,6 +572,8 @@
       font-family: inherit;
       padding: 0;
       line-height: 1;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .floating-add-btn:active {
       transform: scale(0.9);
@@ -578,6 +596,8 @@
       align-items: center;
       justify-content: space-between;
       transition: background 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .goal-completed-toggle:active { background: var(--card-2); }
     .goal-completed-toggle .arrow {
@@ -621,6 +641,8 @@
       text-align: left;
       transition: background 0.15s;
       white-space: nowrap;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .goal-actions-menu button:last-child { border-bottom: none; }
     .goal-actions-menu button:active { background: var(--card-2); }
@@ -671,6 +693,8 @@
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
       line-height: 1.2; font-family: inherit;
       display: flex; flex-direction: column; align-items: center; gap: 2px;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .quality-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .quality-btn:active { transform: scale(0.9); }
@@ -700,6 +724,8 @@
       border-radius: 8px; cursor: pointer; font-size: 14px;
       display: flex; align-items: center; justify-content: center;
       font-family: inherit; padding: 0;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .date-nav button:active { transform: scale(0.9); }
     .date-nav button:disabled { opacity: 0.3; cursor: default; }
@@ -714,6 +740,8 @@
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
       line-height: 1.2; font-family: inherit;
       display: flex; flex-direction: column; align-items: center; gap: 2px;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .mood-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .mood-btn:active { transform: scale(0.9); }
@@ -735,6 +763,8 @@
       border-radius: 12px; padding: 12px; color: var(--text);
       font-size: 14px; font-family: inherit; resize: vertical;
       outline: none; transition: border-color 0.2s; line-height: 1.4;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .note-field:focus { border-color: var(--accent); }
     .note-field::placeholder { color: var(--text-dim); }
@@ -757,6 +787,8 @@
       outline: none; text-align: center;
       transition: border-color 0.2s;
       font-variant-numeric: tabular-nums; min-width: 0;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .food-calories-input:focus { border-color: var(--food); }
     .food-calories-input::placeholder { color: var(--text-dim); font-weight: 500; }
@@ -766,6 +798,8 @@
       font-size: 13px; font-weight: 700; cursor: pointer;
       transition: transform 0.1s, background 0.2s;
       font-family: inherit; white-space: nowrap;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .food-quick-btn:active {
       transform: scale(0.95); background: var(--food); color: #14110f;
@@ -796,6 +830,8 @@
       font-family: inherit;
       display: flex; flex-direction: column; align-items: center;
       gap: 2px; line-height: 1.2;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .food-meal-btn .meal-name {
       font-size: 9px; color: var(--text-dim); font-weight: 600;
@@ -836,6 +872,8 @@
       cursor: pointer; display: flex; align-items: center;
       justify-content: center; font-family: inherit;
       padding: 0; line-height: 1;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .food-counter .c-btn:active { transform: scale(0.9); }
     .food-counter .c-val {
@@ -901,6 +939,7 @@
       overflow-x: auto;
       margin: 0 -16px;
       padding: 0 16px;
+      -webkit-overflow-scrolling: touch;
     }
     .week-grid-wrap::-webkit-scrollbar { height: 0; }
     .week-grid {
@@ -1111,6 +1150,7 @@
       position: fixed; inset: 0; background: rgba(0,0,0,0.75);
       display: none; align-items: flex-end; justify-content: center;
       z-index: 100; backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
     .modal-backdrop.show { display: flex; }
     .modal {
@@ -1122,6 +1162,7 @@
       animation: modalIn 0.25s ease;
       max-height: 88vh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     }
     @keyframes modalIn {
@@ -1142,6 +1183,8 @@
       border: 1px solid var(--border); background: var(--bg-2);
       color: var(--text); font-size: 15px; font-family: inherit;
       outline: none; resize: vertical;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .modal input:focus, .modal textarea:focus { border-color: var(--accent); }
     .modal-hint {
@@ -1153,6 +1196,8 @@
       flex: 1; padding: 12px; border-radius: 10px; border: none;
       font-size: 15px; font-weight: 600; cursor: pointer;
       font-family: inherit; transition: transform 0.1s;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .modal-buttons button:active { transform: scale(0.97); }
     .modal-buttons .save { background: var(--accent-grad); color: #14110f; }
@@ -1179,6 +1224,8 @@
       flex-direction: column;
       align-items: center;
       gap: 4px;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .goal-type-btn .gt-emoji { font-size: 24px; line-height: 1; }
     .goal-type-btn .gt-name { font-size: 12px; font-weight: 700; }
@@ -1259,6 +1306,8 @@
       font-family: inherit;
       padding: 0; line-height: 1;
       flex-shrink: 0;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .edit-habit-row .e-btn:active { transform: scale(0.9); }
     .edit-habit-row .e-btn.danger { color: #fb923c; }
@@ -1271,6 +1320,8 @@
       font-size: 13px; font-weight: 600;
       cursor: pointer; font-family: inherit;
       transition: background 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .add-habit-btn:active { background: var(--card-2); }
     .add-habit-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--text-dim); }
@@ -1296,6 +1347,8 @@
       align-items: center;
       gap: 2px;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .modal .type-btn .type-name {
       font-size: 9px;
@@ -1325,6 +1378,8 @@
       cursor: pointer;
       font-family: inherit;
       margin-bottom: 8px;
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     .exercise-item {
@@ -1352,6 +1407,8 @@
       outline: none;
       text-align: center;
       min-width: 0;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .exercise-item input.ex-name {
       text-align: left;
@@ -1369,6 +1426,8 @@
       display: flex; align-items: center; justify-content: center;
       font-family: inherit;
       padding: 0; line-height: 1;
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     /* Смайлики */
@@ -1388,6 +1447,8 @@
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
       display: flex; flex-direction: column; align-items: center; gap: 2px;
       line-height: 1.2;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .emoji-btn .e-icon { font-size: 22px; }
     .emoji-btn .e-num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
@@ -1530,6 +1591,9 @@
       font-family: inherit; font-weight: 500;
       transition: color 0.25s, transform 0.15s;
       user-select: none; position: relative;
+      -webkit-appearance: none;
+      appearance: none;
+      -webkit-user-select: none;
     }
     .tab:active { transform: scale(0.9); }
     .tab .icon {
@@ -1949,7 +2013,7 @@
       return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
     }
 
-    /* ВОДА */
+    /* ============ ВОДА ============ */
     let waterCurrent = 0;
     let waterGoal = 2500;
     const WATER_KEY = 'water_v1';
@@ -2041,9 +2105,11 @@
       waterCurrent = Math.min(snapped, SLIDER_MAX);
       saveWater(); renderWater();
     }
+    // pointer + touch fallback
     vSlider.addEventListener('pointerdown', (e) => {
       dragging = true; vSliderThumb.classList.add('dragging');
-      vSlider.setPointerCapture(e.pointerId); updateFromSlider(e.clientY);
+      try { vSlider.setPointerCapture(e.pointerId); } catch (err) {}
+      updateFromSlider(e.clientY);
     });
     vSlider.addEventListener('pointermove', (e) => { if (dragging) updateFromSlider(e.clientY); });
     vSlider.addEventListener('pointerup', () => {
@@ -2053,6 +2119,24 @@
     vSlider.addEventListener('pointercancel', () => {
       dragging = false; vSliderThumb.classList.remove('dragging');
     });
+    vSlider.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        dragging = true; vSliderThumb.classList.add('dragging');
+        updateFromSlider(e.touches[0].clientY);
+        e.preventDefault();
+      }
+    }, { passive: false });
+    vSlider.addEventListener('touchmove', (e) => {
+      if (dragging && e.touches.length === 1) {
+        updateFromSlider(e.touches[0].clientY);
+        e.preventDefault();
+      }
+    }, { passive: false });
+    vSlider.addEventListener('touchend', () => {
+      dragging = false; vSliderThumb.classList.remove('dragging');
+      tg.HapticFeedback?.selectionChanged();
+    });
+
     function openWaterSettings() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -2083,7 +2167,7 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ШАГИ */
+    /* ============ ШАГИ ============ */
     const STEPS_KEY = 'steps_v1';
     const STEPS_HISTORY_KEY = 'steps_history_v1';
     let stepsCurrent = 0;
@@ -2254,7 +2338,7 @@
       sumEl.innerHTML = `<div class="week-summary-mini three"><div class="ws-item"><div class="ws-val steps">${formatNum(total)}</div><div class="ws-label">Всего</div></div><div class="ws-item"><div class="ws-val steps">${formatNum(avg)}</div><div class="ws-label">Средн/день</div></div><div class="ws-item"><div class="ws-val steps">${best ? formatNum(best) : '—'}</div><div class="ws-label">Лучший ${bestDay}</div></div></div>`;
     }
 
-    /* ВЕС */
+    /* ============ ВЕС ============ */
     const WEIGHT_KEY = 'weight_v1';
     let weightHistory = [];
     function saveWeight() {
@@ -2379,7 +2463,7 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* СОН */
+    /* ============ СОН ============ */
     const SLEEP_KEY = 'sleep_v1';
     const SLEEP_QUALITY = [
       { emoji: '😫', name: 'Ужасно' }, { emoji: '🥱', name: 'Очень плохо' },
@@ -2404,6 +2488,7 @@
       SLEEP_QUALITY.forEach((q, i) => {
         const level = i + 1;
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'quality-btn';
         btn.dataset.level = level;
         btn.innerHTML = `<span>${q.emoji}</span><span class="num">${level}</span>`;
@@ -2608,7 +2693,7 @@
       container.innerHTML = `<div class="wk-sleep-header"><span class="wk-day">День</span><span class="wk-time">Время</span><span class="wk-dur">Длит.</span><span class="wk-qual">Кач.</span><span class="wk-badge"></span></div>${rows}${stats}`;
     }
 
-    /* НАСТРОЕНИЕ */
+    /* ============ НАСТРОЕНИЕ ============ */
     const MOOD_HISTORY_KEY = 'mood_history_v1';
     const MOOD_LEVELS = [
       { emoji: '😭', name: 'Ужасно' }, { emoji: '😢', name: 'Очень плохо' },
@@ -2637,6 +2722,7 @@
       MOOD_LEVELS.forEach((lvl, i) => {
         const level = i + 1;
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'mood-btn';
         btn.dataset.level = level;
         btn.innerHTML = `<span>${lvl.emoji}</span><span class="num">${level}</span>`;
@@ -2740,7 +2826,7 @@
       container.innerHTML = rows + stats;
     }
 
-    /* ПИТАНИЕ */
+    /* ============ ПИТАНИЕ ============ */
     const FOOD_KEY = 'food_v1';
     const FOOD_HISTORY_KEY = 'food_history_v1';
     let foodCalories = 0;
@@ -2930,7 +3016,7 @@
       container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
     }
 
-    /* ПРИВЫЧКИ */
+    /* ============ ПРИВЫЧКИ ============ */
     const HABITS_CONFIG_KEY = 'habits_config_v1';
     const HABITS_DATA_KEY = 'habits_data_v1';
     const DEFAULT_HABITS_CONFIG = {
@@ -3267,17 +3353,21 @@
     function moveHabitUp(blockIndex, habitIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block || habitIndex <= 0) return;
-      [block.habits[habitIndex - 1], block.habits[habitIndex]] = [block.habits[habitIndex], block.habits[habitIndex - 1]];
+      const tmp = block.habits[habitIndex - 1];
+      block.habits[habitIndex - 1] = block.habits[habitIndex];
+      block.habits[habitIndex] = tmp;
       saveHabitsConfig(); renderHabitsEditorContent();
     }
     function moveHabitDown(blockIndex, habitIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block || habitIndex >= block.habits.length - 1) return;
-      [block.habits[habitIndex + 1], block.habits[habitIndex]] = [block.habits[habitIndex], block.habits[habitIndex + 1]];
+      const tmp = block.habits[habitIndex + 1];
+      block.habits[habitIndex + 1] = block.habits[habitIndex];
+      block.habits[habitIndex] = tmp;
       saveHabitsConfig(); renderHabitsEditorContent();
     }
 
-    /* СПОРТ И ЧТЕНИЕ */
+    /* ============ СПОРТ И ЧТЕНИЕ ============ */
     const SPORT_DATA_KEY = 'sport_data_v1';
     const READ_DATA_KEY = 'read_data_v1';
     const SPORT_TYPES_KEY = 'sport_types_v1';
@@ -3416,10 +3506,12 @@
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
       sumEl.innerHTML = `<div class="week-summary-mini"><div class="ws-item"><div class="ws-val read">${totalDone}</div><div class="ws-label">Раз читал</div></div><div class="ws-item"><div class="ws-val read">${avgMood}</div><div class="ws-label">Средняя</div></div></div>`;
     }
+
+    // Модалка спорта — прямые onclick без делегирования
     let sportModalState = null;
     let sportModalEl = null;
+
     function openSportModal(dateStr) {
-      // Закрыть предыдущие
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const existing = sportData[dateStr] || { mood: null, typeId: null, exercises: [], distance: null, time: null, note: '' };
       sportModalState = {
@@ -3433,6 +3525,7 @@
       };
       buildSportModal();
     }
+
     function buildSportModal() {
       const s = sportModalState;
       if (!s) return;
@@ -3451,7 +3544,7 @@
         <div class="emoji-scale-10" id="sportEmojiScale"></div>
         <label>Вид нагрузки</label>
         <div class="type-grid" id="sportTypeGrid"></div>
-        <button class="add-type-btn" id="addSportTypeBtn">+ Добавить свой вид</button>
+        <button type="button" class="add-type-btn" id="addSportTypeBtn">+ Добавить свой вид</button>
         <div id="sportTypeDetails"></div>
         <label>Заметка</label>
         <textarea class="note-field" id="sportNoteField" placeholder="Как прошло?" maxlength="500" style="min-height:60px;">${escapeHtml(s.note)}</textarea>
@@ -3461,81 +3554,65 @@
         </div>
       `;
 
-      // Смайлики — делегирование через контейнер, без перерисовки
+      // Смайлики — прямые onclick на каждой кнопке
       const emojiScale = modal.querySelector('#sportEmojiScale');
+      const emojiBtns = [];
       SPORT_EMOJIS.forEach((e, i) => {
         const level = i + 1;
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'emoji-btn' + (s.mood === level ? ' selected' : '');
-        btn.dataset.level = level;
         btn.innerHTML = `<span class="e-icon">${e}</span><span class="e-num">${level}</span>`;
+        btn.onclick = function() {
+          s.mood = level;
+          emojiBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          tg.HapticFeedback?.selectionChanged();
+        };
         emojiScale.appendChild(btn);
-      });
-      emojiScale.addEventListener('click', (e) => {
-        const btn = e.target.closest('.emoji-btn');
-        if (!btn) return;
-        const level = parseInt(btn.dataset.level, 10);
-        s.mood = level;
-        emojiScale.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        tg.HapticFeedback?.selectionChanged();
+        emojiBtns.push(btn);
       });
 
-      // Виды нагрузки — обновление только через классы + перерисовка блока деталей
+      // Виды — прямые onclick
       const typeGrid = modal.querySelector('#sportTypeGrid');
+      const typeBtns = [];
       sportTypes.forEach(t => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'type-btn' + (s.typeId === t.id ? ' selected' : '');
-        btn.dataset.typeId = t.id;
         btn.innerHTML = `<span style="font-size:22px;">${t.emoji}</span><span class="type-name">${escapeHtml(t.name)}</span>`;
+        btn.onclick = function() {
+          s.typeId = t.id;
+          typeBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          renderSportDetailsBlock(modal.querySelector('#sportTypeDetails'), s);
+          tg.HapticFeedback?.selectionChanged();
+        };
         typeGrid.appendChild(btn);
-      });
-      typeGrid.addEventListener('click', (e) => {
-        const btn = e.target.closest('.type-btn');
-        if (!btn) return;
-        const typeId = btn.dataset.typeId;
-        s.typeId = typeId;
-        // Обновляем только классы, не перерисовываем модалку
-        typeGrid.querySelectorAll('.type-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        // Обновляем только блок деталей
-        renderSportDetailsBlock(modal.querySelector('#sportTypeDetails'), s);
-        tg.HapticFeedback?.selectionChanged();
+        typeBtns.push(btn);
       });
 
-      // Кнопка добавления вида
-      modal.querySelector('#addSportTypeBtn').addEventListener('click', () => {
+      modal.querySelector('#addSportTypeBtn').onclick = function() {
         addSportTypeCustom();
-      });
+      };
 
-      // Детали
       const detailsEl = modal.querySelector('#sportTypeDetails');
       renderSportDetailsBlock(detailsEl, s);
 
-      // Заметка
       const noteInp = modal.querySelector('#sportNoteField');
-      noteInp.addEventListener('input', () => { s.note = noteInp.value; });
+      noteInp.addEventListener('input', function() { s.note = noteInp.value; });
 
-      // Кнопки
-      backdrop.querySelector('#cancelBtn').addEventListener('click', () => {
-        closeSportModal();
-      });
-      backdrop.querySelector('#saveBtn').addEventListener('click', () => {
+      backdrop.querySelector('#cancelBtn').onclick = function() { closeSportModal(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
         const hasData = s.mood || s.typeId || s.exercises.length || s.distance || s.time || s.note;
         if (hasData) {
           sportData[s.date] = {
-            mood: s.mood,
-            typeId: s.typeId,
-            exercises: s.exercises,
-            distance: parseFloat(s.distance) || null,
-            time: parseFloat(s.time) || null,
+            mood: s.mood, typeId: s.typeId, exercises: s.exercises,
+            distance: parseFloat(s.distance) || null, time: parseFloat(s.time) || null,
             note: s.note
           };
         } else delete sportData[s.date];
         saveSportData();
-
         const sportHabitId = getSportHabitId();
         if (sportHabitId) {
           const checks = getWeekChecks();
@@ -3547,22 +3624,19 @@
         closeSportModal();
         renderWeekSport(); renderWeekHabitsGrid(); renderWeekSummary();
         tg.HapticFeedback?.notificationOccurred('success');
-      });
-      backdrop.addEventListener('click', (e) => {
-        if (e.target === backdrop) closeSportModal();
-      });
+      };
+      backdrop.onclick = function(e) { if (e.target === backdrop) closeSportModal(); };
     }
+
     function closeSportModal() {
       if (sportModalEl && sportModalEl.parentNode) sportModalEl.remove();
       sportModalEl = null;
       sportModalState = null;
     }
+
     function renderSportDetailsBlock(container, s) {
       const typeObj = sportTypes.find(t => t.id === s.typeId);
-      if (!typeObj) {
-        container.innerHTML = '';
-        return;
-      }
+      if (!typeObj) { container.innerHTML = ''; return; }
       if (typeObj.mode === 'exercises') {
         renderExerciseDetails(container, s);
       } else if (typeObj.mode === 'distance') {
@@ -3576,7 +3650,7 @@
         const distInp = container.querySelector('#sportDistance');
         const timeInp = container.querySelector('#sportTime');
         const paceHint = container.querySelector('#paceHint');
-        const updatePace = () => {
+        const updatePace = function() {
           s.distance = distInp.value;
           s.time = timeInp.value;
           const dist = parseFloat(s.distance), time = parseFloat(s.time);
@@ -3595,34 +3669,47 @@
         container.innerHTML = '';
       }
     }
+
     function renderExerciseDetails(container, s) {
-      let html = '';
-      s.exercises.forEach((ex, idx) => {
-        html += `<div class="exercise-item"><div class="ex-row"><input type="text" class="ex-name" placeholder="Упражнение" value="${escapeHtml(ex.name || '')}" data-idx="${idx}" data-field="name"><input type="number" placeholder="кг" value="${ex.weight || ''}" data-idx="${idx}" data-field="weight" min="0" step="0.5"><input type="number" placeholder="повт." value="${ex.reps || ''}" data-idx="${idx}" data-field="reps" min="0"><input type="number" placeholder="подх." value="${ex.sets || ''}" data-idx="${idx}" data-field="sets" min="0"><button class="ex-remove" data-idx="${idx}">✕</button></div></div>`;
-      });
-      html += `<button class="add-habit-btn" id="addExerciseBtn">+ Добавить упражнение</button>`;
-      container.innerHTML = html;
-      container.querySelectorAll('input').forEach(inp => {
-        inp.addEventListener('input', () => {
-          const idx = parseInt(inp.dataset.idx, 10);
-          const field = inp.dataset.field;
-          if (!s.exercises[idx]) s.exercises[idx] = {};
-          if (field === 'name') s.exercises[idx].name = inp.value;
-          else s.exercises[idx][field] = parseFloat(inp.value) || null;
-        });
-      });
-      container.querySelectorAll('.ex-remove').forEach(btn => {
-        btn.onclick = () => {
-          const idx = parseInt(btn.dataset.idx, 10);
+      container.innerHTML = '';
+      s.exercises.forEach(function(ex, idx) {
+        const item = document.createElement('div');
+        item.className = 'exercise-item';
+        item.innerHTML = `
+          <div class="ex-row">
+            <input type="text" class="ex-name" placeholder="Упражнение" value="${escapeHtml(ex.name || '')}" style="grid-column: span 2;">
+            <input type="number" placeholder="кг" value="${ex.weight || ''}" min="0" step="0.5">
+            <input type="number" placeholder="повт." value="${ex.reps || ''}" min="0">
+            <input type="number" placeholder="подх." value="${ex.sets || ''}" min="0">
+            <button type="button" class="ex-remove">✕</button>
+          </div>
+        `;
+        const inputs = item.querySelectorAll('input');
+        const nameInp = inputs[0];
+        const weightInp = inputs[1];
+        const repsInp = inputs[2];
+        const setsInp = inputs[3];
+        nameInp.addEventListener('input', function() { ex.name = nameInp.value; });
+        weightInp.addEventListener('input', function() { ex.weight = parseFloat(weightInp.value) || null; });
+        repsInp.addEventListener('input', function() { ex.reps = parseFloat(repsInp.value) || null; });
+        setsInp.addEventListener('input', function() { ex.sets = parseFloat(setsInp.value) || null; });
+        item.querySelector('.ex-remove').onclick = function() {
           s.exercises.splice(idx, 1);
           renderExerciseDetails(container, s);
         };
+        container.appendChild(item);
       });
-      container.querySelector('#addExerciseBtn').onclick = () => {
+      const addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.className = 'add-habit-btn';
+      addBtn.textContent = '+ Добавить упражнение';
+      addBtn.onclick = function() {
         s.exercises.push({ name: '', weight: null, reps: null, sets: null });
         renderExerciseDetails(container, s);
       };
+      container.appendChild(addBtn);
     }
+
     function addSportTypeCustom() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -3630,71 +3717,83 @@
       backdrop.innerHTML = `<div class="modal"><h3>Новый вид спорта</h3><label>Название</label><input type="text" id="newTypeName" placeholder="Например: Скалолазание" maxlength="30"><label>Режим записи</label><div class="type-grid" id="modeGrid" style="grid-template-columns: repeat(3, 1fr);"><button type="button" class="type-btn" data-mode="none"><span style="font-size:22px;">✓</span><span class="type-name">Просто<br>галочка</span></button><button type="button" class="type-btn" data-mode="distance"><span style="font-size:22px;">📍</span><span class="type-name">Дистанция<br>+ время</span></button><button type="button" class="type-btn" data-mode="exercises"><span style="font-size:22px;">🏋️</span><span class="type-name">Упражнения<br>с весом</span></button></div><div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">Добавить</button></div></div>`;
       document.body.appendChild(backdrop);
       let selectedMode = 'none';
-      backdrop.querySelectorAll('#modeGrid .type-btn').forEach(btn => {
-        btn.onclick = () => {
+      const modeBtns = backdrop.querySelectorAll('#modeGrid .type-btn');
+      modeBtns.forEach(function(btn) {
+        btn.onclick = function() {
           selectedMode = btn.dataset.mode;
-          backdrop.querySelectorAll('#modeGrid .type-btn').forEach(b => b.classList.remove('selected'));
+          modeBtns.forEach(b => b.classList.remove('selected'));
           btn.classList.add('selected');
         };
       });
-      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
-      backdrop.querySelector('#saveBtn').onclick = () => {
+      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
         const name = backdrop.querySelector('#newTypeName').value.trim();
         if (!name) { backdrop.remove(); return; }
         const id = 'custom_' + Date.now();
-        sportTypes.push({ id, emoji: '⭐', name, mode: selectedMode });
+        sportTypes.push({ id: id, emoji: '⭐', name: name, mode: selectedMode });
         saveSportTypes();
         backdrop.remove();
-        // Перестраиваем модалку спорта, чтобы новый вид появился в списке
-        if (sportModalEl) {
-          const s = sportModalState;
+        // Пересобираем модалку спорта
+        if (sportModalEl && sportModalState) {
+          const savedState = sportModalState;
           closeSportModal();
-          sportModalState = s;
+          sportModalState = savedState;
           buildSportModal();
         }
         tg.HapticFeedback?.notificationOccurred('success');
       };
-      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
+
     function openSportSettings() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
-      let html = `<h3>⚙️ Виды спорта</h3><div class="edit-habit-list">`;
-      sportTypes.forEach((t, i) => {
-        html += `<div class="edit-habit-row"><span class="e-text">${t.emoji} ${escapeHtml(t.name)} <span style="color:var(--text-dim);font-size:11px;">(${t.mode})</span></span><button class="e-btn" onclick="editSportTypeName(${i})">✎</button><button class="e-btn danger" onclick="deleteSportType(${i})">✕</button></div>`;
+      let html = '<h3>⚙️ Виды спорта</h3><div class="edit-habit-list">';
+      sportTypes.forEach(function(t, i) {
+        html += '<div class="edit-habit-row"><span class="e-text">' + t.emoji + ' ' + escapeHtml(t.name) + ' <span style="color:var(--text-dim);font-size:11px;">(' + t.mode + ')</span></span><button type="button" class="e-btn" data-idx="' + i + '" data-action="edit">✎</button><button type="button" class="e-btn danger" data-idx="' + i + '" data-action="delete">✕</button></div>';
       });
-      html += `</div><div class="modal-buttons"><button class="cancel" id="closeBtn">Готово</button></div>`;
-      backdrop.innerHTML = `<div class="modal">${html}</div>`;
+      html += '</div><div class="modal-buttons"><button class="cancel" id="closeBtn">Готово</button></div>';
+      backdrop.innerHTML = '<div class="modal">' + html + '</div>';
       document.body.appendChild(backdrop);
-      backdrop.querySelector('#closeBtn').onclick = () => { backdrop.remove(); renderWeekSport(); };
-      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+      // Навешиваем onclick напрямую
+      backdrop.querySelectorAll('.edit-habit-row .e-btn').forEach(function(btn) {
+        btn.onclick = function() {
+          const idx = parseInt(btn.dataset.idx, 10);
+          const action = btn.dataset.action;
+          if (action === 'edit') {
+            const t = sportTypes[idx];
+            const newName = prompt('Новое название:', t.name);
+            if (newName && newName.trim()) {
+              t.name = newName.trim();
+              saveSportTypes();
+              backdrop.remove();
+              openSportSettings();
+            }
+          } else if (action === 'delete') {
+            if (confirm('Удалить вид «' + sportTypes[idx].name + '»?')) {
+              sportTypes.splice(idx, 1);
+              saveSportTypes();
+              backdrop.remove();
+              openSportSettings();
+            }
+          }
+        };
+      });
+      backdrop.querySelector('#closeBtn').onclick = function() { backdrop.remove(); renderWeekSport(); };
+      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
-    function editSportTypeName(i) {
-      const t = sportTypes[i];
-      const newName = prompt('Новое название:', t.name);
-      if (newName && newName.trim()) {
-        t.name = newName.trim();
-        saveSportTypes();
-        // Закрываем и открываем заново
-        document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-        openSportSettings();
-      }
-    }
-    function deleteSportType(i) {
-      if (!confirm(`Удалить вид «${sportTypes[i].name}»?`)) return;
-      sportTypes.splice(i, 1);
-      saveSportTypes();
-      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-      openSportSettings();
-    }
+
+    // Модалка чтения — прямые onclick
     let readModalState = null;
     let readModalEl = null;
+
     function openReadModal(dateStr) {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const existing = readData[dateStr] || { mood: null, text: '', note: '' };
       readModalState = { date: dateStr, mood: existing.mood || null, text: existing.text || '', note: existing.note || '' };
       buildReadModal();
     }
+
     function buildReadModal() {
       const s = readModalState;
       if (!s) return;
@@ -3722,32 +3821,30 @@
       `;
 
       const emojiScale = modal.querySelector('#readEmojiScale');
-      READ_EMOJIS.forEach((e, i) => {
+      const emojiBtns = [];
+      READ_EMOJIS.forEach(function(e, i) {
         const level = i + 1;
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'emoji-btn' + (s.mood === level ? ' selected' : '');
-        btn.dataset.level = level;
-        btn.innerHTML = `<span class="e-icon" style="font-size:18px;">${e}</span><span class="e-num">${level}</span>`;
+        btn.innerHTML = '<span class="e-icon" style="font-size:18px;">' + e + '</span><span class="e-num">' + level + '</span>';
+        btn.onclick = function() {
+          s.mood = level;
+          emojiBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          tg.HapticFeedback?.selectionChanged();
+        };
         emojiScale.appendChild(btn);
-      });
-      emojiScale.addEventListener('click', (e) => {
-        const btn = e.target.closest('.emoji-btn');
-        if (!btn) return;
-        const level = parseInt(btn.dataset.level, 10);
-        s.mood = level;
-        emojiScale.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        tg.HapticFeedback?.selectionChanged();
+        emojiBtns.push(btn);
       });
 
       const textInp = modal.querySelector('#readTextField');
-      textInp.addEventListener('input', () => { s.text = textInp.value; });
+      textInp.addEventListener('input', function() { s.text = textInp.value; });
       const noteInp = modal.querySelector('#readNoteField');
-      noteInp.addEventListener('input', () => { s.note = noteInp.value; });
+      noteInp.addEventListener('input', function() { s.note = noteInp.value; });
 
-      backdrop.querySelector('#cancelBtn').addEventListener('click', closeReadModal);
-      backdrop.querySelector('#saveBtn').addEventListener('click', () => {
+      backdrop.querySelector('#cancelBtn').onclick = function() { closeReadModal(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
         const hasData = s.mood || s.text || s.note;
         if (hasData) readData[s.date] = { mood: s.mood, text: s.text, note: s.note };
         else delete readData[s.date];
@@ -3763,11 +3860,10 @@
         closeReadModal();
         renderWeekRead(); renderWeekHabitsGrid(); renderWeekSummary();
         tg.HapticFeedback?.notificationOccurred('success');
-      });
-      backdrop.addEventListener('click', (e) => {
-        if (e.target === backdrop) closeReadModal();
-      });
+      };
+      backdrop.onclick = function(e) { if (e.target === backdrop) closeReadModal(); };
     }
+
     function closeReadModal() {
       if (readModalEl && readModalEl.parentNode) readModalEl.remove();
       readModalEl = null;
@@ -3777,7 +3873,6 @@
     /* ============ ЦЕЛИ ============ */
     const GOALS_KEY = 'goals_v1';
     let goals = [];
-
     function saveGoals() {
       tg.CloudStorage.setItem(GOALS_KEY, JSON.stringify(goals), (err) => { if (err) console.warn(err); });
     }
@@ -3791,7 +3886,6 @@
         cb && cb();
       });
     }
-
     function calcGoalProgress(goal) {
       if (goal.completed) return 100;
       if (goal.linkType === 'weight') {
@@ -3819,35 +3913,35 @@
         const target = goal.targetWeight;
         const current = latest.weight;
         const remaining = Math.abs(current - target).toFixed(1);
-        return `${start} → ${current} → ${target} кг (осталось ${remaining})`;
+        return start + ' → ' + current + ' → ' + target + ' кг (осталось ' + remaining + ')';
       }
       if (goal.linkType === 'money') {
-        return `${goal.startMoney || 0} → ${goal.targetMoney} ₽`;
+        return (goal.startMoney || 0) + ' → ' + goal.targetMoney + ' ₽';
       }
       if (goal.linkType === 'steps') {
-        return `${goal.currentCount || 0} / ${goal.targetCount} шагов`;
+        return (goal.currentCount || 0) + ' / ' + goal.targetCount + ' шагов';
       }
       if (goal.progressMode === 'counter') {
-        return `${goal.currentCount || 0} / ${goal.targetCount}`;
+        return (goal.currentCount || 0) + ' / ' + goal.targetCount;
       }
-      return `${goal.progress || 0}%`;
+      return (goal.progress || 0) + '%';
     }
     function calcDeadlineInfo(deadline) {
       if (!deadline) return null;
       const today = new Date(getLogicalDate() + 'T12:00:00');
       const dl = new Date(deadline + 'T12:00:00');
       const diffDays = Math.round((dl - today) / (1000 * 60 * 60 * 24));
-      if (diffDays < 0) return { days: Math.abs(diffDays), status: 'danger', text: `Просрочено на ${Math.abs(diffDays)} дн.` };
-      if (diffDays === 0) return { days: 0, status: 'warn', text: `Сегодня последний день!` };
-      if (diffDays <= 7) return { days: diffDays, status: 'warn', text: `Осталось ${diffDays} дн.` };
-      return { days: diffDays, status: 'ok', text: `Осталось ${diffDays} дн.` };
+      if (diffDays < 0) return { days: Math.abs(diffDays), status: 'danger', text: 'Просрочено на ' + Math.abs(diffDays) + ' дн.' };
+      if (diffDays === 0) return { days: 0, status: 'warn', text: 'Сегодня последний день!' };
+      if (diffDays <= 7) return { days: diffDays, status: 'warn', text: 'Осталось ' + diffDays + ' дн.' };
+      return { days: diffDays, status: 'ok', text: 'Осталось ' + diffDays + ' дн.' };
     }
 
     function renderGoals() {
       const container = document.getElementById('goalsContent');
       if (!container) return;
       if (!goals.length) {
-        container.innerHTML = `<div class="goals-empty"><span class="big">🎯</span><div class="text">Пока нет целей.<br>Нажми <b>+</b> внизу, чтобы добавить первую!</div></div>`;
+        container.innerHTML = '<div class="goals-empty"><span class="big">🎯</span><div class="text">Пока нет целей.<br>Нажми <b>+</b> внизу, чтобы добавить первую!</div></div>';
         return;
       }
       const active = goals.filter(g => !g.completed);
@@ -3857,145 +3951,160 @@
 
       let html = '';
       if (short.length) {
-        html += `<div class="goal-section-title">🎯 Краткосрочные</div>`;
+        html += '<div class="goal-section-title">🎯 Краткосрочные</div>';
         short.forEach(g => { html += renderGoalCard(g); });
       }
       if (long.length) {
-        html += `<div class="goal-section-title">🌱 Долгосрочные</div>`;
+        html += '<div class="goal-section-title">🌱 Долгосрочные</div>';
         long.forEach(g => { html += renderGoalCard(g); });
       }
       if (completed.length) {
-        html += `<button class="goal-completed-toggle" id="completedToggle" onclick="toggleCompleted()"><span>✅ Достигнутые (${completed.length})</span><span class="arrow">▶</span></button>`;
-        html += `<div id="completedBlock" style="display:none;">`;
+        html += '<button type="button" class="goal-completed-toggle" id="completedToggle"><span>✅ Достигнутые (' + completed.length + ')</span><span class="arrow">▶</span></button>';
+        html += '<div id="completedBlock" style="display:none;">';
         completed.forEach(g => { html += renderGoalCard(g, true); });
-        html += `</div>`;
+        html += '</div>';
       }
       container.innerHTML = html;
+
+      // Привязываем события
+      const toggle = document.getElementById('completedToggle');
+      if (toggle) {
+        toggle.onclick = function() {
+          const block = document.getElementById('completedBlock');
+          const isOpen = block.style.display !== 'none';
+          block.style.display = isOpen ? 'none' : 'block';
+          toggle.querySelector('.arrow').textContent = isOpen ? '▶' : '▼';
+        };
+      }
+
+      // Меню цели — привязываем напрямую
+      const menuBtns = container.querySelectorAll('.goal-menu-btn');
+      menuBtns.forEach(function(btn) {
+        btn.onclick = function(e) {
+          e.stopPropagation();
+          const goalId = btn.dataset.goalId;
+          openGoalMenu(goalId, btn);
+        };
+      });
     }
-    function toggleCompleted() {
-      const block = document.getElementById('completedBlock');
-      const btn = document.getElementById('completedToggle');
-      if (!block) return;
-      const isOpen = block.style.display !== 'none';
-      block.style.display = isOpen ? 'none' : 'block';
-      const arrow = btn.querySelector('.arrow');
-      if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
-    }
-    function renderGoalCard(goal, isCompleted = false) {
+
+    function renderGoalCard(goal, isCompleted) {
       const pct = calcGoalProgress(goal);
       const progressText = getGoalProgressText(goal);
       const deadlineInfo = calcDeadlineInfo(goal.deadline);
 
       let typeBadge = '';
-      if (goal.linkType === 'weight') {
-        typeBadge = `<span class="goal-badge type-weight">⚖️ Вес</span>`;
-      } else if (goal.linkType === 'money') {
-        typeBadge = `<span class="goal-badge type-money">💰 Финансы</span>`;
-      } else if (goal.linkType === 'steps') {
-        typeBadge = `<span class="goal-badge type-steps">👟 Шаги</span>`;
-      } else {
-        typeBadge = `<span class="goal-badge type-free">🎯 Ручная</span>`;
-      }
-      const typeBadge2 = goal.type === 'short' 
-        ? `<span class="goal-badge short">Краткосрочная</span>` 
-        : `<span class="goal-badge long">Долгосрочная</span>`;
-      const doneBadge = goal.completed ? `<span class="goal-badge done-badge">✅ Достигнута</span>` : '';
-      const deadlineHtml = deadlineInfo 
-        ? `<div class="deadline ${deadlineInfo.status}">📅 ${deadlineInfo.text} (${formatDateRu(goal.deadline)})</div>` 
-        : '';
-      const descriptionHtml = goal.description 
-        ? `<div class="goal-description">${escapeHtml(goal.description)}</div>` 
-        : '';
+      if (goal.linkType === 'weight') typeBadge = '<span class="goal-badge type-weight">⚖️ Вес</span>';
+      else if (goal.linkType === 'money') typeBadge = '<span class="goal-badge type-money">💰 Финансы</span>';
+      else if (goal.linkType === 'steps') typeBadge = '<span class="goal-badge type-steps">👟 Шаги</span>';
+      else typeBadge = '<span class="goal-badge type-free">🎯 Ручная</span>';
 
-      return `
-        <div class="goal-card ${goal.completed ? 'done' : ''}">
-          <div class="goal-header">
-            <div class="goal-title-wrap">
-              <div class="goal-title">${escapeHtml(goal.title)}</div>
-              <div>${typeBadge}${typeBadge2}${doneBadge}</div>
-            </div>
-            <button class="goal-menu-btn" data-goal-id="${goal.id}" onclick="openGoalMenu('${goal.id}')">⋯</button>
-          </div>
-          ${descriptionHtml}
-          <div class="goal-progress-wrap">
-            <div class="goal-progress-bar">
-              <div class="goal-progress-fill" style="width: ${pct}%"></div>
-            </div>
-            <div class="goal-progress-info">
-              <span>${progressText}</span>
-              <span class="goal-progress-pct">${pct}%</span>
-            </div>
-          </div>
-          ${deadlineHtml ? `<div class="goal-meta">${deadlineHtml}</div>` : ''}
-        </div>
-      `;
+      const typeBadge2 = goal.type === 'short' ? '<span class="goal-badge short">Краткосрочная</span>' : '<span class="goal-badge long">Долгосрочная</span>';
+      const doneBadge = goal.completed ? '<span class="goal-badge done-badge">✅ Достигнута</span>' : '';
+      const deadlineHtml = deadlineInfo ? '<div class="deadline ' + deadlineInfo.status + '">📅 ' + deadlineInfo.text + ' (' + formatDateRu(goal.deadline) + ')</div>' : '';
+      const descriptionHtml = goal.description ? '<div class="goal-description">' + escapeHtml(goal.description) + '</div>' : '';
+
+      return '<div class="goal-card ' + (goal.completed ? 'done' : '') + '">' +
+        '<div class="goal-header">' +
+          '<div class="goal-title-wrap">' +
+            '<div class="goal-title">' + escapeHtml(goal.title) + '</div>' +
+            '<div>' + typeBadge + typeBadge2 + doneBadge + '</div>' +
+          '</div>' +
+          '<button type="button" class="goal-menu-btn" data-goal-id="' + goal.id + '">⋯</button>' +
+        '</div>' +
+        descriptionHtml +
+        '<div class="goal-progress-wrap">' +
+          '<div class="goal-progress-bar"><div class="goal-progress-fill" style="width: ' + pct + '%"></div></div>' +
+          '<div class="goal-progress-info"><span>' + progressText + '</span><span class="goal-progress-pct">' + pct + '%</span></div>' +
+        '</div>' +
+        (deadlineHtml ? '<div class="goal-meta">' + deadlineHtml + '</div>' : '') +
+      '</div>';
     }
 
     let goalMenuEl = null;
     let goalMenuBackdropEl = null;
-    function openGoalMenu(goalId) {
-      // Закрываем старое
-      closeGoalMenu();
 
+    function openGoalMenu(goalId, anchorBtn) {
+      closeGoalMenu();
       const goal = goals.find(g => g.id === goalId);
       if (!goal) return;
-
-      // Находим карточку этой цели
-      const allBtns = document.querySelectorAll('.goal-menu-btn');
-      let targetBtn = null;
-      allBtns.forEach(btn => {
-        if (btn.dataset.goalId === goalId) targetBtn = btn;
-      });
 
       // Backdrop для закрытия
       goalMenuBackdropEl = document.createElement('div');
       goalMenuBackdropEl.className = 'goal-actions-backdrop';
-      goalMenuBackdropEl.addEventListener('click', closeGoalMenu);
+      goalMenuBackdropEl.onclick = function() { closeGoalMenu(); };
       document.body.appendChild(goalMenuBackdropEl);
 
       // Меню
       goalMenuEl = document.createElement('div');
       goalMenuEl.className = 'goal-actions-menu';
-      let menuHtml = `<button type="button" data-action="edit">✏️ Изменить</button>`;
-      if (!goal.completed) {
-        menuHtml += `<button type="button" data-action="progress">📊 Изменить прогресс</button>`;
-        menuHtml += `<button type="button" data-action="complete">✅ Отметить достигнутой</button>`;
-      } else {
-        menuHtml += `<button type="button" data-action="uncomplete">↩️ Вернуть в работу</button>`;
-      }
-      menuHtml += `<button type="button" data-action="delete" class="danger">🗑️ Удалить</button>`;
-      goalMenuEl.innerHTML = menuHtml;
 
-      // Позиционирование
-      if (targetBtn) {
-        const rect = targetBtn.getBoundingClientRect();
-        const menuWidth = 220;
-        let left = rect.right - menuWidth;
-        if (left < 8) left = 8;
-        const top = rect.bottom + 4;
-        goalMenuEl.style.top = top + 'px';
-        goalMenuEl.style.left = left + 'px';
+      // Позиция
+      const rect = anchorBtn.getBoundingClientRect();
+      const menuWidth = 220;
+      let left = rect.right - menuWidth;
+      if (left < 8) left = 8;
+      const top = rect.bottom + 4;
+      goalMenuEl.style.top = top + 'px';
+      goalMenuEl.style.left = left + 'px';
+
+      // Кнопки
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.textContent = '✏️ Изменить';
+      editBtn.onclick = function(e) {
+        e.stopPropagation();
+        closeGoalMenu();
+        editGoal(goalId);
+      };
+      goalMenuEl.appendChild(editBtn);
+
+      if (!goal.completed) {
+        const progBtn = document.createElement('button');
+        progBtn.type = 'button';
+        progBtn.textContent = '📊 Изменить прогресс';
+        progBtn.onclick = function(e) {
+          e.stopPropagation();
+          closeGoalMenu();
+          progressGoal(goalId);
+        };
+        goalMenuEl.appendChild(progBtn);
+
+        const completeBtn = document.createElement('button');
+        completeBtn.type = 'button';
+        completeBtn.textContent = '✅ Отметить достигнутой';
+        completeBtn.onclick = function(e) {
+          e.stopPropagation();
+          closeGoalMenu();
+          completeGoal(goalId);
+        };
+        goalMenuEl.appendChild(completeBtn);
       } else {
-        goalMenuEl.style.top = '100px';
-        goalMenuEl.style.right = '16px';
+        const uncompleteBtn = document.createElement('button');
+        uncompleteBtn.type = 'button';
+        uncompleteBtn.textContent = '↩️ Вернуть в работу';
+        uncompleteBtn.onclick = function(e) {
+          e.stopPropagation();
+          closeGoalMenu();
+          uncompleteGoal(goalId);
+        };
+        goalMenuEl.appendChild(uncompleteBtn);
       }
+
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'danger';
+      delBtn.textContent = '🗑️ Удалить';
+      delBtn.onclick = function(e) {
+        e.stopPropagation();
+        closeGoalMenu();
+        deleteGoal(goalId);
+      };
+      goalMenuEl.appendChild(delBtn);
 
       document.body.appendChild(goalMenuEl);
-
-      // Делегирование клика по кнопкам
-      goalMenuEl.addEventListener('click', (e) => {
-        const btn = e.target.closest('button[data-action]');
-        if (!btn) return;
-        e.stopPropagation();
-        const action = btn.dataset.action;
-        closeGoalMenu();
-        if (action === 'edit') editGoal(goalId);
-        else if (action === 'progress') progressGoal(goalId);
-        else if (action === 'complete') completeGoal(goalId);
-        else if (action === 'uncomplete') uncompleteGoal(goalId);
-        else if (action === 'delete') deleteGoal(goalId);
-      });
     }
+
     function closeGoalMenu() {
       if (goalMenuEl && goalMenuEl.parentNode) goalMenuEl.remove();
       goalMenuEl = null;
@@ -4027,7 +4136,7 @@
     function deleteGoal(goalId) {
       const goal = goals.find(g => g.id === goalId);
       if (!goal) return;
-      if (!confirm(`Удалить цель «${goal.title}»?`)) return;
+      if (!confirm('Удалить цель «' + goal.title + '»?')) return;
       goals = goals.filter(g => g.id !== goalId);
       saveGoals(); renderGoals();
       tg.HapticFeedback?.notificationOccurred('warning');
@@ -4042,41 +4151,18 @@
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
       if (goal.progressMode === 'counter' || goal.linkType === 'steps') {
-        backdrop.innerHTML = `
-          <div class="modal">
-            <h3>📊 Прогресс</h3>
-            <label>Текущее значение</label>
-            <input type="number" id="progCountInput" min="0" max="999999999" value="${goal.currentCount || 0}">
-            <div class="modal-hint">Цель: ${goal.targetCount}</div>
-            <div class="modal-buttons">
-              <button class="cancel" id="cancelBtn">Отмена</button>
-              <button class="save" id="saveBtn">Сохранить</button>
-            </div>
-          </div>
-        `;
+        backdrop.innerHTML = '<div class="modal"><h3>📊 Прогресс</h3><label>Текущее значение</label><input type="number" id="progCountInput" min="0" max="999999999" value="' + (goal.currentCount || 0) + '"><div class="modal-hint">Цель: ' + goal.targetCount + '</div><div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">Сохранить</button></div></div>';
       } else {
-        backdrop.innerHTML = `
-          <div class="modal">
-            <h3>📊 Прогресс</h3>
-            <div class="progress-slider-wrap">
-              <div class="progress-slider-value" id="progSliderValue">${goal.progress || 0}%</div>
-              <input type="range" class="progress-slider-input" id="progSlider" min="0" max="100" step="1" value="${goal.progress || 0}">
-            </div>
-            <div class="modal-buttons">
-              <button class="cancel" id="cancelBtn">Отмена</button>
-              <button class="save" id="saveBtn">Сохранить</button>
-            </div>
-          </div>
-        `;
+        backdrop.innerHTML = '<div class="modal"><h3>📊 Прогресс</h3><div class="progress-slider-wrap"><div class="progress-slider-value" id="progSliderValue">' + (goal.progress || 0) + '%</div><input type="range" class="progress-slider-input" id="progSlider" min="0" max="100" step="1" value="' + (goal.progress || 0) + '"></div><div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">Сохранить</button></div></div>';
       }
       document.body.appendChild(backdrop);
       const slider = backdrop.querySelector('#progSlider');
       if (slider) {
         const valEl = backdrop.querySelector('#progSliderValue');
-        slider.addEventListener('input', () => { valEl.textContent = slider.value + '%'; });
+        slider.addEventListener('input', function() { valEl.textContent = slider.value + '%'; });
       }
-      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
-      backdrop.querySelector('#saveBtn').onclick = () => {
+      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
         if (goal.progressMode === 'counter' || goal.linkType === 'steps') {
           const v = parseInt(backdrop.querySelector('#progCountInput').value, 10);
           if (!isNaN(v) && v >= 0) goal.currentCount = v;
@@ -4092,109 +4178,108 @@
         saveGoals(); backdrop.remove(); renderGoals();
         tg.HapticFeedback?.notificationOccurred('success');
       };
-      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
     function celebrateGoal() {
       const toast = document.createElement('div');
       toast.textContent = '🎉 Цель достигнута!';
       toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:linear-gradient(135deg,#ec4899,#f43f5e);color:#fff;padding:16px 24px;border-radius:16px;font-size:17px;font-weight:700;z-index:200;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 10px 40px rgba(236,72,153,0.6);text-align:center;';
       document.body.appendChild(toast);
-      requestAnimationFrame(() => { toast.style.transform = 'translate(-50%, -50%) scale(1)'; });
-      setTimeout(() => {
+      requestAnimationFrame(function() { toast.style.transform = 'translate(-50%, -50%) scale(1)'; });
+      setTimeout(function() {
         toast.style.transform = 'translate(-50%, -50%) scale(0)';
-        setTimeout(() => toast.remove(), 400);
+        setTimeout(function() { toast.remove(); }, 400);
       }, 2500);
     }
 
     let goalModalState = null;
     let goalModalEl = null;
-    function openGoalModal(existing = null) {
+
+    function openGoalModal(existing) {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       goalModalState = {
         editing: !!existing,
-        id: existing?.id || null,
-        title: existing?.title || '',
-        description: existing?.description || '',
-        type: existing?.type || 'short',
-        linkType: existing?.linkType || 'free',
-        progressMode: existing?.progressMode || 'percent',
-        progress: existing?.progress || 0,
-        currentCount: existing?.currentCount || 0,
-        targetCount: existing?.targetCount || 0,
-        startWeight: existing?.startWeight || null,
-        targetWeight: existing?.targetWeight || null,
-        startMoney: existing?.startMoney || null,
-        targetMoney: existing?.targetMoney || null,
-        deadline: existing?.deadline || ''
+        id: existing ? existing.id : null,
+        title: existing ? existing.title : '',
+        description: existing ? existing.description : '',
+        type: existing ? existing.type : 'short',
+        linkType: existing ? existing.linkType : 'free',
+        progressMode: existing ? existing.progressMode : 'percent',
+        progress: existing ? existing.progress : 0,
+        currentCount: existing ? existing.currentCount : 0,
+        targetCount: existing ? existing.targetCount : 0,
+        startWeight: existing ? existing.startWeight : null,
+        targetWeight: existing ? existing.targetWeight : null,
+        startMoney: existing ? existing.startMoney : null,
+        targetMoney: existing ? existing.targetMoney : null,
+        deadline: existing ? existing.deadline : ''
       };
       buildGoalModal();
     }
+
     function buildGoalModal() {
       const s = goalModalState;
       if (!s) return;
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
-      backdrop.innerHTML = `<div class="modal" id="goalModal"></div>`;
+      backdrop.innerHTML = '<div class="modal" id="goalModal"></div>';
       document.body.appendChild(backdrop);
       goalModalEl = backdrop;
 
       const modal = backdrop.querySelector('#goalModal');
       const isEdit = s.editing;
 
-      let html = `<h3>${isEdit ? '✏️ Изменить цель' : '🎯 Новая цель'}</h3>`;
-      html += `<label>Название цели</label>`;
-      html += `<input type="text" id="goalTitle" placeholder="Например: Похудеть до 70 кг" maxlength="100" value="${escapeHtml(s.title)}">`;
-      html += `<label>Короткое описание (опционально)</label>`;
-      html += `<textarea id="goalDescription" placeholder="Почему я хочу эту цель" maxlength="200" style="min-height:50px;">${escapeHtml(s.description)}</textarea>`;
-      html += `<label>Тип</label>`;
-      html += `<div class="goal-type-grid" style="grid-template-columns:1fr 1fr;">`;
-      html += `<button type="button" class="goal-type-btn ${s.type === 'short' ? 'selected' : ''}" data-type="short"><span class="gt-emoji">⚡</span><span class="gt-name">Краткосрочная</span><span class="gt-desc">неделя–месяц</span></button>`;
-      html += `<button type="button" class="goal-type-btn ${s.type === 'long' ? 'selected' : ''}" data-type="long"><span class="gt-emoji">🌱</span><span class="gt-name">Долгосрочная</span><span class="gt-desc">полгода–год</span></button>`;
-      html += `</div>`;
-      html += `<label>Привязка</label>`;
-      html += `<div class="goal-type-grid">`;
-      html += `<button type="button" class="goal-type-btn ${s.linkType === 'free' ? 'selected' : ''}" data-link="free"><span class="gt-emoji">🎯</span><span class="gt-name">Свободная</span><span class="gt-desc">вручную</span></button>`;
-      html += `<button type="button" class="goal-type-btn ${s.linkType === 'weight' ? 'selected' : ''}" data-link="weight"><span class="gt-emoji">⚖️</span><span class="gt-name">По весу</span><span class="gt-desc">авто из веса</span></button>`;
-      html += `<button type="button" class="goal-type-btn ${s.linkType === 'money' ? 'selected' : ''}" data-link="money"><span class="gt-emoji">💰</span><span class="gt-name">По финансам</span><span class="gt-desc">авто из дохода</span></button>`;
-      html += `<button type="button" class="goal-type-btn ${s.linkType === 'steps' ? 'selected' : ''}" data-link="steps"><span class="gt-emoji">👟</span><span class="gt-name">По шагам</span><span class="gt-desc">вручную</span></button>`;
-      html += `</div>`;
+      let html = '<h3>' + (isEdit ? '✏️ Изменить цель' : '🎯 Новая цель') + '</h3>';
+      html += '<label>Название цели</label>';
+      html += '<input type="text" id="goalTitle" placeholder="Например: Похудеть до 70 кг" maxlength="100" value="' + escapeHtml(s.title) + '">';
+      html += '<label>Короткое описание (опционально)</label>';
+      html += '<textarea id="goalDescription" placeholder="Почему я хочу эту цель" maxlength="200" style="min-height:50px;">' + escapeHtml(s.description) + '</textarea>';
+      html += '<label>Тип</label>';
+      html += '<div class="goal-type-grid" style="grid-template-columns:1fr 1fr;">';
+      html += '<button type="button" class="goal-type-btn ' + (s.type === 'short' ? 'selected' : '') + '" data-type="short"><span class="gt-emoji">⚡</span><span class="gt-name">Краткосрочная</span><span class="gt-desc">неделя–месяц</span></button>';
+      html += '<button type="button" class="goal-type-btn ' + (s.type === 'long' ? 'selected' : '') + '" data-type="long"><span class="gt-emoji">🌱</span><span class="gt-name">Долгосрочная</span><span class="gt-desc">полгода–год</span></button>';
+      html += '</div>';
+      html += '<label>Привязка</label>';
+      html += '<div class="goal-type-grid">';
+      html += '<button type="button" class="goal-type-btn ' + (s.linkType === 'free' ? 'selected' : '') + '" data-link="free"><span class="gt-emoji">🎯</span><span class="gt-name">Свободная</span><span class="gt-desc">вручную</span></button>';
+      html += '<button type="button" class="goal-type-btn ' + (s.linkType === 'weight' ? 'selected' : '') + '" data-link="weight"><span class="gt-emoji">⚖️</span><span class="gt-name">По весу</span><span class="gt-desc">авто из веса</span></button>';
+      html += '<button type="button" class="goal-type-btn ' + (s.linkType === 'money' ? 'selected' : '') + '" data-link="money"><span class="gt-emoji">💰</span><span class="gt-name">По финансам</span><span class="gt-desc">авто из дохода</span></button>';
+      html += '<button type="button" class="goal-type-btn ' + (s.linkType === 'steps' ? 'selected' : '') + '" data-link="steps"><span class="gt-emoji">👟</span><span class="gt-name">По шагам</span><span class="gt-desc">вручную</span></button>';
+      html += '</div>';
 
       if (s.linkType === 'free') {
-        html += `<label>Как отслеживать</label>`;
-        html += `<div class="goal-type-grid" style="grid-template-columns:1fr 1fr;">`;
-        html += `<button type="button" class="goal-type-btn ${s.progressMode === 'percent' ? 'selected' : ''}" data-mode="percent"><span class="gt-emoji">📊</span><span class="gt-name">Процент</span><span class="gt-desc">ползунок 0–100%</span></button>`;
-        html += `<button type="button" class="goal-type-btn ${s.progressMode === 'counter' ? 'selected' : ''}" data-mode="counter"><span class="gt-emoji">🔢</span><span class="gt-name">Счётчик</span><span class="gt-desc">текущее / цель</span></button>`;
-        html += `</div>`;
+        html += '<label>Как отслеживать</label>';
+        html += '<div class="goal-type-grid" style="grid-template-columns:1fr 1fr;">';
+        html += '<button type="button" class="goal-type-btn ' + (s.progressMode === 'percent' ? 'selected' : '') + '" data-mode="percent"><span class="gt-emoji">📊</span><span class="gt-name">Процент</span><span class="gt-desc">ползунок 0–100%</span></button>';
+        html += '<button type="button" class="goal-type-btn ' + (s.progressMode === 'counter' ? 'selected' : '') + '" data-mode="counter"><span class="gt-emoji">🔢</span><span class="gt-name">Счётчик</span><span class="gt-desc">текущее / цель</span></button>';
+        html += '</div>';
         if (s.progressMode === 'counter') {
-          html += `<label>Целевое значение (например 12)</label>`;
-          html += `<input type="number" id="goalTargetCount" min="1" max="999999999" value="${s.targetCount || ''}" placeholder="12">`;
+          html += '<label>Целевое значение (например 12)</label>';
+          html += '<input type="number" id="goalTargetCount" min="1" max="999999999" value="' + (s.targetCount || '') + '" placeholder="12">';
         }
       } else if (s.linkType === 'weight') {
-        html += `<label>Стартовый вес (кг)</label>`;
-        html += `<input type="number" id="goalStartWeight" min="20" max="300" step="0.1" value="${s.startWeight || ''}" placeholder="80">`;
-        html += `<label>Целевой вес (кг)</label>`;
-        html += `<input type="number" id="goalTargetWeight" min="20" max="300" step="0.1" value="${s.targetWeight || ''}" placeholder="70">`;
+        html += '<label>Стартовый вес (кг)</label>';
+        html += '<input type="number" id="goalStartWeight" min="20" max="300" step="0.1" value="' + (s.startWeight || '') + '" placeholder="80">';
+        html += '<label>Целевой вес (кг)</label>';
+        html += '<input type="number" id="goalTargetWeight" min="20" max="300" step="0.1" value="' + (s.targetWeight || '') + '" placeholder="70">';
       } else if (s.linkType === 'money') {
-        html += `<label>Стартовая сумма (₽)</label>`;
-        html += `<input type="number" id="goalStartMoney" min="0" max="1000000000" step="1000" value="${s.startMoney || 0}" placeholder="0">`;
-        html += `<label>Целевая сумма (₽)</label>`;
-        html += `<input type="number" id="goalTargetMoney" min="1" max="1000000000" step="1000" value="${s.targetMoney || ''}" placeholder="100000">`;
-        html += `<div class="modal-hint">Прогресс будет считаться автоматически, когда добавишь доход за месяц.</div>`;
+        html += '<label>Стартовая сумма (₽)</label>';
+        html += '<input type="number" id="goalStartMoney" min="0" max="1000000000" step="1000" value="' + (s.startMoney || 0) + '" placeholder="0">';
+        html += '<label>Целевая сумма (₽)</label>';
+        html += '<input type="number" id="goalTargetMoney" min="1" max="1000000000" step="1000" value="' + (s.targetMoney || '') + '" placeholder="100000">';
+        html += '<div class="modal-hint">Прогресс будет считаться автоматически, когда добавишь доход за месяц.</div>';
       } else if (s.linkType === 'steps') {
-        html += `<label>Целевое количество шагов</label>`;
-        html += `<input type="number" id="goalTargetCount" min="1" max="999999999" step="1000" value="${s.targetCount || ''}" placeholder="300000">`;
-        html += `<div class="modal-hint">Прогресс считается вручную — ты вводишь текущее количество.</div>`;
+        html += '<label>Целевое количество шагов</label>';
+        html += '<input type="number" id="goalTargetCount" min="1" max="999999999" step="1000" value="' + (s.targetCount || '') + '" placeholder="300000">';
+        html += '<div class="modal-hint">Прогресс считается вручную — ты вводишь текущее количество.</div>';
       }
 
-      html += `<label>Дедлайн (опционально)</label>`;
-      html += `<input type="date" id="goalDeadline" value="${s.deadline || ''}">`;
-      html += `<div class="modal-buttons">`;
-      html += `<button class="cancel" id="cancelBtn">Отмена</button>`;
-      html += `<button class="save" id="saveBtn">${isEdit ? 'Сохранить' : 'Создать'}</button>`;
-      html += `</div>`;
+      html += '<label>Дедлайн (опционально)</label>';
+      html += '<input type="date" id="goalDeadline" value="' + (s.deadline || '') + '">';
+      html += '<div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">' + (isEdit ? 'Сохранить' : 'Создать') + '</button></div>';
       modal.innerHTML = html;
 
-      // Функция сохранения текущих значений
+      // Функция захвата полей
       function captureInputs() {
         const t = modal.querySelector('#goalTitle');
         const d = modal.querySelector('#goalDescription');
@@ -4214,83 +4299,72 @@
         if (tm) s.targetMoney = parseFloat(tm.value) || null;
       }
 
-      // Обработчики выбора (делегирование)
-      modal.querySelectorAll('[data-type]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      // Тип
+      modal.querySelectorAll('[data-type]').forEach(function(btn) {
+        btn.onclick = function() {
           captureInputs();
           s.type = btn.dataset.type;
-          rebuildGoalModalInner();
-        });
+          rebuildGoalModal();
+        };
       });
-      modal.querySelectorAll('[data-link]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      // Привязка
+      modal.querySelectorAll('[data-link]').forEach(function(btn) {
+        btn.onclick = function() {
           captureInputs();
           s.linkType = btn.dataset.link;
-          rebuildGoalModalInner();
-        });
+          rebuildGoalModal();
+        };
       });
-      modal.querySelectorAll('[data-mode]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      // Режим
+      modal.querySelectorAll('[data-mode]').forEach(function(btn) {
+        btn.onclick = function() {
           captureInputs();
           s.progressMode = btn.dataset.mode;
-          rebuildGoalModalInner();
-        });
+          rebuildGoalModal();
+        };
       });
 
-      function rebuildGoalModalInner() {
-        // Сохраняем state, закрываем и пересобираем
-        const stateCopy = { ...s };
+      function rebuildGoalModal() {
+        const copy = {};
+        for (const k in s) copy[k] = s[k];
         if (goalModalEl && goalModalEl.parentNode) goalModalEl.remove();
-        goalModalState = stateCopy;
+        goalModalState = copy;
         buildGoalModal();
       }
 
-      backdrop.querySelector('#cancelBtn').addEventListener('click', () => {
+      backdrop.querySelector('#cancelBtn').onclick = function() {
         if (goalModalEl && goalModalEl.parentNode) goalModalEl.remove();
-        goalModalEl = null;
-        goalModalState = null;
-      });
+        goalModalEl = null; goalModalState = null;
+      };
 
-      backdrop.querySelector('#saveBtn').addEventListener('click', () => {
+      backdrop.querySelector('#saveBtn').onclick = function() {
         captureInputs();
         const title = (modal.querySelector('#goalTitle').value || '').trim();
         const description = (modal.querySelector('#goalDescription').value || '').trim();
         const deadline = modal.querySelector('#goalDeadline').value || '';
-        const targetCount = parseInt(modal.querySelector('#goalTargetCount')?.value, 10) || 0;
-        const startWeight = parseFloat(modal.querySelector('#goalStartWeight')?.value);
-        const targetWeight = parseFloat(modal.querySelector('#goalTargetWeight')?.value);
-        const startMoney = parseFloat(modal.querySelector('#goalStartMoney')?.value);
-        const targetMoney = parseFloat(modal.querySelector('#goalTargetMoney')?.value);
+        const targetCount = parseInt(modal.querySelector('#goalTargetCount') ? modal.querySelector('#goalTargetCount').value : 0, 10) || 0;
+        const startWeightEl = modal.querySelector('#goalStartWeight');
+        const targetWeightEl = modal.querySelector('#goalTargetWeight');
+        const startMoneyEl = modal.querySelector('#goalStartMoney');
+        const targetMoneyEl = modal.querySelector('#goalTargetMoney');
+        const startWeight = startWeightEl ? parseFloat(startWeightEl.value) : NaN;
+        const targetWeight = targetWeightEl ? parseFloat(targetWeightEl.value) : NaN;
+        const startMoney = startMoneyEl ? parseFloat(startMoneyEl.value) : NaN;
+        const targetMoney = targetMoneyEl ? parseFloat(targetMoneyEl.value) : NaN;
 
         if (!title) { alert('Введи название цели'); return; }
-
         if (s.linkType === 'weight') {
-          if (isNaN(startWeight) || isNaN(targetWeight) || startWeight < 20 || targetWeight < 20) {
-            alert('Введи корректные веса (от 20 до 300 кг)');
-            return;
-          }
-          if (startWeight === targetWeight) {
-            alert('Стартовый и целевой вес не должны совпадать');
-            return;
-          }
+          if (isNaN(startWeight) || isNaN(targetWeight) || startWeight < 20 || targetWeight < 20) { alert('Введи корректные веса'); return; }
+          if (startWeight === targetWeight) { alert('Стартовый и целевой вес не должны совпадать'); return; }
         }
         if (s.linkType === 'money') {
-          if (isNaN(targetMoney) || targetMoney <= 0) {
-            alert('Введи целевую сумму');
-            return;
-          }
+          if (isNaN(targetMoney) || targetMoney <= 0) { alert('Введи целевую сумму'); return; }
         }
         if (s.linkType === 'free' && s.progressMode === 'counter') {
-          if (!targetCount || targetCount <= 0) {
-            alert('Введи целевое значение');
-            return;
-          }
+          if (!targetCount || targetCount <= 0) { alert('Введи целевое значение'); return; }
         }
         if (s.linkType === 'steps') {
-          if (!targetCount || targetCount <= 0) {
-            alert('Введи целевое количество шагов');
-            return;
-          }
+          if (!targetCount || targetCount <= 0) { alert('Введи целевое количество шагов'); return; }
         }
 
         if (s.editing) {
@@ -4311,41 +4385,33 @@
         } else {
           goals.push({
             id: 'g_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-            title, description,
-            type: s.type,
-            linkType: s.linkType,
-            progressMode: s.progressMode,
-            progress: 0,
-            currentCount: 0,
-            targetCount,
+            title: title, description: description,
+            type: s.type, linkType: s.linkType, progressMode: s.progressMode,
+            progress: 0, currentCount: 0, targetCount: targetCount,
             startWeight: isNaN(startWeight) ? null : startWeight,
             targetWeight: isNaN(targetWeight) ? null : targetWeight,
             startMoney: isNaN(startMoney) ? null : startMoney,
             targetMoney: isNaN(targetMoney) ? null : targetMoney,
             deadline: deadline || null,
-            completed: false,
-            completedAt: null,
-            createdAt: Date.now()
+            completed: false, completedAt: null, createdAt: Date.now()
           });
         }
         saveGoals();
         if (goalModalEl && goalModalEl.parentNode) goalModalEl.remove();
-        goalModalEl = null;
-        goalModalState = null;
+        goalModalEl = null; goalModalState = null;
         renderGoals();
         tg.HapticFeedback?.notificationOccurred('success');
-      });
+      };
 
-      backdrop.addEventListener('click', (e) => {
+      backdrop.onclick = function(e) {
         if (e.target === backdrop) {
           if (goalModalEl && goalModalEl.parentNode) goalModalEl.remove();
-          goalModalEl = null;
-          goalModalState = null;
+          goalModalEl = null; goalModalState = null;
         }
-      });
+      };
     }
 
-    /* СТАРТ */
+    /* ============ СТАРТ ============ */
     loadWater();
     loadSteps();
     loadSleep();
