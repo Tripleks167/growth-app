@@ -39,6 +39,8 @@
       --goal-grad: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
       --money: #10b981;
       --money-grad: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --stats: #a78bfa;
+      --stats-grad: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
     }
 
     html, body {
@@ -146,6 +148,39 @@
       transition: opacity 0.2s, transform 0.2s;
     }
     .gear-btn:active { opacity: 1; transform: scale(0.9) rotate(45deg); }
+
+    /* СТАТЫ - переключатель */
+    .stats-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      background: var(--card-2);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 16px;
+    }
+    .stats-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .stats-tab.active {
+      background: var(--stats-grad);
+      color: #14110f;
+    }
+    .stats-tab:active { opacity: 0.8; }
+
+    .stats-panel { display: none; }
+    .stats-panel.active { display: block; animation: fadeIn 0.25s ease; }
 
     /* ВОДА */
     .water-body { display: flex; align-items: stretch; gap: 16px; height: 280px; }
@@ -1901,8 +1936,50 @@
 
       <!-- СТАТЫ -->
       <div class="screen" id="screen-stats">
-        <div class="screen-header"><h1>Статистика</h1><div class="sub">День · Неделя · Месяц</div></div>
-        <div class="placeholder"><span class="big">📈</span><div class="text">Графики, streak'и, архив, финансы</div></div>
+        <div class="screen-header">
+          <h1>Статистика</h1>
+          <div class="sub">Аналитика и графики</div>
+        </div>
+
+        <!-- Переключатель -->
+        <div class="stats-tabs">
+          <button type="button" class="stats-tab active" data-stats="day">День</button>
+          <button type="button" class="stats-tab" data-stats="week">Неделя</button>
+          <button type="button" class="stats-tab" data-stats="month">Месяц</button>
+        </div>
+
+        <!-- Панель: День -->
+        <div class="stats-panel active" id="stats-panel-day">
+          <div class="card">
+            <div class="card-title"><span class="icon">📊</span> Сводка дня</div>
+            <div class="placeholder" style="padding: 30px 20px;">
+              <span class="big">📅</span>
+              <div class="text">Здесь будет подробная сводка текущего дня и streak'и</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Панель: Неделя -->
+        <div class="stats-panel" id="stats-panel-week">
+          <div class="card">
+            <div class="card-title"><span class="icon">📈</span> Графики недели</div>
+            <div class="placeholder" style="padding: 30px 20px;">
+              <span class="big">📊</span>
+              <div class="text">Сон, настроение, шаги, питание, привычки, спорт</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Панель: Месяц -->
+        <div class="stats-panel" id="stats-panel-month">
+          <div class="card">
+            <div class="card-title"><span class="icon">📉</span> Месячная статистика</div>
+            <div class="placeholder" style="padding: 30px 20px;">
+              <span class="big">📅</span>
+              <div class="text">Финансы, шаги, вес, средние значения</div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1969,11 +2046,31 @@
         renderWeekFood();
       }
       if (name === 'goals') renderGoals();
+      if (name === 'stats') renderStats();
     }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => switchScreen(tab.dataset.screen));
     });
+
+    // Переключатель табов в Статах
+    const statsTabs = document.querySelectorAll('.stats-tab');
+    statsTabs.forEach(tab => {
+      tab.onclick = function() {
+        statsTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const period = tab.dataset.stats;
+        document.querySelectorAll('.stats-panel').forEach(p => p.classList.remove('active'));
+        const panel = document.getElementById('stats-panel-' + period);
+        if (panel) panel.classList.add('active');
+        tg.HapticFeedback?.selectionChanged();
+        renderStats();
+      };
+    });
+
+    function renderStats() {
+      // Пока ничего — заглушки
+    }
 
     let dayStartHour = 4;
 
@@ -2013,7 +2110,7 @@
       return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
     }
 
-    /* ============ ВОДА ============ */
+    /* ВОДА */
     let waterCurrent = 0;
     let waterGoal = 2500;
     const WATER_KEY = 'water_v1';
@@ -2105,7 +2202,6 @@
       waterCurrent = Math.min(snapped, SLIDER_MAX);
       saveWater(); renderWater();
     }
-    // pointer + touch fallback
     vSlider.addEventListener('pointerdown', (e) => {
       dragging = true; vSliderThumb.classList.add('dragging');
       try { vSlider.setPointerCapture(e.pointerId); } catch (err) {}
@@ -2167,7 +2263,7 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ============ ШАГИ ============ */
+    /* ШАГИ */
     const STEPS_KEY = 'steps_v1';
     const STEPS_HISTORY_KEY = 'steps_history_v1';
     let stepsCurrent = 0;
@@ -2338,7 +2434,7 @@
       sumEl.innerHTML = `<div class="week-summary-mini three"><div class="ws-item"><div class="ws-val steps">${formatNum(total)}</div><div class="ws-label">Всего</div></div><div class="ws-item"><div class="ws-val steps">${formatNum(avg)}</div><div class="ws-label">Средн/день</div></div><div class="ws-item"><div class="ws-val steps">${best ? formatNum(best) : '—'}</div><div class="ws-label">Лучший ${bestDay}</div></div></div>`;
     }
 
-    /* ============ ВЕС ============ */
+    /* ВЕС */
     const WEIGHT_KEY = 'weight_v1';
     let weightHistory = [];
     function saveWeight() {
@@ -2463,7 +2559,7 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ============ СОН ============ */
+    /* СОН */
     const SLEEP_KEY = 'sleep_v1';
     const SLEEP_QUALITY = [
       { emoji: '😫', name: 'Ужасно' }, { emoji: '🥱', name: 'Очень плохо' },
@@ -2693,7 +2789,7 @@
       container.innerHTML = `<div class="wk-sleep-header"><span class="wk-day">День</span><span class="wk-time">Время</span><span class="wk-dur">Длит.</span><span class="wk-qual">Кач.</span><span class="wk-badge"></span></div>${rows}${stats}`;
     }
 
-    /* ============ НАСТРОЕНИЕ ============ */
+    /* НАСТРОЕНИЕ */
     const MOOD_HISTORY_KEY = 'mood_history_v1';
     const MOOD_LEVELS = [
       { emoji: '😭', name: 'Ужасно' }, { emoji: '😢', name: 'Очень плохо' },
@@ -2826,7 +2922,7 @@
       container.innerHTML = rows + stats;
     }
 
-    /* ============ ПИТАНИЕ ============ */
+    /* ПИТАНИЕ */
     const FOOD_KEY = 'food_v1';
     const FOOD_HISTORY_KEY = 'food_history_v1';
     let foodCalories = 0;
@@ -3016,7 +3112,7 @@
       container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
     }
 
-    /* ============ ПРИВЫЧКИ ============ */
+    /* ПРИВЫЧКИ */
     const HABITS_CONFIG_KEY = 'habits_config_v1';
     const HABITS_DATA_KEY = 'habits_data_v1';
     const DEFAULT_HABITS_CONFIG = {
@@ -3367,7 +3463,7 @@
       saveHabitsConfig(); renderHabitsEditorContent();
     }
 
-    /* ============ СПОРТ И ЧТЕНИЕ ============ */
+    /* СПОРТ И ЧТЕНИЕ */
     const SPORT_DATA_KEY = 'sport_data_v1';
     const READ_DATA_KEY = 'read_data_v1';
     const SPORT_TYPES_KEY = 'sport_types_v1';
@@ -3506,11 +3602,8 @@
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
       sumEl.innerHTML = `<div class="week-summary-mini"><div class="ws-item"><div class="ws-val read">${totalDone}</div><div class="ws-label">Раз читал</div></div><div class="ws-item"><div class="ws-val read">${avgMood}</div><div class="ws-label">Средняя</div></div></div>`;
     }
-
-    // Модалка спорта — прямые onclick без делегирования
     let sportModalState = null;
     let sportModalEl = null;
-
     function openSportModal(dateStr) {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const existing = sportData[dateStr] || { mood: null, typeId: null, exercises: [], distance: null, time: null, note: '' };
@@ -3525,7 +3618,6 @@
       };
       buildSportModal();
     }
-
     function buildSportModal() {
       const s = sportModalState;
       if (!s) return;
@@ -3534,7 +3626,6 @@
       backdrop.innerHTML = `<div class="modal" id="sportModal"></div>`;
       document.body.appendChild(backdrop);
       sportModalEl = backdrop;
-
       const dateObj = new Date(s.date + 'T12:00:00');
       const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
       const modal = backdrop.querySelector('#sportModal');
@@ -3553,8 +3644,6 @@
           <button class="save" id="saveBtn">Сохранить</button>
         </div>
       `;
-
-      // Смайлики — прямые onclick на каждой кнопке
       const emojiScale = modal.querySelector('#sportEmojiScale');
       const emojiBtns = [];
       SPORT_EMOJIS.forEach((e, i) => {
@@ -3572,8 +3661,6 @@
         emojiScale.appendChild(btn);
         emojiBtns.push(btn);
       });
-
-      // Виды — прямые onclick
       const typeGrid = modal.querySelector('#sportTypeGrid');
       const typeBtns = [];
       sportTypes.forEach(t => {
@@ -3591,17 +3678,11 @@
         typeGrid.appendChild(btn);
         typeBtns.push(btn);
       });
-
-      modal.querySelector('#addSportTypeBtn').onclick = function() {
-        addSportTypeCustom();
-      };
-
+      modal.querySelector('#addSportTypeBtn').onclick = function() { addSportTypeCustom(); };
       const detailsEl = modal.querySelector('#sportTypeDetails');
       renderSportDetailsBlock(detailsEl, s);
-
       const noteInp = modal.querySelector('#sportNoteField');
       noteInp.addEventListener('input', function() { s.note = noteInp.value; });
-
       backdrop.querySelector('#cancelBtn').onclick = function() { closeSportModal(); };
       backdrop.querySelector('#saveBtn').onclick = function() {
         const hasData = s.mood || s.typeId || s.exercises.length || s.distance || s.time || s.note;
@@ -3627,13 +3708,11 @@
       };
       backdrop.onclick = function(e) { if (e.target === backdrop) closeSportModal(); };
     }
-
     function closeSportModal() {
       if (sportModalEl && sportModalEl.parentNode) sportModalEl.remove();
       sportModalEl = null;
       sportModalState = null;
     }
-
     function renderSportDetailsBlock(container, s) {
       const typeObj = sportTypes.find(t => t.id === s.typeId);
       if (!typeObj) { container.innerHTML = ''; return; }
@@ -3669,7 +3748,6 @@
         container.innerHTML = '';
       }
     }
-
     function renderExerciseDetails(container, s) {
       container.innerHTML = '';
       s.exercises.forEach(function(ex, idx) {
@@ -3709,7 +3787,6 @@
       };
       container.appendChild(addBtn);
     }
-
     function addSportTypeCustom() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -3733,7 +3810,6 @@
         sportTypes.push({ id: id, emoji: '⭐', name: name, mode: selectedMode });
         saveSportTypes();
         backdrop.remove();
-        // Пересобираем модалку спорта
         if (sportModalEl && sportModalState) {
           const savedState = sportModalState;
           closeSportModal();
@@ -3744,7 +3820,6 @@
       };
       backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
-
     function openSportSettings() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -3755,7 +3830,6 @@
       html += '</div><div class="modal-buttons"><button class="cancel" id="closeBtn">Готово</button></div>';
       backdrop.innerHTML = '<div class="modal">' + html + '</div>';
       document.body.appendChild(backdrop);
-      // Навешиваем onclick напрямую
       backdrop.querySelectorAll('.edit-habit-row .e-btn').forEach(function(btn) {
         btn.onclick = function() {
           const idx = parseInt(btn.dataset.idx, 10);
@@ -3782,18 +3856,14 @@
       backdrop.querySelector('#closeBtn').onclick = function() { backdrop.remove(); renderWeekSport(); };
       backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
-
-    // Модалка чтения — прямые onclick
     let readModalState = null;
     let readModalEl = null;
-
     function openReadModal(dateStr) {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const existing = readData[dateStr] || { mood: null, text: '', note: '' };
       readModalState = { date: dateStr, mood: existing.mood || null, text: existing.text || '', note: existing.note || '' };
       buildReadModal();
     }
-
     function buildReadModal() {
       const s = readModalState;
       if (!s) return;
@@ -3802,7 +3872,6 @@
       backdrop.innerHTML = `<div class="modal" id="readModal"></div>`;
       document.body.appendChild(backdrop);
       readModalEl = backdrop;
-
       const dateObj = new Date(s.date + 'T12:00:00');
       const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
       const modal = backdrop.querySelector('#readModal');
@@ -3819,7 +3888,6 @@
           <button class="save" id="saveBtn">Сохранить</button>
         </div>
       `;
-
       const emojiScale = modal.querySelector('#readEmojiScale');
       const emojiBtns = [];
       READ_EMOJIS.forEach(function(e, i) {
@@ -3837,12 +3905,10 @@
         emojiScale.appendChild(btn);
         emojiBtns.push(btn);
       });
-
       const textInp = modal.querySelector('#readTextField');
       textInp.addEventListener('input', function() { s.text = textInp.value; });
       const noteInp = modal.querySelector('#readNoteField');
       noteInp.addEventListener('input', function() { s.note = noteInp.value; });
-
       backdrop.querySelector('#cancelBtn').onclick = function() { closeReadModal(); };
       backdrop.querySelector('#saveBtn').onclick = function() {
         const hasData = s.mood || s.text || s.note;
@@ -3863,14 +3929,13 @@
       };
       backdrop.onclick = function(e) { if (e.target === backdrop) closeReadModal(); };
     }
-
     function closeReadModal() {
       if (readModalEl && readModalEl.parentNode) readModalEl.remove();
       readModalEl = null;
       readModalState = null;
     }
 
-    /* ============ ЦЕЛИ ============ */
+    /* ЦЕЛИ */
     const GOALS_KEY = 'goals_v1';
     let goals = [];
     function saveGoals() {
@@ -3936,7 +4001,6 @@
       if (diffDays <= 7) return { days: diffDays, status: 'warn', text: 'Осталось ' + diffDays + ' дн.' };
       return { days: diffDays, status: 'ok', text: 'Осталось ' + diffDays + ' дн.' };
     }
-
     function renderGoals() {
       const container = document.getElementById('goalsContent');
       if (!container) return;
@@ -3965,8 +4029,6 @@
         html += '</div>';
       }
       container.innerHTML = html;
-
-      // Привязываем события
       const toggle = document.getElementById('completedToggle');
       if (toggle) {
         toggle.onclick = function() {
@@ -3976,8 +4038,6 @@
           toggle.querySelector('.arrow').textContent = isOpen ? '▶' : '▼';
         };
       }
-
-      // Меню цели — привязываем напрямую
       const menuBtns = container.querySelectorAll('.goal-menu-btn');
       menuBtns.forEach(function(btn) {
         btn.onclick = function(e) {
@@ -3987,23 +4047,19 @@
         };
       });
     }
-
     function renderGoalCard(goal, isCompleted) {
       const pct = calcGoalProgress(goal);
       const progressText = getGoalProgressText(goal);
       const deadlineInfo = calcDeadlineInfo(goal.deadline);
-
       let typeBadge = '';
       if (goal.linkType === 'weight') typeBadge = '<span class="goal-badge type-weight">⚖️ Вес</span>';
       else if (goal.linkType === 'money') typeBadge = '<span class="goal-badge type-money">💰 Финансы</span>';
       else if (goal.linkType === 'steps') typeBadge = '<span class="goal-badge type-steps">👟 Шаги</span>';
       else typeBadge = '<span class="goal-badge type-free">🎯 Ручная</span>';
-
       const typeBadge2 = goal.type === 'short' ? '<span class="goal-badge short">Краткосрочная</span>' : '<span class="goal-badge long">Долгосрочная</span>';
       const doneBadge = goal.completed ? '<span class="goal-badge done-badge">✅ Достигнута</span>' : '';
       const deadlineHtml = deadlineInfo ? '<div class="deadline ' + deadlineInfo.status + '">📅 ' + deadlineInfo.text + ' (' + formatDateRu(goal.deadline) + ')</div>' : '';
       const descriptionHtml = goal.description ? '<div class="goal-description">' + escapeHtml(goal.description) + '</div>' : '';
-
       return '<div class="goal-card ' + (goal.completed ? 'done' : '') + '">' +
         '<div class="goal-header">' +
           '<div class="goal-title-wrap">' +
@@ -4020,26 +4076,18 @@
         (deadlineHtml ? '<div class="goal-meta">' + deadlineHtml + '</div>' : '') +
       '</div>';
     }
-
     let goalMenuEl = null;
     let goalMenuBackdropEl = null;
-
     function openGoalMenu(goalId, anchorBtn) {
       closeGoalMenu();
       const goal = goals.find(g => g.id === goalId);
       if (!goal) return;
-
-      // Backdrop для закрытия
       goalMenuBackdropEl = document.createElement('div');
       goalMenuBackdropEl.className = 'goal-actions-backdrop';
       goalMenuBackdropEl.onclick = function() { closeGoalMenu(); };
       document.body.appendChild(goalMenuBackdropEl);
-
-      // Меню
       goalMenuEl = document.createElement('div');
       goalMenuEl.className = 'goal-actions-menu';
-
-      // Позиция
       const rect = anchorBtn.getBoundingClientRect();
       const menuWidth = 220;
       let left = rect.right - menuWidth;
@@ -4047,71 +4095,43 @@
       const top = rect.bottom + 4;
       goalMenuEl.style.top = top + 'px';
       goalMenuEl.style.left = left + 'px';
-
-      // Кнопки
       const editBtn = document.createElement('button');
       editBtn.type = 'button';
       editBtn.textContent = '✏️ Изменить';
-      editBtn.onclick = function(e) {
-        e.stopPropagation();
-        closeGoalMenu();
-        editGoal(goalId);
-      };
+      editBtn.onclick = function(e) { e.stopPropagation(); closeGoalMenu(); editGoal(goalId); };
       goalMenuEl.appendChild(editBtn);
-
       if (!goal.completed) {
         const progBtn = document.createElement('button');
         progBtn.type = 'button';
         progBtn.textContent = '📊 Изменить прогресс';
-        progBtn.onclick = function(e) {
-          e.stopPropagation();
-          closeGoalMenu();
-          progressGoal(goalId);
-        };
+        progBtn.onclick = function(e) { e.stopPropagation(); closeGoalMenu(); progressGoal(goalId); };
         goalMenuEl.appendChild(progBtn);
-
         const completeBtn = document.createElement('button');
         completeBtn.type = 'button';
         completeBtn.textContent = '✅ Отметить достигнутой';
-        completeBtn.onclick = function(e) {
-          e.stopPropagation();
-          closeGoalMenu();
-          completeGoal(goalId);
-        };
+        completeBtn.onclick = function(e) { e.stopPropagation(); closeGoalMenu(); completeGoal(goalId); };
         goalMenuEl.appendChild(completeBtn);
       } else {
         const uncompleteBtn = document.createElement('button');
         uncompleteBtn.type = 'button';
         uncompleteBtn.textContent = '↩️ Вернуть в работу';
-        uncompleteBtn.onclick = function(e) {
-          e.stopPropagation();
-          closeGoalMenu();
-          uncompleteGoal(goalId);
-        };
+        uncompleteBtn.onclick = function(e) { e.stopPropagation(); closeGoalMenu(); uncompleteGoal(goalId); };
         goalMenuEl.appendChild(uncompleteBtn);
       }
-
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
       delBtn.className = 'danger';
       delBtn.textContent = '🗑️ Удалить';
-      delBtn.onclick = function(e) {
-        e.stopPropagation();
-        closeGoalMenu();
-        deleteGoal(goalId);
-      };
+      delBtn.onclick = function(e) { e.stopPropagation(); closeGoalMenu(); deleteGoal(goalId); };
       goalMenuEl.appendChild(delBtn);
-
       document.body.appendChild(goalMenuEl);
     }
-
     function closeGoalMenu() {
       if (goalMenuEl && goalMenuEl.parentNode) goalMenuEl.remove();
       goalMenuEl = null;
       if (goalMenuBackdropEl && goalMenuBackdropEl.parentNode) goalMenuBackdropEl.remove();
       goalMenuBackdropEl = null;
     }
-
     function editGoal(goalId) {
       const goal = goals.find(g => g.id === goalId);
       if (!goal) return;
@@ -4191,10 +4211,8 @@
         setTimeout(function() { toast.remove(); }, 400);
       }, 2500);
     }
-
     let goalModalState = null;
     let goalModalEl = null;
-
     function openGoalModal(existing) {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       goalModalState = {
@@ -4216,7 +4234,6 @@
       };
       buildGoalModal();
     }
-
     function buildGoalModal() {
       const s = goalModalState;
       if (!s) return;
@@ -4225,10 +4242,8 @@
       backdrop.innerHTML = '<div class="modal" id="goalModal"></div>';
       document.body.appendChild(backdrop);
       goalModalEl = backdrop;
-
       const modal = backdrop.querySelector('#goalModal');
       const isEdit = s.editing;
-
       let html = '<h3>' + (isEdit ? '✏️ Изменить цель' : '🎯 Новая цель') + '</h3>';
       html += '<label>Название цели</label>';
       html += '<input type="text" id="goalTitle" placeholder="Например: Похудеть до 70 кг" maxlength="100" value="' + escapeHtml(s.title) + '">';
@@ -4246,7 +4261,6 @@
       html += '<button type="button" class="goal-type-btn ' + (s.linkType === 'money' ? 'selected' : '') + '" data-link="money"><span class="gt-emoji">💰</span><span class="gt-name">По финансам</span><span class="gt-desc">авто из дохода</span></button>';
       html += '<button type="button" class="goal-type-btn ' + (s.linkType === 'steps' ? 'selected' : '') + '" data-link="steps"><span class="gt-emoji">👟</span><span class="gt-name">По шагам</span><span class="gt-desc">вручную</span></button>';
       html += '</div>';
-
       if (s.linkType === 'free') {
         html += '<label>Как отслеживать</label>';
         html += '<div class="goal-type-grid" style="grid-template-columns:1fr 1fr;">';
@@ -4273,13 +4287,10 @@
         html += '<input type="number" id="goalTargetCount" min="1" max="999999999" step="1000" value="' + (s.targetCount || '') + '" placeholder="300000">';
         html += '<div class="modal-hint">Прогресс считается вручную — ты вводишь текущее количество.</div>';
       }
-
       html += '<label>Дедлайн (опционально)</label>';
       html += '<input type="date" id="goalDeadline" value="' + (s.deadline || '') + '">';
       html += '<div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">' + (isEdit ? 'Сохранить' : 'Создать') + '</button></div>';
       modal.innerHTML = html;
-
-      // Функция захвата полей
       function captureInputs() {
         const t = modal.querySelector('#goalTitle');
         const d = modal.querySelector('#goalDescription');
@@ -4298,32 +4309,15 @@
         if (sm) s.startMoney = parseFloat(sm.value) || 0;
         if (tm) s.targetMoney = parseFloat(tm.value) || null;
       }
-
-      // Тип
       modal.querySelectorAll('[data-type]').forEach(function(btn) {
-        btn.onclick = function() {
-          captureInputs();
-          s.type = btn.dataset.type;
-          rebuildGoalModal();
-        };
+        btn.onclick = function() { captureInputs(); s.type = btn.dataset.type; rebuildGoalModal(); };
       });
-      // Привязка
       modal.querySelectorAll('[data-link]').forEach(function(btn) {
-        btn.onclick = function() {
-          captureInputs();
-          s.linkType = btn.dataset.link;
-          rebuildGoalModal();
-        };
+        btn.onclick = function() { captureInputs(); s.linkType = btn.dataset.link; rebuildGoalModal(); };
       });
-      // Режим
       modal.querySelectorAll('[data-mode]').forEach(function(btn) {
-        btn.onclick = function() {
-          captureInputs();
-          s.progressMode = btn.dataset.mode;
-          rebuildGoalModal();
-        };
+        btn.onclick = function() { captureInputs(); s.progressMode = btn.dataset.mode; rebuildGoalModal(); };
       });
-
       function rebuildGoalModal() {
         const copy = {};
         for (const k in s) copy[k] = s[k];
@@ -4331,12 +4325,10 @@
         goalModalState = copy;
         buildGoalModal();
       }
-
       backdrop.querySelector('#cancelBtn').onclick = function() {
         if (goalModalEl && goalModalEl.parentNode) goalModalEl.remove();
         goalModalEl = null; goalModalState = null;
       };
-
       backdrop.querySelector('#saveBtn').onclick = function() {
         captureInputs();
         const title = (modal.querySelector('#goalTitle').value || '').trim();
@@ -4351,7 +4343,6 @@
         const targetWeight = targetWeightEl ? parseFloat(targetWeightEl.value) : NaN;
         const startMoney = startMoneyEl ? parseFloat(startMoneyEl.value) : NaN;
         const targetMoney = targetMoneyEl ? parseFloat(targetMoneyEl.value) : NaN;
-
         if (!title) { alert('Введи название цели'); return; }
         if (s.linkType === 'weight') {
           if (isNaN(startWeight) || isNaN(targetWeight) || startWeight < 20 || targetWeight < 20) { alert('Введи корректные веса'); return; }
@@ -4366,15 +4357,11 @@
         if (s.linkType === 'steps') {
           if (!targetCount || targetCount <= 0) { alert('Введи целевое количество шагов'); return; }
         }
-
         if (s.editing) {
           const goal = goals.find(g => g.id === s.id);
           if (goal) {
-            goal.title = title;
-            goal.description = description;
-            goal.type = s.type;
-            goal.linkType = s.linkType;
-            goal.progressMode = s.progressMode;
+            goal.title = title; goal.description = description;
+            goal.type = s.type; goal.linkType = s.linkType; goal.progressMode = s.progressMode;
             goal.targetCount = targetCount;
             goal.startWeight = isNaN(startWeight) ? null : startWeight;
             goal.targetWeight = isNaN(targetWeight) ? null : targetWeight;
@@ -4402,7 +4389,6 @@
         renderGoals();
         tg.HapticFeedback?.notificationOccurred('success');
       };
-
       backdrop.onclick = function(e) {
         if (e.target === backdrop) {
           if (goalModalEl && goalModalEl.parentNode) goalModalEl.remove();
@@ -4411,7 +4397,7 @@
       };
     }
 
-    /* ============ СТАРТ ============ */
+    /* СТАРТ */
     loadWater();
     loadSteps();
     loadSleep();
