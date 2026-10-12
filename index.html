@@ -184,7 +184,7 @@
     .stats-panel { display: none; }
     .stats-panel.active { display: block; animation: fadeIn 0.25s ease; }
 
-    /* Stats day summary rows */
+    /* Stats day */
     .stats-day-row {
       display: flex;
       align-items: center;
@@ -200,10 +200,6 @@
       gap: 10px;
       font-size: 15px;
     }
-    .stats-day-row .label .sub {
-      color: var(--text-dim);
-      font-size: 13px;
-    }
     .stats-day-row .value {
       font-size: 15px;
       font-weight: 600;
@@ -218,7 +214,7 @@
       color: #4ade80;
     }
 
-    /* Streak'и */
+    /* Streak */
     .streak-row {
       display: flex;
       align-items: center;
@@ -264,6 +260,98 @@
       font-weight: 600;
     }
     .streak-row .s-fire { font-size: 14px; }
+
+    /* Графики */
+    .chart-block {
+      margin-bottom: 20px;
+    }
+    .chart-block:last-child { margin-bottom: 0; }
+    .chart-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chart-svg-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .chart-svg {
+      width: 100%;
+      height: 140px;
+      display: block;
+    }
+    .chart-avg {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+    .chart-avg b {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* Прогресс-бар */
+    .progress-wrap {
+      margin-top: 4px;
+    }
+    .progress-bar-outer {
+      height: 12px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: var(--habit-grad);
+      border-radius: 6px;
+      width: 0;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+    .progress-info .val {
+      font-weight: 700;
+    }
+    .progress-info .pct {
+      color: var(--habit);
+      font-weight: 700;
+    }
+
+    /* Спорт/Чтение — числа */
+    .numbers-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .numbers-item {
+      background: var(--card-2);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .numbers-item .n-val {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .numbers-item .n-val.sport { color: var(--sport); }
+    .numbers-item .n-val.read { color: var(--read); }
+    .numbers-item .n-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
 
     /* ВОДА */
     .water-body { display: flex; align-items: stretch; gap: 16px; height: 280px; }
@@ -2043,12 +2131,9 @@
 
         <!-- Панель: Неделя -->
         <div class="stats-panel" id="stats-panel-week">
-          <div class="card">
+          <div class="card" id="statsWeekCharts">
             <div class="card-title"><span class="icon">📈</span> Графики недели</div>
-            <div class="placeholder" style="padding: 30px 20px;">
-              <span class="big">📊</span>
-              <div class="text">Сон, настроение, шаги, питание, привычки, спорт</div>
-            </div>
+            <div id="statsWeekContent"></div>
           </div>
         </div>
 
@@ -2191,16 +2276,13 @@
       d.setDate(d.getDate() + n);
       return d.toISOString().slice(0, 10);
     }
-    function dateBefore(dateStr1, dateStr2) {
-      return dateStr1 < dateStr2;
-    }
 
     /* ВОДА */
     let waterCurrent = 0;
     let waterGoal = 2500;
     const WATER_KEY = 'water_v1';
     const WATER_HISTORY_KEY = 'water_history_v1';
-    let waterHistory = {}; // { "YYYY-MM-DD": { current, goal } }
+    let waterHistory = {};
     const SLIDER_MAX = 4000;
     const SLIDER_STEP = 50;
     const BOTTLE_H = 320;
@@ -2265,7 +2347,6 @@
     function saveWater() {
       const data = JSON.stringify({ date: getLogicalDate(), current: waterCurrent, goal: waterGoal, dayStartHour });
       tg.CloudStorage.setItem(WATER_KEY, data, (err) => { if (err) console.warn(err); });
-      // Сохраняем в историю
       const date = getLogicalDate();
       waterHistory[date] = { current: waterCurrent, goal: waterGoal };
       saveWaterHistory();
@@ -4500,45 +4581,29 @@
     }
 
     /* ============ STATS: РАЗДЕЛ ДЕНЬ ============ */
-
-    // Считаем streak для привычек на день (по дневным записям)
-    // Все streak'и идут назад от сегодня
     function calcStreakDaily(checkFn, maxDays = 365) {
       let current = 0;
       let record = 0;
       let tempStreak = 0;
       const today = getLogicalDate();
-      // Считаем текущий streak назад
       for (let i = 0; i < maxDays; i++) {
         const date = addDays(today, -i);
         const ok = checkFn(date);
-        if (ok) {
-          current++;
-        } else {
-          break;
-        }
+        if (ok) current++;
+        else break;
       }
-      // Рекорд — считаем по всей истории вперёд
-      // Проходим по всем датам от самого раннего до сегодня
       const allDates = getAllHistoryDates();
       if (allDates.length) {
-        let prevOk = false;
         allDates.forEach(d => {
           const ok = checkFn(d);
           if (ok) {
             tempStreak++;
             if (tempStreak > record) record = tempStreak;
-            prevOk = true;
-          } else {
-            tempStreak = 0;
-            prevOk = false;
-          }
+          } else tempStreak = 0;
         });
       }
       return { current, record: Math.max(record, current) };
     }
-
-    // Собираем все даты из всех историй
     function getAllHistoryDates() {
       const set = new Set();
       Object.keys(waterHistory).forEach(d => set.add(d));
@@ -4550,8 +4615,6 @@
       Object.keys(readData).forEach(d => set.add(d));
       return Array.from(set).sort();
     }
-
-    // Streak'и для дневных метрик
     function getWaterStreak() {
       return calcStreakDaily(date => {
         const e = waterHistory[date];
@@ -4590,16 +4653,12 @@
         return e && (e.mood || e.text);
       });
     }
-
-    // Streak'и для недельных (привычки, спорт)
     function getHabitsWeeklyStreak() {
       const weeks = Object.keys(habitsData.weeks).sort();
       if (!weeks.length) return { current: 0, record: 0 };
-      // Проверяем: неделя "выполнена" если >= 80% привычек отмечено
       function isWeekDone(weekKey) {
         const week = habitsData.weeks[weekKey];
         if (!week || !week.checks) return false;
-        // Считаем общее число возможных
         let totalPossible = 0, totalDone = 0;
         habitsConfig.blocks.forEach(block => {
           if (block.type === 'sport' || block.type === 'read') return;
@@ -4624,38 +4683,29 @@
         if (totalPossible === 0) return false;
         return (totalDone / totalPossible) >= 0.8;
       }
-      // Текущая неделя — идём назад по неделям
       let current = 0;
-      const thisMonday = getCurrentWeekKey();
-      let weekKey = thisMonday;
+      let weekKey = getCurrentWeekKey();
       for (let i = 0; i < 52; i++) {
         if (!habitsData.weeks[weekKey]) break;
         if (isWeekDone(weekKey)) {
           current++;
-          // Предыдущая неделя
           const d = new Date(weekKey + 'T12:00:00');
           d.setDate(d.getDate() - 7);
           weekKey = d.toISOString().slice(0, 10);
-        } else {
-          break;
-        }
+        } else break;
       }
-      // Рекорд
       let record = 0, temp = 0;
       weeks.forEach(w => {
         if (isWeekDone(w)) {
           temp++;
           if (temp > record) record = temp;
-        } else {
-          temp = 0;
-        }
+        } else temp = 0;
       });
       return { current, record: Math.max(record, current) };
     }
     function getSportWeeklyStreak() {
       const allDates = Object.keys(sportData).sort();
       if (!allDates.length) return { current: 0, record: 0 };
-      // Считаем по неделям: >= 3 тренировки
       function getWeekKeyForDate(dateStr) {
         const d = new Date(dateStr + 'T12:00:00');
         const day = d.getDay() || 7;
@@ -4671,9 +4721,8 @@
         }
         return n;
       }
-      const thisMonday = getCurrentWeekKey();
       let current = 0;
-      let weekKey = thisMonday;
+      let weekKey = getCurrentWeekKey();
       for (let i = 0; i < 52; i++) {
         if (countSportInWeek(weekKey) >= 3) {
           current++;
@@ -4682,7 +4731,6 @@
           weekKey = d.toISOString().slice(0, 10);
         } else break;
       }
-      // Рекорд по всем неделям
       const allWeeks = new Set();
       allDates.forEach(d => allWeeks.add(getWeekKeyForDate(d)));
       const sortedWeeks = Array.from(allWeeks).sort();
@@ -4703,73 +4751,42 @@
 
       const today = getLogicalDate();
 
-      // Сводка дня
       let summaryHtml = '';
 
-      // Вода
       const wHist = waterHistory[today];
       const wCur = wHist ? wHist.current : waterCurrent;
       const wGoal = wHist ? wHist.goal : waterGoal;
       const wPct = wGoal > 0 ? Math.round((wCur / wGoal) * 100) : 0;
       const wOk = wCur >= wGoal && wGoal > 0;
-      summaryHtml += `<div class="stats-day-row">
-        <div class="label"><span>💧</span> Вода</div>
-        <div class="value ${wCur === 0 ? 'dim' : (wOk ? 'ok' : '')}">${wCur === 0 ? '—' : `${wCur} / ${wGoal} (${wPct}%)`}</div>
-      </div>`;
+      summaryHtml += `<div class="stats-day-row"><div class="label"><span>💧</span> Вода</div><div class="value ${wCur === 0 ? 'dim' : (wOk ? 'ok' : '')}">${wCur === 0 ? '—' : `${wCur} / ${wGoal} (${wPct}%)`}</div></div>`;
 
-      // Шаги
       const sVal = stepsHistory[today] || 0;
       const sPct = Math.min(Math.round((sVal / stepsGoal) * 100), 999);
       const sOk = sVal >= stepsGoal;
-      summaryHtml += `<div class="stats-day-row">
-        <div class="label"><span>👟</span> Шаги</div>
-        <div class="value ${sVal === 0 ? 'dim' : (sOk ? 'ok' : '')}">${sVal === 0 ? '—' : `${formatNum(sVal)} / ${formatNum(stepsGoal)} (${sPct}%)`}</div>
-      </div>`;
+      summaryHtml += `<div class="stats-day-row"><div class="label"><span>👟</span> Шаги</div><div class="value ${sVal === 0 ? 'dim' : (sOk ? 'ok' : '')}">${sVal === 0 ? '—' : `${formatNum(sVal)} / ${formatNum(stepsGoal)} (${sPct}%)`}</div></div>`;
 
-      // Сон
       const sleepE = sleepHistory[today];
       if (sleepE && sleepE.duration) {
         const ok = checkNorm(sleepE.duration);
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>😴</span> Сон</div>
-          <div class="value ${ok ? 'ok' : ''}">${formatDuration(sleepE.duration)} ${ok ? '✅' : '⚠️'}</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>😴</span> Сон</div><div class="value ${ok ? 'ok' : ''}">${formatDuration(sleepE.duration)} ${ok ? '✅' : '⚠️'}</div></div>`;
       } else {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>😴</span> Сон</div>
-          <div class="value dim">—</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>😴</span> Сон</div><div class="value dim">—</div></div>`;
       }
 
-      // Настроение
       const moodE = moodHistory[today];
       if (moodE && moodE.mood) {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>😊</span> Настроение</div>
-          <div class="value">${MOOD_LEVELS[moodE.mood - 1].emoji} ${MOOD_LEVELS[moodE.mood - 1].name}</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>😊</span> Настроение</div><div class="value">${MOOD_LEVELS[moodE.mood - 1].emoji} ${MOOD_LEVELS[moodE.mood - 1].name}</div></div>`;
       } else {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>😊</span> Настроение</div>
-          <div class="value dim">—</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>😊</span> Настроение</div><div class="value dim">—</div></div>`;
       }
 
-      // Питание
       const foodE = foodHistory[today];
       if (foodE && (foodE.calories || foodE.mealsCount)) {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>🍎</span> Питание</div>
-          <div class="value">${foodE.calories || 0} ккал · ${foodE.mealsCount || 0} приёма</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>🍎</span> Питание</div><div class="value">${foodE.calories || 0} ккал · ${foodE.mealsCount || 0} приёма</div></div>`;
       } else {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>🍎</span> Питание</div>
-          <div class="value dim">—</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>🍎</span> Питание</div><div class="value dim">—</div></div>`;
       }
 
-      // Привычки
       const checks = getWeekChecks();
       let habDone = 0, habTotal = 0;
       habitsConfig.blocks.forEach(block => {
@@ -4779,46 +4796,28 @@
           if (checks[h.id] && checks[h.id][today]) habDone++;
         });
       });
-      summaryHtml += `<div class="stats-day-row">
-        <div class="label"><span>✅</span> Привычки</div>
-        <div class="value ${habTotal === 0 ? 'dim' : (habDone === habTotal ? 'ok' : '')}">${habTotal > 0 ? `${habDone} / ${habTotal}` : '—'}</div>
-      </div>`;
+      summaryHtml += `<div class="stats-day-row"><div class="label"><span>✅</span> Привычки</div><div class="value ${habTotal === 0 ? 'dim' : (habDone === habTotal ? 'ok' : '')}">${habTotal > 0 ? `${habDone} / ${habTotal}` : '—'}</div></div>`;
 
-      // Спорт
       const sportE = sportData[today];
       if (sportE && (sportE.mood || sportE.typeId || (sportE.exercises && sportE.exercises.length) || sportE.distance || sportE.note)) {
         const typeObj = sportTypes.find(t => t.id === sportE.typeId);
         const typeName = typeObj ? `${typeObj.emoji} ${typeObj.name}` : '';
         const moodEmoji = sportE.mood ? SPORT_EMOJIS[sportE.mood - 1] : '';
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>🏃</span> Спорт</div>
-          <div class="value">${moodEmoji} ${typeName || 'Тренировка'}</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>🏃</span> Спорт</div><div class="value">${moodEmoji} ${typeName || 'Тренировка'}</div></div>`;
       } else {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>🏃</span> Спорт</div>
-          <div class="value dim">—</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>🏃</span> Спорт</div><div class="value dim">—</div></div>`;
       }
 
-      // Чтение
       const readE = readData[today];
       if (readE && (readE.mood || readE.text)) {
         const moodEmoji = readE.mood ? READ_EMOJIS[readE.mood - 1] : '';
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>📚</span> Чтение</div>
-          <div class="value">${moodEmoji} ${readE.text || 'Читал'}</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>📚</span> Чтение</div><div class="value">${moodEmoji} ${readE.text || 'Читал'}</div></div>`;
       } else {
-        summaryHtml += `<div class="stats-day-row">
-          <div class="label"><span>📚</span> Чтение</div>
-          <div class="value dim">—</div>
-        </div>`;
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>📚</span> Чтение</div><div class="value dim">—</div></div>`;
       }
 
       summaryEl.innerHTML = summaryHtml;
 
-      // Streak'и
       const waterSt = getWaterStreak();
       const stepsSt = getStepsStreak();
       const sleepSt = getSleepStreak();
@@ -4846,21 +4845,218 @@
         const fire = cur > 0 ? '<span class="s-fire">🔥</span>' : '';
         const curClass = cur > 0 ? '' : 'zero';
         const recordHtml = rec > 0 ? `<span class="s-record">Рекорд: ${rec}</span>` : '';
-        streakHtml += `<div class="streak-row">
-          <div class="s-label">${s.emoji} ${s.label}</div>
-          <div class="s-nums">
-            <span class="s-current ${curClass}">${cur} ${s.unit} ${fire}</span>
-            ${recordHtml}
-          </div>
-        </div>`;
+        streakHtml += `<div class="streak-row"><div class="s-label">${s.emoji} ${s.label}</div><div class="s-nums"><span class="s-current ${curClass}">${cur} ${s.unit} ${fire}</span>${recordHtml}</div></div>`;
       });
 
       streaksEl.innerHTML = streakHtml;
     }
 
+    /* ============ STATS: НЕДЕЛЯ (ГРАФИКИ) ============ */
+    // Рисуем столбики в SVG
+    // values: массив { label, value, color, isFuture }
+    // maxValue: максимум по оси Y
+    // unit: подпись (напр. "ч" или "")
+    function renderBarChart(container, values, maxValue, color, formatValue) {
+      const W = 300;
+      const H = 140;
+      const paddingTop = 10;
+      const paddingBottom = 22;
+      const chartH = H - paddingTop - paddingBottom;
+      const barW = 28;
+      const gap = (W - barW * 7) / 8;
+      let svg = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+      values.forEach((v, i) => {
+        const x = gap + i * (barW + gap);
+        const val = v.value || 0;
+        const pct = maxValue > 0 ? Math.min(val / maxValue, 1) : 0;
+        const barH = Math.max(chartH * pct, 0);
+        const y = paddingTop + chartH - barH;
+        const isEmpty = !val;
+        // Пустой столбик — тонкая полоска внизу
+        if (isEmpty) {
+          svg += `<rect x="${x}" y="${paddingTop + chartH - 3}" width="${barW}" height="3" rx="1.5" fill="rgba(255,255,255,0.08)"/>`;
+        } else {
+          svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="6" fill="${color}"/>`;
+        }
+        // Подпись дня
+        svg += `<text x="${x + barW / 2}" y="${H - 6}" text-anchor="middle" font-size="11" fill="${v.isFuture ? 'rgba(168,158,147,0.4)' : '#a89e93'}" font-family="-apple-system, sans-serif">${v.label}</text>`;
+        // Значение над столбиком (если есть и есть место)
+        if (!isEmpty && val > 0 && formatValue) {
+          const labelText = formatValue(val);
+          if (labelText) {
+            svg += `<text x="${x + barW / 2}" y="${y - 4}" text-anchor="middle" font-size="9" fill="#f0e9e0" font-weight="700" font-family="-apple-system, sans-serif">${labelText}</text>`;
+          }
+        }
+      });
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function renderStatsWeek() {
+      const container = document.getElementById('statsWeekContent');
+      if (!container) return;
+      const days = getWeekDays();
+
+      let html = '';
+
+      // === СОН ===
+      const sleepVals = days.map(d => {
+        const e = sleepHistory[d.date];
+        return {
+          label: d.name,
+          value: e && e.duration ? e.duration : 0,
+          isFuture: d.isFuture
+        };
+      });
+      const sleepMax = Math.max(600, ...sleepVals.map(v => v.value));
+      const sleepFilled = sleepVals.filter(v => v.value > 0);
+      const sleepAvg = sleepFilled.length > 0 ? Math.round(sleepFilled.reduce((s, v) => s + v.value, 0) / sleepFilled.length) : 0;
+
+      html += `<div class="chart-block">
+        <div class="chart-title">😴 Сон</div>
+        <div class="chart-svg-wrap" id="chartSleep"></div>
+        <div class="chart-avg">Среднее: <b>${sleepAvg > 0 ? formatDuration(sleepAvg) : '—'}</b></div>
+      </div>`;
+
+      // === НАСТРОЕНИЕ ===
+      const moodVals = days.map(d => {
+        const e = moodHistory[d.date];
+        return {
+          label: d.name,
+          value: e && e.mood ? e.mood : 0,
+          isFuture: d.isFuture
+        };
+      });
+      const moodMax = 10;
+      const moodFilled = moodVals.filter(v => v.value > 0);
+      const moodAvg = moodFilled.length > 0 ? (moodFilled.reduce((s, v) => s + v.value, 0) / moodFilled.length) : 0;
+
+      html += `<div class="chart-block">
+        <div class="chart-title">😊 Настроение</div>
+        <div class="chart-svg-wrap" id="chartMood"></div>
+        <div class="chart-avg">Среднее: <b>${moodAvg > 0 ? moodAvg.toFixed(1) + ' / 10' : '—'}</b></div>
+      </div>`;
+
+      // === ШАГИ ===
+      const stepsVals = days.map(d => {
+        return {
+          label: d.name,
+          value: stepsHistory[d.date] || 0,
+          isFuture: d.isFuture
+        };
+      });
+      const stepsMax = Math.max(stepsGoal, ...stepsVals.map(v => v.value));
+      const stepsFilled = stepsVals.filter(v => v.value > 0);
+      const stepsAvg = stepsFilled.length > 0 ? Math.round(stepsFilled.reduce((s, v) => s + v.value, 0) / stepsFilled.length) : 0;
+
+      html += `<div class="chart-block">
+        <div class="chart-title">👟 Шаги</div>
+        <div class="chart-svg-wrap" id="chartSteps"></div>
+        <div class="chart-avg">Среднее: <b>${stepsAvg > 0 ? formatNum(stepsAvg) : '—'}</b></div>
+      </div>`;
+
+      // === ПИТАНИЕ ===
+      const foodVals = days.map(d => {
+        const e = foodHistory[d.date];
+        return {
+          label: d.name,
+          value: e && e.calories ? e.calories : 0,
+          isFuture: d.isFuture
+        };
+      });
+      const foodMax = Math.max(foodCalGoal || 2000, ...foodVals.map(v => v.value));
+      const foodFilled = foodVals.filter(v => v.value > 0);
+      const foodAvg = foodFilled.length > 0 ? Math.round(foodFilled.reduce((s, v) => s + v.value, 0) / foodFilled.length) : 0;
+
+      html += `<div class="chart-block">
+        <div class="chart-title">🍎 Питание</div>
+        <div class="chart-svg-wrap" id="chartFood"></div>
+        <div class="chart-avg">Среднее: <b>${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</b></div>
+      </div>`;
+
+      // === ПРИВЫЧКИ ===
+      const checks = getWeekChecks();
+      let habPossible = 0, habDone = 0;
+      habitsConfig.blocks.forEach(block => {
+        if (block.type === 'sport' || block.type === 'read') return;
+        block.habits.forEach(h => {
+          if (block.type === 'daily') {
+            for (let i = 0; i < 7; i++) {
+              const d = new Date(currentWeekMonday + 'T12:00:00');
+              d.setDate(d.getDate() + i);
+              const dateStr = d.toISOString().slice(0, 10);
+              // Не считаем будущее
+              if (dateStr > getLogicalDate()) continue;
+              habPossible++;
+              if (checks[h.id] && checks[h.id][dateStr]) habDone++;
+            }
+          } else {
+            // Weekly — только если уже прошло воскресенье или если уже отмечено
+            habPossible++;
+            if (checks[h.id]) {
+              const hasAny = Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
+              if (hasAny) habDone++;
+            }
+          }
+        });
+      });
+      const habPct = habPossible > 0 ? Math.round((habDone / habPossible) * 100) : 0;
+
+      html += `<div class="chart-block">
+        <div class="chart-title">✅ Привычки</div>
+        <div class="progress-wrap">
+          <div class="progress-bar-outer">
+            <div class="progress-bar-inner" style="width: ${habPct}%"></div>
+          </div>
+          <div class="progress-info">
+            <span class="val">${habDone} / ${habPossible}</span>
+            <span class="pct">${habPct}%</span>
+          </div>
+        </div>
+      </div>`;
+
+      // === СПОРТ И ЧТЕНИЕ (числа) ===
+      let sportCount = 0, readCount = 0;
+      days.forEach(d => {
+        const sp = sportData[d.date];
+        if (sp && (sp.mood || sp.typeId || (sp.exercises && sp.exercises.length) || sp.distance || sp.note)) sportCount++;
+        const rd = readData[d.date];
+        if (rd && (rd.mood || rd.text)) readCount++;
+      });
+
+      html += `<div class="chart-block">
+        <div class="chart-title">💪 Активность за неделю</div>
+        <div class="numbers-row">
+          <div class="numbers-item">
+            <div class="n-val sport">${sportCount}</div>
+            <div class="n-label">🏃 Тренировок</div>
+          </div>
+          <div class="numbers-item">
+            <div class="n-val read">${readCount}</div>
+            <div class="n-label">📚 Чтений</div>
+          </div>
+        </div>
+      </div>`;
+
+      container.innerHTML = html;
+
+      // Рисуем графики
+      renderBarChart(document.getElementById('chartSleep'), sleepVals, sleepMax, '#a78bfa',
+        v => {
+          const h = Math.floor(v / 60);
+          return h > 0 ? h + 'ч' : '';
+        });
+      renderBarChart(document.getElementById('chartMood'), moodVals, moodMax, '#4ade80',
+        v => String(v));
+      renderBarChart(document.getElementById('chartSteps'), stepsVals, stepsMax, '#22c55e',
+        v => formatNum(v));
+      renderBarChart(document.getElementById('chartFood'), foodVals, foodMax, '#fbbf24',
+        v => String(v));
+    }
+
     function renderStats() {
       renderStatsDay();
-      // Неделя и Месяц — пока заглушки
+      renderStatsWeek();
     }
 
     /* СТАРТ */
