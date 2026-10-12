@@ -27,6 +27,10 @@
       --food-grad: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
       --habit: #4ade80;
       --habit-grad: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      --sport: #f97316;
+      --sport-grad: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+      --read: #60a5fa;
+      --read-grad: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
     }
 
     html, body {
@@ -422,9 +426,7 @@
     }
 
     /* ПРИВЫЧКИ */
-    .habit-block {
-      margin-bottom: 14px;
-    }
+    .habit-block { margin-bottom: 14px; }
     .habit-block-head {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 8px;
@@ -436,18 +438,6 @@
     .habit-block-title .count {
       font-size: 11px; color: var(--text-dim); font-weight: 500;
     }
-    .habit-block-progress {
-      font-size: 11px; color: var(--text-dim);
-      font-weight: 600;
-      padding: 2px 8px;
-      background: var(--card-2);
-      border-radius: 10px;
-    }
-    .habit-block-progress.done {
-      color: #4ade80;
-      background: rgba(74, 222, 128, 0.15);
-    }
-
     .habit-item {
       display: flex; align-items: center; gap: 10px;
       padding: 10px 12px;
@@ -463,6 +453,7 @@
       background: rgba(74, 222, 128, 0.08);
       border-color: rgba(74, 222, 128, 0.3);
     }
+    .habit-item.blocked { opacity: 0.5; cursor: not-allowed; }
     .habit-check {
       width: 22px; height: 22px;
       border-radius: 6px;
@@ -485,19 +476,7 @@
       line-height: 1.3;
       word-break: break-word;
     }
-    .habit-item.done .habit-text {
-      color: var(--text-dim);
-    }
-    .habit-week-progress {
-      font-size: 10px;
-      color: var(--text-dim);
-      font-weight: 600;
-      flex-shrink: 0;
-      padding: 2px 6px;
-      background: var(--bg-2);
-      border-radius: 6px;
-      font-variant-numeric: tabular-nums;
-    }
+    .habit-item.done .habit-text { color: var(--text-dim); }
 
     /* Сетка недели */
     .week-grid-wrap {
@@ -565,14 +544,8 @@
       color: #14110f;
       font-weight: 900;
     }
-    .week-cell-day.future {
-      opacity: 0.3;
-      cursor: default;
-    }
-    .week-cell-day.blocked {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+    .week-cell-day.future { opacity: 0.3; cursor: default; }
+    .week-cell-day.blocked { opacity: 0.4; cursor: not-allowed; }
     .week-cell-percent {
       font-size: 10px;
       font-weight: 700;
@@ -590,143 +563,135 @@
       margin-bottom: 12px;
     }
     .week-summary-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 10px;
+      font-size: 14px; font-weight: 700; margin-bottom: 10px;
       color: var(--habit);
     }
     .week-summary-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      padding: 4px 0;
+      display: flex; justify-content: space-between;
+      font-size: 13px; padding: 4px 0;
     }
     .week-summary-row .val { font-weight: 700; }
     .week-summary-total {
       border-top: 1px solid var(--border);
-      margin-top: 8px;
-      padding-top: 8px;
-      font-size: 14px;
+      margin-top: 8px; padding-top: 8px;
+      font-size: 14px; font-weight: 700;
+    }
+
+    /* СПОРТ / ЧТЕНИЕ — карточки */
+    .week-day-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .week-day-row:active { transform: scale(0.99); }
+    .week-day-row.empty {
+      opacity: 0.45;
+    }
+    .week-day-row.done {
+      border-color: rgba(74, 222, 128, 0.3);
+      background: rgba(74, 222, 128, 0.05);
+    }
+    .week-day-name {
       font-weight: 700;
+      font-size: 13px;
+      min-width: 28px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .week-day-content {
+      flex: 1;
+      font-size: 13px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .week-day-content .emoji {
+      font-size: 16px;
+      margin-right: 4px;
+    }
+    .week-day-content .label {
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+    .week-day-content .exercise-line {
+      display: block;
+      font-size: 12px;
+      color: var(--text-dim);
+      padding-left: 4px;
+      margin-top: 2px;
+    }
+    .week-day-content .exercise-line b {
+      color: var(--text);
+      font-weight: 600;
     }
 
-    /* ТАБЛИЦЫ */
-    .wk-sleep-header, .wk-sleep-row {
-      display: grid; grid-template-columns: 32px 1fr 55px 36px 28px;
-      gap: 6px; padding: 8px 6px; font-size: 12px;
-      align-items: center; border-bottom: 1px solid var(--border);
-    }
-    .wk-sleep-header {
-      color: var(--text-dim); font-weight: 600; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 0.3px;
-    }
-    .wk-sleep-row { font-variant-numeric: tabular-nums; }
-    .wk-sleep-row.empty { opacity: 0.4; }
-    .wk-day { font-weight: 600; }
-    .wk-time { color: var(--text-dim); font-size: 11px; }
-    .wk-dur { font-weight: 600; }
-    .wk-qual { text-align: center; font-size: 14px; }
-    .wk-badge { text-align: right; font-size: 12px; }
-    .wk-stats {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px; margin-top: 14px; padding-top: 14px;
+    .week-summary-mini {
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid var(--border);
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
-    .wk-stat {
-      text-align: center; background: var(--card-2);
-      border-radius: 10px; padding: 10px 6px;
+    .week-summary-mini .ws-item {
+      background: var(--card-2);
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: center;
     }
-    .wk-stat-val { font-size: 15px; font-weight: 700; color: var(--sleep); }
-    .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+    .week-summary-mini .ws-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--habit);
+    }
+    .week-summary-mini .ws-val.sport { color: var(--sport); }
+    .week-summary-mini .ws-val.read { color: var(--read); }
+    .week-summary-mini .ws-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
 
-    .mood-week-row {
-      display: grid; grid-template-columns: 32px 32px 1fr;
-      gap: 8px; align-items: center; padding: 8px 4px;
-      border-bottom: 1px solid var(--border); font-size: 13px;
-    }
-    .mood-week-row:last-of-type { border-bottom: none; }
-    .mood-week-row .mood-emoji { font-size: 20px; text-align: center; }
-    .mood-week-row .mood-note {
-      color: var(--text-dim); font-size: 12px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .mood-week-row.empty { opacity: 0.4; }
-    .mood-week-stats {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 12px; padding: 10px 14px;
-      background: var(--card-2); border-radius: 12px; font-size: 13px;
-    }
-    .mood-week-stats .val { font-weight: 700; color: var(--accent); }
-
-    .wk-food-header, .wk-food-row {
-      display: grid; grid-template-columns: 32px 1fr 60px 60px;
-      gap: 6px; padding: 8px 6px; font-size: 12px;
-      align-items: center; border-bottom: 1px solid var(--border);
-    }
-    .wk-food-header {
-      color: var(--text-dim); font-weight: 600; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 0.3px;
-    }
-    .wk-food-row { font-variant-numeric: tabular-nums; }
-    .wk-food-row.empty { opacity: 0.4; }
-    .wk-food-kcal { font-weight: 700; text-align: right; }
-    .wk-food-meals { text-align: center; color: var(--text-dim); }
-    .wk-food-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-top: 14px; padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-    .wk-food-stat {
-      text-align: center; background: var(--card-2);
-      border-radius: 10px; padding: 10px 6px;
-    }
-    .wk-food-stat-val { font-size: 15px; font-weight: 700; color: var(--food); }
-    .wk-food-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-    .wk-food-dishes {
-      margin-top: 16px; padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-    .wk-food-dishes-title {
-      font-size: 12px; color: var(--text-dim);
-      text-transform: uppercase; letter-spacing: 0.3px;
-      font-weight: 600; margin-bottom: 10px;
-    }
-    .wk-food-dish-day {
-      margin-bottom: 10px; font-size: 13px; line-height: 1.4;
-    }
-    .wk-food-dish-day b { color: var(--food); margin-right: 6px; }
-    .wk-food-dish-day span { color: var(--text-dim); }
-
-    /* МОДАЛКА */
+    /* Модалка */
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-      display: none; align-items: center; justify-content: center;
-      z-index: 100; padding: 20px; backdrop-filter: blur(4px);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      display: none; align-items: flex-end; justify-content: center;
+      z-index: 100; backdrop-filter: blur(4px);
     }
     .modal-backdrop.show { display: flex; }
     .modal {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 20px;
-      width: 100%; max-width: 340px; box-shadow: var(--shadow);
+      border-radius: 20px 20px 0 0;
+      padding: 20px;
+      width: 100%; max-width: 500px;
+      box-shadow: var(--shadow);
       animation: modalIn 0.25s ease;
-      max-height: 85vh;
+      max-height: 88vh;
       overflow-y: auto;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     }
     @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
+      from { transform: translateY(40px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
     }
     .modal h3 { margin: 0 0 16px; font-size: 18px; }
     .modal label {
       display: block; font-size: 13px; color: var(--text-dim);
-      margin-bottom: 6px; margin-top: 12px;
+      margin-bottom: 6px; margin-top: 14px;
     }
     .modal input[type="number"],
     .modal input[type="time"],
     .modal input[type="text"] {
       width: 100%; padding: 12px; border-radius: 10px;
       border: 1px solid var(--border); background: var(--bg-2);
-      color: var(--text); font-size: 16px; font-family: inherit;
+      color: var(--text); font-size: 15px; font-family: inherit;
       outline: none;
     }
     .modal input:focus { border-color: var(--accent); }
@@ -743,11 +708,10 @@
     .modal-buttons button:active { transform: scale(0.97); }
     .modal-buttons .save { background: var(--accent-grad); color: #14110f; }
     .modal-buttons .cancel { background: var(--card-2); color: var(--text); }
+    .modal-buttons .danger { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
     /* Редактор привычек */
-    .edit-habit-list {
-      margin-bottom: 12px;
-    }
+    .edit-habit-list { margin-bottom: 12px; }
     .edit-habit-row {
       display: flex; align-items: center; gap: 8px;
       padding: 8px 10px;
@@ -756,10 +720,7 @@
       margin-bottom: 6px;
       font-size: 13px;
     }
-    .edit-habit-row .e-text {
-      flex: 1;
-      word-break: break-word;
-    }
+    .edit-habit-row .e-text { flex: 1; word-break: break-word; }
     .edit-habit-row .e-btn {
       width: 26px; height: 26px;
       border-radius: 6px;
@@ -775,26 +736,155 @@
     }
     .edit-habit-row .e-btn:active { transform: scale(0.9); }
     .edit-habit-row .e-btn.danger { color: #fb923c; }
-
     .add-habit-btn {
-      width: 100%;
-      padding: 10px;
+      width: 100%; padding: 10px;
       background: transparent;
       border: 1px dashed var(--border);
       border-radius: 10px;
       color: var(--accent);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
       transition: background 0.2s;
     }
     .add-habit-btn:active { background: var(--card-2); }
-    .add-habit-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      color: var(--text-dim);
+    .add-habit-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--text-dim); }
+
+    /* Модалка спорта — виды */
+    .modal .type-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
     }
+    .modal .type-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 4px;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--text);
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+    }
+    .modal .type-btn .type-name {
+      font-size: 9px;
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.1;
+    }
+    .modal .type-btn:active { transform: scale(0.9); }
+    .modal .type-btn.selected {
+      background: var(--sport-grad);
+      border-color: var(--sport);
+      transform: scale(1.03);
+    }
+    .modal .type-btn.selected .type-name { color: rgba(20,17,15,0.85); }
+
+    .modal .add-type-btn {
+      width: 100%;
+      padding: 8px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: 8px;
+    }
+
+    /* Упражнения */
+    .exercise-item {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .exercise-item .ex-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
+      gap: 6px;
+      align-items: center;
+    }
+    .exercise-item input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      text-align: center;
+      min-width: 0;
+    }
+    .exercise-item input.ex-name {
+      text-align: left;
+      grid-column: span 1;
+    }
+    .exercise-item input:focus { border-color: var(--sport); }
+    .exercise-item .ex-remove {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: #fb923c;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit;
+      padding: 0; line-height: 1;
+    }
+    .exercise-item .ex-last-hint {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* Смайлики — большие кнопки */
+    .emoji-scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .emoji-scale-10 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .emoji-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 0;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      line-height: 1.2;
+    }
+    .emoji-btn .e-icon { font-size: 22px; }
+    .emoji-btn .e-num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
+    .emoji-btn:active { transform: scale(0.9); }
+    .emoji-btn.selected {
+      background: var(--accent-grad);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+    .emoji-btn.selected .e-num { color: rgba(20,17,15,0.8); }
 
     /* МЕНЮ */
     .tabbar {
@@ -999,7 +1089,7 @@
           <div class="note-status" id="foodNoteStatus"></div>
         </div>
 
-        <!-- ПРИВЫЧКИ (сегодня) -->
+        <!-- ПРИВЫЧКИ СЕГОДНЯ -->
         <div class="card">
           <div class="card-head">
             <div class="title"><span>✅</span> Привычки сегодня</div>
@@ -1016,10 +1106,8 @@
           <div class="sub" id="weekRange">—</div>
         </div>
 
-        <!-- Итоги недели (воскресенье после 20:00) -->
         <div id="weekSummaryContainer"></div>
 
-        <!-- Сетка привычек -->
         <div class="card">
           <div class="card-head">
             <div class="title"><span>📋</span> Сетка привычек</div>
@@ -1030,19 +1118,35 @@
           </div>
         </div>
 
-        <!-- Сон -->
+        <!-- СПОРТ ЗА НЕДЕЛЮ -->
+        <div class="card">
+          <div class="card-head">
+            <div class="title"><span>🏃</span> Спорт за неделю</div>
+            <button class="gear-btn" onclick="openSportSettings()">⚙️</button>
+          </div>
+          <div id="weekSportList"></div>
+          <div id="weekSportSummary"></div>
+        </div>
+
+        <!-- ЧТЕНИЕ ЗА НЕДЕЛЮ -->
+        <div class="card">
+          <div class="card-head">
+            <div class="title"><span>📚</span> Чтение за неделю</div>
+          </div>
+          <div id="weekReadList"></div>
+          <div id="weekReadSummary"></div>
+        </div>
+
         <div class="card">
           <div class="card-title"><span class="icon">😴</span> Сон за неделю</div>
           <div id="weekSleepTable"></div>
         </div>
 
-        <!-- Настроение -->
         <div class="card">
           <div class="card-title"><span class="icon">😊</span> Настроение за неделю</div>
           <div id="weekMoodTable"></div>
         </div>
 
-        <!-- Питание -->
         <div class="card">
           <div class="card-title"><span class="icon">🍎</span> Питание за неделю</div>
           <div id="weekFoodTable"></div>
@@ -1116,6 +1220,8 @@
       if (name === 'week') {
         renderWeekHabitsGrid();
         renderWeekSummary();
+        renderWeekSport();
+        renderWeekRead();
         renderWeekSleep();
         renderWeekMood();
         renderWeekFood();
@@ -1510,14 +1616,12 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
 
-    /* ИСТОРИЯ СНА */
     const SLEEP_HISTORY_KEY = 'sleep_history_v1';
     let sleepHistory = {};
 
     function saveSleepHistory() {
       tg.CloudStorage.setItem(SLEEP_HISTORY_KEY, JSON.stringify(sleepHistory), (err) => { if (err) console.warn(err); });
     }
-
     function loadSleepHistory(cb) {
       tg.CloudStorage.getItem(SLEEP_HISTORY_KEY, (err, value) => {
         if (err || !value) { sleepHistory = {}; cb && cb(); return; }
@@ -1525,7 +1629,6 @@
         cb && cb();
       });
     }
-
     function updateSleepHistory() {
       const date = getLogicalDate();
       const dur = calcDuration(sleepBedtime, sleepWakeup);
@@ -1534,7 +1637,6 @@
       } else delete sleepHistory[date];
       saveSleepHistory();
     }
-
     function renderWeekSleep() {
       const container = document.getElementById('weekSleepTable');
       if (!container) return;
@@ -1603,7 +1705,6 @@
       });
       moodSelectedName.innerHTML = currentMood ? `Настроение: <b>${MOOD_LEVELS[currentMood - 1].name}</b>` : 'Настроение не выбрано';
     }
-
     function selectMood(level) {
       if (moodViewDate !== getLogicalDate()) return;
       if (!moodHistory[moodViewDate]) moodHistory[moodViewDate] = {};
@@ -1613,7 +1714,6 @@
       updateHomeMood();
       tg.HapticFeedback?.selectionChanged();
     }
-
     function renderMoodDate() {
       const today = getLogicalDate();
       const isToday = moodViewDate === today;
@@ -1627,7 +1727,6 @@
       limit.setDate(limit.getDate() - 30);
       moodPrevBtn.disabled = moodViewDate <= limit.toISOString().slice(0, 10);
     }
-
     function moodShiftDay(delta) {
       if (delta > 0 && moodViewDate === getLogicalDate()) return;
       const d = new Date(moodViewDate + 'T12:00:00');
@@ -1640,7 +1739,6 @@
       renderNote();
       tg.HapticFeedback?.selectionChanged();
     }
-
     function renderNote() {
       const entry = moodHistory[moodViewDate];
       const isToday = moodViewDate === getLogicalDate();
@@ -1650,7 +1748,6 @@
       noteStatus.textContent = '';
       noteStatus.classList.remove('saved');
     }
-
     noteField.addEventListener('input', () => {
       if (moodViewDate !== getLogicalDate()) return;
       noteStatus.textContent = '...';
@@ -1670,13 +1767,11 @@
         }, 2000);
       }, 1000);
     });
-
     function saveMoodHistory() {
       const keys = Object.keys(moodHistory).sort();
       if (keys.length > 60) keys.slice(0, keys.length - 60).forEach(k => delete moodHistory[k]);
       tg.CloudStorage.setItem(MOOD_HISTORY_KEY, JSON.stringify(moodHistory), (err) => { if (err) console.warn(err); });
     }
-
     function loadMoodHistory(cb) {
       tg.CloudStorage.getItem(MOOD_HISTORY_KEY, (err, value) => {
         if (err || !value) { moodHistory = {}; cb && cb(); return; }
@@ -1684,14 +1779,12 @@
         cb && cb();
       });
     }
-
     function updateHomeMood() {
       const homeVal = document.getElementById('homeMoodValue');
       if (!homeVal) return;
       const entry = moodHistory[getLogicalDate()];
       homeVal.textContent = entry?.mood ? MOOD_LEVELS[entry.mood - 1].emoji : '—';
     }
-
     function renderWeekMood() {
       const container = document.getElementById('weekMoodTable');
       if (!container) return;
@@ -1713,7 +1806,6 @@
     /* ПИТАНИЕ */
     const FOOD_KEY = 'food_v1';
     const FOOD_HISTORY_KEY = 'food_history_v1';
-
     let foodCalories = 0;
     let foodCalGoal = null;
     let foodMeals = { breakfast: false, lunch: false, dinner: false, snack: false };
@@ -1750,14 +1842,12 @@
       if (document.activeElement !== foodNoteField) foodNoteField.value = foodNote || '';
       updateHomeFood();
     }
-
     function updateHomeFood() {
       const homeVal = document.getElementById('homeFoodValue');
       if (!homeVal) return;
       const mealsCount = Object.values(foodMeals).filter(Boolean).length;
       homeVal.textContent = (foodCalories || mealsCount) ? `${foodCalories} ккал · ${mealsCount} приёма` : '—';
     }
-
     function saveFood() {
       const data = JSON.stringify({
         date: getLogicalDate(), calories: foodCalories, goal: foodCalGoal,
@@ -1766,7 +1856,6 @@
       tg.CloudStorage.setItem(FOOD_KEY, data, (err) => { if (err) console.warn(err); });
       updateFoodHistory();
     }
-
     function loadFood() {
       tg.CloudStorage.getItem(FOOD_KEY, (err, value) => {
         if (err || !value) { renderFood(); return; }
@@ -1789,7 +1878,6 @@
         } catch (e) { renderFood(); }
       });
     }
-
     foodCaloriesInput.addEventListener('input', () => {
       const v = parseInt(foodCaloriesInput.value, 10);
       foodCalories = isNaN(v) ? 0 : Math.max(0, v);
@@ -1800,7 +1888,6 @@
         foodCalBarFill.style.width = (pct * 100) + '%';
       }
     });
-
     function addCalories(amount) {
       foodCalories = Math.max(0, foodCalories + amount);
       foodCaloriesInput.value = foodCalories;
@@ -1808,14 +1895,12 @@
       renderFood();
       tg.HapticFeedback?.impactOccurred('light');
     }
-
     function toggleMeal(meal) {
       foodMeals[meal] = !foodMeals[meal];
       saveFood();
       renderFood();
       tg.HapticFeedback?.selectionChanged();
     }
-
     function changeFoodCounter(type, delta) {
       if (type === 'cooked') foodCooked = Math.max(0, foodCooked + delta);
       else foodCafe = Math.max(0, foodCafe + delta);
@@ -1823,7 +1908,6 @@
       renderFood();
       tg.HapticFeedback?.impactOccurred('light');
     }
-
     foodNoteField.addEventListener('input', () => {
       foodNoteStatus.textContent = '...';
       foodNoteStatus.classList.remove('saved');
@@ -1841,7 +1925,6 @@
         }, 2000);
       }, 1000);
     });
-
     function openFoodSettings() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -1874,13 +1957,11 @@
       };
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
-
     function saveFoodHistory() {
       const keys = Object.keys(foodHistory).sort();
       if (keys.length > 60) keys.slice(0, keys.length - 60).forEach(k => delete foodHistory[k]);
       tg.CloudStorage.setItem(FOOD_HISTORY_KEY, JSON.stringify(foodHistory), (err) => { if (err) console.warn(err); });
     }
-
     function loadFoodHistory(cb) {
       tg.CloudStorage.getItem(FOOD_HISTORY_KEY, (err, value) => {
         if (err || !value) { foodHistory = {}; cb && cb(); return; }
@@ -1888,7 +1969,6 @@
         cb && cb();
       });
     }
-
     function updateFoodHistory() {
       const date = getLogicalDate();
       const mealsCount = Object.values(foodMeals).filter(Boolean).length;
@@ -1897,7 +1977,6 @@
       } else delete foodHistory[date];
       saveFoodHistory();
     }
-
     function renderWeekFood() {
       const container = document.getElementById('weekFoodTable');
       if (!container) return;
@@ -1929,17 +2008,11 @@
     const HABITS_CONFIG_KEY = 'habits_config_v1';
     const HABITS_DATA_KEY = 'habits_data_v1';
 
-    // Структура конфига: { blocks: [ { id, title, emoji, type: 'daily'|'weekly', habits: [{id, text}] } ] }
-    // type: 'daily' — каждый день, 'weekly' — 1 раз в неделю
-    // Структура данных: { weeks: { "YYYY-MM-DD"(понедельник): { checks: { "habitId": { "YYYY-MM-DD": true } } } } }
-
+    // Типы блоков: 'daily' (каждый день), 'weekly' (1 раз в неделю), 'sport', 'read'
     const DEFAULT_HABITS_CONFIG = {
       blocks: [
         {
-          id: 'sleep',
-          title: 'Сон',
-          emoji: '💤',
-          type: 'daily',
+          id: 'sleep', title: 'Сон', emoji: '💤', type: 'daily',
           habits: [
             { id: 'h_sleep_1', text: 'Лёг(ла) спать в 23:00–00:30' },
             { id: 'h_sleep_2', text: 'Встал(а) в 6:30–8:00' },
@@ -1949,10 +2022,7 @@
           ]
         },
         {
-          id: 'base',
-          title: 'Базовый',
-          emoji: '🧱',
-          type: 'daily',
+          id: 'base', title: 'Базовый', emoji: '🧱', type: 'daily',
           habits: [
             { id: 'h_base_1', text: 'Умыться / почистить зубы' },
             { id: 'h_base_2', text: 'Нормальная еда' },
@@ -1962,10 +2032,19 @@
           ]
         },
         {
-          id: 'clean',
-          title: 'Уборка',
-          emoji: '🧹',
-          type: 'weekly',
+          id: 'sport', title: 'Спорт', emoji: '🏃', type: 'sport',
+          habits: [
+            { id: 'h_sport_1', text: 'Тренировка' },
+          ]
+        },
+        {
+          id: 'read', title: 'Чтение', emoji: '📚', type: 'read',
+          habits: [
+            { id: 'h_read_1', text: 'Чтение' },
+          ]
+        },
+        {
+          id: 'clean', title: 'Уборка', emoji: '🧹', type: 'weekly',
           habits: [
             { id: 'h_clean_1', text: 'Генеральная уборка' },
           ]
@@ -1984,78 +2063,55 @@
       d.setHours(0, 0, 0, 0);
       return d;
     }
-
-    function getCurrentWeekKey() {
-      const m = getMonday();
+    function getCurrentWeekKey() { return getMonday().toISOString().slice(0, 10); }
+    function getWeekEnd() {
+      const m = new Date(currentWeekMonday + 'T12:00:00');
+      m.setDate(m.getDate() + 6);
       return m.toISOString().slice(0, 10);
     }
-
     function initHabitsData() {
       currentWeekMonday = getCurrentWeekKey();
       if (!habitsData.weeks) habitsData.weeks = {};
-      if (!habitsData.weeks[currentWeekMonday]) {
-        habitsData.weeks[currentWeekMonday] = { checks: {} };
-      }
+      if (!habitsData.weeks[currentWeekMonday]) habitsData.weeks[currentWeekMonday] = { checks: {} };
     }
-
     function getWeekChecks() {
-      if (!habitsData.weeks[currentWeekMonday]) {
-        habitsData.weeks[currentWeekMonday] = { checks: {} };
-      }
+      if (!habitsData.weeks[currentWeekMonday]) habitsData.weeks[currentWeekMonday] = { checks: {} };
+      if (!habitsData.weeks[currentWeekMonday].checks) habitsData.weeks[currentWeekMonday].checks = {};
       return habitsData.weeks[currentWeekMonday].checks;
     }
-
     function saveHabitsConfig() {
-      tg.CloudStorage.setItem(HABITS_CONFIG_KEY, JSON.stringify(habitsConfig), (err) => {
-        if (err) console.warn('Habits config save error', err);
-      });
+      tg.CloudStorage.setItem(HABITS_CONFIG_KEY, JSON.stringify(habitsConfig), (err) => { if (err) console.warn(err); });
     }
-
     function saveHabitsData() {
-      // Ограничим архив 12 неделями
       if (habitsData.weeks) {
         const keys = Object.keys(habitsData.weeks).sort();
-        if (keys.length > 12) {
-          keys.slice(0, keys.length - 12).forEach(k => delete habitsData.weeks[k]);
-        }
+        if (keys.length > 12) keys.slice(0, keys.length - 12).forEach(k => delete habitsData.weeks[k]);
       }
-      tg.CloudStorage.setItem(HABITS_DATA_KEY, JSON.stringify(habitsData), (err) => {
-        if (err) console.warn('Habits data save error', err);
-      });
+      tg.CloudStorage.setItem(HABITS_DATA_KEY, JSON.stringify(habitsData), (err) => { if (err) console.warn(err); });
     }
-
     function loadHabitsConfig(cb) {
       tg.CloudStorage.getItem(HABITS_CONFIG_KEY, (err, value) => {
-        if (err || !value) {
-          habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
-          cb && cb();
-          return;
-        }
+        if (err || !value) { habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG)); cb && cb(); return; }
         try {
           const parsed = JSON.parse(value);
           if (parsed && Array.isArray(parsed.blocks)) habitsConfig = parsed;
           else habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
-        } catch (e) {
-          habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG));
-        }
+        } catch (e) { habitsConfig = JSON.parse(JSON.stringify(DEFAULT_HABITS_CONFIG)); }
         cb && cb();
       });
     }
-
     function loadHabitsData(cb) {
       tg.CloudStorage.getItem(HABITS_DATA_KEY, (err, value) => {
         if (err || !value) { habitsData = { weeks: {} }; cb && cb(); return; }
         try {
           const parsed = JSON.parse(value);
           habitsData = parsed && parsed.weeks ? parsed : { weeks: {} };
-        } catch (e) {
-          habitsData = { weeks: {} };
-        }
+        } catch (e) { habitsData = { weeks: {} }; }
         cb && cb();
       });
     }
 
-    // Отметка привычки
+    // Отметка обычной привычки
     function toggleHabit(habitId, dateStr) {
       const checks = getWeekChecks();
       if (!checks[habitId]) checks[habitId] = {};
@@ -2078,13 +2134,10 @@
 
       let html = '';
       habitsConfig.blocks.forEach(block => {
-        if (block.type !== 'daily') return; // в «Дне» только daily
+        if (block.type !== 'daily') return;
 
-        // Прогресс блока за сегодня
         let doneToday = 0;
-        block.habits.forEach(h => {
-          if (checks[h.id] && checks[h.id][today]) doneToday++;
-        });
+        block.habits.forEach(h => { if (checks[h.id] && checks[h.id][today]) doneToday++; });
         const total = block.habits.length;
 
         html += `<div class="habit-block">
@@ -2103,30 +2156,27 @@
         html += `</div>`;
       });
 
-      // Еженедельные (уборка) — показываем, если за эту неделю ещё не отмечено
+      // Еженедельные (уборка) — показываем в «Дне» тоже
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'weekly') return;
-        let doneThisWeek = false;
+        let wasDoneThisWeek = false;
         block.habits.forEach(h => {
-          if (checks[h.id]) {
-            // есть хоть одна отметка за неделю
-            const days = Object.keys(checks[h.id]);
-            if (days.some(d => d >= currentWeekMonday && d <= getWeekEnd())) doneThisWeek = true;
+          if (checks[h.id] && Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd())) {
+            wasDoneThisWeek = true;
           }
         });
 
         html += `<div class="habit-block">
           <div class="habit-block-head">
-            <div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${doneThisWeek ? '1/1' : '0/1'} за неделю)</span></div>
+            <div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${wasDoneThisWeek ? '1/1' : '0/1'} за неделю)</span></div>
           </div>`;
 
         block.habits.forEach(h => {
           const done = checks[h.id] && checks[h.id][today];
-          const wasDoneThisWeek = checks[h.id] && Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
           const blocked = wasDoneThisWeek && !done;
           html += `<div class="habit-item ${done || wasDoneThisWeek ? 'done' : ''} ${blocked ? 'blocked' : ''}" onclick="${blocked ? '' : `toggleHabit('${h.id}', '${today}')`}">
             <div class="habit-check">✓</div>
-            <div class="habit-text">${escapeHtml(h.text)} ${wasDoneThisWeek && !done ? ' (уже сделано на этой неделе)' : ''}</div>
+            <div class="habit-text">${escapeHtml(h.text)} ${wasDoneThisWeek && !done ? ' ✓ на этой неделе' : ''}</div>
           </div>`;
         });
 
@@ -2134,12 +2184,6 @@
       });
 
       container.innerHTML = html || '<div class="placeholder" style="padding:20px;"><span class="big">📋</span><div class="text">Нет привычек. Открой ⚙️ чтобы добавить</div></div>';
-    }
-
-    function getWeekEnd() {
-      const m = new Date(currentWeekMonday + 'T12:00:00');
-      m.setDate(m.getDate() + 6);
-      return m.toISOString().slice(0, 10);
     }
 
     // === «Неделя»: сетка ===
@@ -2156,25 +2200,47 @@
       </div>`;
 
       habitsConfig.blocks.forEach(block => {
+        // Для спорта и чтения используем специальные обработчики
+        if (block.type === 'sport' || block.type === 'read') {
+          const habit = block.habits[0];
+          if (!habit) return;
+
+          html += `<div class="week-grid-row block-header">${block.emoji} ${escapeHtml(block.title)}</div>`;
+
+          let doneCount = 0;
+          days.forEach(d => { if (checks[habit.id] && checks[habit.id][d.date]) doneCount++; });
+          const percent = Math.round((doneCount / 7) * 100);
+
+          html += `<div class="week-grid-row">
+            <div class="week-cell-name">${block.type === 'sport' ? 'Тренировка' : 'Чтение'}</div>`;
+
+          days.forEach(d => {
+            const done = checks[habit.id] && checks[habit.id][d.date];
+            const future = d.isFuture;
+            // Для спорта/чтения тап идёт через toggleHabit (просто галочка)
+            html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''}"
+              onclick="${future ? '' : `toggleHabit('${habit.id}', '${d.date}')`}">✓</div>`;
+          });
+
+          html += `<div class="week-cell-percent">${percent}%</div>`;
+          html += `</div>`;
+          return;
+        }
+
+        // Обычные блоки
         html += `<div class="week-grid-row block-header">${block.emoji} ${escapeHtml(block.title)}${block.type === 'weekly' ? ' (1 раз в неделю)' : ''}</div>`;
 
         block.habits.forEach(h => {
-          // Считаем % выполнения за неделю
           let doneCount = 0;
           if (block.type === 'daily') {
-            days.forEach(d => {
-              if (checks[h.id] && checks[h.id][d.date]) doneCount++;
-            });
+            days.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) doneCount++; });
           } else {
-            // weekly — 1 раз за неделю
             if (checks[h.id]) {
               const hasAny = Object.keys(checks[h.id]).some(d => d >= currentWeekMonday && d <= getWeekEnd());
               doneCount = hasAny ? 1 : 0;
             }
           }
-          const percent = block.type === 'daily' 
-            ? Math.round((doneCount / 7) * 100)
-            : (doneCount ? 100 : 0);
+          const percent = block.type === 'daily' ? Math.round((doneCount / 7) * 100) : (doneCount ? 100 : 0);
 
           html += `<div class="week-grid-row">
             <div class="week-cell-name">${escapeHtml(h.text)}</div>`;
@@ -2182,9 +2248,7 @@
           days.forEach(d => {
             const done = checks[h.id] && checks[h.id][d.date];
             const future = d.isFuture;
-            const cells = [];
             if (block.type === 'weekly') {
-              // Показать только одну галочку за неделю
               const wasDoneThisWeek = checks[h.id] && Object.keys(checks[h.id]).some(dd => dd >= currentWeekMonday && dd <= getWeekEnd());
               const blocked = wasDoneThisWeek && !done;
               html += `<div class="week-cell-day ${done ? 'done' : ''} ${future ? 'future' : ''} ${blocked ? 'blocked' : ''}"
@@ -2207,27 +2271,18 @@
     function renderWeekSummary() {
       const container = document.getElementById('weekSummaryContainer');
       if (!container) return;
-
-      const now = new Date();
-      const dayOfWeek = now.getDay(); // 0 = вс
-      const hour = now.getHours();
-      // Показываем итоги только в воскресенье после 20:00
-      const isSundayEvening = dayOfWeek === 0 && hour >= 20;
-
-      if (!isSundayEvening) {
-        container.innerHTML = '';
-        return;
-      }
+      const n = new Date();
+      const dayOfWeek = n.getDay();
+      const hour = n.getHours();
+      if (!(dayOfWeek === 0 && hour >= 20)) { container.innerHTML = ''; return; }
 
       const checks = getWeekChecks();
-      let totalPossible = 0;
-      let totalDone = 0;
-      let blockStats = [];
+      let totalPossible = 0, totalDone = 0;
+      const blockStats = [];
 
       habitsConfig.blocks.forEach(block => {
-        let blockPossible = 0;
-        let blockDone = 0;
-
+        if (block.type === 'sport' || block.type === 'read') return; // Спорт/чтение — отдельно
+        let blockPossible = 0, blockDone = 0;
         block.habits.forEach(h => {
           if (block.type === 'daily') {
             blockPossible += 7;
@@ -2245,15 +2300,34 @@
             }
           }
         });
-
         totalPossible += blockPossible;
         totalDone += blockDone;
-        blockStats.push({
-          title: block.title,
-          emoji: block.emoji,
-          done: blockDone,
-          possible: blockPossible
-        });
+        blockStats.push({ title: block.title, emoji: block.emoji, done: blockDone, possible: blockPossible });
+      });
+
+      // Спорт и чтение — отдельно
+      let sportDone = 0, readDone = 0;
+      habitsConfig.blocks.forEach(block => {
+        if (block.type === 'sport') {
+          const h = block.habits[0];
+          if (h) days => {};
+        }
+      });
+      // Пересчёт спорта/чтения
+      const daysList = getWeekDays();
+      habitsConfig.blocks.forEach(block => {
+        if (block.type === 'sport') {
+          const h = block.habits[0];
+          if (h) {
+            daysList.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) sportDone++; });
+          }
+        }
+        if (block.type === 'read') {
+          const h = block.habits[0];
+          if (h) {
+            daysList.forEach(d => { if (checks[h.id] && checks[h.id][d.date]) readDone++; });
+          }
+        }
       });
 
       const percent = totalPossible > 0 ? Math.round((totalDone / totalPossible) * 100) : 0;
@@ -2267,8 +2341,16 @@
               <span class="val">${b.done} / ${b.possible}</span>
             </div>
           `).join('')}
+          <div class="week-summary-row">
+            <span>🏃 Спорт (дней)</span>
+            <span class="val">${sportDone} / 7</span>
+          </div>
+          <div class="week-summary-row">
+            <span>📚 Чтение (дней)</span>
+            <span class="val">${readDone} / 7</span>
+          </div>
           <div class="week-summary-row week-summary-total">
-            <span>Итого</span>
+            <span>Итого привычек</span>
             <span class="val">${totalDone} / ${totalPossible} (${percent}%)</span>
           </div>
         </div>
@@ -2283,16 +2365,7 @@
       let done = 0, total = 0;
 
       habitsConfig.blocks.forEach(block => {
-        if (block.type !== 'daily') return;
-        block.habits.forEach(h => {
-          total++;
-          if (checks[h.id] && checks[h.id][today]) done++;
-        });
-      });
-
-      // Weekly блоки
-      habitsConfig.blocks.forEach(block => {
-        if (block.type !== 'weekly') return;
+        if (block.type !== 'daily' && block.type !== 'weekly') return;
         block.habits.forEach(h => {
           total++;
           if (checks[h.id] && checks[h.id][today]) done++;
@@ -2302,15 +2375,10 @@
       homeVal.textContent = total > 0 ? `${done} / ${total}` : '— / —';
     }
 
-    // === Редактор привычек ===
-    function openHabitsEditor() {
-      renderHabitsEditor();
-    }
-
+    /* Редактор привычек */
+    function openHabitsEditor() { renderHabitsEditor(); }
     function renderHabitsEditor() {
-      // Закрыть предыдущую модалку, если есть
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
       backdrop.innerHTML = `<div class="modal" id="habitsEditorModal"></div>`;
@@ -2334,7 +2402,6 @@
         renderWeekSummary();
         updateHomeHabits();
       };
-
       backdrop.onclick = (e) => {
         if (e.target === backdrop) {
           backdrop.remove();
@@ -2349,9 +2416,19 @@
     function renderHabitsEditorContent() {
       const content = document.getElementById('habitsEditorContent');
       if (!content) return;
-
       let html = '';
       habitsConfig.blocks.forEach((block, blockIndex) => {
+        // Спорт и Чтение — не редактируются здесь (только через ⚙️ спорта)
+        if (block.type === 'sport' || block.type === 'read') {
+          html += `<div style="margin-bottom:16px;">
+            <div style="font-size:13px;font-weight:700;color:var(--sport);margin-bottom:8px;">
+              ${block.emoji} ${escapeHtml(block.title)}
+              <span style="font-size:11px;color:var(--text-dim);font-weight:500;">(редактируется в ⚙️ спорта)</span>
+            </div>
+          </div>`;
+          return;
+        }
+
         html += `<div style="margin-bottom:16px;">
           <div style="font-size:13px;font-weight:700;color:var(--habit);margin-bottom:8px;">
             ${block.emoji} ${escapeHtml(block.title)}
@@ -2364,27 +2441,24 @@
         block.habits.forEach((h, habitIndex) => {
           html += `<div class="edit-habit-row">
             <span class="e-text">${escapeHtml(h.text)}</span>
-            <button class="e-btn" onclick="editHabitName(${blockIndex}, ${habitIndex})" title="Переименовать">✎</button>
-            <button class="e-btn" onclick="moveHabitUp(${blockIndex}, ${habitIndex})" title="Вверх">↑</button>
-            <button class="e-btn" onclick="moveHabitDown(${blockIndex}, ${habitIndex})" title="Вниз">↓</button>
-            <button class="e-btn danger" onclick="deleteHabit(${blockIndex}, ${habitIndex})" title="Удалить">✕</button>
+            <button class="e-btn" onclick="editHabitName(${blockIndex}, ${habitIndex})">✎</button>
+            <button class="e-btn" onclick="moveHabitUp(${blockIndex}, ${habitIndex})">↑</button>
+            <button class="e-btn" onclick="moveHabitDown(${blockIndex}, ${habitIndex})">↓</button>
+            <button class="e-btn danger" onclick="deleteHabit(${blockIndex}, ${habitIndex})">✕</button>
           </div>`;
         });
 
         html += `</div>`;
         html += `<button class="add-habit-btn" onclick="addHabit(${blockIndex})" ${block.habits.length >= 10 ? 'disabled' : ''}>
           ${block.habits.length >= 10 ? 'Максимум 10 привычек' : '+ Добавить привычку'}
-        </button>`;
-        html += `</div>`;
+        </button></div>`;
       });
-
       content.innerHTML = html;
     }
 
     function addHabit(blockIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block || block.habits.length >= 10) return;
-
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
       backdrop.style.zIndex = '110';
@@ -2400,10 +2474,8 @@
         </div>
       `;
       document.body.appendChild(backdrop);
-
       const input = backdrop.querySelector('#newHabitText');
       setTimeout(() => input.focus(), 100);
-
       backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
       backdrop.querySelector('#saveBtn').onclick = () => {
         const text = input.value.trim();
@@ -2417,12 +2489,10 @@
       };
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
-
     function editHabitName(blockIndex, habitIndex) {
       const block = habitsConfig.blocks[blockIndex];
       const habit = block?.habits[habitIndex];
       if (!habit) return;
-
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
       backdrop.style.zIndex = '110';
@@ -2438,10 +2508,8 @@
         </div>
       `;
       document.body.appendChild(backdrop);
-
       const input = backdrop.querySelector('#editHabitText');
       setTimeout(() => input.focus(), 100);
-
       backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
       backdrop.querySelector('#saveBtn').onclick = () => {
         const text = input.value.trim();
@@ -2454,7 +2522,6 @@
       };
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
-
     function deleteHabit(blockIndex, habitIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block) return;
@@ -2464,7 +2531,6 @@
       renderHabitsEditorContent();
       tg.HapticFeedback?.notificationOccurred('warning');
     }
-
     function moveHabitUp(blockIndex, habitIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block || habitIndex <= 0) return;
@@ -2472,13 +2538,582 @@
       saveHabitsConfig();
       renderHabitsEditorContent();
     }
-
     function moveHabitDown(blockIndex, habitIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block || habitIndex >= block.habits.length - 1) return;
       [block.habits[habitIndex + 1], block.habits[habitIndex]] = [block.habits[habitIndex], block.habits[habitIndex + 1]];
       saveHabitsConfig();
       renderHabitsEditorContent();
+    }
+
+    /* ============ СПОРТ И ЧТЕНИЕ ============ */
+    const SPORT_DATA_KEY = 'sport_data_v1';
+    const READ_DATA_KEY = 'read_data_v1';
+    const SPORT_TYPES_KEY = 'sport_types_v1';
+
+    // Смайлики
+    const SPORT_EMOJIS = ['🛋️','🫠','🐌','🐢','🚶','🏃','💪','🏋️','🦾','🦍'];
+    const READ_EMOJIS  = ['🥱📕','😪📕','😐📖','🤔📖','🙂📖','🤓📖','🧐📚','🧠📚','🧠⚡','🏆📚'];
+
+    // Стартовые виды нагрузки
+    const DEFAULT_SPORT_TYPES = [
+      { id: 'gym', emoji: '🏋️', name: 'Зал', mode: 'exercises' },
+      { id: 'run', emoji: '🏃', name: 'Бег', mode: 'distance' },
+      { id: 'swim', emoji: '🏊', name: 'Плавание', mode: 'distance' },
+      { id: 'bike', emoji: '🚴', name: 'Вело', mode: 'distance' },
+      { id: 'walk', emoji: '🚶', name: 'Ходьба', mode: 'distance' },
+      { id: 'yoga', emoji: '🧘', name: 'Йога', mode: 'none' },
+      { id: 'game', emoji: '⚽', name: 'Игровые', mode: 'none' },
+      { id: 'fight', emoji: '🥊', name: 'Единоборства', mode: 'none' },
+    ];
+
+    let sportData = {};   // { "YYYY-MM-DD": { mood, typeId, exercises: [{name,weight,reps,sets}], distance, time, note } }
+    let readData = {};    // { "YYYY-MM-DD": { mood, text, note } }
+    let sportTypes = JSON.parse(JSON.stringify(DEFAULT_SPORT_TYPES));
+
+    function saveSportData() {
+      const keys = Object.keys(sportData).sort();
+      if (keys.length > 90) keys.slice(0, keys.length - 90).forEach(k => delete sportData[k]);
+      tg.CloudStorage.setItem(SPORT_DATA_KEY, JSON.stringify(sportData), (err) => { if (err) console.warn(err); });
+    }
+    function loadSportData(cb) {
+      tg.CloudStorage.getItem(SPORT_DATA_KEY, (err, value) => {
+        if (err || !value) { sportData = {}; cb && cb(); return; }
+        try { sportData = JSON.parse(value) || {}; } catch (e) { sportData = {}; }
+        cb && cb();
+      });
+    }
+    function saveReadData() {
+      const keys = Object.keys(readData).sort();
+      if (keys.length > 90) keys.slice(0, keys.length - 90).forEach(k => delete readData[k]);
+      tg.CloudStorage.setItem(READ_DATA_KEY, JSON.stringify(readData), (err) => { if (err) console.warn(err); });
+    }
+    function loadReadData(cb) {
+      tg.CloudStorage.getItem(READ_DATA_KEY, (err, value) => {
+        if (err || !value) { readData = {}; cb && cb(); return; }
+        try { readData = JSON.parse(value) || {}; } catch (e) { readData = {}; }
+        cb && cb();
+      });
+    }
+    function saveSportTypes() {
+      tg.CloudStorage.setItem(SPORT_TYPES_KEY, JSON.stringify(sportTypes), (err) => { if (err) console.warn(err); });
+    }
+    function loadSportTypes(cb) {
+      tg.CloudStorage.getItem(SPORT_TYPES_KEY, (err, value) => {
+        if (err || !value) { sportTypes = JSON.parse(JSON.stringify(DEFAULT_SPORT_TYPES)); cb && cb(); return; }
+        try {
+          const parsed = JSON.parse(value);
+          if (Array.isArray(parsed) && parsed.length) sportTypes = parsed;
+          else sportTypes = JSON.parse(JSON.stringify(DEFAULT_SPORT_TYPES));
+        } catch (e) { sportTypes = JSON.parse(JSON.stringify(DEFAULT_SPORT_TYPES)); }
+        cb && cb();
+      });
+    }
+
+    // Получить id привычки для спорта/чтения
+    function getSportHabitId() {
+      const b = habitsConfig.blocks.find(x => x.type === 'sport');
+      return b && b.habits[0] ? b.habits[0].id : null;
+    }
+    function getReadHabitId() {
+      const b = habitsConfig.blocks.find(x => x.type === 'read');
+      return b && b.habits[0] ? b.habits[0].id : null;
+    }
+
+    // === Рендер «Спорт за неделю» ===
+    function renderWeekSport() {
+      const listEl = document.getElementById('weekSportList');
+      const sumEl = document.getElementById('weekSportSummary');
+      if (!listEl) return;
+      const days = getWeekDays();
+
+      let html = '';
+      let totalDone = 0, totalMood = 0, moodCount = 0;
+
+      days.forEach(d => {
+        const entry = sportData[d.date];
+        const hasEntry = entry && (entry.mood || entry.typeId || (entry.exercises && entry.exercises.length) || entry.distance || entry.note);
+
+        if (!hasEntry) {
+          html += `<div class="week-day-row empty" onclick="openSportModal('${d.date}')">
+            <div class="week-day-name">${d.name}</div>
+            <div class="week-day-content"><span class="label">— (отдых)</span></div>
+          </div>`;
+          return;
+        }
+
+        totalDone++;
+        if (entry.mood) { totalMood += entry.mood; moodCount++; }
+
+        const emoji = entry.mood ? SPORT_EMOJIS[entry.mood - 1] : '';
+        const typeObj = sportTypes.find(t => t.id === entry.typeId);
+        const typeName = typeObj ? `${typeObj.emoji} ${typeObj.name}` : '';
+
+        let details = '';
+        if (entry.exercises && entry.exercises.length) {
+          details = entry.exercises.map(ex => {
+            const parts = [];
+            if (ex.name) parts.push(`<b>${escapeHtml(ex.name)}</b>`);
+            const nums = [];
+            if (ex.weight) nums.push(`${ex.weight} кг`);
+            if (ex.reps) nums.push(`${ex.reps} повт.`);
+            if (ex.sets) nums.push(`${ex.sets} подх.`);
+            if (nums.length) parts.push(nums.join(' × '));
+            return parts.join(' ');
+          }).join('<br>');
+        } else if (entry.distance || entry.time) {
+          const nums = [];
+          if (entry.distance) nums.push(`${entry.distance} км`);
+          if (entry.time) nums.push(`${entry.time} мин`);
+          if (entry.distance && entry.time) {
+            const pace = entry.time / entry.distance;
+            const paceMin = Math.floor(pace);
+            const paceSec = Math.round((pace - paceMin) * 60);
+            nums.push(`темп ${paceMin}:${String(paceSec).padStart(2,'0')} /км`);
+            const speed = (entry.distance / (entry.time / 60)).toFixed(1);
+            nums.push(`${speed} км/ч`);
+          }
+          details = nums.join(' · ');
+        }
+
+        html += `<div class="week-day-row done" onclick="openSportModal('${d.date}')">
+          <div class="week-day-name">${d.name}</div>
+          <div class="week-day-content">
+            ${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}
+            ${typeName ? ` · ${typeName}` : ''}
+            ${details ? `<span class="exercise-line">${details}</span>` : ''}
+            ${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}
+          </div>
+        </div>`;
+      });
+
+      listEl.innerHTML = html;
+
+      // Сводка
+      const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
+      sumEl.innerHTML = `<div class="week-summary-mini">
+        <div class="ws-item"><div class="ws-val sport">${totalDone}</div><div class="ws-label">Тренировок</div></div>
+        <div class="ws-item"><div class="ws-val sport">${avgMood}</div><div class="ws-label">Средняя</div></div>
+      </div>`;
+    }
+
+    // === Рендер «Чтение за неделю» ===
+    function renderWeekRead() {
+      const listEl = document.getElementById('weekReadList');
+      const sumEl = document.getElementById('weekReadSummary');
+      if (!listEl) return;
+      const days = getWeekDays();
+
+      let html = '';
+      let totalDone = 0, totalMood = 0, moodCount = 0;
+
+      days.forEach(d => {
+        const entry = readData[d.date];
+        const hasEntry = entry && (entry.mood || entry.text);
+
+        if (!hasEntry) {
+          html += `<div class="week-day-row empty" onclick="openReadModal('${d.date}')">
+            <div class="week-day-name">${d.name}</div>
+            <div class="week-day-content"><span class="label">—</span></div>
+          </div>`;
+          return;
+        }
+
+        totalDone++;
+        if (entry.mood) { totalMood += entry.mood; moodCount++; }
+        const emoji = entry.mood ? READ_EMOJIS[entry.mood - 1] : '';
+
+        html += `<div class="week-day-row done" onclick="openReadModal('${d.date}')">
+          <div class="week-day-name">${d.name}</div>
+          <div class="week-day-content">
+            ${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}
+            ${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}
+            ${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}
+          </div>
+        </div>`;
+      });
+
+      listEl.innerHTML = html;
+
+      const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
+      sumEl.innerHTML = `<div class="week-summary-mini">
+        <div class="ws-item"><div class="ws-val read">${totalDone}</div><div class="ws-label">Раз читал</div></div>
+        <div class="ws-item"><div class="ws-val read">${avgMood}</div><div class="ws-label">Средняя</div></div>
+      </div>`;
+    }
+
+    // === Модалка Спорта ===
+    let sportModalState = null;
+
+    function openSportModal(dateStr) {
+      const existing = sportData[dateStr] || { mood: null, typeId: null, exercises: [], distance: null, time: null, note: '' };
+      sportModalState = {
+        date: dateStr,
+        mood: existing.mood || null,
+        typeId: existing.typeId || null,
+        exercises: existing.exercises ? JSON.parse(JSON.stringify(existing.exercises)) : [],
+        distance: existing.distance || '',
+        time: existing.time || '',
+        note: existing.note || ''
+      };
+      renderSportModal();
+    }
+
+    function renderSportModal() {
+      const s = sportModalState;
+      if (!s) return;
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal" id="sportModal"></div>`;
+      document.body.appendChild(backdrop);
+
+      const dateObj = new Date(s.date + 'T12:00:00');
+      const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+
+      const modal = backdrop.querySelector('#sportModal');
+      modal.innerHTML = `
+        <h3>🏃 Спорт — ${escapeHtml(dateLabel)}</h3>
+
+        <label>Насколько продуктивно?</label>
+        <div class="emoji-scale-10" id="sportEmojiScale"></div>
+
+        <label>Вид нагрузки</label>
+        <div class="type-grid" id="sportTypeGrid"></div>
+        <button class="add-type-btn" onclick="addSportTypeCustom()">+ Добавить свой вид</button>
+
+        <div id="sportTypeDetails"></div>
+
+        <label>Заметка</label>
+        <textarea class="note-field" id="sportNoteField" placeholder="Как прошло?" maxlength="500" style="min-height:60px;">${escapeHtml(s.note)}</textarea>
+
+        <div class="modal-buttons">
+          <button class="cancel" id="cancelBtn">Отмена</button>
+          <button class="save" id="saveBtn">Сохранить</button>
+        </div>
+      `;
+
+      // Смайлики
+      const emojiScale = modal.querySelector('#sportEmojiScale');
+      SPORT_EMOJIS.forEach((e, i) => {
+        const level = i + 1;
+        const btn = document.createElement('button');
+        btn.className = 'emoji-btn' + (s.mood === level ? ' selected' : '');
+        btn.innerHTML = `<span class="e-icon">${e}</span><span class="e-num">${level}</span>`;
+        btn.onclick = () => {
+          s.mood = level;
+          modal.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        emojiScale.appendChild(btn);
+      });
+
+      // Виды нагрузки
+      const typeGrid = modal.querySelector('#sportTypeGrid');
+      sportTypes.forEach(t => {
+        const btn = document.createElement('button');
+        btn.className = 'type-btn' + (s.typeId === t.id ? ' selected' : '');
+        btn.innerHTML = `<span style="font-size:22px;">${t.emoji}</span><span class="type-name">${escapeHtml(t.name)}</span>`;
+        btn.onclick = () => {
+          s.typeId = t.id;
+          renderSportModal();
+        };
+        typeGrid.appendChild(btn);
+      });
+
+      // Детали в зависимости от вида
+      const detailsEl = modal.querySelector('#sportTypeDetails');
+      const typeObj = sportTypes.find(t => t.id === s.typeId);
+
+      if (typeObj && typeObj.mode === 'exercises') {
+        renderExerciseDetails(detailsEl, s);
+      } else if (typeObj && typeObj.mode === 'distance') {
+        detailsEl.innerHTML = `
+          <label>Дистанция (км)</label>
+          <input type="number" id="sportDistance" min="0" max="500" step="0.1" value="${s.distance}" placeholder="0">
+          <label>Время (мин)</label>
+          <input type="number" id="sportTime" min="0" max="1000" step="1" value="${s.time}" placeholder="0">
+          <div class="modal-hint" id="paceHint"></div>
+        `;
+        const distInp = detailsEl.querySelector('#sportDistance');
+        const timeInp = detailsEl.querySelector('#sportTime');
+        const paceHint = detailsEl.querySelector('#paceHint');
+        const updatePace = () => {
+          s.distance = distInp.value;
+          s.time = timeInp.value;
+          const dist = parseFloat(s.distance), time = parseFloat(s.time);
+          if (dist > 0 && time > 0) {
+            const pace = time / dist;
+            const paceMin = Math.floor(pace);
+            const paceSec = Math.round((pace - paceMin) * 60);
+            const speed = (dist / (time / 60)).toFixed(1);
+            paceHint.textContent = `Темп: ${paceMin}:${String(paceSec).padStart(2,'0')} мин/км · Скорость: ${speed} км/ч`;
+          } else {
+            paceHint.textContent = '';
+          }
+        };
+        distInp.addEventListener('input', updatePace);
+        timeInp.addEventListener('input', updatePace);
+        updatePace();
+      }
+
+      // Заметка
+      const noteInp = modal.querySelector('#sportNoteField');
+      noteInp.addEventListener('input', () => { s.note = noteInp.value; });
+
+      // Кнопки
+      backdrop.querySelector('#cancelBtn').onclick = () => {
+        backdrop.remove();
+        sportModalState = null;
+      };
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        // Проверяем, есть ли хоть что-то
+        const hasData = s.mood || s.typeId || s.exercises.length || s.distance || s.time || s.note;
+        if (hasData) {
+          sportData[s.date] = {
+            mood: s.mood,
+            typeId: s.typeId,
+            exercises: s.exercises,
+            distance: parseFloat(s.distance) || null,
+            time: parseFloat(s.time) || null,
+            note: s.note
+          };
+        } else {
+          delete sportData[s.date];
+        }
+        saveSportData();
+
+        // Отметка галочки в сетке — если есть хоть что-то, ставим; если нет — снимаем
+        const sportHabitId = getSportHabitId();
+        if (sportHabitId) {
+          const checks = getWeekChecks();
+          if (!checks[sportHabitId]) checks[sportHabitId] = {};
+          if (hasData) checks[sportHabitId][s.date] = true;
+          else delete checks[sportHabitId][s.date];
+          saveHabitsData();
+        }
+
+        backdrop.remove();
+        sportModalState = null;
+        renderWeekSport();
+        renderWeekHabitsGrid();
+        renderWeekSummary();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) { backdrop.remove(); sportModalState = null; } };
+    }
+
+    function renderExerciseDetails(container, s) {
+      let html = '';
+      s.exercises.forEach((ex, idx) => {
+        html += `<div class="exercise-item">
+          <div class="ex-row">
+            <input type="text" class="ex-name" placeholder="Упражнение" value="${escapeHtml(ex.name || '')}" data-idx="${idx}" data-field="name" style="grid-column: span 2;">
+            <input type="number" placeholder="кг" value="${ex.weight || ''}" data-idx="${idx}" data-field="weight" min="0" step="0.5">
+            <input type="number" placeholder="повт." value="${ex.reps || ''}" data-idx="${idx}" data-field="reps" min="0">
+            <input type="number" placeholder="подх." value="${ex.sets || ''}" data-idx="${idx}" data-field="sets" min="0">
+            <button class="ex-remove" data-idx="${idx}">✕</button>
+          </div>
+        </div>`;
+      });
+      html += `<button class="add-habit-btn" id="addExerciseBtn">+ Добавить упражнение</button>`;
+      container.innerHTML = html;
+
+      container.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', () => {
+          const idx = parseInt(inp.dataset.idx, 10);
+          const field = inp.dataset.field;
+          if (!s.exercises[idx]) s.exercises[idx] = {};
+          if (field === 'name') s.exercises[idx].name = inp.value;
+          else s.exercises[idx][field] = parseFloat(inp.value) || null;
+        });
+      });
+
+      container.querySelectorAll('.ex-remove').forEach(btn => {
+        btn.onclick = () => {
+          const idx = parseInt(btn.dataset.idx, 10);
+          s.exercises.splice(idx, 1);
+          renderExerciseDetails(container, s);
+        };
+      });
+
+      container.querySelector('#addExerciseBtn').onclick = () => {
+        s.exercises.push({ name: '', weight: null, reps: null, sets: null });
+        renderExerciseDetails(container, s);
+      };
+    }
+
+    function addSportTypeCustom() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>Новый вид спорта</h3>
+          <label>Название</label>
+          <input type="text" id="newTypeName" placeholder="Например: Скалолазание" maxlength="30">
+          <label>Режим записи</label>
+          <div class="type-grid" id="modeGrid" style="grid-template-columns: repeat(3, 1fr);">
+            <button class="type-btn" data-mode="none"><span style="font-size:22px;">✓</span><span class="type-name">Просто<br>галочка</span></button>
+            <button class="type-btn" data-mode="distance"><span style="font-size:22px;">📍</span><span class="type-name">Дистанция<br>+ время</span></button>
+            <button class="type-btn" data-mode="exercises"><span style="font-size:22px;">🏋️</span><span class="type-name">Упражнения<br>с весом</span></button>
+          </div>
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Добавить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      let selectedMode = 'none';
+      backdrop.querySelectorAll('#modeGrid .type-btn').forEach(btn => {
+        btn.onclick = () => {
+          selectedMode = btn.dataset.mode;
+          backdrop.querySelectorAll('#modeGrid .type-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+      });
+
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const name = backdrop.querySelector('#newTypeName').value.trim();
+        if (!name) { backdrop.remove(); return; }
+        const id = 'custom_' + Date.now();
+        sportTypes.push({ id, emoji: '⭐', name, mode: selectedMode });
+        saveSportTypes();
+        backdrop.remove();
+        renderSportModal();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function openSportSettings() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      let html = `<h3>⚙️ Виды спорта</h3><div class="edit-habit-list">`;
+      sportTypes.forEach((t, i) => {
+        html += `<div class="edit-habit-row">
+          <span class="e-text">${t.emoji} ${escapeHtml(t.name)} <span style="color:var(--text-dim);font-size:11px;">(${t.mode})</span></span>
+          <button class="e-btn" onclick="editSportTypeName(${i})">✎</button>
+          <button class="e-btn danger" onclick="deleteSportType(${i})">✕</button>
+        </div>`;
+      });
+      html += `</div>`;
+      html += `<div class="modal-buttons">
+        <button class="cancel" id="closeBtn">Готово</button>
+      </div>`;
+      backdrop.innerHTML = `<div class="modal">${html}</div>`;
+      document.body.appendChild(backdrop);
+      backdrop.querySelector('#closeBtn').onclick = () => {
+        backdrop.remove();
+        renderWeekSport();
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function editSportTypeName(i) {
+      const t = sportTypes[i];
+      const newName = prompt('Новое название:', t.name);
+      if (newName && newName.trim()) {
+        t.name = newName.trim();
+        saveSportTypes();
+        openSportSettings();
+      }
+    }
+    function deleteSportType(i) {
+      if (!confirm(`Удалить вид «${sportTypes[i].name}»?`)) return;
+      sportTypes.splice(i, 1);
+      saveSportTypes();
+      openSportSettings();
+    }
+
+    // === Модалка Чтения ===
+    let readModalState = null;
+
+    function openReadModal(dateStr) {
+      const existing = readData[dateStr] || { mood: null, text: '', note: '' };
+      readModalState = {
+        date: dateStr,
+        mood: existing.mood || null,
+        text: existing.text || '',
+        note: existing.note || ''
+      };
+      renderReadModal();
+    }
+
+    function renderReadModal() {
+      const s = readModalState;
+      if (!s) return;
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal" id="readModal"></div>`;
+      document.body.appendChild(backdrop);
+
+      const dateObj = new Date(s.date + 'T12:00:00');
+      const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+
+      const modal = backdrop.querySelector('#readModal');
+      modal.innerHTML = `
+        <h3>📚 Чтение — ${escapeHtml(dateLabel)}</h3>
+        <label>Насколько продуктивно?</label>
+        <div class="emoji-scale-10" id="readEmojiScale"></div>
+        <label>Что читал</label>
+        <input type="text" id="readTextField" value="${escapeHtml(s.text)}" placeholder="Мастер и Маргарита, 30 стр" maxlength="200">
+        <label>Заметка</label>
+        <textarea class="note-field" id="readNoteField" placeholder="Впечатления..." maxlength="500" style="min-height:60px;">${escapeHtml(s.note)}</textarea>
+        <div class="modal-buttons">
+          <button class="cancel" id="cancelBtn">Отмена</button>
+          <button class="save" id="saveBtn">Сохранить</button>
+        </div>
+      `;
+
+      const emojiScale = modal.querySelector('#readEmojiScale');
+      READ_EMOJIS.forEach((e, i) => {
+        const level = i + 1;
+        const btn = document.createElement('button');
+        btn.className = 'emoji-btn' + (s.mood === level ? ' selected' : '');
+        btn.innerHTML = `<span class="e-icon" style="font-size:18px;">${e}</span><span class="e-num">${level}</span>`;
+        btn.onclick = () => {
+          s.mood = level;
+          modal.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        emojiScale.appendChild(btn);
+      });
+
+      const textInp = modal.querySelector('#readTextField');
+      textInp.addEventListener('input', () => { s.text = textInp.value; });
+      const noteInp = modal.querySelector('#readNoteField');
+      noteInp.addEventListener('input', () => { s.note = noteInp.value; });
+
+      backdrop.querySelector('#cancelBtn').onclick = () => { backdrop.remove(); readModalState = null; };
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const hasData = s.mood || s.text || s.note;
+        if (hasData) readData[s.date] = { mood: s.mood, text: s.text, note: s.note };
+        else delete readData[s.date];
+        saveReadData();
+
+        const readHabitId = getReadHabitId();
+        if (readHabitId) {
+          const checks = getWeekChecks();
+          if (!checks[readHabitId]) checks[readHabitId] = {};
+          if (hasData) checks[readHabitId][s.date] = true;
+          else delete checks[readHabitId][s.date];
+          saveHabitsData();
+        }
+
+        backdrop.remove();
+        readModalState = null;
+        renderWeekRead();
+        renderWeekHabitsGrid();
+        renderWeekSummary();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) { backdrop.remove(); readModalState = null; } };
     }
 
     /* СТАРТ */
@@ -2497,11 +3132,19 @@
 
     loadHabitsConfig(() => {
       loadHabitsData(() => {
-        initHabitsData();
-        renderDayHabits();
-        renderWeekHabitsGrid();
-        renderWeekSummary();
-        updateHomeHabits();
+        loadSportData(() => {
+          loadReadData(() => {
+            loadSportTypes(() => {
+              initHabitsData();
+              renderDayHabits();
+              renderWeekHabitsGrid();
+              renderWeekSummary();
+              renderWeekSport();
+              renderWeekRead();
+              updateHomeHabits();
+            });
+          });
+        });
       });
     });
   </script>
