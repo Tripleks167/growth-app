@@ -25,6 +25,8 @@
       --border: rgba(255,255,255,0.06);
       --shadow: 0 4px 20px rgba(0,0,0,0.4);
       --radius: 16px;
+      --sleep: #a78bfa;
+      --sleep-grad: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
     }
 
     html, body {
@@ -145,19 +147,14 @@
       color: var(--accent);
     }
 
-    /* ============ ВОДА ============ */
-    .water-card {
-      position: relative;
-      padding: 16px;
-    }
-
-    .water-header {
+    /* ============ ЗАГОЛОВОК КАРТОЧКИ С ШЕСТЕРЁНКОЙ ============ */
+    .card-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
     }
-    .water-header .title {
+    .card-head .title {
       font-size: 15px;
       font-weight: 600;
       display: flex;
@@ -177,6 +174,9 @@
       opacity: 1;
       transform: scale(0.9) rotate(45deg);
     }
+
+    /* ============ ВОДА ============ */
+    .water-card { padding: 16px; }
 
     .water-body {
       display: flex;
@@ -335,7 +335,123 @@
       font-size: 13px;
     }
 
-    /* Модалка */
+    /* ============ СОН ============ */
+    .sleep-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .time-input-wrap {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.1s;
+    }
+    .time-input-wrap:active { transform: scale(0.98); }
+    .time-input-wrap.filled { border-color: var(--sleep); }
+    .time-input-wrap .label {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .time-input-wrap .value {
+      font-size: 22px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .time-input-wrap .value.empty {
+      color: var(--text-dim);
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    .sleep-duration {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--card-2);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+    }
+    .sleep-duration .dur-label {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .sleep-duration .dur-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .sleep-duration .norm-badge {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .norm-badge.ok {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+    }
+    .norm-badge.bad {
+      background: rgba(251, 146, 60, 0.15);
+      color: #fb923c;
+    }
+
+    .quality-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .quality-label .selected-name {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .quality-scale {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .quality-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 0;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+      line-height: 1.2;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .quality-btn .num {
+      font-size: 9px;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+    .quality-btn:active { transform: scale(0.9); }
+    .quality-btn.selected {
+      background: var(--sleep-grad);
+      border-color: var(--sleep);
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(167, 139, 250, 0.4);
+    }
+    .quality-btn.selected .num {
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ============ МОДАЛКА ============ */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -488,7 +604,7 @@
           </div>
           <div class="summary-row">
             <div class="label"><span>😴</span> Сон</div>
-            <div class="value">—</div>
+            <div class="value" id="homeSleepValue">—</div>
           </div>
           <div class="summary-row">
             <div class="label"><span>😊</span> Настроение</div>
@@ -519,7 +635,7 @@
 
         <!-- ВОДА -->
         <div class="card water-card">
-          <div class="water-header">
+          <div class="card-head">
             <div class="title"><span>💧</span> Вода</div>
             <button class="gear-btn" onclick="openWaterSettings()" aria-label="Настройки воды">⚙️</button>
           </div>
@@ -600,12 +716,37 @@
           </div>
         </div>
 
-        <!-- СОН (заглушка) -->
+        <!-- СОН -->
         <div class="card">
-          <div class="card-title"><span class="icon">😴</span> Сон</div>
-          <div class="placeholder" style="padding: 24px;">
-            <span class="big">🌙</span>
-            <div class="text">Время отбоя и подъёма, качество</div>
+          <div class="card-head">
+            <div class="title"><span>😴</span> Сон</div>
+            <button class="gear-btn" onclick="openSleepSettings()" aria-label="Настройки сна">⚙️</button>
+          </div>
+
+          <div class="sleep-row">
+            <div class="time-input-wrap" id="bedtimeWrap" onclick="pickTime('bedtime')">
+              <div class="label">Отбой</div>
+              <div class="value empty" id="bedtimeValue">—:—</div>
+            </div>
+            <div class="time-input-wrap" id="wakeupWrap" onclick="pickTime('wakeup')">
+              <div class="label">Подъём</div>
+              <div class="value empty" id="wakeupValue">—:—</div>
+            </div>
+          </div>
+
+          <div class="sleep-duration" id="sleepDurationBox" style="display:none;">
+            <div>
+              <div class="dur-label">Длительность</div>
+              <div class="dur-value" id="sleepDurationValue">—</div>
+            </div>
+            <div class="norm-badge" id="sleepNormBadge">—</div>
+          </div>
+
+          <div class="quality-label">
+            Качество: <span class="selected-name" id="qualityName">не выбрано</span>
+          </div>
+          <div class="quality-scale" id="qualityScale">
+            <!-- заполняется JS -->
           </div>
         </div>
 
@@ -642,6 +783,16 @@
         <div class="screen-header">
           <h1>Неделя</h1>
           <div class="sub" id="weekRange">—</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span class="icon">😴</span> Сон за неделю</div>
+          <div id="weekSleepTable">
+            <div class="placeholder" style="padding: 24px;">
+              <span class="big">🌙</span>
+              <div class="text">Заполни сон за пару дней — появится таблица</div>
+            </div>
+          </div>
         </div>
 
         <div class="card">
@@ -774,27 +925,31 @@
       tabs.forEach(t => t.classList.toggle('active', t.dataset.screen === name));
       document.querySelector('.content').scrollTop = 0;
       tg.HapticFeedback?.selectionChanged();
+
+      if (name === 'week') renderWeekSleep();
     }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => switchScreen(tab.dataset.screen));
     });
 
-    /* ============ ВОДА ============ */
-    let waterCurrent = 0;
-    let waterGoal = 2500;
+    /* ============ ОБЩЕЕ: ЛОГИЧЕСКАЯ ДАТА ============ */
     let dayStartHour = 4;
-
-    const WATER_KEY = 'water_v1';
-    const SLIDER_MAX = 4000;
-    const SLIDER_STEP = 50;
-    const BOTTLE_H = 320;
 
     function getLogicalDate() {
       const n = new Date();
       if (n.getHours() < dayStartHour) n.setDate(n.getDate() - 1);
       return n.toISOString().slice(0, 10);
     }
+
+    /* ============ ВОДА ============ */
+    let waterCurrent = 0;
+    let waterGoal = 2500;
+
+    const WATER_KEY = 'water_v1';
+    const SLIDER_MAX = 4000;
+    const SLIDER_STEP = 50;
+    const BOTTLE_H = 320;
 
     const waterRect    = document.getElementById('waterRect');
     const wavePath     = document.getElementById('wavePath');
@@ -832,7 +987,6 @@
         ? `Осталось ${remain} мл`
         : `Цель достигнута! +${-remain} мл 💪`;
 
-      // Сводка на главной
       const homeVal = document.getElementById('homeWaterValue');
       if (homeVal) homeVal.textContent = `${waterCurrent} / ${waterGoal}`;
 
@@ -947,7 +1101,6 @@
       }, 3500);
     }
 
-    /* ПОЛЗУНОК */
     let dragging = false;
 
     function updateFromSlider(clientY) {
@@ -984,7 +1137,6 @@
       vSliderThumb.classList.remove('dragging');
     });
 
-    /* НАСТРОЙКИ ВОДЫ */
     function openWaterSettings() {
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
@@ -1007,11 +1159,10 @@
       backdrop.querySelector('#saveBtn').onclick = () => {
         const newGoal = parseInt(backdrop.querySelector('#goalInput').value, 10);
         const newHour = parseInt(backdrop.querySelector('#hourInput').value.split(':')[0], 10);
-
         if (!isNaN(newGoal) && newGoal >= 500 && newGoal <= 6000) waterGoal = newGoal;
         if (!isNaN(newHour) && newHour >= 0 && newHour <= 12) dayStartHour = newHour;
-
         saveWater();
+        saveSleep();
         renderWater();
         backdrop.remove();
         tg.HapticFeedback?.notificationOccurred('success');
@@ -1022,8 +1173,471 @@
       };
     }
 
-    /* СТАРТ */
+    /* ============ СОН ============ */
+    const SLEEP_KEY = 'sleep_v1';
+
+    // Качество сна — 10 уровней
+    const SLEEP_QUALITY = [
+      { emoji: '😫', name: 'Ужасно' },
+      { emoji: '🥱', name: 'Очень плохо' },
+      { emoji: '😵', name: 'Плохо' },
+      { emoji: '😑', name: 'Так себе' },
+      { emoji: '😐', name: 'Средне' },
+      { emoji: '😌', name: 'Неплохо' },
+      { emoji: '😊', name: 'Хорошо' },
+      { emoji: '😴', name: 'Отлично' },
+      { emoji: '⚡', name: 'Супер' },
+      { emoji: '🌟', name: 'Идеально' },
+    ];
+
+    // Норма сна по умолчанию
+    let sleepNormMin = 7.5;
+    let sleepNormMax = 9;
+
+    // Текущие данные сна
+    let sleepBedtime = null;   // "HH:MM"
+    let sleepWakeup  = null;   // "HH:MM"
+    let sleepQuality = null;   // 1..10
+
+    const bedtimeWrap   = document.getElementById('bedtimeWrap');
+    const wakeupWrap    = document.getElementById('wakeupWrap');
+    const bedtimeValue  = document.getElementById('bedtimeValue');
+    const wakeupValue   = document.getElementById('wakeupValue');
+    const sleepDurationBox = document.getElementById('sleepDurationBox');
+    const sleepDurationValue = document.getElementById('sleepDurationValue');
+    const sleepNormBadge = document.getElementById('sleepNormBadge');
+    const qualityName   = document.getElementById('qualityName');
+    const qualityScale  = document.getElementById('qualityScale');
+
+    // Отрисовка шкалы качества
+    function renderQualityScale() {
+      qualityScale.innerHTML = '';
+      SLEEP_QUALITY.forEach((q, i) => {
+        const level = i + 1;
+        const btn = document.createElement('button');
+        btn.className = 'quality-btn';
+        btn.dataset.level = level;
+        btn.innerHTML = `<span>${q.emoji}</span><span class="num">${level}</span>`;
+        if (sleepQuality === level) btn.classList.add('selected');
+        btn.onclick = () => selectQuality(level);
+        qualityScale.appendChild(btn);
+      });
+    }
+
+    function selectQuality(level) {
+      sleepQuality = level;
+      document.querySelectorAll('.quality-btn').forEach(b => {
+        b.classList.toggle('selected', parseInt(b.dataset.level, 10) === level);
+      });
+      qualityName.textContent = SLEEP_QUALITY[level - 1].name;
+      saveSleep();
+      updateHomeSleep();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    // Расчёт длительности
+    function calcDuration(bedtime, wakeup) {
+      if (!bedtime || !wakeup) return null;
+      const [bh, bm] = bedtime.split(':').map(Number);
+      const [wh, wm] = wakeup.split(':').map(Number);
+      const bedMin = bh * 60 + bm;
+      const wakeMin = wh * 60 + wm;
+      let diff = wakeMin - bedMin;
+      if (diff <= 0) diff += 24 * 60;
+      return diff; // в минутах
+    }
+
+    function formatDuration(minutes) {
+      const h = Math.floor(minutes / 60);
+      const m = minutes % 60;
+      if (m === 0) return `${h}ч`;
+      return `${h}ч ${m}м`;
+    }
+
+    function checkNorm(minutes) {
+      const hours = minutes / 60;
+      return hours >= sleepNormMin && hours <= sleepNormMax;
+    }
+
+    function renderSleep() {
+      // Отбой
+      if (sleepBedtime) {
+        bedtimeValue.textContent = sleepBedtime;
+        bedtimeValue.classList.remove('empty');
+        bedtimeWrap.classList.add('filled');
+      } else {
+        bedtimeValue.textContent = '—:—';
+        bedtimeValue.classList.add('empty');
+        bedtimeWrap.classList.remove('filled');
+      }
+
+      // Подъём
+      if (sleepWakeup) {
+        wakeupValue.textContent = sleepWakeup;
+        wakeupValue.classList.remove('empty');
+        wakeupWrap.classList.add('filled');
+      } else {
+        wakeupValue.textContent = '—:—';
+        wakeupValue.classList.add('empty');
+        wakeupWrap.classList.remove('filled');
+      }
+
+      // Длительность + норма
+      const dur = calcDuration(sleepBedtime, sleepWakeup);
+      if (dur) {
+        sleepDurationBox.style.display = 'flex';
+        sleepDurationValue.textContent = formatDuration(dur);
+        const ok = checkNorm(dur);
+        sleepNormBadge.textContent = ok ? '✅ В норме' : '⚠️ Не в норме';
+        sleepNormBadge.className = 'norm-badge ' + (ok ? 'ok' : 'bad');
+      } else {
+        sleepDurationBox.style.display = 'none';
+      }
+
+      // Качество
+      if (sleepQuality) {
+        qualityName.textContent = SLEEP_QUALITY[sleepQuality - 1].name;
+      } else {
+        qualityName.textContent = 'не выбрано';
+      }
+      renderQualityScale();
+    }
+
+    function updateHomeSleep() {
+      const homeVal = document.getElementById('homeSleepValue');
+      if (!homeVal) return;
+      const dur = calcDuration(sleepBedtime, sleepWakeup);
+      if (dur) {
+        homeVal.textContent = formatDuration(dur);
+      } else {
+        homeVal.textContent = '—';
+      }
+    }
+
+    // Выбор времени
+    function pickTime(which) {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      const current = which === 'bedtime' ? (sleepBedtime || '23:00') : (sleepWakeup || '07:00');
+      const title = which === 'bedtime' ? 'Отбой' : 'Подъём';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>${which === 'bedtime' ? '🌙' : '🌅'} ${title}</h3>
+          <label>Время</label>
+          <input type="time" id="timeInput" value="${current}">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">ОК</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      const input = backdrop.querySelector('#timeInput');
+      setTimeout(() => input.focus(), 100);
+
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const val = input.value;
+        if (!val) { backdrop.remove(); return; }
+        if (which === 'bedtime') sleepBedtime = val;
+        else sleepWakeup = val;
+        saveSleep();
+        renderSleep();
+        updateHomeSleep();
+        backdrop.remove();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => {
+        if (e.target === backdrop) backdrop.remove();
+      };
+    }
+
+    // Сохранение сна
+    function saveSleep() {
+      const data = JSON.stringify({
+        date: getLogicalDate(),
+        bedtime: sleepBedtime,
+        wakeup: sleepWakeup,
+        quality: sleepQuality,
+        normMin: sleepNormMin,
+        normMax: sleepNormMax,
+        dayStartHour
+      });
+      tg.CloudStorage.setItem(SLEEP_KEY, data, (err) => {
+        if (err) console.warn('CloudStorage error:', err);
+      });
+    }
+
+    // Загрузка
+    function loadSleep() {
+      tg.CloudStorage.getItem(SLEEP_KEY, (err, value) => {
+        if (err || !value) {
+          renderSleep();
+          return;
+        }
+        try {
+          const data = JSON.parse(value);
+          if (data.normMin != null) sleepNormMin = data.normMin;
+          if (data.normMax != null) sleepNormMax = data.normMax;
+          if (data.dayStartHour != null) dayStartHour = data.dayStartHour;
+          if (data.date === getLogicalDate()) {
+            sleepBedtime = data.bedtime || null;
+            sleepWakeup  = data.wakeup  || null;
+            sleepQuality = data.quality || null;
+          } else {
+            sleepBedtime = null;
+            sleepWakeup  = null;
+            sleepQuality = null;
+          }
+          renderSleep();
+          updateHomeSleep();
+        } catch (e) {
+          console.warn('Parse error', e);
+          renderSleep();
+        }
+      });
+    }
+
+    // Настройки сна
+    function openSleepSettings() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>⚙️ Настройки сна</h3>
+          <label>Норма от (часов)</label>
+          <input type="number" id="normMinInput" min="1" max="15" step="0.5" value="${sleepNormMin}">
+          <label>Норма до (часов)</label>
+          <input type="number" id="normMaxInput" min="1" max="15" step="0.5" value="${sleepNormMax}">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const minV = parseFloat(backdrop.querySelector('#normMinInput').value);
+        const maxV = parseFloat(backdrop.querySelector('#normMaxInput').value);
+        if (!isNaN(minV) && !isNaN(maxV) && minV > 0 && maxV > minV && maxV <= 15) {
+          sleepNormMin = minV;
+          sleepNormMax = maxV;
+          saveSleep();
+          renderSleep();
+          tg.HapticFeedback?.notificationOccurred('success');
+        }
+        backdrop.remove();
+      };
+      backdrop.onclick = (e) => {
+        if (e.target === backdrop) backdrop.remove();
+      };
+    }
+
+    /* ============ НЕДЕЛЯ: ТАБЛИЦА СНА ============ */
+    // Храним историю сна по дням в одном ключе
+    // Структура: { "2026-10-12": { bedtime, wakeup, quality, duration } }
+    const SLEEP_HISTORY_KEY = 'sleep_history_v1';
+    let sleepHistory = {};
+
+    function saveSleepHistory() {
+      tg.CloudStorage.setItem(SLEEP_HISTORY_KEY, JSON.stringify(sleepHistory), (err) => {
+        if (err) console.warn('History save error', err);
+      });
+    }
+
+    function loadSleepHistory(cb) {
+      tg.CloudStorage.getItem(SLEEP_HISTORY_KEY, (err, value) => {
+        if (err || !value) { sleepHistory = {}; cb && cb(); return; }
+        try {
+          sleepHistory = JSON.parse(value) || {};
+        } catch (e) {
+          sleepHistory = {};
+        }
+        cb && cb();
+      });
+    }
+
+    // Сохраняем сон в историю при каждом изменении
+    function updateSleepHistory() {
+      const date = getLogicalDate();
+      const dur = calcDuration(sleepBedtime, sleepWakeup);
+      if (sleepBedtime || sleepWakeup || sleepQuality) {
+        sleepHistory[date] = {
+          bedtime: sleepBedtime,
+          wakeup: sleepWakeup,
+          quality: sleepQuality,
+          duration: dur
+        };
+      } else {
+        delete sleepHistory[date];
+      }
+      saveSleepHistory();
+    }
+
+    // Обновляем историю при сохранении сна
+    const _origSaveSleep = saveSleep;
+    saveSleep = function() {
+      _origSaveSleep();
+      updateSleepHistory();
+    };
+
+    // Получить массив дней текущей недели (Пн..Вс) с датами
+    function getWeekDays() {
+      const d = new Date();
+      const day = d.getDay() || 7;
+      const monday = new Date(d);
+      monday.setDate(d.getDate() - day + 1);
+      const days = [];
+      const dayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+      for (let i = 0; i < 7; i++) {
+        const dd = new Date(monday);
+        dd.setDate(monday.getDate() + i);
+        days.push({
+          name: dayNames[i],
+          date: dd.toISOString().slice(0, 10),
+          isFuture: dd > new Date()
+        });
+      }
+      return days;
+    }
+
+    function renderWeekSleep() {
+      const container = document.getElementById('weekSleepTable');
+      const days = getWeekDays();
+      const rows = days.map(d => {
+        const entry = sleepHistory[d.date];
+        if (!entry || (!entry.bedtime && !entry.wakeup && !entry.quality)) {
+          return `
+            <div class="wk-sleep-row empty">
+              <span class="wk-day">${d.name}</span>
+              <span class="wk-time">—</span>
+              <span class="wk-dur">—</span>
+              <span class="wk-qual">—</span>
+              <span class="wk-badge">—</span>
+            </div>`;
+        }
+        const dur = entry.duration;
+        const durStr = dur ? formatDuration(dur) : '—';
+        const ok = dur ? checkNorm(dur) : false;
+        const badge = dur ? (ok ? '✅' : '⚠️') : '—';
+        const q = entry.quality ? SLEEP_QUALITY[entry.quality - 1].emoji : '—';
+        return `
+          <div class="wk-sleep-row">
+            <span class="wk-day">${d.name}</span>
+            <span class="wk-time">${entry.bedtime || '—'} → ${entry.wakeup || '—'}</span>
+            <span class="wk-dur">${durStr}</span>
+            <span class="wk-qual">${q}</span>
+            <span class="wk-badge">${badge}</span>
+          </div>`;
+      }).join('');
+
+      // Статистика
+      const filled = days.map(d => sleepHistory[d.date]).filter(e =>
+        e && e.duration
+      );
+      let stats = '';
+      if (filled.length > 0) {
+        const avgDur = Math.round(filled.reduce((s, e) => s + e.duration, 0) / filled.length);
+        const inNorm = filled.filter(e => checkNorm(e.duration)).length;
+        const withQ = filled.filter(e => e.quality);
+        const avgQ = withQ.length > 0
+          ? (withQ.reduce((s, e) => s + e.quality, 0) / withQ.length).toFixed(1)
+          : '—';
+
+        stats = `
+          <div class="wk-stats">
+            <div class="wk-stat">
+              <div class="wk-stat-val">${formatDuration(avgDur)}</div>
+              <div class="wk-stat-label">Средняя длит.</div>
+            </div>
+            <div class="wk-stat">
+              <div class="wk-stat-val">${avgQ}</div>
+              <div class="wk-stat-label">Средн. качество</div>
+            </div>
+            <div class="wk-stat">
+              <div class="wk-stat-val">${inNorm}/${filled.length}</div>
+              <div class="wk-stat-label">Дней в норме</div>
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="wk-sleep-header">
+          <span class="wk-day">День</span>
+          <span class="wk-time">Время</span>
+          <span class="wk-dur">Длит.</span>
+          <span class="wk-qual">Кач.</span>
+          <span class="wk-badge"></span>
+        </div>
+        ${rows}
+        ${stats}
+      `;
+    }
+
+    /* ============ СТАРТ ============ */
     loadWater();
+    loadSleep();
+    loadSleepHistory(() => {
+      renderWeekSleep();
+    });
   </script>
+
+  <style>
+    /* Стили таблицы сна за неделю */
+    .wk-sleep-header, .wk-sleep-row {
+      display: grid;
+      grid-template-columns: 32px 1fr 55px 36px 28px;
+      gap: 6px;
+      padding: 8px 6px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .wk-sleep-header {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .wk-sleep-row {
+      font-variant-numeric: tabular-nums;
+    }
+    .wk-sleep-row.empty { opacity: 0.4; }
+    .wk-day { font-weight: 600; }
+    .wk-time { color: var(--text-dim); font-size: 11px; }
+    .wk-dur { font-weight: 600; }
+    .wk-qual { text-align: center; font-size: 14px; }
+    .wk-badge { text-align: right; font-size: 12px; }
+
+    .wk-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .wk-stat {
+      text-align: center;
+      background: var(--card-2);
+      border-radius: 10px;
+      padding: 10px 6px;
+    }
+    .wk-stat-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--sleep);
+    }
+    .wk-stat-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+  </style>
 </body>
 </html>
