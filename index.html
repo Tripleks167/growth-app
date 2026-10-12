@@ -68,8 +68,13 @@
     }
     .content::-webkit-scrollbar { width: 0; }
 
-    .screen { display: none; animation: fadeIn 0.3s ease; position: relative; min-height: 100%; }
-    .screen.active { display: block; }
+    .screen { display: none; position: relative; min-height: 100%; }
+    .screen.active { display: block; animation: fadeIn 0.25s ease; }
+    #screen-goals.active { animation: fadeInNoTransform 0.25s ease; }
+    @keyframes fadeInNoTransform {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
