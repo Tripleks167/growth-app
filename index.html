@@ -868,8 +868,10 @@
       fill: none; stroke-width: 4; stroke-linecap: round;
       transition: stroke-dashoffset 0.6s, stroke 0.4s;
     }
+
     .mini-bottle { width: 20px; height: 36px; flex-shrink: 0; display: inline-block; vertical-align: middle; }
     .mini-bottle svg { display: block; width: 100%; height: 100%; }
+
     /* ВЕС */
     .weight-current { text-align: center; padding: 10px 0 16px; }
     .weight-value {
@@ -2181,7 +2183,7 @@
           <div id="achRecent"></div>
           <button class="ach-more-btn" onclick="openAllAchievements()">Все достижения →</button>
         </div>
-      </div> <!-- ЗАКРЫТИЕ screen-home -->
+      </div>
 
       <!-- ДЕНЬ -->
       <div class="screen" id="screen-day">
@@ -2931,27 +2933,26 @@
       return `<svg class="mini-ring" viewBox="0 0 36 36"><circle class="mr-bg" cx="18" cy="18" r="${r}"/><circle class="mr-fill" cx="18" cy="18" r="${r}" stroke="${color}" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 18 18)"/></svg>`;
     }
     function miniBottleSvg(pct) {
-  const p = Math.max(0, Math.min(pct, 1));
-  // Область воды внутри бутылки: от y=60 (горлышко) до y=310 (дно), высота 250
-  const waterTop = 60;
-  const waterBottom = 310;
-  const totalH = waterBottom - waterTop;
-  const waterH = totalH * p;
-  const waterY = waterBottom - waterH;
-  const color = p >= 1 ? '#4ade80' : '#4fc3f7';
-  return `<svg class="mini-bottle" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <clipPath id="miniBottleClip">
-        <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"/>
-      </clipPath>
-    </defs>
-    <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"
-          fill="rgba(200,230,255,0.08)" stroke="${color}" stroke-width="14" stroke-linejoin="round"/>
-    <g clip-path="url(#miniBottleClip)">
-      <rect x="0" y="${waterY}" width="160" height="${waterH}" fill="${color}"/>
-    </g>
-  </svg>`;
-}
+      const p = Math.max(0, Math.min(pct, 1));
+      const waterTop = 60;
+      const waterBottom = 310;
+      const totalH = waterBottom - waterTop;
+      const waterH = totalH * p;
+      const waterY = waterBottom - waterH;
+      const color = p >= 1 ? '#4ade80' : '#4fc3f7';
+      return `<svg class="mini-bottle" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="miniBottleClip">
+            <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"/>
+          </clipPath>
+        </defs>
+        <path d="M 60 20 L 100 20 L 100 60 Q 100 70 110 80 L 140 110 Q 150 120 150 140 L 150 280 Q 150 310 120 310 L 40 310 Q 10 310 10 280 L 10 140 Q 10 120 20 110 L 50 80 Q 60 70 60 60 Z"
+              fill="rgba(200,230,255,0.08)" stroke="${color}" stroke-width="14" stroke-linejoin="round"/>
+        <g clip-path="url(#miniBottleClip)">
+          <rect x="0" y="${waterY}" width="160" height="${waterH}" fill="${color}"/>
+        </g>
+      </svg>`;
+    }
     function addSteps(n) {
       const before = stepsCurrent;
       stepsCurrent = Math.max(0, Math.min(stepsCurrent + n, 200000));
@@ -3862,21 +3863,6 @@
         });
         html += `</div>`;
       });
-      const curWeekEnd = getWeekEndForWeek(getCurrentWeekKey());
-      habitsConfig.blocks.forEach(block => {
-        if (block.type !== 'weekly') return;
-        let wasDoneThisWeek = false;
-        block.habits.forEach(h => {
-          if (checks[h.id] && Object.keys(checks[h.id]).some(d => d >= getCurrentWeekKey() && d <= curWeekEnd)) wasDoneThisWeek = true;
-        });
-        html += `<div class="habit-block"><div class="habit-block-head"><div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${wasDoneThisWeek ? '1/1' : '0/1'} за неделю)</span></div></div>`;
-        block.habits.forEach(h => {
-          const done = checks[h.id] && checks[h.id][today];
-          const blocked = wasDoneThisWeek && !done;
-          html += `<div class="habit-item ${done || wasDoneThisWeek ? 'done' : ''} ${blocked ? 'blocked' : ''}" onclick="${blocked ? '' : `toggleHabit('${h.id}', '${today}')`}"><div class="habit-check">✓</div><div class="habit-text">${escapeHtml(h.text)} ${wasDoneThisWeek && !done ? ' ✓ на этой неделе' : ''}</div></div>`;
-        });
-        html += `</div>`;
-      });
       container.innerHTML = html || '<div class="placeholder" style="padding:20px;"><span class="big">📋</span><div class="text">Нет привычек. Открой ⚙️ чтобы добавить</div></div>';
     }
 
@@ -4008,7 +3994,7 @@
       const checks = getCurrentWeekChecks();
       let done = 0, total = 0;
       habitsConfig.blocks.forEach(block => {
-        if (block.type !== 'daily' && block.type !== 'weekly') return;
+        if (block.type !== 'daily') return;
         block.habits.forEach(h => {
           total++;
           if (checks[h.id] && checks[h.id][today]) done++;
@@ -5286,7 +5272,7 @@
       const checks = getCurrentWeekChecks();
       let habDone = 0, habTotal = 0;
       habitsConfig.blocks.forEach(block => {
-        if (block.type !== 'daily' && block.type !== 'weekly') return;
+        if (block.type !== 'daily') return;
         block.habits.forEach(h => {
           habTotal++;
           if (checks[h.id] && checks[h.id][today]) habDone++;
