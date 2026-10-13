@@ -213,7 +213,6 @@
     }
     .ach-more-btn:active { background: rgba(251, 191, 36, 0.1); }
 
-    /* Модалка всех достижений */
     .ach-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -256,12 +255,6 @@
       font-size: 11px;
       opacity: 0.7;
     }
-    .ach-item .ach-item-progress {
-      font-size: 9px;
-      color: #fbbf24;
-      font-weight: 700;
-      margin-top: 4px;
-    }
 
     .summary-row {
       display: flex; align-items: center; justify-content: space-between;
@@ -294,7 +287,6 @@
     }
     .gear-btn:active { opacity: 1; transform: scale(0.9) rotate(45deg); }
 
-    /* НЕДЕЛЯ: навигация */
     .week-nav {
       display: flex;
       align-items: center;
@@ -357,7 +349,6 @@
       gap: 6px;
     }
 
-    /* СТАТЫ */
     .stats-tabs {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -411,13 +402,8 @@
       color: var(--accent);
       text-align: right;
     }
-    .stats-day-row .value.dim {
-      color: var(--text-dim);
-      font-weight: 500;
-    }
-    .stats-day-row .value.ok {
-      color: #4ade80;
-    }
+    .stats-day-row .value.dim { color: var(--text-dim); font-weight: 500; }
+    .stats-day-row .value.ok { color: #4ade80; }
 
     .streak-row {
       display: flex;
@@ -430,276 +416,152 @@
       gap: 10px;
     }
     .streak-row .s-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      flex: 1;
-      min-width: 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; flex: 1; min-width: 0;
     }
     .streak-row .s-nums {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
     }
     .streak-row .s-current {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--streak);
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 14px; font-weight: 700; color: var(--streak);
     }
-    .streak-row .s-current.zero {
-      color: var(--text-dim);
-      font-weight: 500;
-    }
+    .streak-row .s-current.zero { color: var(--text-dim); font-weight: 500; }
     .streak-row .s-record {
-      font-size: 11px;
-      color: var(--text-dim);
-      padding: 2px 6px;
-      background: var(--bg-2);
-      border-radius: 6px;
-      font-weight: 600;
+      font-size: 11px; color: var(--text-dim);
+      padding: 2px 6px; background: var(--bg-2);
+      border-radius: 6px; font-weight: 600;
     }
     .streak-row .s-fire { font-size: 14px; }
 
-    /* Графики */
-    .chart-block {
-      margin-bottom: 20px;
-    }
+    .chart-block { margin-bottom: 20px; }
     .chart-block:last-child { margin-bottom: 0; }
     .chart-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 14px; font-weight: 700; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
     }
-    .chart-svg-wrap {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    .chart-svg {
-      width: 100%;
-      height: 140px;
-      display: block;
-    }
+    .chart-svg-wrap { width: 100%; display: flex; justify-content: center; }
+    .chart-svg { width: 100%; height: 140px; display: block; }
     .chart-avg {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-top: 6px;
+      text-align: center; font-size: 12px; color: var(--text-dim); margin-top: 6px;
     }
-    .chart-avg b {
-      color: var(--text);
-      font-weight: 700;
-    }
+    .chart-avg b { color: var(--text); font-weight: 700; }
 
     .progress-wrap { margin-top: 4px; }
     .progress-bar-outer {
-      height: 12px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 8px;
+      height: 12px; background: rgba(255,255,255,0.08);
+      border-radius: 6px; overflow: hidden; margin-bottom: 8px;
     }
     .progress-bar-inner {
-      height: 100%;
-      background: var(--habit-grad);
-      border-radius: 6px;
-      width: 0;
+      height: 100%; background: var(--habit-grad);
+      border-radius: 6px; width: 0;
       transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .progress-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
+      display: flex; justify-content: space-between; font-size: 13px;
     }
     .progress-info .val { font-weight: 700; }
-    .progress-info .pct {
-      color: var(--habit);
-      font-weight: 700;
-    }
+    .progress-info .pct { color: var(--habit); font-weight: 700; }
 
     .numbers-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
     }
     .numbers-item {
-      background: var(--card-2);
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
+      background: var(--card-2); border-radius: 12px;
+      padding: 14px; text-align: center;
     }
     .numbers-item .n-val {
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 4px;
+      font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 4px;
     }
     .numbers-item .n-val.sport { color: var(--sport); }
     .numbers-item .n-val.read { color: var(--read); }
     .numbers-item .n-val.money { color: var(--money); }
     .numbers-item .n-label {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
+      font-size: 11px; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.3px;
     }
 
-    /* ФИНАНСЫ */
     .month-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      gap: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; gap: 10px;
     }
     .month-nav button {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: inherit;
-      padding: 0;
-      -webkit-appearance: none;
-      appearance: none;
-      flex-shrink: 0;
+      background: var(--card-2); border: 1px solid var(--border);
+      color: var(--text); width: 36px; height: 36px;
+      border-radius: 10px; cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; padding: 0;
+      -webkit-appearance: none; appearance: none; flex-shrink: 0;
     }
     .month-nav button:active { transform: scale(0.9); }
     .month-nav button:disabled { opacity: 0.3; cursor: default; }
     .month-nav .month-label {
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      flex: 1;
-      text-transform: capitalize;
+      font-size: 15px; font-weight: 700; text-align: center;
+      flex: 1; text-transform: capitalize;
     }
 
     .fin-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 15px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px;
     }
     .fin-row:last-child { border-bottom: none; }
-    .fin-row .fin-label {
-      color: var(--text-dim);
-      font-size: 14px;
-    }
-    .fin-row .fin-value {
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
+    .fin-row .fin-label { color: var(--text-dim); font-size: 14px; }
+    .fin-row .fin-value { font-weight: 700; font-variant-numeric: tabular-nums; }
     .fin-row .fin-value.income { color: #4ade80; }
     .fin-row .fin-value.expense { color: #fb923c; }
     .fin-row .fin-value.profit { color: var(--money); font-size: 18px; }
     .fin-row .fin-value.empty { color: var(--text-dim); font-weight: 500; }
 
     .fin-edit-btn {
-      width: 100%;
-      padding: 12px;
-      background: var(--money-grad);
-      color: #14110f;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: transform 0.1s, opacity 0.2s;
-      margin-top: 14px;
-      -webkit-appearance: none;
-      appearance: none;
+      width: 100%; padding: 12px; background: var(--money-grad);
+      color: #14110f; border: none; border-radius: 12px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: transform 0.1s, opacity 0.2s;
+      margin-top: 14px; -webkit-appearance: none; appearance: none;
     }
     .fin-edit-btn:active { transform: scale(0.98); opacity: 0.9; }
 
     .fin-history {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
+      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
     }
     .fin-history-title {
-      font-size: 12px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-size: 12px; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.3px;
+      font-weight: 600; margin-bottom: 10px;
     }
     .fin-history-row {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 8px;
-      align-items: center;
-      padding: 10px 12px;
-      background: var(--card-2);
-      border-radius: 10px;
-      margin-bottom: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      display: grid; grid-template-columns: 1fr auto auto; gap: 8px;
+      align-items: center; padding: 10px 12px; background: var(--card-2);
+      border-radius: 10px; margin-bottom: 6px; font-size: 13px;
+      cursor: pointer; transition: background 0.2s, transform 0.1s;
     }
     .fin-history-row:active { transform: scale(0.99); }
-    .fin-history-row.empty {
-      opacity: 0.4;
-      cursor: default;
-    }
+    .fin-history-row.empty { opacity: 0.4; cursor: default; }
     .fin-history-row.empty:active { transform: none; }
-    .fin-history-row.current {
-      border: 1px solid var(--money);
-    }
+    .fin-history-row.current { border: 1px solid var(--money); }
     .fin-history-row .fh-month {
-      font-weight: 600;
-      text-transform: capitalize;
-      font-size: 13px;
+      font-weight: 600; text-transform: capitalize; font-size: 13px;
     }
     .fin-history-row .fh-income {
-      font-weight: 700;
-      color: #4ade80;
-      font-variant-numeric: tabular-nums;
-      font-size: 12px;
+      font-weight: 700; color: #4ade80;
+      font-variant-numeric: tabular-nums; font-size: 12px;
     }
     .fin-history-row .fh-profit {
-      font-weight: 700;
-      color: var(--money);
-      font-variant-numeric: tabular-nums;
-      font-size: 12px;
-      min-width: 70px;
-      text-align: right;
+      font-weight: 700; color: var(--money);
+      font-variant-numeric: tabular-nums; font-size: 12px;
+      min-width: 70px; text-align: right;
     }
 
     .weight-month-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      font-size: 14px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; font-size: 14px;
     }
     .weight-month-row .wm-label { color: var(--text-dim); }
-    .weight-month-row .wm-value {
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
+    .weight-month-row .wm-value { font-weight: 700; font-variant-numeric: tabular-nums; }
     .weight-month-row .wm-value.down { color: #4ade80; }
     .weight-month-row .wm-value.up { color: #fb923c; }
     .weight-month-row .wm-value.same { color: var(--text-dim); }
 
-    /* ВОДА */
     .water-body { display: flex; align-items: stretch; gap: 16px; height: 280px; }
     .slider-wrap {
       position: relative; width: 50px;
@@ -712,8 +574,7 @@
       background: rgba(255,255,255,0.08); border-radius: 3px;
       margin: 8px 0; cursor: pointer;
       touch-action: none; user-select: none;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
+      -webkit-user-select: none; -webkit-touch-callout: none;
     }
     .v-slider-fill {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -767,9 +628,7 @@
       border: 1px solid var(--border); border-radius: 12px;
       padding: 10px; font-size: 14px; font-weight: 600;
       cursor: pointer; transition: transform 0.1s, background 0.2s;
-      font-family: inherit;
-      -webkit-appearance: none;
-      appearance: none;
+      font-family: inherit; -webkit-appearance: none; appearance: none;
     }
     .water-buttons button:active {
       transform: scale(0.95); background: var(--accent); color: #14110f;
@@ -778,7 +637,6 @@
       grid-column: span 3; color: var(--text-dim); font-size: 13px;
     }
 
-    /* ШАГИ */
     .steps-body {
       display: flex; flex-direction: column; align-items: center;
       gap: 14px; padding: 8px 0;
@@ -826,8 +684,7 @@
       font-size: 16px; font-weight: 700; font-family: inherit;
       outline: none; text-align: center;
       transition: border-color 0.2s; font-variant-numeric: tabular-nums; min-width: 0;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .steps-input:focus { border-color: var(--steps); }
     .steps-input::placeholder { color: var(--text-dim); font-weight: 500; font-size: 13px; }
@@ -837,8 +694,7 @@
       font-size: 12px; font-weight: 700; cursor: pointer;
       transition: transform 0.1s, background 0.2s;
       font-family: inherit; white-space: nowrap;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .steps-quick:active { transform: scale(0.95); background: var(--steps); color: #14110f; }
     .steps-buttons {
@@ -849,9 +705,7 @@
       border: 1px solid var(--border); border-radius: 12px;
       padding: 10px; font-size: 13px; font-weight: 600;
       cursor: pointer; transition: transform 0.1s, background 0.2s;
-      font-family: inherit;
-      -webkit-appearance: none;
-      appearance: none;
+      font-family: inherit; -webkit-appearance: none; appearance: none;
     }
     .steps-buttons button:active {
       transform: scale(0.95); background: var(--steps); color: #14110f;
@@ -868,11 +722,9 @@
       fill: none; stroke-width: 4; stroke-linecap: round;
       transition: stroke-dashoffset 0.6s, stroke 0.4s;
     }
-
     .mini-bottle { width: 20px; height: 36px; flex-shrink: 0; display: inline-block; vertical-align: middle; }
     .mini-bottle svg { display: block; width: 100%; height: 100%; }
 
-    /* ВЕС */
     .weight-current { text-align: center; padding: 10px 0 16px; }
     .weight-value {
       font-size: 44px; font-weight: 800; letter-spacing: -1px; line-height: 1;
@@ -911,8 +763,7 @@
       cursor: pointer; font-family: inherit;
       transition: transform 0.1s, opacity 0.2s;
       margin-bottom: 16px;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .weight-btn:active { transform: scale(0.98); opacity: 0.9; }
     .weight-history-title {
@@ -928,9 +779,7 @@
     .weight-history-row .wh-date {
       color: var(--text-dim); font-size: 12px; font-variant-numeric: tabular-nums;
     }
-    .weight-history-row .wh-weight {
-      font-weight: 700; font-variant-numeric: tabular-nums;
-    }
+    .weight-history-row .wh-weight { font-weight: 700; font-variant-numeric: tabular-nums; }
     .weight-history-row .wh-diff {
       font-size: 11px; font-weight: 600; min-width: 46px;
       text-align: right; font-variant-numeric: tabular-nums;
@@ -947,7 +796,6 @@
       display: flex; align-items: center; gap: 8px;
     }
 
-    /* ЦЕЛИ */
     .goal-card {
       background: var(--card-2);
       border: 1px solid var(--border);
@@ -962,36 +810,23 @@
       border-color: rgba(74, 222, 128, 0.25);
     }
     .goal-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 10px;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 8px; margin-bottom: 10px;
     }
     .goal-title-wrap { flex: 1; min-width: 0; }
     .goal-title {
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 1.3;
-      word-break: break-word;
-      margin-bottom: 4px;
+      font-size: 15px; font-weight: 700; line-height: 1.3;
+      word-break: break-word; margin-bottom: 4px;
     }
     .goal-card.done .goal-title {
-      text-decoration: line-through;
-      color: var(--text-dim);
+      text-decoration: line-through; color: var(--text-dim);
     }
     .goal-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      margin-right: 4px;
-      margin-bottom: 2px;
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.3px;
+      margin-right: 4px; margin-bottom: 2px;
     }
     .goal-badge.short { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
     .goal-badge.long { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
@@ -1001,127 +836,73 @@
     .goal-badge.type-free { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
     .goal-badge.type-steps { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
     .goal-menu-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-dim);
-      font-size: 22px;
-      cursor: pointer;
-      padding: 0 4px;
-      line-height: 1;
-      font-family: inherit;
-      flex-shrink: 0;
-      -webkit-appearance: none;
-      appearance: none;
+      background: transparent; border: none; color: var(--text-dim);
+      font-size: 22px; cursor: pointer; padding: 0 4px;
+      line-height: 1; font-family: inherit; flex-shrink: 0;
+      -webkit-appearance: none; appearance: none;
     }
     .goal-menu-btn:active { opacity: 0.6; }
 
     .goal-progress-wrap { margin-bottom: 8px; }
     .goal-progress-bar {
-      height: 8px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 6px;
+      height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 4px; overflow: hidden; margin-bottom: 6px;
     }
     .goal-progress-fill {
-      height: 100%;
-      background: var(--goal-grad);
-      border-radius: 4px;
-      width: 0;
+      height: 100%; background: var(--goal-grad);
+      border-radius: 4px; width: 0;
       transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .goal-card.done .goal-progress-fill { background: var(--habit-grad); }
     .goal-progress-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-dim);
-      font-variant-numeric: tabular-nums;
-      gap: 8px;
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--text-dim);
+      font-variant-numeric: tabular-nums; gap: 8px;
     }
     .goal-progress-pct {
-      font-weight: 700;
-      color: var(--goal);
-      flex-shrink: 0;
+      font-weight: 700; color: var(--goal); flex-shrink: 0;
     }
     .goal-card.done .goal-progress-pct { color: var(--habit); }
     .goal-description {
-      font-size: 12px;
-      color: var(--text-dim);
-      line-height: 1.4;
-      margin-bottom: 8px;
-      word-break: break-word;
+      font-size: 12px; color: var(--text-dim);
+      line-height: 1.4; margin-bottom: 8px; word-break: break-word;
     }
     .goal-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--text-dim);
-      align-items: center;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      font-size: 11px; color: var(--text-dim); align-items: center;
     }
-    .goal-meta .deadline {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .goal-meta .deadline { display: flex; align-items: center; gap: 4px; }
     .goal-meta .deadline.warn { color: #fb923c; font-weight: 600; }
     .goal-meta .deadline.danger { color: #ef4444; font-weight: 600; }
     .goal-meta .deadline.ok { color: #4ade80; }
 
     .goal-section-title {
-      font-size: 12px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      font-weight: 700;
-      margin: 20px 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 12px; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.4px;
+      font-weight: 700; margin: 20px 0 10px;
+      display: flex; align-items: center; gap: 6px;
     }
     .goal-section-title:first-child { margin-top: 0; }
 
     .goals-empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-dim);
+      text-align: center; padding: 60px 20px; color: var(--text-dim);
     }
     .goals-empty .big {
-      font-size: 56px;
-      display: block;
-      margin-bottom: 12px;
-      opacity: 0.6;
+      font-size: 56px; display: block; margin-bottom: 12px; opacity: 0.6;
     }
-    .goals-empty .text {
-      font-size: 14px;
-      line-height: 1.5;
-    }
+    .goals-empty .text { font-size: 14px; line-height: 1.5; }
 
     .floating-add-btn {
       position: fixed;
       bottom: calc(84px + env(safe-area-inset-bottom, 0px));
-      right: 20px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--goal-grad);
-      color: #fff;
-      border: none;
-      font-size: 30px;
-      font-weight: 300;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      right: 20px; width: 56px; height: 56px; border-radius: 50%;
+      background: var(--goal-grad); color: #fff; border: none;
+      font-size: 30px; font-weight: 300; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 6px 24px rgba(236, 72, 153, 0.5);
       transition: transform 0.15s, box-shadow 0.2s;
-      z-index: 20;
-      font-family: inherit;
-      padding: 0;
-      line-height: 1;
-      -webkit-appearance: none;
-      appearance: none;
+      z-index: 20; font-family: inherit; padding: 0;
+      line-height: 1; -webkit-appearance: none; appearance: none;
     }
     .floating-add-btn:active {
       transform: scale(0.9);
@@ -1129,40 +910,25 @@
     }
 
     .goal-completed-toggle {
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      color: var(--text-dim);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      width: 100%;
-      margin: 16px 0 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; color: var(--text-dim);
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      font-family: inherit; width: 100%; margin: 16px 0 10px;
+      display: flex; align-items: center; justify-content: space-between;
       transition: background 0.2s;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .goal-completed-toggle:active { background: var(--card-2); }
     .goal-completed-toggle .arrow { transition: transform 0.2s; display: inline-block; }
 
     .goal-actions-backdrop {
-      position: fixed; inset: 0; z-index: 15;
-      background: transparent;
+      position: fixed; inset: 0; z-index: 15; background: transparent;
     }
     .goal-actions-menu {
-      position: fixed;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      position: fixed; background: var(--bg-2);
+      border: 1px solid var(--border); border-radius: 12px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-      overflow: hidden;
-      z-index: 16;
-      min-width: 200px;
+      overflow: hidden; z-index: 16; min-width: 200px;
       animation: menuIn 0.15s ease;
     }
     @keyframes menuIn {
@@ -1170,29 +936,18 @@
       to { opacity: 1; transform: scale(1); }
     }
     .goal-actions-menu button {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 14px 16px;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      font-size: 14px;
-      font-family: inherit;
-      cursor: pointer;
-      text-align: left;
-      transition: background 0.15s;
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; padding: 14px 16px; background: transparent;
+      border: none; border-bottom: 1px solid var(--border);
+      color: var(--text); font-size: 14px; font-family: inherit;
+      cursor: pointer; text-align: left; transition: background 0.15s;
       white-space: nowrap;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .goal-actions-menu button:last-child { border-bottom: none; }
     .goal-actions-menu button:active { background: var(--card-2); }
     .goal-actions-menu button.danger { color: #f87171; }
 
-    /* СОН */
     .sleep-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .time-input-wrap {
       background: var(--card-2); border: 1px solid var(--border);
@@ -1237,8 +992,7 @@
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
       line-height: 1.2; font-family: inherit;
       display: flex; flex-direction: column; align-items: center; gap: 2px;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .quality-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .quality-btn:active { transform: scale(0.9); }
@@ -1249,7 +1003,6 @@
     }
     .quality-btn.selected .num { color: rgba(255,255,255,0.9); }
 
-    /* НАСТРОЕНИЕ */
     .mood-header {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 14px;
@@ -1268,8 +1021,7 @@
       border-radius: 8px; cursor: pointer; font-size: 14px;
       display: flex; align-items: center; justify-content: center;
       font-family: inherit; padding: 0;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .date-nav button:active { transform: scale(0.9); }
     .date-nav button:disabled { opacity: 0.3; cursor: default; }
@@ -1284,8 +1036,7 @@
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
       line-height: 1.2; font-family: inherit;
       display: flex; flex-direction: column; align-items: center; gap: 2px;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .mood-btn .num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .mood-btn:active { transform: scale(0.9); }
@@ -1307,8 +1058,7 @@
       border-radius: 12px; padding: 12px; color: var(--text);
       font-size: 14px; font-family: inherit; resize: vertical;
       outline: none; transition: border-color 0.2s; line-height: 1.4;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .note-field:focus { border-color: var(--accent); }
     .note-field::placeholder { color: var(--text-dim); }
@@ -1320,7 +1070,6 @@
     }
     .note-status.saved { color: var(--accent); }
 
-    /* ПИТАНИЕ */
     .food-calories-row {
       display: flex; gap: 8px; margin-bottom: 10px; align-items: stretch;
     }
@@ -1331,8 +1080,7 @@
       outline: none; text-align: center;
       transition: border-color 0.2s;
       font-variant-numeric: tabular-nums; min-width: 0;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .food-calories-input:focus { border-color: var(--food); }
     .food-calories-input::placeholder { color: var(--text-dim); font-weight: 500; }
@@ -1342,8 +1090,7 @@
       font-size: 13px; font-weight: 700; cursor: pointer;
       transition: transform 0.1s, background 0.2s;
       font-family: inherit; white-space: nowrap;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .food-quick-btn:active {
       transform: scale(0.95); background: var(--food); color: #14110f;
@@ -1374,8 +1121,7 @@
       font-family: inherit;
       display: flex; flex-direction: column; align-items: center;
       gap: 2px; line-height: 1.2;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .food-meal-btn .meal-name {
       font-size: 9px; color: var(--text-dim); font-weight: 600;
@@ -1396,17 +1142,13 @@
       background: var(--card-2); border: 1px solid var(--border);
       border-radius: 10px; padding: 6px 10px;
       display: flex; align-items: center; justify-content: space-between;
-      gap: 4px;
-      font-size: 12px;
-      min-height: 36px;
+      gap: 4px; font-size: 12px; min-height: 36px;
     }
     .food-counter .c-label {
       font-size: 11px; color: var(--text-dim);
       display: flex; align-items: center; gap: 3px;
-      flex: 1; min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      flex: 1; min-width: 0; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
     }
     .food-counter .c-controls { display: flex; align-items: center; gap: 2px; }
     .food-counter .c-btn {
@@ -1416,8 +1158,7 @@
       cursor: pointer; display: flex; align-items: center;
       justify-content: center; font-family: inherit;
       padding: 0; line-height: 1;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .food-counter .c-btn:active { transform: scale(0.9); }
     .food-counter .c-val {
@@ -1425,7 +1166,6 @@
       text-align: center; font-variant-numeric: tabular-nums;
     }
 
-    /* ПРИВЫЧКИ */
     .habit-block { margin-bottom: 14px; }
     .habit-block-head {
       display: flex; align-items: center; justify-content: space-between;
@@ -1440,12 +1180,9 @@
     }
     .habit-item {
       display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 6px;
-      cursor: pointer;
+      padding: 10px 12px; background: var(--card-2);
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 6px; cursor: pointer;
       transition: background 0.2s, border-color 0.2s, transform 0.1s;
     }
     .habit-item:active { transform: scale(0.98); }
@@ -1455,122 +1192,80 @@
     }
     .habit-item.blocked { opacity: 0.5; cursor: not-allowed; }
     .habit-check {
-      width: 22px; height: 22px;
-      border-radius: 6px;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
+      width: 22px; height: 22px; border-radius: 6px;
+      border: 2px solid var(--border); flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.2s, border-color 0.2s;
-      font-size: 14px;
-      color: transparent;
+      font-size: 14px; color: transparent;
     }
     .habit-item.done .habit-check {
-      background: var(--habit-grad);
-      border-color: var(--habit);
-      color: #14110f;
-      font-weight: 900;
+      background: var(--habit-grad); border-color: var(--habit);
+      color: #14110f; font-weight: 900;
     }
     .habit-text {
-      flex: 1;
-      font-size: 13px;
-      line-height: 1.3;
+      flex: 1; font-size: 13px; line-height: 1.3;
       word-break: break-word;
     }
     .habit-item.done .habit-text { color: var(--text-dim); }
 
-    /* Сетка недели */
     .week-grid-wrap {
-      overflow-x: auto;
-      margin: 0 -16px;
-      padding: 0 16px;
+      overflow-x: auto; margin: 0 -16px; padding: 0 16px;
       -webkit-overflow-scrolling: touch;
     }
     .week-grid-wrap::-webkit-scrollbar { height: 0; }
-    .week-grid {
-      display: inline-block;
-      min-width: 100%;
-      font-size: 12px;
-    }
+    .week-grid { display: inline-block; min-width: 100%; font-size: 12px; }
     .week-grid-row {
-      display: grid;
-      grid-template-columns: 140px repeat(7, 32px) 44px;
-      gap: 4px;
-      align-items: center;
-      padding: 6px 4px;
+      display: grid; grid-template-columns: 140px repeat(7, 32px) 44px;
+      gap: 4px; align-items: center; padding: 6px 4px;
       border-bottom: 1px solid var(--border);
     }
     .week-grid-row.head {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      padding-bottom: 8px;
+      color: var(--text-dim); font-weight: 600;
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 0.3px; padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
     }
     .week-grid-row.block-header {
       background: rgba(74, 222, 128, 0.06);
-      border-radius: 6px;
-      margin-top: 8px;
-      font-weight: 700;
-      font-size: 12px;
-      color: var(--habit);
-      padding: 8px 4px;
+      border-radius: 6px; margin-top: 8px;
+      font-weight: 700; font-size: 12px;
+      color: var(--habit); padding: 8px 4px;
       grid-template-columns: 1fr;
     }
     .week-cell-name {
-      font-size: 11px;
-      line-height: 1.2;
-      padding-right: 4px;
+      font-size: 11px; line-height: 1.2; padding-right: 4px;
     }
     .week-cell-day {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--card-2);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: transparent;
-      margin: 0 auto;
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--card-2);
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 12px;
+      color: transparent; margin: 0 auto;
       transition: background 0.2s, border-color 0.2s, transform 0.1s;
     }
     .week-cell-day:active { transform: scale(0.9); }
     .week-cell-day.done {
-      background: var(--habit-grad);
-      border-color: var(--habit);
-      color: #14110f;
-      font-weight: 900;
+      background: var(--habit-grad); border-color: var(--habit);
+      color: #14110f; font-weight: 900;
     }
     .week-cell-day.future { opacity: 0.3; cursor: default; }
     .week-cell-day.blocked { opacity: 0.4; cursor: not-allowed; }
     .week-cell-percent {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--habit);
-      text-align: center;
-      font-variant-numeric: tabular-nums;
+      font-size: 10px; font-weight: 700; color: var(--habit);
+      text-align: center; font-variant-numeric: tabular-nums;
     }
 
-    /* Read-only для архива */
     .archive-mode .week-cell-day {
-      cursor: default;
-      pointer-events: none;
+      cursor: default; pointer-events: none;
     }
     .archive-mode .week-cell-day:active { transform: none; }
     .archive-mode .week-day-row { cursor: default; }
     .archive-mode .week-day-row:active { transform: none; }
 
-    /* Итоги недели */
     .week-summary-box {
       background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(251, 146, 60, 0.05));
       border: 1px solid rgba(74, 222, 128, 0.2);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
+      border-radius: 12px; padding: 14px; margin-bottom: 12px;
     }
     .week-summary-title {
       font-size: 14px; font-weight: 700; margin-bottom: 10px;
@@ -1587,17 +1282,11 @@
       font-size: 14px; font-weight: 700;
     }
 
-    /* СПОРТ / ЧТЕНИЕ / ШАГИ */
     .week-day-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 12px;
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 6px;
-      cursor: pointer;
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; background: var(--card-2);
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 6px; cursor: pointer;
       transition: background 0.2s, transform 0.1s;
     }
     .week-day-row:active { transform: scale(0.99); }
@@ -1609,71 +1298,49 @@
     .week-day-row.no-click { cursor: default; }
     .week-day-row.no-click:active { transform: none; }
     .week-day-name {
-      font-weight: 700;
-      font-size: 13px;
-      min-width: 28px;
-      flex-shrink: 0;
-      padding-top: 2px;
+      font-weight: 700; font-size: 13px; min-width: 28px;
+      flex-shrink: 0; padding-top: 2px;
     }
     .week-day-content {
-      flex: 1;
-      font-size: 13px;
-      line-height: 1.4;
+      flex: 1; font-size: 13px; line-height: 1.4;
       word-break: break-word;
     }
     .week-day-content .emoji { font-size: 16px; margin-right: 4px; }
     .week-day-content .label { color: var(--text-dim); font-size: 12px; }
     .week-day-content .exercise-line {
-      display: block;
-      font-size: 12px;
-      color: var(--text-dim);
-      padding-left: 4px;
-      margin-top: 2px;
+      display: block; font-size: 12px; color: var(--text-dim);
+      padding-left: 4px; margin-top: 2px;
     }
     .week-day-content .exercise-line b { color: var(--text); font-weight: 600; }
     .week-day-content .steps-val { font-weight: 700; font-size: 14px; }
     .week-day-content .steps-pct {
-      color: var(--steps);
-      font-size: 12px;
-      font-weight: 600;
+      color: var(--steps); font-size: 12px; font-weight: 600;
       margin-left: 4px;
     }
 
     .week-summary-mini {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border); font-size: 12px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     }
     .week-summary-mini.three { grid-template-columns: 1fr 1fr 1fr; }
     .week-summary-mini .ws-item {
-      background: var(--card-2);
-      border-radius: 10px;
-      padding: 8px 10px;
-      text-align: center;
+      background: var(--card-2); border-radius: 10px;
+      padding: 8px 10px; text-align: center;
     }
     .week-summary-mini .ws-val {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--habit);
+      font-size: 16px; font-weight: 700; color: var(--habit);
     }
     .week-summary-mini .ws-val.sport { color: var(--sport); }
     .week-summary-mini .ws-val.read { color: var(--read); }
     .week-summary-mini .ws-val.steps { color: var(--steps); }
     .week-summary-mini .ws-label {
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-top: 2px;
+      font-size: 10px; color: var(--text-dim); margin-top: 2px;
     }
 
     .steps-week-progress {
-      margin-bottom: 12px;
-      padding: 12px 14px;
-      background: var(--card-2);
-      border-radius: 12px;
+      margin-bottom: 12px; padding: 12px 14px;
+      background: var(--card-2); border-radius: 12px;
     }
     .steps-week-progress .swp-top {
       display: flex; justify-content: space-between;
@@ -1682,20 +1349,15 @@
     .steps-week-progress .swp-top .val { font-weight: 700; }
     .steps-week-progress .swp-top .pct { color: var(--steps); font-weight: 700; }
     .steps-week-bar {
-      height: 8px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 4px;
-      overflow: hidden;
+      height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 4px; overflow: hidden;
     }
     .steps-week-bar-fill {
-      height: 100%;
-      background: var(--steps-grad);
-      border-radius: 4px;
-      width: 0;
+      height: 100%; background: var(--steps-grad);
+      border-radius: 4px; width: 0;
       transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Модалка */
     .modal-backdrop {
       position: fixed; inset: 0; background: rgba(0,0,0,0.75);
       display: none; align-items: flex-end; justify-content: center;
@@ -1705,13 +1367,11 @@
     .modal-backdrop.show { display: flex; }
     .modal {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 20px 20px 0 0;
-      padding: 20px;
+      border-radius: 20px 20px 0 0; padding: 20px;
       width: 100%; max-width: 500px;
       box-shadow: var(--shadow);
       animation: modalIn 0.25s ease;
-      max-height: 88vh;
-      overflow-y: auto;
+      max-height: 88vh; overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     }
@@ -1733,8 +1393,7 @@
       border: 1px solid var(--border); background: var(--bg-2);
       color: var(--text); font-size: 15px; font-family: inherit;
       outline: none; resize: vertical;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .modal input:focus, .modal textarea:focus { border-color: var(--accent); }
     .modal-hint {
@@ -1746,36 +1405,23 @@
       flex: 1; padding: 12px; border-radius: 10px; border: none;
       font-size: 15px; font-weight: 600; cursor: pointer;
       font-family: inherit; transition: transform 0.1s;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .modal-buttons button:active { transform: scale(0.97); }
     .modal-buttons .save { background: var(--accent-grad); color: #14110f; }
     .modal-buttons .cancel { background: var(--card-2); color: var(--text); }
     .modal-buttons .danger { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
-    /* Тип цели */
     .goal-type-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     }
     .goal-type-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 10px;
-      cursor: pointer;
-      font-family: inherit;
-      color: var(--text);
-      text-align: center;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 10px; cursor: pointer;
+      font-family: inherit; color: var(--text); text-align: center;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      -webkit-appearance: none;
-      appearance: none;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; -webkit-appearance: none; appearance: none;
     }
     .goal-type-btn .gt-emoji { font-size: 24px; line-height: 1; }
     .goal-type-btn .gt-name { font-size: 12px; font-weight: 700; }
@@ -1784,247 +1430,193 @@
     }
     .goal-type-btn:active { transform: scale(0.97); }
     .goal-type-btn.selected {
-      background: var(--goal-grad);
-      border-color: var(--goal);
+      background: var(--goal-grad); border-color: var(--goal);
     }
     .goal-type-btn.selected .gt-name,
     .goal-type-btn.selected .gt-desc {
       color: rgba(20, 17, 15, 0.9);
     }
 
-    .progress-slider-wrap {
-      margin-top: 6px;
-      padding: 8px 0;
-    }
+    .progress-slider-wrap { margin-top: 6px; padding: 8px 0; }
     .progress-slider-value {
-      text-align: center;
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--goal);
-      margin-bottom: 8px;
+      text-align: center; font-size: 24px; font-weight: 800;
+      color: var(--goal); margin-bottom: 8px;
       font-variant-numeric: tabular-nums;
     }
     .progress-slider-input {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 8px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.08);
-      outline: none;
-      margin: 0;
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 8px; border-radius: 4px;
+      background: rgba(255,255,255,0.08); outline: none; margin: 0;
     }
     .progress-slider-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: var(--goal);
-      cursor: pointer;
+      -webkit-appearance: none; appearance: none;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--goal); cursor: pointer;
       box-shadow: 0 2px 8px rgba(236, 72, 153, 0.6);
     }
     .progress-slider-input::-moz-range-thumb {
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: var(--goal);
-      cursor: pointer;
-      border: none;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--goal); cursor: pointer; border: none;
       box-shadow: 0 2px 8px rgba(236, 72, 153, 0.6);
     }
 
     .edit-habit-list { margin-bottom: 12px; }
     .edit-habit-row {
       display: flex; align-items: center; gap: 8px;
-      padding: 8px 10px;
-      background: var(--card-2);
-      border-radius: 8px;
-      margin-bottom: 6px;
-      font-size: 13px;
+      padding: 8px 10px; background: var(--card-2);
+      border-radius: 8px; margin-bottom: 6px; font-size: 13px;
     }
     .edit-habit-row .e-text { flex: 1; word-break: break-word; }
     .edit-habit-row .e-btn {
-      width: 26px; height: 26px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      cursor: pointer;
-      font-size: 13px;
+      width: 26px; height: 26px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--card);
+      color: var(--text); cursor: pointer; font-size: 13px;
       display: flex; align-items: center; justify-content: center;
-      font-family: inherit;
-      padding: 0; line-height: 1;
+      font-family: inherit; padding: 0; line-height: 1;
       flex-shrink: 0;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .edit-habit-row .e-btn:active { transform: scale(0.9); }
     .edit-habit-row .e-btn.danger { color: #fb923c; }
     .add-habit-btn {
-      width: 100%; padding: 10px;
-      background: transparent;
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      color: var(--accent);
-      font-size: 13px; font-weight: 600;
+      width: 100%; padding: 10px; background: transparent;
+      border: 1px dashed var(--border); border-radius: 10px;
+      color: var(--accent); font-size: 13px; font-weight: 600;
       cursor: pointer; font-family: inherit;
       transition: background 0.2s;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .add-habit-btn:active { background: var(--card-2); }
     .add-habit-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--text-dim); }
 
+    /* ============ РЕДАКТОР БЛОКОВ ============ */
+    .habit-block-editor {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+    .hbe-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; margin-bottom: 10px;
+    }
+    .hbe-title {
+      font-size: 14px; font-weight: 700; color: var(--habit);
+      display: flex; align-items: center; gap: 6px;
+      min-width: 0; word-break: break-word;
+    }
+    .hbe-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .hbe-btn {
+      width: 28px; height: 28px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--card);
+      color: var(--text); cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; padding: 0; line-height: 1;
+      -webkit-appearance: none; appearance: none;
+    }
+    .hbe-btn:active { transform: scale(0.9); }
+    .hbe-btn.danger { color: #fb923c; }
+    .add-block-btn {
+      width: 100%; padding: 12px; background: transparent;
+      border: 1px dashed var(--accent); border-radius: 12px;
+      color: var(--accent); font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      margin-top: 6px; transition: background 0.2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .add-block-btn:active { background: rgba(74, 222, 128, 0.08); }
+
     .modal .type-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 8px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 6px; margin-bottom: 8px;
     }
     .modal .type-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 4px;
-      cursor: pointer;
-      font-family: inherit;
-      color: var(--text);
-      font-size: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 4px; cursor: pointer;
+      font-family: inherit; color: var(--text); font-size: 20px;
+      display: flex; flex-direction: column; align-items: center;
       gap: 2px;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     .modal .type-btn .type-name {
-      font-size: 9px;
-      color: var(--text-dim);
-      font-weight: 600;
-      text-transform: uppercase;
-      text-align: center;
-      line-height: 1.1;
+      font-size: 9px; color: var(--text-dim); font-weight: 600;
+      text-transform: uppercase; text-align: center; line-height: 1.1;
     }
     .modal .type-btn:active { transform: scale(0.9); }
     .modal .type-btn.selected {
-      background: var(--sport-grad);
-      border-color: var(--sport);
+      background: var(--sport-grad); border-color: var(--sport);
       transform: scale(1.03);
     }
     .modal .type-btn.selected .type-name { color: rgba(20,17,15,0.85); }
 
     .modal .add-type-btn {
-      width: 100%;
-      padding: 8px;
-      background: transparent;
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      margin-bottom: 8px;
-      -webkit-appearance: none;
-      appearance: none;
+      width: 100%; padding: 8px; background: transparent;
+      border: 1px dashed var(--border); border-radius: 8px;
+      color: var(--accent); font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: inherit; margin-bottom: 8px;
+      -webkit-appearance: none; appearance: none;
     }
 
     .exercise-item {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      margin-bottom: 8px;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px; margin-bottom: 8px;
     }
     .exercise-item .ex-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr auto;
-      gap: 6px;
-      align-items: center;
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto;
+      gap: 6px; align-items: center;
     }
     .exercise-item input {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg-2);
-      color: var(--text);
-      font-size: 13px;
-      font-family: inherit;
-      outline: none;
-      text-align: center;
-      min-width: 0;
-      -webkit-appearance: none;
-      appearance: none;
+      width: 100%; padding: 8px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg-2);
+      color: var(--text); font-size: 13px; font-family: inherit;
+      outline: none; text-align: center; min-width: 0;
+      -webkit-appearance: none; appearance: none;
     }
-    .exercise-item input.ex-name {
-      text-align: left;
-      grid-column: span 2;
-    }
+    .exercise-item input.ex-name { text-align: left; grid-column: span 2; }
     .exercise-item input:focus { border-color: var(--sport); }
     .exercise-item .ex-remove {
-      width: 28px; height: 28px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: #fb923c;
-      cursor: pointer;
-      font-size: 14px;
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--card);
+      color: #fb923c; cursor: pointer; font-size: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-family: inherit;
-      padding: 0; line-height: 1;
-      -webkit-appearance: none;
-      appearance: none;
+      font-family: inherit; padding: 0; line-height: 1;
+      -webkit-appearance: none; appearance: none;
     }
 
     .emoji-scale-10 {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-bottom: 8px;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 6px; margin-bottom: 8px;
     }
     .emoji-btn {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 0;
-      cursor: pointer;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px 0; cursor: pointer;
       font-family: inherit;
       transition: transform 0.15s, background 0.2s, border-color 0.2s;
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
-      line-height: 1.2;
-      -webkit-appearance: none;
-      appearance: none;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2px; line-height: 1.2;
+      -webkit-appearance: none; appearance: none;
     }
     .emoji-btn .e-icon { font-size: 22px; }
     .emoji-btn .e-num { font-size: 9px; color: var(--text-dim); font-weight: 600; }
     .emoji-btn:active { transform: scale(0.9); }
     .emoji-btn.selected {
-      background: var(--accent-grad);
-      border-color: var(--accent);
+      background: var(--accent-grad); border-color: var(--accent);
       transform: scale(1.05);
     }
     .emoji-btn.selected .e-num { color: rgba(20,17,15,0.8); }
 
-    /* ТАБЛИЦЫ */
     .wk-sleep-header, .wk-sleep-row {
-      display: grid;
-      grid-template-columns: 34px 1fr 60px 40px 30px;
-      gap: 6px;
-      padding: 10px 8px;
-      font-size: 12px;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 34px 1fr 60px 40px 30px;
+      gap: 6px; padding: 10px 8px; font-size: 12px;
+      align-items: center; border-bottom: 1px solid var(--border);
       min-height: 36px;
     }
     .wk-sleep-header {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      background: var(--card-2);
-      border-radius: 8px 8px 0 0;
+      color: var(--text-dim); font-weight: 600; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.3px;
+      background: var(--card-2); border-radius: 8px 8px 0 0;
       padding: 10px 8px;
     }
     .wk-sleep-row:last-child { border-bottom: none; }
@@ -2048,13 +1640,9 @@
     .wk-stat-label { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
     .mood-week-row {
-      display: grid;
-      grid-template-columns: 40px 32px 1fr;
-      gap: 10px;
-      align-items: center;
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
+      display: grid; grid-template-columns: 40px 32px 1fr;
+      gap: 10px; align-items: center; padding: 10px 8px;
+      border-bottom: 1px solid var(--border); font-size: 13px;
       min-height: 36px;
     }
     .mood-week-row:last-of-type { border-bottom: none; }
@@ -2072,23 +1660,15 @@
     .mood-week-stats .val { font-weight: 700; color: var(--accent); }
 
     .wk-food-header, .wk-food-row {
-      display: grid;
-      grid-template-columns: 40px 60px 1fr 60px;
-      gap: 6px;
-      padding: 10px 8px;
-      font-size: 12px;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 40px 60px 1fr 60px;
+      gap: 6px; padding: 10px 8px; font-size: 12px;
+      align-items: center; border-bottom: 1px solid var(--border);
       min-height: 36px;
     }
     .wk-food-header {
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      background: var(--card-2);
-      border-radius: 8px 8px 0 0;
+      color: var(--text-dim); font-weight: 600; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.3px;
+      background: var(--card-2); border-radius: 8px 8px 0 0;
     }
     .wk-food-row:last-of-type { border-bottom: none; }
     .wk-food-row { font-variant-numeric: tabular-nums; }
@@ -2121,7 +1701,6 @@
     .wk-food-dish-day b { color: var(--food); margin-right: 6px; }
     .wk-food-dish-day span { color: var(--text-dim); }
 
-    /* МЕНЮ */
     .tabbar {
       display: flex; background: var(--bg-2);
       border-top: 1px solid var(--border);
@@ -2137,8 +1716,7 @@
       font-family: inherit; font-weight: 500;
       transition: color 0.25s, transform 0.15s;
       user-select: none; position: relative;
-      -webkit-appearance: none;
-      appearance: none;
+      -webkit-appearance: none; appearance: none;
       -webkit-user-select: none;
     }
     .tab:active { transform: scale(0.9); }
@@ -2370,7 +1948,7 @@
         </div>
       </div>
 
-      <!-- НЕДЕЛЯ (с архивом) -->
+      <!-- НЕДЕЛЯ -->
       <div class="screen" id="screen-week">
         <div class="screen-header">
           <h1>Неделя</h1>
@@ -2384,7 +1962,6 @@
         </div>
 
         <div id="weekArchiveBanner"></div>
-
         <div id="weekSummaryContainer"></div>
 
         <div class="card">
@@ -2528,8 +2105,7 @@
       <button class="tab" data-screen="stats"><span class="icon">📈</span><span>Статы</span></button>
     </nav>
   </div>
-
-  <script>
+    <script>
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
@@ -2564,7 +2140,6 @@
 
       const content = document.querySelector('.content');
       if (scrollToId) {
-        // Даём браузеру отрисовать новый экран, потом плавно скроллим
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             const target = document.getElementById(scrollToId);
@@ -2607,7 +2182,6 @@
       return n.toISOString().slice(0, 10);
     }
 
-    // === НЕДЕЛЯ ===
     function getMinArchiveWeek() {
       const currentKey = getCurrentWeekKey();
       const fallbackMin = shiftWeekKey(currentKey, -24);
@@ -3088,8 +2662,7 @@
       const avg = daysWithSteps > 0 ? Math.round(total / 7) : 0;
       sumEl.innerHTML = `<div class="week-summary-mini three"><div class="ws-item"><div class="ws-val steps">${formatNum(total)}</div><div class="ws-label">Всего</div></div><div class="ws-item"><div class="ws-val steps">${formatNum(avg)}</div><div class="ws-label">Средн/день</div></div><div class="ws-item"><div class="ws-val steps">${best ? formatNum(best) : '—'}</div><div class="ws-label">Лучший ${bestDay}</div></div></div>`;
     }
-
-    /* ВЕС */
+       /* ВЕС */
     const WEIGHT_KEY = 'weight_v1';
     let weightHistory = [];
     function saveWeight() {
@@ -3773,9 +3346,8 @@
       }).filter(Boolean).join('');
       const dishesBlock = dishes ? `<div class="wk-food-dishes"><div class="wk-food-dishes-title">Что кушал</div>${dishes}</div>` : '';
       container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
-    }
-
-    /* ПРИВЫЧКИ */
+    }   
+          /* ПРИВЫЧКИ */
     const HABITS_CONFIG_KEY = 'habits_config_v1';
     const HABITS_DATA_KEY = 'habits_data_v1';
     const DEFAULT_HABITS_CONFIG = {
@@ -4020,6 +3592,7 @@
       homeVal.textContent = total > 0 ? `${done} / ${total}` : '— / —';
     }
 
+    /* РЕДАКТОР ПРИВЫЧЕК */
     function openHabitsEditor() { renderHabitsEditor(); }
     function renderHabitsEditor() {
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
@@ -4046,19 +3619,147 @@
       if (!content) return;
       let html = '';
       habitsConfig.blocks.forEach((block, blockIndex) => {
-        if (block.type === 'sport' || block.type === 'read') {
-          html += `<div style="margin-bottom:16px;"><div style="font-size:13px;font-weight:700;color:var(--sport);margin-bottom:8px;">${block.emoji} ${escapeHtml(block.title)} <span style="font-size:11px;color:var(--text-dim);font-weight:500;">(редактируется в ⚙️ спорта)</span></div></div>`;
-          return;
-        }
-        html += `<div style="margin-bottom:16px;"><div style="font-size:13px;font-weight:700;color:var(--habit);margin-bottom:8px;">${block.emoji} ${escapeHtml(block.title)} <span style="font-size:11px;color:var(--text-dim);font-weight:500;">${block.type === 'daily' ? '(каждый день)' : '(1 раз в неделю)'}</span></div><div class="edit-habit-list">`;
+        // Скрываем из редактора: sport, read, weekly
+        if (block.type === 'sport' || block.type === 'read' || block.type === 'weekly') return;
+        html += `<div class="habit-block-editor" data-block-index="${blockIndex}">
+          <div class="hbe-head">
+            <div class="hbe-title">${block.emoji} ${escapeHtml(block.title)}</div>
+            <div class="hbe-actions">
+              <button class="hbe-btn" onclick="editBlockName(${blockIndex})" title="Переименовать">✎</button>
+              <button class="hbe-btn" onclick="editBlockEmoji(${blockIndex})" title="Сменить эмодзи">🎨</button>
+              <button class="hbe-btn danger" onclick="deleteBlock(${blockIndex})" title="Удалить блок">✕</button>
+            </div>
+          </div>
+          <div class="edit-habit-list">`;
         block.habits.forEach((h, habitIndex) => {
           html += `<div class="edit-habit-row"><span class="e-text">${escapeHtml(h.text)}</span><button class="e-btn" onclick="editHabitName(${blockIndex}, ${habitIndex})">✎</button><button class="e-btn" onclick="moveHabitUp(${blockIndex}, ${habitIndex})">↑</button><button class="e-btn" onclick="moveHabitDown(${blockIndex}, ${habitIndex})">↓</button><button class="e-btn danger" onclick="deleteHabit(${blockIndex}, ${habitIndex})">✕</button></div>`;
         });
         html += `</div>`;
-        html += `<button class="add-habit-btn" onclick="addHabit(${blockIndex})" ${block.habits.length >= 10 ? 'disabled' : ''}>${block.habits.length >= 10 ? 'Максимум 10 привычек' : '+ Добавить привычку'}</button></div>`;
+        html += `<button class="add-habit-btn" onclick="addHabit(${blockIndex})" ${block.habits.length >= 10 ? 'disabled' : ''}>${block.habits.length >= 10 ? 'Максимум 10 привычек' : '+ Добавить привычку'}</button>`;
+        html += `</div>`;
       });
+      html += `<button class="add-block-btn" onclick="addBlock()">+ Новый блок</button>`;
       content.innerHTML = html;
     }
+
+    function addBlock() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `<div class="modal">
+        <h3>Новый блок привычек</h3>
+        <label>Название блока</label>
+        <input type="text" id="newBlockTitle" placeholder="Например: Здоровье" maxlength="40">
+        <label>Эмодзи</label>
+        <input type="text" id="newBlockEmoji" placeholder="🌟" maxlength="4" style="text-align:center;font-size:24px;">
+        <div class="modal-hint">Эмодзи можно любой — например 💪, 🧠, 🎨, 🌱</div>
+        <div class="modal-buttons">
+          <button class="cancel" id="cancelBtn">Отмена</button>
+          <button class="save" id="saveBtn">Создать</button>
+        </div>
+      </div>`;
+      document.body.appendChild(backdrop);
+      const titleInput = backdrop.querySelector('#newBlockTitle');
+      const emojiInput = backdrop.querySelector('#newBlockEmoji');
+      setTimeout(() => titleInput.focus(), 100);
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const title = titleInput.value.trim();
+        const emoji = emojiInput.value.trim() || '📌';
+        if (!title) { alert('Введи название блока'); return; }
+        const id = 'block_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+        const sportIdx = habitsConfig.blocks.findIndex(b => b.type === 'sport');
+        const insertIdx = sportIdx >= 0 ? sportIdx : habitsConfig.blocks.length;
+        habitsConfig.blocks.splice(insertIdx, 0, { id, title, emoji, type: 'daily', habits: [] });
+        saveHabitsConfig();
+        backdrop.remove();
+        renderHabitsEditorContent();
+        renderDayHabits(); renderWeekAll(); updateHomeHabits();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function editBlockName(blockIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block) return;
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `<div class="modal">
+        <h3>Переименовать блок</h3>
+        <label>Название</label>
+        <input type="text" id="editBlockTitle" value="${escapeHtml(block.title)}" maxlength="40">
+        <div class="modal-buttons">
+          <button class="cancel" id="cancelBtn">Отмена</button>
+          <button class="save" id="saveBtn">Сохранить</button>
+        </div>
+      </div>`;
+      document.body.appendChild(backdrop);
+      const input = backdrop.querySelector('#editBlockTitle');
+      setTimeout(() => { input.focus(); input.select(); }, 100);
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const title = input.value.trim();
+        if (!title) { backdrop.remove(); return; }
+        block.title = title;
+        saveHabitsConfig();
+        backdrop.remove();
+        renderHabitsEditorContent();
+        renderDayHabits(); renderWeekAll();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function editBlockEmoji(blockIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block) return;
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `<div class="modal">
+        <h3>Сменить эмодзи</h3>
+        <label>Эмодзи</label>
+        <input type="text" id="editBlockEmoji" value="${escapeHtml(block.emoji)}" maxlength="4" style="text-align:center;font-size:28px;">
+        <div class="modal-hint">Один эмодзи, например: 💤 🧱 💪 🧠 📚 🌱</div>
+        <div class="modal-buttons">
+          <button class="cancel" id="cancelBtn">Отмена</button>
+          <button class="save" id="saveBtn">Сохранить</button>
+        </div>
+      </div>`;
+      document.body.appendChild(backdrop);
+      const input = backdrop.querySelector('#editBlockEmoji');
+      setTimeout(() => { input.focus(); input.select(); }, 100);
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        const emoji = input.value.trim() || '📌';
+        block.emoji = emoji;
+        saveHabitsConfig();
+        backdrop.remove();
+        renderHabitsEditorContent();
+        renderDayHabits(); renderWeekAll();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function deleteBlock(blockIndex) {
+      const block = habitsConfig.blocks[blockIndex];
+      if (!block) return;
+      if (block.type === 'sport' || block.type === 'read' || block.type === 'weekly') return;
+      const habitsCount = block.habits.length;
+      const msg = habitsCount > 0
+        ? `Удалить блок «${block.title}» со всеми ${habitsCount} привычками?`
+        : `Удалить блок «${block.title}»?`;
+      if (!confirm(msg)) return;
+      habitsConfig.blocks.splice(blockIndex, 1);
+      saveHabitsConfig();
+      renderHabitsEditorContent();
+      renderDayHabits(); renderWeekAll(); updateHomeHabits();
+      tg.HapticFeedback?.notificationOccurred('warning');
+    }
+
     function addHabit(blockIndex) {
       const block = habitsConfig.blocks[blockIndex];
       if (!block || block.habits.length >= 10) return;
@@ -4125,8 +3826,7 @@
       block.habits[habitIndex] = tmp;
       saveHabitsConfig(); renderHabitsEditorContent();
     }
-
-    /* СПОРТ И ЧТЕНИЕ */
+        /* СПОРТ И ЧТЕНИЕ */
     const SPORT_DATA_KEY = 'sport_data_v1';
     const READ_DATA_KEY = 'read_data_v1';
     const SPORT_TYPES_KEY = 'sport_types_v1';
@@ -4608,7 +4308,471 @@
       readModalState = null;
     }
 
-    /* ЦЕЛИ */
+    /* ФИНАНСЫ */
+    const FIN_KEY = 'finances_v1';
+    let finances = {};
+    let finViewMonth = null;
+
+    function getMonthKey(dateStr) { return dateStr.slice(0, 7); }
+    function shiftMonth(monthKey, delta) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const d = new Date(y, m - 1 + delta, 1);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    }
+    function formatMonthLabel(monthKey) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+      return months[m - 1] + ' ' + y;
+    }
+
+    function saveFinances() {
+      tg.CloudStorage.setItem(FIN_KEY, JSON.stringify(finances), (err) => { if (err) console.warn(err); });
+    }
+    function loadFinances(cb) {
+      tg.CloudStorage.getItem(FIN_KEY, (err, value) => {
+        if (err || !value) { finances = {}; cb && cb(); return; }
+        try { finances = JSON.parse(value) || {}; } catch (e) { finances = {}; }
+        cb && cb();
+      });
+    }
+    function initFinView() {
+      if (!finViewMonth) finViewMonth = getMonthKey(getLogicalDate());
+    }
+    function finShiftMonth(delta) {
+      initFinView();
+      const currentMonth = getMonthKey(getLogicalDate());
+      const newMonth = shiftMonth(finViewMonth, delta);
+      const minMonth = shiftMonth(currentMonth, -5);
+      if (newMonth < minMonth) return;
+      if (newMonth > currentMonth) return;
+      finViewMonth = newMonth;
+      renderFinances();
+      renderMonth();
+      tg.HapticFeedback?.selectionChanged();
+    }
+    function renderFinances() {
+      initFinView();
+      const labelEl = document.getElementById('finMonthLabel');
+      const contentEl = document.getElementById('finContent');
+      const historyEl = document.getElementById('finHistory');
+      const prevBtn = document.getElementById('finPrevBtn');
+      const nextBtn = document.getElementById('finNextBtn');
+      if (!labelEl || !contentEl) return;
+
+      labelEl.textContent = formatMonthLabel(finViewMonth);
+
+      const currentMonth = getMonthKey(getLogicalDate());
+      const minMonth = shiftMonth(currentMonth, -5);
+      nextBtn.disabled = finViewMonth >= currentMonth;
+      prevBtn.disabled = finViewMonth <= minMonth;
+
+      const rec = finances[finViewMonth];
+      if (rec) {
+        const income = rec.income || 0;
+        const expenses = rec.expenses || 0;
+        const profit = income - expenses;
+        contentEl.innerHTML = `
+          <div class="fin-row"><span class="fin-label">Доход</span><span class="fin-value income">+${formatNum(income)} ₽</span></div>
+          <div class="fin-row"><span class="fin-label">Расходы</span><span class="fin-value expense">−${formatNum(expenses)} ₽</span></div>
+          <div class="fin-row"><span class="fin-label">Прибыль</span><span class="fin-value profit">${profit >= 0 ? '+' : ''}${formatNum(profit)} ₽</span></div>
+        `;
+      } else {
+        contentEl.innerHTML = `
+          <div class="fin-row"><span class="fin-label">Доход</span><span class="fin-value empty">—</span></div>
+          <div class="fin-row"><span class="fin-label">Расходы</span><span class="fin-value empty">—</span></div>
+          <div class="fin-row"><span class="fin-label">Прибыль</span><span class="fin-value empty">—</span></div>
+        `;
+      }
+
+      const historyMonths = [];
+      for (let i = 0; i < 6; i++) historyMonths.push(shiftMonth(currentMonth, -i));
+      let historyHtml = `<div class="fin-history-title">📅 Последние 6 месяцев</div>`;
+      historyMonths.forEach(m => {
+        const r = finances[m];
+        const isCurrent = m === finViewMonth;
+        const cls = 'fin-history-row' + (r ? '' : ' empty') + (isCurrent ? ' current' : '');
+        if (r) {
+          const p = (r.income || 0) - (r.expenses || 0);
+          historyHtml += `<div class="${cls}" data-month="${m}">
+            <span class="fh-month">${formatMonthLabel(m)}</span>
+            <span class="fh-income">+${formatNum(r.income || 0)} ₽</span>
+            <span class="fh-profit">${p >= 0 ? '+' : ''}${formatNum(p)} ₽</span>
+          </div>`;
+        } else {
+          historyHtml += `<div class="${cls}">
+            <span class="fh-month">${formatMonthLabel(m)}</span>
+            <span class="fh-income">—</span>
+            <span class="fh-profit">—</span>
+          </div>`;
+        }
+      });
+      historyEl.innerHTML = historyHtml;
+
+      historyEl.querySelectorAll('.fin-history-row[data-month]').forEach(row => {
+        row.onclick = function() {
+          finViewMonth = row.dataset.month;
+          renderFinances();
+          renderMonth();
+          tg.HapticFeedback?.selectionChanged();
+        };
+      });
+    }
+
+    function openFinEditModal() {
+      initFinView();
+      const rec = finances[finViewMonth] || { income: 0, expenses: 0 };
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `
+        <div class="modal">
+          <h3>💰 ${formatMonthLabel(finViewMonth)}</h3>
+          <label>Доход (₽)</label>
+          <input type="number" id="finIncome" min="0" max="1000000000" step="1000" value="${rec.income || ''}" placeholder="85000">
+          <label>Расходы (₽)</label>
+          <input type="number" id="finExpenses" min="0" max="1000000000" step="1000" value="${rec.expenses || ''}" placeholder="42000">
+          <div class="modal-buttons">
+            <button class="cancel" id="cancelBtn">Отмена</button>
+            <button class="save" id="saveBtn">Сохранить</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+      const incInp = backdrop.querySelector('#finIncome');
+      const expInp = backdrop.querySelector('#finExpenses');
+      setTimeout(() => incInp.focus(), 100);
+
+      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
+        const income = parseInt(incInp.value, 10);
+        const expenses = parseInt(expInp.value, 10);
+        const i = isNaN(income) ? 0 : Math.max(0, income);
+        const e = isNaN(expenses) ? 0 : Math.max(0, expenses);
+        if (i === 0 && e === 0) {
+          delete finances[finViewMonth];
+        } else {
+          finances[finViewMonth] = { income: i, expenses: e };
+        }
+        saveFinances();
+        backdrop.remove();
+        renderFinances();
+        renderGoals();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = function(ev) { if (ev.target === backdrop) backdrop.remove(); };
+    }
+
+    function getMonthDays(monthKey) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const daysInMonth = new Date(y, m, 0).getDate();
+      const arr = [];
+      for (let i = 1; i <= daysInMonth; i++) {
+        const date = `${y}-${String(m).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        arr.push({ day: i, date });
+      }
+      return arr;
+    }
+
+    function renderMonthSteps() {
+      const container = document.getElementById('statsMonthSteps');
+      if (!container) return;
+      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
+      const days = getMonthDays(monthKey);
+      const today = getLogicalDate();
+
+      let total = 0, daysWithSteps = 0, best = 0, bestDay = '';
+      const values = [];
+      days.forEach(d => {
+        const val = stepsHistory[d.date] || 0;
+        const isFuture = d.date > today;
+        if (!isFuture) {
+          if (val > 0) { total += val; daysWithSteps++; }
+          if (val > best) { best = val; bestDay = d.day; }
+        }
+        values.push({ label: '', value: val, isFuture });
+      });
+      const maxVal = Math.max(stepsGoal, ...values.map(v => v.value));
+      const avg = daysWithSteps > 0 ? Math.round(total / daysWithSteps) : 0;
+      const totalDays = days.filter(d => d.date <= today).length;
+
+      container.innerHTML = `
+        <div class="chart-svg-wrap" id="monthStepsChart"></div>
+        <div class="numbers-row" style="margin-top:12px;">
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${formatNum(total)}</div>
+            <div class="n-label">Всего за ${totalDays} дн.</div>
+          </div>
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${formatNum(avg)}</div>
+            <div class="n-label">Средн/день</div>
+          </div>
+        </div>
+        <div class="numbers-row" style="margin-top:8px;">
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${best > 0 ? formatNum(best) : '—'}</div>
+            <div class="n-label">Лучший день${bestDay ? ' (' + bestDay + ')' : ''}</div>
+          </div>
+          <div class="numbers-item">
+            <div class="n-val steps" style="color: var(--steps);">${daysWithSteps}</div>
+            <div class="n-label">Дней с шагами</div>
+          </div>
+        </div>
+      `;
+
+      renderMonthChart(document.getElementById('monthStepsChart'), values, maxVal, '#22c55e');
+    }
+
+    function renderMonthChart(container, values, maxValue, color) {
+      const n = values.length;
+      const W = 300;
+      const H = 100;
+      const paddingTop = 8;
+      const paddingBottom = 6;
+      const chartH = H - paddingTop - paddingBottom;
+      const barW = Math.max((W - n - 1) / n, 2);
+      const gap = 1;
+      let svg = `<svg class="chart-svg" style="height:100px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+      values.forEach((v, i) => {
+        const x = i * (barW + gap);
+        const val = v.value || 0;
+        const pct = maxValue > 0 ? Math.min(val / maxValue, 1) : 0;
+        const barH = Math.max(chartH * pct, 1.5);
+        const y = paddingTop + chartH - barH;
+        if (v.isFuture) {
+          svg += `<rect x="${x}" y="${paddingTop + chartH - 1.5}" width="${barW}" height="1.5" rx="0.75" fill="rgba(255,255,255,0.04)"/>`;
+        } else if (val === 0) {
+          svg += `<rect x="${x}" y="${paddingTop + chartH - 1.5}" width="${barW}" height="1.5" rx="0.75" fill="rgba(255,255,255,0.1)"/>`;
+        } else {
+          svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="1.5" fill="${color}"/>`;
+        }
+      });
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function renderMonthWeight() {
+      const container = document.getElementById('statsMonthWeight');
+      if (!container) return;
+      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
+      const [y, m] = monthKey.split('-').map(Number);
+      const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
+      const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
+
+      const inMonth = weightHistory.filter(w => w.date >= startDate && w.date <= endDate).sort((a, b) => a.date.localeCompare(b.date));
+
+      if (inMonth.length === 0) {
+        container.innerHTML = `<div class="weight-empty" style="padding: 20px 0; color: var(--text-dim); text-align:center;">Нет взвешиваний в этом месяце</div>`;
+        return;
+      }
+
+      const first = inMonth[0];
+      const last = inMonth[inMonth.length - 1];
+      const diff = last.weight - first.weight;
+      const diffClass = diff < 0 ? 'down' : (diff > 0 ? 'up' : 'same');
+      const diffArrow = diff < 0 ? '↓' : (diff > 0 ? '↑' : '=');
+      const diffSign = diff > 0 ? '+' : '';
+
+      let html = `
+        <div class="weight-month-row">
+          <span class="wm-label">Начало месяца</span>
+          <span class="wm-value">${first.weight.toFixed(1)} кг</span>
+        </div>
+        <div class="weight-month-row">
+          <span class="wm-label">Конец месяца</span>
+          <span class="wm-value">${last.weight.toFixed(1)} кг</span>
+        </div>
+        <div class="weight-month-row">
+          <span class="wm-label">Изменение</span>
+          <span class="wm-value ${diffClass}">${diffArrow} ${diffSign}${diff.toFixed(1)} кг</span>
+        </div>
+      `;
+
+      if (inMonth.length >= 3) {
+        html += `<div class="chart-svg-wrap" id="monthWeightChart" style="margin-top: 12px;"></div>`;
+      }
+
+      container.innerHTML = html;
+
+      if (inMonth.length >= 3) {
+        renderWeightLineChart(document.getElementById('monthWeightChart'), inMonth);
+      }
+    }
+
+    function renderWeightLineChart(container, entries) {
+      const W = 300;
+      const H = 90;
+      const padTop = 12;
+      const padBot = 12;
+      const padLeft = 4;
+      const padRight = 4;
+      const chartW = W - padLeft - padRight;
+      const chartH = H - padTop - padBot;
+
+      const weights = entries.map(e => e.weight);
+      const minW = Math.min(...weights);
+      const maxW = Math.max(...weights);
+      const range = Math.max(maxW - minW, 0.5);
+
+      const n = entries.length;
+      const points = entries.map((e, i) => {
+        const x = padLeft + (n === 1 ? chartW / 2 : (i / (n - 1)) * chartW);
+        const y = padTop + chartH - ((e.weight - minW) / range) * chartH;
+        return { x, y };
+      });
+
+      let path = '';
+      points.forEach((p, i) => {
+        path += (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ' ';
+      });
+
+      let areaPath = path + `L ${points[points.length - 1].x.toFixed(1)} ${padTop + chartH} L ${points[0].x.toFixed(1)} ${padTop + chartH} Z`;
+
+      let svg = `<svg class="chart-svg" style="height:90px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+      svg += `<defs>
+        <linearGradient id="wgrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+        </linearGradient>
+      </defs>`;
+      svg += `<path d="${areaPath}" fill="url(#wgrad)"/>`;
+      svg += `<path d="${path}" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      points.forEach(p => {
+        svg += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" fill="#06b6d4"/>`;
+      });
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function renderMonthAverages() {
+      const container = document.getElementById('statsMonthAverages');
+      if (!container) return;
+      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
+      const [y, m] = monthKey.split('-').map(Number);
+      const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
+      const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
+      const today = getLogicalDate();
+
+      const sleepDays = Object.keys(sleepHistory).filter(d => d >= startDate && d <= endDate && d <= today && sleepHistory[d].duration);
+      const sleepAvg = sleepDays.length > 0 ? Math.round(sleepDays.reduce((s, d) => s + sleepHistory[d].duration, 0) / sleepDays.length) : 0;
+
+      const moodDays = Object.keys(moodHistory).filter(d => d >= startDate && d <= endDate && d <= today && moodHistory[d].mood);
+      const moodAvg = moodDays.length > 0 ? (moodDays.reduce((s, d) => s + moodHistory[d].mood, 0) / moodDays.length) : 0;
+
+      const foodDays = Object.keys(foodHistory).filter(d => d >= startDate && d <= endDate && d <= today && foodHistory[d].calories);
+      const foodAvg = foodDays.length > 0 ? Math.round(foodDays.reduce((s, d) => s + foodHistory[d].calories, 0) / foodDays.length) : 0;
+
+      const waterDays = Object.keys(waterHistory).filter(d => d >= startDate && d <= endDate && d <= today && waterHistory[d].current > 0);
+      const waterAvg = waterDays.length > 0 ? Math.round(waterDays.reduce((s, d) => s + waterHistory[d].current, 0) / waterDays.length) : 0;
+
+      const sportDays = Object.keys(sportData).filter(d => d >= startDate && d <= endDate && d <= today && (sportData[d].mood || sportData[d].typeId || (sportData[d].exercises && sportData[d].exercises.length) || sportData[d].distance));
+      const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text));
+
+      let habDone = 0, habPossible = 0;
+      habitsConfig.blocks.forEach(block => {
+        if (block.type === 'sport' || block.type === 'read') return;
+        block.habits.forEach(h => {
+          if (block.type === 'daily') {
+            const monthDays = getMonthDays(monthKey).filter(d => d.date <= today);
+            monthDays.forEach(d => {
+              habPossible++;
+              const wk = getMondayOfDate(d.date);
+              const wkChecks = habitsData.weeks[wk] && habitsData.weeks[wk].checks;
+              if (wkChecks && wkChecks[h.id] && wkChecks[h.id][d.date]) habDone++;
+            });
+          } else {
+            habPossible++;
+            const weeks = getWeeksInMonth(monthKey, today);
+            let any = false;
+            weeks.forEach(w => {
+              const wkChecks = habitsData.weeks[w] && habitsData.weeks[w].checks;
+              if (wkChecks && wkChecks[h.id]) {
+                const weekEnd = getWeekEndForWeek(w);
+                const hasAny = Object.keys(wkChecks[h.id]).some(dd => dd >= w && dd <= weekEnd && getMonthKey(dd) === monthKey);
+                if (hasAny) any = true;
+              }
+            });
+            if (any) habDone++;
+          }
+        });
+      });
+      const habPct = habPossible > 0 ? Math.round((habDone / habPossible) * 100) : 0;
+
+      container.innerHTML = `
+        <div class="stats-day-row"><div class="label"><span>😴</span> Средний сон</div><div class="value">${sleepAvg > 0 ? formatDuration(sleepAvg) : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>😊</span> Среднее настроение</div><div class="value">${moodAvg > 0 ? moodAvg.toFixed(1) + ' / 10' : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>🍎</span> Средние калории</div><div class="value">${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>💧</span> Средняя вода</div><div class="value">${waterAvg > 0 ? waterAvg + ' мл' : '—'}</div></div>
+        <div class="stats-day-row"><div class="label"><span>🏃</span> Тренировок</div><div class="value">${sportDays.length}</div></div>
+        <div class="stats-day-row"><div class="label"><span>📚</span> Раз читал</div><div class="value">${readDays.length}</div></div>
+        <div class="stats-day-row"><div class="label"><span>✅</span> Средний % привычек</div><div class="value">${habPossible > 0 ? habPct + '%' : '—'}</div></div>
+      `;
+    }
+
+    function getWeeksInMonth(monthKey, today) {
+      const days = getMonthDays(monthKey).filter(d => d.date <= today);
+      const set = new Set();
+      days.forEach(d => set.add(getMondayOfDate(d.date)));
+      return Array.from(set).sort();
+    }
+
+    function renderMonth() {
+      renderFinances();
+      renderMonthSteps();
+      renderMonthWeight();
+      renderMonthAverages();
+    }
+
+    function renderStats() {
+      renderStatsDay();
+      renderStatsWeek();
+      renderMonth();
+    }
+
+    function renderWeekAll() {
+      initViewWeek();
+      const currentKey = getCurrentWeekKey();
+      const minKey = getMinArchiveWeek();
+      const isCurrent = isViewingCurrentWeek();
+
+      const labelEl = document.getElementById('weekNavLabel');
+      const prevBtn = document.getElementById('weekPrevBtn');
+      const nextBtn = document.getElementById('weekNextBtn');
+      if (labelEl) {
+        const range = formatWeekRange(viewWeekMonday);
+        if (isCurrent) {
+          labelEl.innerHTML = `${range} <span class="current-badge">Текущая</span>`;
+        } else {
+          labelEl.textContent = range;
+        }
+      }
+      if (prevBtn) prevBtn.disabled = viewWeekMonday <= minKey;
+      if (nextBtn) nextBtn.disabled = isCurrent;
+
+      const bannerEl = document.getElementById('weekArchiveBanner');
+      if (bannerEl) {
+        if (isCurrent) {
+          bannerEl.innerHTML = '';
+        } else {
+          bannerEl.innerHTML = `<div class="archive-banner">📖 Архив — только просмотр</div>`;
+        }
+      }
+
+      const gearIds = ['weekHabitsGear', 'weekSportGear', 'weekStepsGear'];
+      gearIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = isCurrent ? '' : 'none';
+      });
+
+      renderWeekHabitsGrid();
+      renderWeekSummary();
+      renderWeekSport();
+      renderWeekRead();
+      renderWeekSteps();
+      renderWeight();
+      renderWeekSleep();
+      renderWeekMood();
+      renderWeekFood();
+    }  
+       /* ЦЕЛИ */
     const GOALS_KEY = 'goals_v1';
     let goals = [];
     function saveGoals() {
@@ -5082,7 +5246,7 @@
       };
     }
 
-    /* ============ STATS ============ */
+    /* STATS */
     function calcStreakDaily(checkFn, maxDays = 365) {
       let current = 0;
       let record = 0;
@@ -5506,473 +5670,7 @@
       renderBarChart(document.getElementById('chartFood'), foodVals, foodMax, '#fbbf24', v => String(v));
     }
 
-    /* ФИНАНСЫ */
-    const FIN_KEY = 'finances_v1';
-    let finances = {};
-    let finViewMonth = null;
-
-    function getMonthKey(dateStr) { return dateStr.slice(0, 7); }
-    function shiftMonth(monthKey, delta) {
-      const [y, m] = monthKey.split('-').map(Number);
-      const d = new Date(y, m - 1 + delta, 1);
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-    }
-    function formatMonthLabel(monthKey) {
-      const [y, m] = monthKey.split('-').map(Number);
-      const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-      return months[m - 1] + ' ' + y;
-    }
-
-    function saveFinances() {
-      tg.CloudStorage.setItem(FIN_KEY, JSON.stringify(finances), (err) => { if (err) console.warn(err); });
-    }
-    function loadFinances(cb) {
-      tg.CloudStorage.getItem(FIN_KEY, (err, value) => {
-        if (err || !value) { finances = {}; cb && cb(); return; }
-        try { finances = JSON.parse(value) || {}; } catch (e) { finances = {}; }
-        cb && cb();
-      });
-    }
-    function initFinView() {
-      if (!finViewMonth) finViewMonth = getMonthKey(getLogicalDate());
-    }
-    function finShiftMonth(delta) {
-      initFinView();
-      const currentMonth = getMonthKey(getLogicalDate());
-      const newMonth = shiftMonth(finViewMonth, delta);
-      const minMonth = shiftMonth(currentMonth, -5);
-      if (newMonth < minMonth) return;
-      if (newMonth > currentMonth) return;
-      finViewMonth = newMonth;
-      renderFinances();
-      renderMonth();
-      tg.HapticFeedback?.selectionChanged();
-    }
-    function renderFinances() {
-      initFinView();
-      const labelEl = document.getElementById('finMonthLabel');
-      const contentEl = document.getElementById('finContent');
-      const historyEl = document.getElementById('finHistory');
-      const prevBtn = document.getElementById('finPrevBtn');
-      const nextBtn = document.getElementById('finNextBtn');
-      if (!labelEl || !contentEl) return;
-
-      labelEl.textContent = formatMonthLabel(finViewMonth);
-
-      const currentMonth = getMonthKey(getLogicalDate());
-      const minMonth = shiftMonth(currentMonth, -5);
-      nextBtn.disabled = finViewMonth >= currentMonth;
-      prevBtn.disabled = finViewMonth <= minMonth;
-
-      const rec = finances[finViewMonth];
-      if (rec) {
-        const income = rec.income || 0;
-        const expenses = rec.expenses || 0;
-        const profit = income - expenses;
-        contentEl.innerHTML = `
-          <div class="fin-row"><span class="fin-label">Доход</span><span class="fin-value income">+${formatNum(income)} ₽</span></div>
-          <div class="fin-row"><span class="fin-label">Расходы</span><span class="fin-value expense">−${formatNum(expenses)} ₽</span></div>
-          <div class="fin-row"><span class="fin-label">Прибыль</span><span class="fin-value profit">${profit >= 0 ? '+' : ''}${formatNum(profit)} ₽</span></div>
-        `;
-      } else {
-        contentEl.innerHTML = `
-          <div class="fin-row"><span class="fin-label">Доход</span><span class="fin-value empty">—</span></div>
-          <div class="fin-row"><span class="fin-label">Расходы</span><span class="fin-value empty">—</span></div>
-          <div class="fin-row"><span class="fin-label">Прибыль</span><span class="fin-value empty">—</span></div>
-        `;
-      }
-
-      const historyMonths = [];
-      for (let i = 0; i < 6; i++) historyMonths.push(shiftMonth(currentMonth, -i));
-      let historyHtml = `<div class="fin-history-title">📅 Последние 6 месяцев</div>`;
-      historyMonths.forEach(m => {
-        const r = finances[m];
-        const isCurrent = m === finViewMonth;
-        const cls = 'fin-history-row' + (r ? '' : ' empty') + (isCurrent ? ' current' : '');
-        if (r) {
-          const p = (r.income || 0) - (r.expenses || 0);
-          historyHtml += `<div class="${cls}" data-month="${m}">
-            <span class="fh-month">${formatMonthLabel(m)}</span>
-            <span class="fh-income">+${formatNum(r.income || 0)} ₽</span>
-            <span class="fh-profit">${p >= 0 ? '+' : ''}${formatNum(p)} ₽</span>
-          </div>`;
-        } else {
-          historyHtml += `<div class="${cls}">
-            <span class="fh-month">${formatMonthLabel(m)}</span>
-            <span class="fh-income">—</span>
-            <span class="fh-profit">—</span>
-          </div>`;
-        }
-      });
-      historyEl.innerHTML = historyHtml;
-
-      historyEl.querySelectorAll('.fin-history-row[data-month]').forEach(row => {
-        row.onclick = function() {
-          finViewMonth = row.dataset.month;
-          renderFinances();
-          renderMonth();
-          tg.HapticFeedback?.selectionChanged();
-        };
-      });
-    }
-
-    function openFinEditModal() {
-      initFinView();
-      const rec = finances[finViewMonth] || { income: 0, expenses: 0 };
-      const backdrop = document.createElement('div');
-      backdrop.className = 'modal-backdrop show';
-      backdrop.innerHTML = `
-        <div class="modal">
-          <h3>💰 ${formatMonthLabel(finViewMonth)}</h3>
-          <label>Доход (₽)</label>
-          <input type="number" id="finIncome" min="0" max="1000000000" step="1000" value="${rec.income || ''}" placeholder="85000">
-          <label>Расходы (₽)</label>
-          <input type="number" id="finExpenses" min="0" max="1000000000" step="1000" value="${rec.expenses || ''}" placeholder="42000">
-          <div class="modal-buttons">
-            <button class="cancel" id="cancelBtn">Отмена</button>
-            <button class="save" id="saveBtn">Сохранить</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(backdrop);
-      const incInp = backdrop.querySelector('#finIncome');
-      const expInp = backdrop.querySelector('#finExpenses');
-      setTimeout(() => incInp.focus(), 100);
-
-      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
-      backdrop.querySelector('#saveBtn').onclick = function() {
-        const income = parseInt(incInp.value, 10);
-        const expenses = parseInt(expInp.value, 10);
-        const i = isNaN(income) ? 0 : Math.max(0, income);
-        const e = isNaN(expenses) ? 0 : Math.max(0, expenses);
-        if (i === 0 && e === 0) {
-          delete finances[finViewMonth];
-        } else {
-          finances[finViewMonth] = { income: i, expenses: e };
-        }
-        saveFinances();
-        backdrop.remove();
-        renderFinances();
-        renderGoals();
-        tg.HapticFeedback?.notificationOccurred('success');
-      };
-      backdrop.onclick = function(ev) { if (ev.target === backdrop) backdrop.remove(); };
-    }
-
-    function getMonthDays(monthKey) {
-      const [y, m] = monthKey.split('-').map(Number);
-      const daysInMonth = new Date(y, m, 0).getDate();
-      const arr = [];
-      for (let i = 1; i <= daysInMonth; i++) {
-        const date = `${y}-${String(m).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-        arr.push({ day: i, date });
-      }
-      return arr;
-    }
-
-    function renderMonthSteps() {
-      const container = document.getElementById('statsMonthSteps');
-      if (!container) return;
-      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
-      const days = getMonthDays(monthKey);
-      const today = getLogicalDate();
-
-      let total = 0, daysWithSteps = 0, best = 0, bestDay = '';
-      const values = [];
-      days.forEach(d => {
-        const val = stepsHistory[d.date] || 0;
-        const isFuture = d.date > today;
-        if (!isFuture) {
-          if (val > 0) { total += val; daysWithSteps++; }
-          if (val > best) { best = val; bestDay = d.day; }
-        }
-        values.push({ label: '', value: val, isFuture });
-      });
-      const maxVal = Math.max(stepsGoal, ...values.map(v => v.value));
-      const avg = daysWithSteps > 0 ? Math.round(total / daysWithSteps) : 0;
-      const totalDays = days.filter(d => d.date <= today).length;
-
-      container.innerHTML = `
-        <div class="chart-svg-wrap" id="monthStepsChart"></div>
-        <div class="numbers-row" style="margin-top:12px;">
-          <div class="numbers-item">
-            <div class="n-val steps" style="color: var(--steps);">${formatNum(total)}</div>
-            <div class="n-label">Всего за ${totalDays} дн.</div>
-          </div>
-          <div class="numbers-item">
-            <div class="n-val steps" style="color: var(--steps);">${formatNum(avg)}</div>
-            <div class="n-label">Средн/день</div>
-          </div>
-        </div>
-        <div class="numbers-row" style="margin-top:8px;">
-          <div class="numbers-item">
-            <div class="n-val steps" style="color: var(--steps);">${best > 0 ? formatNum(best) : '—'}</div>
-            <div class="n-label">Лучший день${bestDay ? ' (' + bestDay + ')' : ''}</div>
-          </div>
-          <div class="numbers-item">
-            <div class="n-val steps" style="color: var(--steps);">${daysWithSteps}</div>
-            <div class="n-label">Дней с шагами</div>
-          </div>
-        </div>
-      `;
-
-      renderMonthChart(document.getElementById('monthStepsChart'), values, maxVal, '#22c55e');
-    }
-
-    function renderMonthChart(container, values, maxValue, color) {
-      const n = values.length;
-      const W = 300;
-      const H = 100;
-      const paddingTop = 8;
-      const paddingBottom = 6;
-      const chartH = H - paddingTop - paddingBottom;
-      const barW = Math.max((W - n - 1) / n, 2);
-      const gap = 1;
-      let svg = `<svg class="chart-svg" style="height:100px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
-      values.forEach((v, i) => {
-        const x = i * (barW + gap);
-        const val = v.value || 0;
-        const pct = maxValue > 0 ? Math.min(val / maxValue, 1) : 0;
-        const barH = Math.max(chartH * pct, 1.5);
-        const y = paddingTop + chartH - barH;
-        if (v.isFuture) {
-          svg += `<rect x="${x}" y="${paddingTop + chartH - 1.5}" width="${barW}" height="1.5" rx="0.75" fill="rgba(255,255,255,0.04)"/>`;
-        } else if (val === 0) {
-          svg += `<rect x="${x}" y="${paddingTop + chartH - 1.5}" width="${barW}" height="1.5" rx="0.75" fill="rgba(255,255,255,0.1)"/>`;
-        } else {
-          svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="1.5" fill="${color}"/>`;
-        }
-      });
-      svg += `</svg>`;
-      container.innerHTML = svg;
-    }
-
-    function renderMonthWeight() {
-      const container = document.getElementById('statsMonthWeight');
-      if (!container) return;
-      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
-      const [y, m] = monthKey.split('-').map(Number);
-      const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
-      const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
-
-      const inMonth = weightHistory.filter(w => w.date >= startDate && w.date <= endDate).sort((a, b) => a.date.localeCompare(b.date));
-
-      if (inMonth.length === 0) {
-        container.innerHTML = `<div class="weight-empty" style="padding: 20px 0; color: var(--text-dim); text-align:center;">Нет взвешиваний в этом месяце</div>`;
-        return;
-      }
-
-      const first = inMonth[0];
-      const last = inMonth[inMonth.length - 1];
-      const diff = last.weight - first.weight;
-      const diffClass = diff < 0 ? 'down' : (diff > 0 ? 'up' : 'same');
-      const diffArrow = diff < 0 ? '↓' : (diff > 0 ? '↑' : '=');
-      const diffSign = diff > 0 ? '+' : '';
-
-      let html = `
-        <div class="weight-month-row">
-          <span class="wm-label">Начало месяца</span>
-          <span class="wm-value">${first.weight.toFixed(1)} кг</span>
-        </div>
-        <div class="weight-month-row">
-          <span class="wm-label">Конец месяца</span>
-          <span class="wm-value">${last.weight.toFixed(1)} кг</span>
-        </div>
-        <div class="weight-month-row">
-          <span class="wm-label">Изменение</span>
-          <span class="wm-value ${diffClass}">${diffArrow} ${diffSign}${diff.toFixed(1)} кг</span>
-        </div>
-      `;
-
-      if (inMonth.length >= 3) {
-        html += `<div class="chart-svg-wrap" id="monthWeightChart" style="margin-top: 12px;"></div>`;
-      }
-
-      container.innerHTML = html;
-
-      if (inMonth.length >= 3) {
-        renderWeightLineChart(document.getElementById('monthWeightChart'), inMonth);
-      }
-    }
-
-    function renderWeightLineChart(container, entries) {
-      const W = 300;
-      const H = 90;
-      const padTop = 12;
-      const padBot = 12;
-      const padLeft = 4;
-      const padRight = 4;
-      const chartW = W - padLeft - padRight;
-      const chartH = H - padTop - padBot;
-
-      const weights = entries.map(e => e.weight);
-      const minW = Math.min(...weights);
-      const maxW = Math.max(...weights);
-      const range = Math.max(maxW - minW, 0.5);
-
-      const n = entries.length;
-      const points = entries.map((e, i) => {
-        const x = padLeft + (n === 1 ? chartW / 2 : (i / (n - 1)) * chartW);
-        const y = padTop + chartH - ((e.weight - minW) / range) * chartH;
-        return { x, y };
-      });
-
-      let path = '';
-      points.forEach((p, i) => {
-        path += (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ' ';
-      });
-
-      let areaPath = path + `L ${points[points.length - 1].x.toFixed(1)} ${padTop + chartH} L ${points[0].x.toFixed(1)} ${padTop + chartH} Z`;
-
-      let svg = `<svg class="chart-svg" style="height:90px;" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
-      svg += `<defs>
-        <linearGradient id="wgrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
-        </linearGradient>
-      </defs>`;
-      svg += `<path d="${areaPath}" fill="url(#wgrad)"/>`;
-      svg += `<path d="${path}" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-      points.forEach(p => {
-        svg += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" fill="#06b6d4"/>`;
-      });
-      svg += `</svg>`;
-      container.innerHTML = svg;
-    }
-
-    function renderMonthAverages() {
-      const container = document.getElementById('statsMonthAverages');
-      if (!container) return;
-      const monthKey = finViewMonth || getMonthKey(getLogicalDate());
-      const [y, m] = monthKey.split('-').map(Number);
-      const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
-      const endDate = `${y}-${String(m).padStart(2, '0')}-${String(new Date(y, m, 0).getDate()).padStart(2, '0')}`;
-      const today = getLogicalDate();
-
-      const sleepDays = Object.keys(sleepHistory).filter(d => d >= startDate && d <= endDate && d <= today && sleepHistory[d].duration);
-      const sleepAvg = sleepDays.length > 0 ? Math.round(sleepDays.reduce((s, d) => s + sleepHistory[d].duration, 0) / sleepDays.length) : 0;
-
-      const moodDays = Object.keys(moodHistory).filter(d => d >= startDate && d <= endDate && d <= today && moodHistory[d].mood);
-      const moodAvg = moodDays.length > 0 ? (moodDays.reduce((s, d) => s + moodHistory[d].mood, 0) / moodDays.length) : 0;
-
-      const foodDays = Object.keys(foodHistory).filter(d => d >= startDate && d <= endDate && d <= today && foodHistory[d].calories);
-      const foodAvg = foodDays.length > 0 ? Math.round(foodDays.reduce((s, d) => s + foodHistory[d].calories, 0) / foodDays.length) : 0;
-
-      const waterDays = Object.keys(waterHistory).filter(d => d >= startDate && d <= endDate && d <= today && waterHistory[d].current > 0);
-      const waterAvg = waterDays.length > 0 ? Math.round(waterDays.reduce((s, d) => s + waterHistory[d].current, 0) / waterDays.length) : 0;
-
-      const sportDays = Object.keys(sportData).filter(d => d >= startDate && d <= endDate && d <= today && (sportData[d].mood || sportData[d].typeId || (sportData[d].exercises && sportData[d].exercises.length) || sportData[d].distance));
-      const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text));
-
-      let habDone = 0, habPossible = 0;
-      habitsConfig.blocks.forEach(block => {
-        if (block.type === 'sport' || block.type === 'read') return;
-        block.habits.forEach(h => {
-          if (block.type === 'daily') {
-            const monthDays = getMonthDays(monthKey).filter(d => d.date <= today);
-            monthDays.forEach(d => {
-              habPossible++;
-              const wk = getMondayOfDate(d.date);
-              const wkChecks = habitsData.weeks[wk] && habitsData.weeks[wk].checks;
-              if (wkChecks && wkChecks[h.id] && wkChecks[h.id][d.date]) habDone++;
-            });
-          } else {
-            habPossible++;
-            const weeks = getWeeksInMonth(monthKey, today);
-            let any = false;
-            weeks.forEach(w => {
-              const wkChecks = habitsData.weeks[w] && habitsData.weeks[w].checks;
-              if (wkChecks && wkChecks[h.id]) {
-                const weekEnd = getWeekEndForWeek(w);
-                const hasAny = Object.keys(wkChecks[h.id]).some(dd => dd >= w && dd <= weekEnd && getMonthKey(dd) === monthKey);
-                if (hasAny) any = true;
-              }
-            });
-            if (any) habDone++;
-          }
-        });
-      });
-      const habPct = habPossible > 0 ? Math.round((habDone / habPossible) * 100) : 0;
-
-      container.innerHTML = `
-        <div class="stats-day-row"><div class="label"><span>😴</span> Средний сон</div><div class="value">${sleepAvg > 0 ? formatDuration(sleepAvg) : '—'}</div></div>
-        <div class="stats-day-row"><div class="label"><span>😊</span> Среднее настроение</div><div class="value">${moodAvg > 0 ? moodAvg.toFixed(1) + ' / 10' : '—'}</div></div>
-        <div class="stats-day-row"><div class="label"><span>🍎</span> Средние калории</div><div class="value">${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</div></div>
-        <div class="stats-day-row"><div class="label"><span>💧</span> Средняя вода</div><div class="value">${waterAvg > 0 ? waterAvg + ' мл' : '—'}</div></div>
-        <div class="stats-day-row"><div class="label"><span>🏃</span> Тренировок</div><div class="value">${sportDays.length}</div></div>
-        <div class="stats-day-row"><div class="label"><span>📚</span> Раз читал</div><div class="value">${readDays.length}</div></div>
-        <div class="stats-day-row"><div class="label"><span>✅</span> Средний % привычек</div><div class="value">${habPossible > 0 ? habPct + '%' : '—'}</div></div>
-      `;
-    }
-
-    function getWeeksInMonth(monthKey, today) {
-      const days = getMonthDays(monthKey).filter(d => d.date <= today);
-      const set = new Set();
-      days.forEach(d => set.add(getMondayOfDate(d.date)));
-      return Array.from(set).sort();
-    }
-
-    function renderMonth() {
-      renderFinances();
-      renderMonthSteps();
-      renderMonthWeight();
-      renderMonthAverages();
-    }
-
-    function renderStats() {
-      renderStatsDay();
-      renderStatsWeek();
-      renderMonth();
-    }
-
-    /* === НЕДЕЛЯ: рендер всего === */
-    function renderWeekAll() {
-      initViewWeek();
-      const currentKey = getCurrentWeekKey();
-      const minKey = getMinArchiveWeek();
-      const isCurrent = isViewingCurrentWeek();
-
-      const labelEl = document.getElementById('weekNavLabel');
-      const prevBtn = document.getElementById('weekPrevBtn');
-      const nextBtn = document.getElementById('weekNextBtn');
-      if (labelEl) {
-        const range = formatWeekRange(viewWeekMonday);
-        if (isCurrent) {
-          labelEl.innerHTML = `${range} <span class="current-badge">Текущая</span>`;
-        } else {
-          labelEl.textContent = range;
-        }
-      }
-      if (prevBtn) prevBtn.disabled = viewWeekMonday <= minKey;
-      if (nextBtn) nextBtn.disabled = isCurrent;
-
-      const bannerEl = document.getElementById('weekArchiveBanner');
-      if (bannerEl) {
-        if (isCurrent) {
-          bannerEl.innerHTML = '';
-        } else {
-          bannerEl.innerHTML = `<div class="archive-banner">📖 Архив — только просмотр</div>`;
-        }
-      }
-
-      const gearIds = ['weekHabitsGear', 'weekSportGear', 'weekStepsGear'];
-      gearIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = isCurrent ? '' : 'none';
-      });
-
-      renderWeekHabitsGrid();
-      renderWeekSummary();
-      renderWeekSport();
-      renderWeekRead();
-      renderWeekSteps();
-      renderWeight();
-      renderWeekSleep();
-      renderWeekMood();
-      renderWeekFood();
-    }
-
-    /* ============ ДОСТИЖЕНИЯ ============ */
+    /* ДОСТИЖЕНИЯ */
     const ACH_KEY = 'achievements_v1';
 
     const ACHIEVEMENTS = [
@@ -6214,4 +5912,4 @@
     });
   </script>
 </body>
-</html>
+</html>   
