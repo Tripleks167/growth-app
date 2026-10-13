@@ -2168,12 +2168,12 @@
         </div>
         <div class="card">
           <div class="card-title"><span class="icon">📋</span> Сводка дня</div>
-          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>💧</span> Вода</div><div class="value" id="homeWaterValue">— / —</div></div>
-          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>👟</span> Шаги</div><div class="value" id="homeStepsValue">— / —</div></div>
-          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>😴</span> Сон</div><div class="value" id="homeSleepValue">—</div></div>
-          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>😊</span> Настроение</div><div class="value" id="homeMoodValue">—</div></div>
-          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
-          <div class="summary-row clickable" onclick="switchScreen('day')"><div class="label"><span>✅</span> Привычки</div><div class="value" id="homeHabitsValue">— / —</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-water')"><div class="label"><span>💧</span> Вода</div><div class="value" id="homeWaterValue">— / —</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-steps')"><div class="label"><span>👟</span> Шаги</div><div class="value" id="homeStepsValue">— / —</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-sleep')"><div class="label"><span>😴</span> Сон</div><div class="value" id="homeSleepValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-mood')"><div class="label"><span>😊</span> Настроение</div><div class="value" id="homeMoodValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-food')"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-habits')"><div class="label"><span>✅</span> Привычки</div><div class="value" id="homeHabitsValue">— / —</div></div>
         </div>
         <div class="ach-card" id="achievementsCard">
           <div class="ach-head">
@@ -2192,7 +2192,7 @@
           <div class="sub" id="dayDate">Сегодня</div>
         </div>
 
-        <div class="card">
+        <div class="card" id="day-card-water">
           <div class="card-head">
             <div class="title"><span>💧</span> Вода</div>
             <button class="gear-btn" onclick="openWaterSettings()">⚙️</button>
@@ -2242,7 +2242,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" id="day-card-steps">
           <div class="card-head">
             <div class="title"><span>👟</span> Шаги</div>
             <button class="gear-btn" onclick="openStepsSettings()">⚙️</button>
@@ -2275,7 +2275,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" id="day-card-sleep">
           <div class="card-head">
             <div class="title"><span>😴</span> Сон</div>
             <button class="gear-btn" onclick="openSleepSettings()">⚙️</button>
@@ -2301,7 +2301,7 @@
           <div class="quality-scale" id="qualityScale"></div>
         </div>
 
-        <div class="card">
+        <div class="card" id="day-card-mood">
           <div class="mood-header">
             <div class="title"><span>😊</span> Настроение и дневник</div>
             <div class="date-nav">
@@ -2317,7 +2317,7 @@
           <div class="note-status" id="noteStatus"></div>
         </div>
 
-        <div class="card">
+        <div class="card" id="day-card-food">
           <div class="card-head">
             <div class="title"><span>🍎</span> Питание</div>
             <button class="gear-btn" onclick="openFoodSettings()">⚙️</button>
@@ -2361,7 +2361,7 @@
           <div class="note-status" id="foodNoteStatus"></div>
         </div>
 
-        <div class="card">
+        <div class="card" id="day-card-habits">
           <div class="card-head">
             <div class="title"><span>✅</span> Привычки сегодня</div>
             <button class="gear-btn" onclick="openHabitsEditor()">⚙️</button>
@@ -2551,16 +2551,34 @@
       screens[s.id.replace('screen-', '')] = s;
     });
 
-    function switchScreen(name) {
+    function switchScreen(name, scrollToId) {
       Object.values(screens).forEach(s => s.classList.remove('active'));
       screens[name]?.classList.add('active');
       tabs.forEach(t => t.classList.toggle('active', t.dataset.screen === name));
-      document.querySelector('.content').scrollTop = 0;
       tg.HapticFeedback?.selectionChanged();
+
       if (name === 'day') renderDayHabits();
       if (name === 'week') renderWeekAll();
       if (name === 'goals') renderGoals();
       if (name === 'stats') renderStats();
+
+      const content = document.querySelector('.content');
+      if (scrollToId) {
+        // Даём браузеру отрисовать новый экран, потом плавно скроллим
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const target = document.getElementById(scrollToId);
+            if (target) {
+              const top = target.offsetTop - 12;
+              content.scrollTo({ top, behavior: 'smooth' });
+            } else {
+              content.scrollTop = 0;
+            }
+          });
+        });
+      } else {
+        content.scrollTop = 0;
+      }
     }
 
     tabs.forEach(tab => {
@@ -2589,7 +2607,7 @@
       return n.toISOString().slice(0, 10);
     }
 
-    // === НЕДЕЛЯ: viewWeekMonday ===
+    // === НЕДЕЛЯ ===
     function getMinArchiveWeek() {
       const currentKey = getCurrentWeekKey();
       const fallbackMin = shiftWeekKey(currentKey, -24);
@@ -2656,7 +2674,6 @@
       const dayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
       const today = getLogicalDate();
       for (let i = 0; i < 7; i++) {
-        const dateStr = shiftWeekKey(weekKey, 0);
         const d = new Date(weekKey + 'T12:00:00');
         d.setDate(d.getDate() + i);
         const ds = d.toISOString().slice(0, 10);
