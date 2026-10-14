@@ -47,6 +47,8 @@
       --archive-grad: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
       --diary: #22d3ee;
       --diary-grad: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
+      --nav-grad: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      --nav-grad-money: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
     }
 
     html, body {
@@ -233,8 +235,8 @@
     }
     .ach-item:active { transform: scale(0.95); }
     .ach-item.locked {
-      opacity: 0.5;
-      filter: grayscale(0.8);
+      opacity: 0.55;
+      filter: grayscale(0.7);
     }
     .ach-item.unlocked {
       background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(236, 72, 153, 0.08));
@@ -258,6 +260,16 @@
       right: 4px;
       font-size: 11px;
       opacity: 0.7;
+    }
+    .ach-item .ach-item-progress {
+      font-size: 10px;
+      color: #fbbf24;
+      font-weight: 700;
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .ach-item.unlocked .ach-item-progress {
+      color: #4ade80;
     }
     .ach-item .ach-item-hint {
       font-size: 9px;
@@ -305,6 +317,7 @@
     }
     .gear-btn:active { opacity: 1; transform: scale(0.9) rotate(45deg); }
 
+    /* ====== НАВИГАЦИЯ ПО ДАТЕ (увеличенная, цветная) ====== */
     .week-nav {
       display: flex;
       align-items: center;
@@ -313,14 +326,15 @@
       gap: 10px;
     }
     .week-nav button {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      background: var(--nav-grad);
+      border: none;
+      color: #14110f;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 26px;
+      font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -329,27 +343,42 @@
       -webkit-appearance: none;
       appearance: none;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(74, 222, 128, 0.4);
+      transition: transform 0.12s, box-shadow 0.2s;
+      line-height: 1;
     }
-    .week-nav button:active { transform: scale(0.9); }
-    .week-nav button:disabled { opacity: 0.3; cursor: default; }
+    .week-nav button:active {
+      transform: scale(0.9);
+      box-shadow: 0 2px 8px rgba(74, 222, 128, 0.6);
+    }
+    .week-nav button:disabled {
+      opacity: 0.3;
+      cursor: default;
+      box-shadow: none;
+      background: var(--card-2);
+      color: var(--text-dim);
+    }
     .week-nav .week-label {
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 700;
       text-align: center;
       flex: 1;
       line-height: 1.3;
+      color: var(--text);
+      padding: 0 4px;
     }
     .week-nav .week-label .current-badge {
       display: inline-block;
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
-      padding: 2px 8px;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
       border-radius: 10px;
       background: var(--habit-grad);
       color: #14110f;
-      margin-left: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
     }
 
     .archive-banner {
@@ -501,23 +530,39 @@
       text-transform: uppercase; letter-spacing: 0.3px;
     }
 
+    /* ====== FIN MONTH NAV (увеличенная, цветная) ====== */
     .month-nav {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 16px; gap: 10px;
     }
     .month-nav button {
-      background: var(--card-2); border: 1px solid var(--border);
-      color: var(--text); width: 36px; height: 36px;
-      border-radius: 10px; cursor: pointer; font-size: 16px;
+      background: var(--nav-grad-money);
+      border: none;
+      color: #14110f;
+      width: 52px; height: 52px;
+      border-radius: 14px; cursor: pointer; font-size: 26px;
+      font-weight: 900;
       display: flex; align-items: center; justify-content: center;
       font-family: inherit; padding: 0;
       -webkit-appearance: none; appearance: none; flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(251, 191, 36, 0.4);
+      transition: transform 0.12s, box-shadow 0.2s;
+      line-height: 1;
     }
-    .month-nav button:active { transform: scale(0.9); }
-    .month-nav button:disabled { opacity: 0.3; cursor: default; }
+    .month-nav button:active {
+      transform: scale(0.9);
+      box-shadow: 0 2px 8px rgba(251, 191, 36, 0.6);
+    }
+    .month-nav button:disabled {
+      opacity: 0.3; cursor: default;
+      box-shadow: none;
+      background: var(--card-2);
+      color: var(--text-dim);
+    }
     .month-nav .month-label {
-      font-size: 15px; font-weight: 700; text-align: center;
+      font-size: 17px; font-weight: 700; text-align: center;
       flex: 1; text-transform: capitalize;
+      color: var(--text);
     }
 
     .fin-row {
@@ -1273,7 +1318,7 @@
     }
     .diary-add-btn:active { background: rgba(34, 211, 238, 0.1); }
 
-    /* ===== ТРЕНИРОВКИ / ЧТЕНИЕ (НОВОЕ) ===== */
+    /* ===== ТРЕНИРОВКИ / ЧТЕНИЕ ===== */
     .workout-list { margin-bottom: 8px; }
     .workout-card {
       background: var(--card-2);
@@ -1376,6 +1421,26 @@
       font-size: 12px; color: var(--text-dim);
       font-style: italic;
     }
+
+    /* Прогресс книги */
+    .book-progress {
+      margin-top: 8px;
+    }
+    .book-progress-bar {
+      height: 6px; background: rgba(255,255,255,0.08);
+      border-radius: 3px; overflow: hidden; margin-bottom: 4px;
+    }
+    .book-progress-fill {
+      height: 100%; background: var(--read-grad);
+      border-radius: 3px; width: 0;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .book-progress-text {
+      font-size: 11px; color: var(--text-dim);
+      display: flex; justify-content: space-between;
+      font-variant-numeric: tabular-nums;
+    }
+    .book-progress-text .bp-done { color: #4ade80; font-weight: 700; }
 
     /* Упражнение в 2 строки */
     .exercise-item {
@@ -2001,7 +2066,7 @@
         <div class="ach-card" id="achievementsCard">
           <div class="ach-head">
             <div class="title"><span>🏆</span> Достижения</div>
-            <div class="progress-badge" id="achProgressBadge">0 / 15</div>
+            <div class="progress-badge" id="achProgressBadge">0 / 30</div>
           </div>
           <div id="achRecent"></div>
           <button class="ach-more-btn" onclick="openAllAchievements()">Все достижения →</button>
@@ -2145,7 +2210,6 @@
           <div class="note-status" id="noteStatus"></div>
         </div>
 
-        <!-- ===== ЕЖЕДНЕВНИК ===== -->
         <div class="card" id="day-card-diary">
           <div class="card-head">
             <div class="title"><span>📔</span> Ежедневник</div>
@@ -2155,7 +2219,6 @@
           <button class="diary-add-btn" onclick="addDiaryRow()">+ Добавить строчку</button>
         </div>
 
-        <!-- ===== ТРЕНИРОВКИ ===== -->
         <div class="card" id="day-card-sport">
           <div class="card-head">
             <div class="title"><span>🏋️</span> Тренировки</div>
@@ -2164,7 +2227,6 @@
           <button class="workout-add-btn" onclick="openWorkoutEditor(null)">+ Добавить тренировку</button>
         </div>
 
-        <!-- ===== ЧТЕНИЕ (НОВОЕ) ===== -->
         <div class="card" id="day-card-read">
           <div class="card-head">
             <div class="title"><span>📚</span> Чтение</div>
@@ -4170,7 +4232,6 @@
       homeVal.textContent = total > 0 ? `${done} / ${total}` : '— / —';
     }
 
-    /* ===== НОВОЕ: Сводка дня — тренировка и чтение ===== */
     function updateHomeSport() {
       const homeVal = document.getElementById('homeSportValue');
       if (!homeVal) return;
@@ -4187,14 +4248,13 @@
       if (!homeVal) return;
       const today = getLogicalDate();
       const e = readData[today];
-      const has = e && (e.mood || e.text || e.note);
+      const has = e && (e.mood || e.text || e.note || e.bookTitle);
       if (has) {
         homeVal.innerHTML = `<span class="status-icon done">✅</span>`;
       } else {
         homeVal.innerHTML = `<span class="status-icon empty">—</span>`;
       }
     }
-    /* =================================================== */
 
     /* РЕДАКТОР ПРИВЫЧЕК */
     function openHabitsEditor() { renderHabitsEditor(); }
@@ -4478,6 +4538,17 @@
       });
     }
 
+    function migrateReadData() {
+      Object.keys(readData).forEach(date => {
+        const d = readData[date];
+        if (d && typeof d === 'object' && d.bookTitle === undefined) {
+          d.bookTitle = '';
+          d.bookTotal = null;
+          d.bookCurrent = null;
+        }
+      });
+    }
+
     function saveSportData() {
       const keys = Object.keys(sportData).sort();
       if (keys.length > 90) keys.slice(0, keys.length - 90).forEach(k => delete sportData[k]);
@@ -4498,7 +4569,7 @@
     function loadReadData(cb) {
       tg.CloudStorage.getItem(READ_DATA_KEY, (err, value) => {
         if (err || !value) { readData = {}; cb && cb(); return; }
-        try { readData = JSON.parse(value) || {}; } catch (e) { readData = {}; }
+        try { readData = JSON.parse(value) || {}; migrateReadData(); } catch (e) { readData = {}; }
         cb && cb();
       });
     }
@@ -4634,6 +4705,7 @@
         syncSportHabit(date);
         renderDaySport(); renderWeekSport(); renderWeekHabitsGrid(); renderWeekSummary();
         updateHomeSport();
+        recheckAllAchievements();
         tg.HapticFeedback?.notificationOccurred('warning');
       };
       menu.appendChild(delBtn);
@@ -4664,7 +4736,7 @@
       const readHabitId = getReadHabitId();
       if (!readHabitId) return;
       const e = readData[date];
-      const hasAny = e && (e.mood || e.text || e.note);
+      const hasAny = e && (e.mood || e.text || e.note || e.bookTitle);
       const weekKey = getMondayOfDate(date);
       if (!habitsData.weeks[weekKey]) habitsData.weeks[weekKey] = { checks: {} };
       if (!habitsData.weeks[weekKey].checks) habitsData.weeks[weekKey].checks = {};
@@ -4802,7 +4874,7 @@
         renderDaySport();
         renderWeekSport(); renderWeekHabitsGrid(); renderWeekSummary();
         tg.HapticFeedback?.notificationOccurred('success');
-        checkAchievements();
+        recheckAllAchievements();
       };
       backdrop.onclick = (e) => { if (e.target === backdrop) closeWorkoutEditor(); };
     }
@@ -5096,29 +5168,47 @@
     }
 
     /* =========================================================
-       ЧТЕНИЕ (НОВОЕ — по аналогии со спортом)
+       ЧТЕНИЕ (с книгами)
        ========================================================= */
     function renderDayRead() {
       const container = document.getElementById('dayReadList');
       if (!container) return;
       const date = viewDayDate || getLogicalDate();
       const e = readData[date];
-      const has = e && (e.mood || e.text || e.note);
+      const has = e && (e.mood || e.text || e.note || e.bookTitle);
       if (!has) {
         container.innerHTML = `<div class="workout-empty-hint">Записей нет. Добавь первую!</div>`;
       } else {
         const emoji = e.mood ? READ_EMOJIS[e.mood - 1] : '📖';
         const stats = [];
-        if (e.text) stats.push(escapeHtml(e.text));
         if (e.mood) stats.push(`${e.mood}/10`);
+        const title = e.bookTitle || e.text || 'Чтение';
+        let bookHtml = '';
+        if (e.bookTitle && e.bookTotal && e.bookTotal > 0) {
+          const cur = Math.min(e.bookCurrent || 0, e.bookTotal);
+          const pct = Math.round((cur / e.bookTotal) * 100);
+          const finished = cur >= e.bookTotal;
+          bookHtml = `
+            <div class="book-progress">
+              <div class="book-progress-bar">
+                <div class="book-progress-fill" style="width:${pct}%"></div>
+              </div>
+              <div class="book-progress-text">
+                <span>стр. ${cur} / ${e.bookTotal}</span>
+                <span class="bp-done">${finished ? '✅ Прочитано' : pct + '%'}</span>
+              </div>
+            </div>
+          `;
+        }
         container.innerHTML = `<div class="read-card" onclick="openReadModal()">
           <div class="read-head">
             <div class="rh-left">
               <div class="rh-emoji">${emoji}</div>
-              <div class="rh-title">${e.text ? escapeHtml(e.text) : 'Чтение'}</div>
+              <div class="rh-title">${escapeHtml(title)}</div>
             </div>
           </div>
           ${stats.length ? `<div class="read-meta">${stats.map(s => `<span class="rm-badge">${s}</span>`).join('')}</div>` : ''}
+          ${bookHtml}
           ${e.note ? `<div class="exercise-line" style="padding-left:0;margin-top:6px;">${escapeHtml(e.note)}</div>` : ''}
         </div>`;
       }
@@ -5130,8 +5220,16 @@
     function openReadModal(dateStr) {
       const date = dateStr || viewDayDate || getLogicalDate();
       document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-      const existing = readData[date] || { mood: null, text: '', note: '' };
-      readModalState = { date, mood: existing.mood || null, text: existing.text || '', note: existing.note || '' };
+      const existing = readData[date] || { mood: null, text: '', note: '', bookTitle: '', bookTotal: null, bookCurrent: null };
+      readModalState = {
+        date,
+        mood: existing.mood || null,
+        text: existing.text || '',
+        note: existing.note || '',
+        bookTitle: existing.bookTitle || '',
+        bookTotal: existing.bookTotal || '',
+        bookCurrent: existing.bookCurrent || ''
+      };
       buildReadModal();
     }
     function buildReadModal() {
@@ -5145,12 +5243,37 @@
       const dateObj = new Date(s.date + 'T12:00:00');
       const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
       const modal = backdrop.querySelector('#readModal');
+
+      const total = parseInt(s.bookTotal, 10);
+      const cur = parseInt(s.bookCurrent, 10);
+      let bookPct = 0;
+      if (!isNaN(total) && total > 0 && !isNaN(cur)) bookPct = Math.min(Math.round((cur / total) * 100), 100);
+      const finished = !isNaN(total) && total > 0 && !isNaN(cur) && cur >= total;
+
       modal.innerHTML = `
         <h3>📚 Чтение — ${escapeHtml(dateLabel)}</h3>
         <label>Насколько продуктивно?</label>
         <div class="emoji-scale-10" id="readEmojiScale"></div>
-        <label>Что читал</label>
-        <input type="text" id="readTextField" value="${escapeHtml(s.text)}" placeholder="Мастер и Маргарита, 30 стр" maxlength="200">
+
+        <label>📖 Название книги</label>
+        <input type="text" id="readBookTitle" value="${escapeHtml(s.bookTitle)}" placeholder="Например: Мастер и Маргарита" maxlength="200">
+
+        <label>Всего страниц</label>
+        <input type="number" id="readBookTotal" min="1" max="99999" step="1" value="${s.bookTotal || ''}" placeholder="350">
+
+        <label>Прочитано страниц</label>
+        <input type="number" id="readBookCurrent" min="0" max="99999" step="1" value="${s.bookCurrent || ''}" placeholder="0">
+
+        <div class="book-progress" id="bookProgressPreview" style="display:${total > 0 ? 'block' : 'none'};margin-top:12px;">
+          <div class="book-progress-bar">
+            <div class="book-progress-fill" id="bookProgressFill" style="width:${bookPct}%"></div>
+          </div>
+          <div class="book-progress-text">
+            <span id="bookProgressText">стр. ${isNaN(cur) ? 0 : cur} / ${isNaN(total) ? 0 : total}</span>
+            <span class="bp-done" id="bookProgressPct">${finished ? '✅ Прочитано' : bookPct + '%'}</span>
+          </div>
+        </div>
+
         <label>Заметка</label>
         <textarea class="note-field" id="readNoteField" placeholder="Впечатления..." maxlength="500" style="min-height:60px;">${escapeHtml(s.note)}</textarea>
         <div class="modal-buttons">
@@ -5176,10 +5299,39 @@
         emojiScale.appendChild(btn);
         emojiBtns.push(btn);
       });
-      const textInp = modal.querySelector('#readTextField');
-      textInp.addEventListener('input', function() { s.text = textInp.value; });
+
+      const titleInp = modal.querySelector('#readBookTitle');
+      const totalInp = modal.querySelector('#readBookTotal');
+      const curInp = modal.querySelector('#readBookCurrent');
+      const preview = modal.querySelector('#bookProgressPreview');
+      const fillEl = modal.querySelector('#bookProgressFill');
+      const textEl = modal.querySelector('#bookProgressText');
+      const pctEl = modal.querySelector('#bookProgressPct');
+
+      titleInp.addEventListener('input', () => { s.bookTitle = titleInp.value; });
+      const updatePreview = () => {
+        s.bookTotal = totalInp.value;
+        s.bookCurrent = curInp.value;
+        const t = parseInt(s.bookTotal, 10);
+        const c = parseInt(s.bookCurrent, 10);
+        if (isNaN(t) || t <= 0) {
+          preview.style.display = 'none';
+          return;
+        }
+        preview.style.display = 'block';
+        const safeC = isNaN(c) ? 0 : Math.max(0, Math.min(c, t));
+        const pct = Math.round((safeC / t) * 100);
+        const done = safeC >= t;
+        fillEl.style.width = pct + '%';
+        textEl.textContent = `стр. ${safeC} / ${t}`;
+        pctEl.textContent = done ? '✅ Прочитано' : pct + '%';
+      };
+      totalInp.addEventListener('input', updatePreview);
+      curInp.addEventListener('input', updatePreview);
+
       const noteInp = modal.querySelector('#readNoteField');
       noteInp.addEventListener('input', function() { s.note = noteInp.value; });
+
       backdrop.querySelector('#cancelBtn').onclick = function() { closeReadModal(); };
       backdrop.querySelector('#deleteBtn').onclick = function() {
         if (!readData[s.date]) { closeReadModal(); return; }
@@ -5189,19 +5341,34 @@
         syncReadHabit(s.date);
         closeReadModal();
         renderDayRead(); renderWeekRead(); renderWeekHabitsGrid(); renderWeekSummary();
+        recheckAllAchievements();
+        updateHomeRead();
         tg.HapticFeedback?.notificationOccurred('warning');
       };
       backdrop.querySelector('#saveBtn').onclick = function() {
-        const hasData = s.mood || s.text || s.note;
-        if (hasData) readData[s.date] = { mood: s.mood, text: s.text, note: s.note };
-        else delete readData[s.date];
+        const t = parseInt(s.bookTotal, 10);
+        const c = parseInt(s.bookCurrent, 10);
+        const bookTotalVal = (!isNaN(t) && t > 0) ? t : null;
+        const bookCurrentVal = (!isNaN(c) && c >= 0) ? Math.min(c, bookTotalVal || c) : null;
+        const hasData = s.mood || s.text || s.note || s.bookTitle || bookTotalVal;
+        if (hasData) {
+          readData[s.date] = {
+            mood: s.mood,
+            text: s.text,
+            note: s.note,
+            bookTitle: s.bookTitle || '',
+            bookTotal: bookTotalVal,
+            bookCurrent: bookCurrentVal
+          };
+        } else delete readData[s.date];
         saveReadData();
         syncReadHabit(s.date);
         closeReadModal();
         renderDayRead();
         renderWeekRead(); renderWeekHabitsGrid(); renderWeekSummary();
+        updateHomeRead();
         tg.HapticFeedback?.notificationOccurred('success');
-        checkAchievements();
+        recheckAllAchievements();
       };
       backdrop.onclick = function(e) { if (e.target === backdrop) closeReadModal(); };
     }
@@ -5221,7 +5388,7 @@
       let totalDone = 0, totalMood = 0, moodCount = 0;
       days.forEach(d => {
         const entry = readData[d.date];
-        const hasEntry = entry && (entry.mood || entry.text || entry.note);
+        const hasEntry = entry && (entry.mood || entry.text || entry.note || entry.bookTitle);
         const clickAttr = isArchive ? '' : `onclick="openReadModal('${d.date}')"`;
         const clickClass = isArchive ? ' no-click' : '';
         if (!hasEntry) {
@@ -5231,7 +5398,14 @@
         totalDone++;
         if (entry.mood) { totalMood += entry.mood; moodCount++; }
         const emoji = entry.mood ? READ_EMOJIS[entry.mood - 1] : '📖';
-        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
+        let sub = '';
+        if (entry.bookTitle) {
+          const t = entry.bookTotal || 0;
+          const c = entry.bookCurrent || 0;
+          const pct = t > 0 ? Math.min(Math.round((c / t) * 100), 100) : 0;
+          sub = `<div class="exercise-line" style="padding-left:0;margin-top:4px;">📖 ${escapeHtml(entry.bookTitle)}: ${c}/${t} (${pct}%)${t > 0 && c >= t ? ' ✅' : ''}</div>`;
+        }
+        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}${sub}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
       });
       listEl.innerHTML = html;
       const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
@@ -5667,7 +5841,7 @@
           if (day && Array.isArray(day.workouts)) sportCount += day.workouts.length;
         }
       });
-      const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text));
+      const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text || readData[d].bookTitle));
 
       let habDone = 0, habPossible = 0;
       habitsConfig.blocks.forEach(block => {
@@ -5994,7 +6168,7 @@
       goal.completedAt = getLogicalDate();
       saveGoals(); renderGoals(); celebrateGoal();
       tg.HapticFeedback?.notificationOccurred('success');
-      checkAchievements();
+      recheckAllAchievements();
     }
     function uncompleteGoal(goalId) {
       const goal = goals.find(g => g.id === goalId);
@@ -6003,6 +6177,7 @@
       goal.completedAt = null;
       saveGoals(); renderGoals();
       tg.HapticFeedback?.notificationOccurred('warning');
+      recheckAllAchievements();
     }
     function deleteGoal(goalId) {
       const goal = goals.find(g => g.id === goalId);
@@ -6011,6 +6186,7 @@
       goals = goals.filter(g => g.id !== goalId);
       saveGoals(); renderGoals();
       tg.HapticFeedback?.notificationOccurred('warning');
+      recheckAllAchievements();
     }
     function progressGoal(goalId) {
       const goal = goals.find(g => g.id === goalId);
@@ -6048,7 +6224,7 @@
         }
         saveGoals(); backdrop.remove(); renderGoals();
         tg.HapticFeedback?.notificationOccurred('success');
-        checkAchievements();
+        recheckAllAchievements();
       };
       backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
@@ -6240,7 +6416,7 @@
         goalModalEl = null; goalModalState = null;
         renderGoals();
         tg.HapticFeedback?.notificationOccurred('success');
-        checkAchievements();
+        recheckAllAchievements();
       };
       backdrop.onclick = function(e) {
         if (e.target === backdrop) {
@@ -6320,7 +6496,7 @@
     function getReadStreak() {
       return calcStreakDaily(date => {
         const e = readData[date];
-        return e && (e.mood || e.text);
+        return e && (e.mood || e.text || e.bookTitle);
       });
     }
     function getHabitsWeeklyStreak() {
@@ -6477,9 +6653,10 @@
       }
 
       const readE = readData[today];
-      if (readE && (readE.mood || readE.text)) {
+      if (readE && (readE.mood || readE.text || readE.bookTitle)) {
         const moodEmoji = readE.mood ? READ_EMOJIS[readE.mood - 1] : '';
-        summaryHtml += `<div class="stats-day-row"><div class="label"><span>📚</span> Чтение</div><div class="value">${moodEmoji} ${readE.text || 'Читал'}</div></div>`;
+        const readTitle = readE.bookTitle || readE.text || 'Читал';
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>📚</span> Чтение</div><div class="value">${moodEmoji} ${escapeHtml(readTitle)}</div></div>`;
       } else {
         summaryHtml += `<div class="stats-day-row"><div class="label"><span>📚</span> Чтение</div><div class="value dim">—</div></div>`;
       }
@@ -6661,7 +6838,7 @@
         const day = sportData[d.date];
         if (day && Array.isArray(day.workouts)) sportCount += day.workouts.length;
         const rd = readData[d.date];
-        if (rd && (rd.mood || rd.text)) readCount++;
+        if (rd && (rd.mood || rd.text || rd.bookTitle)) readCount++;
       });
 
       html += `<div class="chart-block">
@@ -6693,72 +6870,251 @@
       renderBarChart(document.getElementById('chartFood'), foodVals, foodMax, '#fbbf24', v => String(v));
     }
 
-    /* ДОСТИЖЕНИЯ */
+    /* =========================================================
+       ДОСТИЖЕНИЯ (обновлено: 30, с прогрессом, автопроверка)
+       ========================================================= */
     const ACH_KEY = 'achievements_v1';
 
+    // Каждое достижение имеет:
+    // - check()   : текущее значение/булево
+    // - target    : целевое значение (для прогресса)
+    // - progress(): возвращает {cur, target} для отображения
+    // - goal      : текст цели
     const ACHIEVEMENTS = [
-      { id: 'first_day',   emoji: '🌅', name: 'Первый день',       desc: 'Открыл приложение',
-        check: () => true },
-      { id: 'first_water', emoji: '💧', name: 'Первый литр',       desc: 'Выпил 1000 мл за день',
-        check: () => (waterHistory[getLogicalDate()]?.current || waterCurrent) >= 1000 },
-      { id: 'first_5k',    emoji: '🚶', name: '5 000 шагов',        desc: 'Прошёл 5000 шагов за день',
-        check: () => (stepsHistory[getLogicalDate()] || stepsCurrent) >= 5000 },
-      { id: 'first_sport', emoji: '🥇', name: 'Первая тренировка',  desc: 'Первая отметка спорта',
-        check: () => Object.keys(sportData).some(d => sportData[d] && Array.isArray(sportData[d].workouts) && sportData[d].workouts.length > 0) },
-      { id: 'first_goal',  emoji: '🎯', name: 'Первая цель',        desc: 'Создал цель',
-        check: () => goals.length > 0 },
-      { id: 'streak_7',    emoji: '🔥', name: '7 дней подряд',      desc: 'Неделя streak',
+      // --- Стартовые ---
+      { id: 'first_day', emoji: '🌅', name: 'Первый день', desc: 'Открыл приложение',
+        goal: 'Просто открыть приложение',
+        check: () => true, target: 1 },
+      { id: 'first_water', emoji: '💧', name: 'Первый литр', desc: 'Выпил 1000 мл за день',
+        goal: 'Выпить 1000 мл воды за один день',
+        check: () => (waterHistory[getLogicalDate()]?.current || waterCurrent) >= 1000,
+        progress: () => ({ cur: Math.min((waterHistory[getLogicalDate()]?.current || waterCurrent), 1000), target: 1000 }) },
+      { id: 'first_5k', emoji: '🚶', name: '5 000 шагов', desc: 'Прошёл 5000 шагов за день',
+        goal: 'Пройти 5000 шагов за один день',
+        check: () => (stepsHistory[getLogicalDate()] || stepsCurrent) >= 5000,
+        progress: () => ({ cur: Math.min((stepsHistory[getLogicalDate()] || stepsCurrent), 5000), target: 5000 }) },
+      { id: 'first_sport', emoji: '🥇', name: 'Первая тренировка', desc: 'Первая отметка спорта',
+        goal: 'Добавить первую тренировку',
+        check: () => Object.keys(sportData).some(d => sportData[d] && Array.isArray(sportData[d].workouts) && sportData[d].workouts.length > 0),
+        progress: () => ({ cur: Object.keys(sportData).some(d => sportData[d] && Array.isArray(sportData[d].workouts) && sportData[d].workouts.length > 0) ? 1 : 0, target: 1 }) },
+      { id: 'first_goal', emoji: '🎯', name: 'Первая цель', desc: 'Создал цель',
+        goal: 'Создать первую цель',
+        check: () => goals.length > 0,
+        progress: () => ({ cur: Math.min(goals.length, 1), target: 1 }) },
+      { id: 'first_book', emoji: '📖', name: 'Первая книга', desc: 'Отметил книгу в чтении',
+        goal: 'Добавить книгу с названием',
+        check: () => Object.keys(readData).some(d => readData[d].bookTitle),
+        progress: () => ({ cur: Object.keys(readData).some(d => readData[d].bookTitle) ? 1 : 0, target: 1 }) },
+
+      // --- Серии ---
+      { id: 'streak_3', emoji: '🔥', name: '3 дня подряд', desc: 'Мини-streak',
+        goal: '3 дня подряд выполнять любую из привычек (вода, шаги, сон, настроение, чтение, питание)',
+        check: () => (getWaterStreak().current >= 3 || getStepsStreak().current >= 3 || getSleepStreak().current >= 3 || getMoodStreak().current >= 3 || getReadStreak().current >= 3 || getFoodStreak().current >= 3),
+        progress: () => ({ cur: Math.max(getWaterStreak().current, getStepsStreak().current, getSleepStreak().current, getMoodStreak().current, getReadStreak().current, getFoodStreak().current), target: 3 }) },
+      { id: 'streak_7', emoji: '🔥', name: '7 дней подряд', desc: 'Неделя streak',
+        goal: '7 дней подряд выполнять любую из привычек',
+        check: () => (getWaterStreak().current >= 7 || getStepsStreak().current >= 7 || getSleepStreak().current >= 7 || getMoodStreak().current >= 7 || getReadStreak().current >= 7 || getFoodStreak().current >= 7),
+        progress: () => ({ cur: Math.min(Math.max(getWaterStreak().current, getStepsStreak().current, getSleepStreak().current, getMoodStreak().current, getReadStreak().current, getFoodStreak().current), 7), target: 7 }) },
+      { id: 'streak_30', emoji: '💎', name: '30 дней подряд', desc: 'Месяц streak',
+        goal: '30 дней подряд выполнять любую из привычек',
+        check: () => (getWaterStreak().current >= 30 || getStepsStreak().current >= 30 || getSleepStreak().current >= 30 || getMoodStreak().current >= 30 || getReadStreak().current >= 30 || getFoodStreak().current >= 30),
+        progress: () => ({ cur: Math.min(Math.max(getWaterStreak().current, getStepsStreak().current, getSleepStreak().current, getMoodStreak().current, getReadStreak().current, getFoodStreak().current), 30), target: 30 }) },
+      { id: 'streak_100', emoji: '👑', name: '100 дней подряд', desc: 'Сотка!',
+        goal: '100 дней подряд выполнять любую из привычек',
+        check: () => (getWaterStreak().current >= 100 || getStepsStreak().current >= 100 || getSleepStreak().current >= 100 || getMoodStreak().current >= 100 || getReadStreak().current >= 100 || getFoodStreak().current >= 100),
+        progress: () => ({ cur: Math.min(Math.max(getWaterStreak().current, getStepsStreak().current, getSleepStreak().current, getMoodStreak().current, getReadStreak().current, getFoodStreak().current), 100), target: 100 }) },
+
+      // --- Вода ---
+      { id: 'water_norm', emoji: '🚰', name: 'Норма воды', desc: 'Достиг цели по воде',
+        goal: 'Выполнить дневную норму воды',
+        check: () => { const e = waterHistory[getLogicalDate()]; return e && e.current >= e.goal && e.goal > 0; },
+        progress: () => { const e = waterHistory[getLogicalDate()]; const cur = e ? e.current : 0; const goal = e ? e.goal : waterGoal; return { cur: Math.min(cur, goal), target: goal || 2500 }; } },
+      { id: 'water_10', emoji: '🌊', name: '10 норм воды', desc: '10 дней с нормой воды',
+        goal: '10 дней выполнить норму воды',
+        check: () => Object.keys(waterHistory).filter(d => waterHistory[d].current >= waterHistory[d].goal && waterHistory[d].goal > 0).length >= 10,
+        progress: () => ({ cur: Math.min(Object.keys(waterHistory).filter(d => waterHistory[d].current >= waterHistory[d].goal && waterHistory[d].goal > 0).length, 10), target: 10 }) },
+      { id: 'water_30', emoji: '🌊', name: '30 норм воды', desc: '30 дней с нормой воды',
+        goal: '30 дней выполнить норму воды',
+        check: () => Object.keys(waterHistory).filter(d => waterHistory[d].current >= waterHistory[d].goal && waterHistory[d].goal > 0).length >= 30,
+        progress: () => ({ cur: Math.min(Object.keys(waterHistory).filter(d => waterHistory[d].current >= waterHistory[d].goal && waterHistory[d].goal > 0).length, 30), target: 30 }) },
+
+      // --- Шаги ---
+      { id: 'steps_10k', emoji: '👟', name: '10 000 шагов', desc: 'Прошёл 10К за день',
+        goal: 'Пройти 10 000 шагов за день',
+        check: () => (stepsHistory[getLogicalDate()] || stepsCurrent) >= 10000,
+        progress: () => ({ cur: Math.min((stepsHistory[getLogicalDate()] || stepsCurrent), 10000), target: 10000 }) },
+      { id: 'steps_100k', emoji: '🏃', name: '100 000 шагов', desc: 'Суммарно 100К',
+        goal: 'Пройти суммарно 100 000 шагов (по всем дням)',
+        check: () => Object.values(stepsHistory).reduce((s, v) => s + v, 0) >= 100000,
+        progress: () => ({ cur: Math.min(Object.values(stepsHistory).reduce((s, v) => s + v, 0), 100000), target: 100000 }) },
+      { id: 'steps_1m', emoji: '🦶', name: '1 000 000 шагов', desc: 'Миллион шагов',
+        goal: 'Пройти суммарно 1 000 000 шагов',
+        check: () => Object.values(stepsHistory).reduce((s, v) => s + v, 0) >= 1000000,
+        progress: () => ({ cur: Math.min(Object.values(stepsHistory).reduce((s, v) => s + v, 0), 1000000), target: 1000000 }) },
+      { id: 'steps_days_30', emoji: '📅', name: '30 дней с шагами', desc: '30 дней активности',
+        goal: '30 дней с записанными шагами',
+        check: () => Object.keys(stepsHistory).length >= 30,
+        progress: () => ({ cur: Math.min(Object.keys(stepsHistory).length, 30), target: 30 }) },
+
+      // --- Сон ---
+      { id: 'sleep_5', emoji: '😴', name: '5 ночей в норме', desc: '5 ночей хорошего сна',
+        goal: '5 ночей в норме сна',
+        check: () => Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length >= 5,
+        progress: () => ({ cur: Math.min(Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length, 5), target: 5 }) },
+      { id: 'sleep_30', emoji: '🌙', name: '30 ночей в норме', desc: 'Месяц хорошего сна',
+        goal: '30 ночей в норме сна',
+        check: () => Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length >= 30,
+        progress: () => ({ cur: Math.min(Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length, 30), target: 30 }) },
+
+      // --- Настроение ---
+      { id: 'mood_7', emoji: '😊', name: '7 отметок настроения', desc: 'Неделя дневника',
+        goal: '7 дней отмечать настроение',
+        check: () => Object.keys(moodHistory).filter(d => moodHistory[d].mood).length >= 7,
+        progress: () => ({ cur: Math.min(Object.keys(moodHistory).filter(d => moodHistory[d].mood).length, 7), target: 7 }) },
+      { id: 'mood_30', emoji: '😄', name: '30 отметок настроения', desc: 'Месяц дневника',
+        goal: '30 дней отмечать настроение',
+        check: () => Object.keys(moodHistory).filter(d => moodHistory[d].mood).length >= 30,
+        progress: () => ({ cur: Math.min(Object.keys(moodHistory).filter(d => moodHistory[d].mood).length, 30), target: 30 }) },
+
+      // --- Питание ---
+      { id: 'food_7', emoji: '🍎', name: '7 дней питания', desc: 'Неделя дневника еды',
+        goal: '7 дней вести дневник питания',
+        check: () => Object.keys(foodHistory).filter(d => foodHistory[d].calories || foodHistory[d].mealsCount).length >= 7,
+        progress: () => ({ cur: Math.min(Object.keys(foodHistory).filter(d => foodHistory[d].calories || foodHistory[d].mealsCount).length, 7), target: 7 }) },
+
+      // --- Спорт ---
+      { id: 'sport_5', emoji: '💪', name: '5 тренировок', desc: '5 тренировок',
+        goal: '5 тренировок всего',
         check: () => {
-          return getWaterStreak().current >= 7 || getStepsStreak().current >= 7 ||
-                 getSleepStreak().current >= 7 || getMoodStreak().current >= 7 ||
-                 getReadStreak().current >= 7 || getFoodStreak().current >= 7;
-        }},
-      { id: 'perfect_week', emoji: '🌟', name: 'Идеальная неделя', desc: '100% привычек за неделю',
-        check: () => getHabitsWeeklyStreak().current >= 1 },
-      { id: 'water_norm',  emoji: '🚰', name: 'Норма воды',         desc: 'Достиг цели по воде',
+          let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; });
+          return n >= 5;
+        },
+        progress: () => { let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; }); return { cur: Math.min(n, 5), target: 5 }; } },
+      { id: 'sport_10', emoji: '🏋️', name: '10 тренировок', desc: '10 тренировок',
+        goal: '10 тренировок всего',
         check: () => {
-          const e = waterHistory[getLogicalDate()];
-          return e && e.current >= e.goal && e.goal > 0;
-        }},
-      { id: 'sport_10',    emoji: '💪', name: '10 тренировок',      desc: 'Суммарно 10 тренировок',
-        check: () => {
-          let n = 0;
-          Object.keys(sportData).forEach(d => {
-            const day = sportData[d];
-            if (day && Array.isArray(day.workouts)) n += day.workouts.length;
-          });
+          let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; });
           return n >= 10;
-        }},
-      { id: 'first_book',  emoji: '📖', name: 'Первая книга',       desc: 'Первая отметка чтения',
-        check: () => Object.keys(readData).length > 0 },
-      { id: 'streak_30',   emoji: '💎', name: '30 дней подряд',     desc: 'Месяц streak',
+        },
+        progress: () => { let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; }); return { cur: Math.min(n, 10), target: 10 }; } },
+      { id: 'sport_50', emoji: '🥇', name: '50 тренировок', desc: '50 тренировок',
+        goal: '50 тренировок всего',
         check: () => {
-          return getWaterStreak().current >= 30 || getStepsStreak().current >= 30 ||
-                 getSleepStreak().current >= 30 || getMoodStreak().current >= 30 ||
-                 getReadStreak().current >= 30 || getFoodStreak().current >= 30;
-        }},
-      { id: 'perfect_month', emoji: '👑', name: 'Идеальный месяц',  desc: '4 недели привычек подряд',
-        check: () => getHabitsWeeklyStreak().current >= 4 },
-      { id: 'sport_100',   emoji: '🏋️', name: '100 тренировок',     desc: 'Суммарно 100 тренировок',
+          let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; });
+          return n >= 50;
+        },
+        progress: () => { let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; }); return { cur: Math.min(n, 50), target: 50 }; } },
+      { id: 'sport_100', emoji: '🏆', name: '100 тренировок', desc: '100 тренировок',
+        goal: '100 тренировок всего',
         check: () => {
-          let n = 0;
-          Object.keys(sportData).forEach(d => {
-            const day = sportData[d];
-            if (day && Array.isArray(day.workouts)) n += day.workouts.length;
-          });
+          let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; });
           return n >= 100;
-        }},
-      { id: 'goals_10',    emoji: '🏆', name: '10 целей',           desc: 'Достиг 10 целей',
-        check: () => goals.filter(g => g.completed).length >= 10 },
-      { id: 'app_year',    emoji: '🎂', name: 'Год в приложении',   desc: '365 дней использования',
+        },
+        progress: () => { let n = 0; Object.keys(sportData).forEach(d => { const day = sportData[d]; if (day && Array.isArray(day.workouts)) n += day.workouts.length; }); return { cur: Math.min(n, 100), target: 100 }; } },
+      { id: 'sport_week_3', emoji: '🔥', name: 'Неделя спорта', desc: '3+ тренировки в неделю',
+        goal: '3 тренировки за одну неделю',
+        check: () => getSportWeeklyStreak().current >= 1,
+        progress: () => ({ cur: getSportWeeklyStreak().current >= 1 ? 1 : 0, target: 1 }) },
+
+      // --- Чтение ---
+      { id: 'read_5', emoji: '📚', name: '5 отметок чтения', desc: '5 раз читал',
+        goal: '5 дней чтения',
+        check: () => Object.keys(readData).filter(d => readData[d].mood || readData[d].text || readData[d].bookTitle).length >= 5,
+        progress: () => ({ cur: Math.min(Object.keys(readData).filter(d => readData[d].mood || readData[d].text || readData[d].bookTitle).length, 5), target: 5 }) },
+      { id: 'book_1', emoji: '📖', name: 'Первая книга дочитана', desc: 'Дочитал книгу',
+        goal: 'Дочитать книгу до конца',
+        check: () => Object.keys(readData).some(d => {
+          const e = readData[d];
+          return e.bookTotal > 0 && e.bookCurrent >= e.bookTotal;
+        }),
+        progress: () => {
+          const finished = Object.keys(readData).filter(d => {
+            const e = readData[d];
+            return e.bookTotal > 0 && e.bookCurrent >= e.bookTotal;
+          }).length;
+          return { cur: Math.min(finished, 1), target: 1 };
+        } },
+      { id: 'book_5', emoji: '📕', name: '5 книг', desc: '5 дочитанных книг',
+        goal: 'Дочитать 5 книг',
+        check: () => Object.keys(readData).filter(d => {
+          const e = readData[d];
+          return e.bookTotal > 0 && e.bookCurrent >= e.bookTotal;
+        }).length >= 5,
+        progress: () => ({ cur: Math.min(Object.keys(readData).filter(d => {
+          const e = readData[d];
+          return e.bookTotal > 0 && e.bookCurrent >= e.bookTotal;
+        }).length, 5), target: 5 }) },
+      { id: 'book_10', emoji: '📚', name: '10 книг', desc: '10 дочитанных книг',
+        goal: 'Дочитать 10 книг',
+        check: () => Object.keys(readData).filter(d => {
+          const e = readData[d];
+          return e.bookTotal > 0 && e.bookCurrent >= e.bookTotal;
+        }).length >= 10,
+        progress: () => ({ cur: Math.min(Object.keys(readData).filter(d => {
+          const e = readData[d];
+          return e.bookTotal > 0 && e.bookCurrent >= e.bookTotal;
+        }).length, 10), target: 10 }) },
+      { id: 'pages_1000', emoji: '📄', name: '1000 страниц', desc: 'Суммарно 1000 страниц',
+        goal: 'Прочитать 1000 страниц суммарно',
+        check: () => getTotalPagesRead() >= 1000,
+        progress: () => ({ cur: Math.min(getTotalPagesRead(), 1000), target: 1000 }) },
+      { id: 'pages_5000', emoji: '📃', name: '5000 страниц', desc: 'Суммарно 5000 страниц',
+        goal: 'Прочитать 5000 страниц суммарно',
+        check: () => getTotalPagesRead() >= 5000,
+        progress: () => ({ cur: Math.min(getTotalPagesRead(), 5000), target: 5000 }) },
+
+      // --- Привычки ---
+      { id: 'perfect_week', emoji: '🌟', name: 'Идеальная неделя', desc: '100% привычек за неделю',
+        goal: 'Выполнить 100% привычек за неделю',
+        check: () => getHabitsWeeklyStreak().current >= 1,
+        progress: () => ({ cur: Math.min(getHabitsWeeklyStreak().current, 1), target: 1 }) },
+      { id: 'perfect_month', emoji: '👑', name: 'Идеальный месяц', desc: '4 недели привычек подряд',
+        goal: '4 недели подряд выполнять привычки',
+        check: () => getHabitsWeeklyStreak().current >= 4,
+        progress: () => ({ cur: Math.min(getHabitsWeeklyStreak().current, 4), target: 4 }) },
+
+      // --- Цели ---
+      { id: 'goals_3', emoji: '🎯', name: '3 цели', desc: 'Создал 3 цели',
+        goal: 'Создать 3 цели',
+        check: () => goals.length >= 3,
+        progress: () => ({ cur: Math.min(goals.length, 3), target: 3 }) },
+      { id: 'goals_10', emoji: '🏆', name: '10 целей', desc: '10 достигнутых целей',
+        goal: 'Достигнуть 10 целей',
+        check: () => goals.filter(g => g.completed).length >= 10,
+        progress: () => ({ cur: Math.min(goals.filter(g => g.completed).length, 10), target: 10 }) },
+
+      // --- Время в приложении ---
+      { id: 'app_year', emoji: '🎂', name: 'Год в приложении', desc: '365 дней использования',
+        goal: 'Пользоваться приложением 365 дней',
         check: () => {
           const all = getAllHistoryDates();
           if (!all.length) return false;
           const first = new Date(all[0] + 'T12:00:00');
           const today = new Date(getLogicalDate() + 'T12:00:00');
           return (today - first) / (1000 * 60 * 60 * 24) >= 365;
-        }},
+        },
+        progress: () => {
+          const all = getAllHistoryDates();
+          if (!all.length) return { cur: 0, target: 365 };
+          const first = new Date(all[0] + 'T12:00:00');
+          const today = new Date(getLogicalDate() + 'T12:00:00');
+          const days = Math.round((today - first) / (1000 * 60 * 60 * 24));
+          return { cur: Math.min(days, 365), target: 365 };
+        } },
     ];
+
+    // Сумма прочитанных страниц по всем книгам
+    function getTotalPagesRead() {
+      let total = 0;
+      Object.keys(readData).forEach(d => {
+        const e = readData[d];
+        if (e.bookCurrent != null && e.bookCurrent !== '') {
+          const v = parseInt(e.bookCurrent, 10);
+          if (!isNaN(v) && v > 0) total += v;
+        }
+      });
+      return total;
+    }
 
     let achievementsUnlocked = {};
 
@@ -6804,7 +7160,49 @@
       }, 2200);
     }
 
+    // Проверка всех достижений с нуля — используется при удалении данных,
+    // чтобы "снять" потерянные достижения и выдать новые, если они появились.
+    function recheckAllAchievements() {
+      // Проходим по всем достижениям, проверяем их текущий статус
+      // Если достижение разблокировано, но check() === false → убираем
+      // Если достижение заблокировано, но check() === true → добавляем
+      const today = getLogicalDate();
+      let changed = false;
+      const newlyUnlocked = [];
+      ACHIEVEMENTS.forEach(ach => {
+        const wasUnlocked = !!achievementsUnlocked[ach.id];
+        let isNow = false;
+        try { isNow = !!ach.check(); } catch (e) { isNow = false; }
+        if (wasUnlocked && !isNow) {
+          delete achievementsUnlocked[ach.id];
+          changed = true;
+        } else if (!wasUnlocked && isNow) {
+          achievementsUnlocked[ach.id] = today;
+          newlyUnlocked.push(ach);
+          changed = true;
+        }
+      });
+      if (changed) {
+        saveAchievements();
+        renderAchievementsCard();
+        newlyUnlocked.forEach(a => achievementToastQueue.push(a));
+        if (newlyUnlocked.length > 0) showNextAchievementToast();
+      }
+      // Обновить модалку, если открыта
+      const openAchModal = document.getElementById('achModal');
+      if (openAchModal) {
+        // перерисовать содержимое
+        const unlockedCount = Object.keys(achievementsUnlocked).length;
+        const gridHtml = buildAchGridHtml();
+        openAchModal.querySelector('h3').textContent = `🏆 Достижения — ${unlockedCount} / ${ACHIEVEMENTS.length}`;
+        const oldGrid = openAchModal.querySelector('.ach-grid');
+        if (oldGrid) oldGrid.outerHTML = gridHtml;
+        attachAchGridHandlers();
+      }
+    }
+
     function checkAchievements() {
+      // Только добавляем новые, не удаляем
       let newlyUnlocked = [];
       const today = getLogicalDate();
       ACHIEVEMENTS.forEach(ach => {
@@ -6825,6 +7223,23 @@
         showNextAchievementToast();
       }
       return newlyUnlocked;
+    }
+
+    function getAchievementProgress(ach) {
+      if (achievementsUnlocked[ach.id]) {
+        // Уже разблокировано — показываем целевое значение
+        if (ach.progress) {
+          try {
+            const p = ach.progress();
+            return { cur: p.target, target: p.target };
+          } catch (e) {}
+        }
+        return { cur: 1, target: 1 };
+      }
+      if (ach.progress) {
+        try { return ach.progress(); } catch (e) {}
+      }
+      return null;
     }
 
     function renderAchievementsCard() {
@@ -6862,37 +7277,32 @@
       recentEl.innerHTML = html;
     }
 
-    function openAllAchievements() {
-      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-      const backdrop = document.createElement('div');
-      backdrop.className = 'modal-backdrop show';
-      backdrop.innerHTML = `<div class="modal" id="achModal"></div>`;
-      document.body.appendChild(backdrop);
-
-      const modal = backdrop.querySelector('#achModal');
-      const unlockedCount = Object.keys(achievementsUnlocked).length;
-
+    function buildAchGridHtml() {
       let gridHtml = '<div class="ach-grid">';
       ACHIEVEMENTS.forEach(a => {
         const isUnlocked = !!achievementsUnlocked[a.id];
         const cls = isUnlocked ? 'unlocked' : 'locked';
+        const prog = getAchievementProgress(a);
+        let progressStr = '';
+        if (prog && prog.target > 1) {
+          progressStr = `<div class="ach-item-progress">${prog.cur} / ${prog.target}</div>`;
+        } else if (prog && prog.target === 1) {
+          progressStr = `<div class="ach-item-progress">${isUnlocked ? '✅' : '0 / 1'}</div>`;
+        }
         gridHtml += `<div class="ach-item ${cls}" data-ach-id="${a.id}">
           ${isUnlocked ? '' : '<div class="ach-item-lock">🔒</div>'}
           <span class="ach-item-emoji">${a.emoji}</span>
           <div class="ach-item-name">${escapeHtml(a.name)}</div>
+          ${progressStr}
         </div>`;
       });
       gridHtml += '</div>';
+      return gridHtml;
+    }
 
-      modal.innerHTML = `
-        <h3>🏆 Достижения — ${unlockedCount} / ${ACHIEVEMENTS.length}</h3>
-        <div class="modal-hint" style="margin-bottom:12px;">Нажми на достижение — увидишь, что нужно сделать</div>
-        ${gridHtml}
-        <div class="modal-buttons">
-          <button class="cancel" id="closeAchBtn">Закрыть</button>
-        </div>
-      `;
-
+    function attachAchGridHandlers() {
+      const modal = document.getElementById('achModal');
+      if (!modal) return;
       modal.querySelectorAll('.ach-item').forEach(el => {
         el.onclick = () => {
           const achId = el.dataset.achId;
@@ -6903,6 +7313,28 @@
           tg.HapticFeedback?.selectionChanged();
         };
       });
+    }
+
+    function openAllAchievements() {
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal" id="achModal"></div>`;
+      document.body.appendChild(backdrop);
+
+      const modal = backdrop.querySelector('#achModal');
+      const unlockedCount = Object.keys(achievementsUnlocked).length;
+
+      modal.innerHTML = `
+        <h3>🏆 Достижения — ${unlockedCount} / ${ACHIEVEMENTS.length}</h3>
+        <div class="modal-hint" style="margin-bottom:12px;">Нажми на достижение — увидишь, что нужно сделать</div>
+        ${buildAchGridHtml()}
+        <div class="modal-buttons">
+          <button class="cancel" id="closeAchBtn">Закрыть</button>
+        </div>
+      `;
+
+      attachAchGridHandlers();
 
       backdrop.querySelector('#closeAchBtn').onclick = () => backdrop.remove();
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
@@ -6911,6 +7343,22 @@
     function showAchievementHint(ach, isUnlocked) {
       const dateUnlocked = achievementsUnlocked[ach.id];
       const dateFmt = dateUnlocked ? new Date(dateUnlocked + 'T12:00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+      const prog = getAchievementProgress(ach);
+      let progressHtml = '';
+      if (prog && prog.target > 1) {
+        const pct = Math.min(Math.round((prog.cur / prog.target) * 100), 100);
+        progressHtml = `
+          <div class="progress-wrap" style="margin-top:14px;">
+            <div class="progress-bar-outer">
+              <div class="progress-bar-inner" style="width:${pct}%"></div>
+            </div>
+            <div class="progress-info">
+              <span class="val">${prog.cur} / ${prog.target}</span>
+              <span class="pct">${pct}%</span>
+            </div>
+          </div>
+        `;
+      }
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
       backdrop.style.zIndex = '120';
@@ -6922,8 +7370,9 @@
           ? `<div style="display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(74,222,128,0.15);color:#4ade80;font-size:12px;font-weight:700;">✅ Получено ${dateFmt}</div>`
           : `<div style="display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(251,146,60,0.15);color:#fb923c;font-size:12px;font-weight:700;">🔒 Ещё не получено</div>`
         }
+        ${progressHtml}
         <div class="modal-hint" style="margin-top:16px;text-align:left;">
-          <b>Что нужно сделать:</b><br>${escapeHtml(ach.desc)}
+          <b>Что нужно сделать:</b><br>${escapeHtml(ach.goal || ach.desc)}
         </div>
         <div class="modal-buttons">
           <button class="cancel" id="closeHintBtn">Понятно</button>
