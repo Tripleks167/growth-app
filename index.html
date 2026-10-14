@@ -317,7 +317,6 @@
     }
     .gear-btn:active { opacity: 1; transform: scale(0.9) rotate(45deg); }
 
-    /* ====== НАВИГАЦИЯ ПО ДАТЕ (увеличенная, цветная) ====== */
     .week-nav {
       display: flex;
       align-items: center;
@@ -530,7 +529,6 @@
       text-transform: uppercase; letter-spacing: 0.3px;
     }
 
-    /* ====== FIN MONTH NAV (увеличенная, цветная) ====== */
     .month-nav {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 16px; gap: 10px;
@@ -2061,6 +2059,7 @@
           <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-food')"><div class="label"><span>🍎</span> Питание</div><div class="value" id="homeFoodValue">—</div></div>
           <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-sport')"><div class="label"><span>🏋️</span> Тренировка</div><div class="value" id="homeSportValue">—</div></div>
           <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-read')"><div class="label"><span>📚</span> Чтение</div><div class="value" id="homeReadValue">—</div></div>
+          <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-diary')"><div class="label"><span>📔</span> Ежедневник</div><div class="value" id="homeDiaryValue">—</div></div>
           <div class="summary-row clickable" onclick="switchScreen('day', 'day-card-habits')"><div class="label"><span>✅</span> Привычки</div><div class="value" id="homeHabitsValue">— / —</div></div>
         </div>
         <div class="ach-card" id="achievementsCard">
@@ -2756,18 +2755,19 @@
       const day = getDiaryForDate(date);
       if (day.rows.length === 0) {
         container.innerHTML = `<div class="placeholder" style="padding:20px;margin-bottom:8px;"><span class="big">📔</span><div class="text">Пусто. Нажми «+ Добавить строчку»</div></div>`;
-        return;
+      } else {
+        let html = '';
+        day.rows.forEach(row => {
+          const done = !!row.done;
+          const text = row.text ? escapeHtml(row.text) : '<i>Без названия</i>';
+          html += `<div class="diary-item ${done ? 'done' : ''}">
+            <div class="diary-check" onclick="toggleDiaryRow('${row.id}')">✓</div>
+            <div class="diary-text ${row.text ? '' : 'empty'}" onclick="editDiaryText('${row.id}')">${text}</div>
+          </div>`;
+        });
+        container.innerHTML = html;
       }
-      let html = '';
-      day.rows.forEach(row => {
-        const done = !!row.done;
-        const text = row.text ? escapeHtml(row.text) : '<i>Без названия</i>';
-        html += `<div class="diary-item ${done ? 'done' : ''}">
-          <div class="diary-check" onclick="toggleDiaryRow('${row.id}')">✓</div>
-          <div class="diary-text ${row.text ? '' : 'empty'}" onclick="editDiaryText('${row.id}')">${text}</div>
-        </div>`;
-      });
-      container.innerHTML = html;
+      updateHomeDiary();
     }
 
     function toggleDiaryRow(rowId) {
@@ -4255,6 +4255,27 @@
         homeVal.innerHTML = `<span class="status-icon empty">—</span>`;
       }
     }
+    // === ЕЖЕДНЕВНИК В СВОДКЕ ДНЯ ===
+    function updateHomeDiary() {
+      const homeVal = document.getElementById('homeDiaryValue');
+      if (!homeVal) return;
+      const today = getLogicalDate();
+      const day = diaryData[today];
+      const rows = (day && Array.isArray(day.rows)) ? day.rows : [];
+      const total = rows.length;
+      if (total === 0) {
+        homeVal.innerHTML = `<span class="status-icon empty">—</span>`;
+        return;
+      }
+      const done = rows.filter(r => r.done).length;
+      const allDone = done === total;
+      if (allDone) {
+        homeVal.innerHTML = `<span style="color:#22d3ee;font-weight:700;">${done}/${total} ✅</span>`;
+      } else {
+        homeVal.innerHTML = `<span style="color:#22d3ee;font-weight:700;">${done}/${total}</span>`;
+      }
+    }
+    /* =================================================== */
 
     /* РЕДАКТОР ПРИВЫЧЕК */
     function openHabitsEditor() { renderHabitsEditor(); }
@@ -6871,17 +6892,11 @@
     }
 
     /* =========================================================
-       ДОСТИЖЕНИЯ (обновлено: 30, с прогрессом, автопроверка)
+       ДОСТИЖЕНИЯ
        ========================================================= */
     const ACH_KEY = 'achievements_v1';
 
-    // Каждое достижение имеет:
-    // - check()   : текущее значение/булево
-    // - target    : целевое значение (для прогресса)
-    // - progress(): возвращает {cur, target} для отображения
-    // - goal      : текст цели
     const ACHIEVEMENTS = [
-      // --- Стартовые ---
       { id: 'first_day', emoji: '🌅', name: 'Первый день', desc: 'Открыл приложение',
         goal: 'Просто открыть приложение',
         check: () => true, target: 1 },
@@ -6906,7 +6921,6 @@
         check: () => Object.keys(readData).some(d => readData[d].bookTitle),
         progress: () => ({ cur: Object.keys(readData).some(d => readData[d].bookTitle) ? 1 : 0, target: 1 }) },
 
-      // --- Серии ---
       { id: 'streak_3', emoji: '🔥', name: '3 дня подряд', desc: 'Мини-streak',
         goal: '3 дня подряд выполнять любую из привычек (вода, шаги, сон, настроение, чтение, питание)',
         check: () => (getWaterStreak().current >= 3 || getStepsStreak().current >= 3 || getSleepStreak().current >= 3 || getMoodStreak().current >= 3 || getReadStreak().current >= 3 || getFoodStreak().current >= 3),
@@ -6924,7 +6938,6 @@
         check: () => (getWaterStreak().current >= 100 || getStepsStreak().current >= 100 || getSleepStreak().current >= 100 || getMoodStreak().current >= 100 || getReadStreak().current >= 100 || getFoodStreak().current >= 100),
         progress: () => ({ cur: Math.min(Math.max(getWaterStreak().current, getStepsStreak().current, getSleepStreak().current, getMoodStreak().current, getReadStreak().current, getFoodStreak().current), 100), target: 100 }) },
 
-      // --- Вода ---
       { id: 'water_norm', emoji: '🚰', name: 'Норма воды', desc: 'Достиг цели по воде',
         goal: 'Выполнить дневную норму воды',
         check: () => { const e = waterHistory[getLogicalDate()]; return e && e.current >= e.goal && e.goal > 0; },
@@ -6938,7 +6951,6 @@
         check: () => Object.keys(waterHistory).filter(d => waterHistory[d].current >= waterHistory[d].goal && waterHistory[d].goal > 0).length >= 30,
         progress: () => ({ cur: Math.min(Object.keys(waterHistory).filter(d => waterHistory[d].current >= waterHistory[d].goal && waterHistory[d].goal > 0).length, 30), target: 30 }) },
 
-      // --- Шаги ---
       { id: 'steps_10k', emoji: '👟', name: '10 000 шагов', desc: 'Прошёл 10К за день',
         goal: 'Пройти 10 000 шагов за день',
         check: () => (stepsHistory[getLogicalDate()] || stepsCurrent) >= 10000,
@@ -6956,7 +6968,6 @@
         check: () => Object.keys(stepsHistory).length >= 30,
         progress: () => ({ cur: Math.min(Object.keys(stepsHistory).length, 30), target: 30 }) },
 
-      // --- Сон ---
       { id: 'sleep_5', emoji: '😴', name: '5 ночей в норме', desc: '5 ночей хорошего сна',
         goal: '5 ночей в норме сна',
         check: () => Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length >= 5,
@@ -6966,7 +6977,6 @@
         check: () => Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length >= 30,
         progress: () => ({ cur: Math.min(Object.keys(sleepHistory).filter(d => sleepHistory[d].duration && checkNorm(sleepHistory[d].duration)).length, 30), target: 30 }) },
 
-      // --- Настроение ---
       { id: 'mood_7', emoji: '😊', name: '7 отметок настроения', desc: 'Неделя дневника',
         goal: '7 дней отмечать настроение',
         check: () => Object.keys(moodHistory).filter(d => moodHistory[d].mood).length >= 7,
@@ -6976,13 +6986,11 @@
         check: () => Object.keys(moodHistory).filter(d => moodHistory[d].mood).length >= 30,
         progress: () => ({ cur: Math.min(Object.keys(moodHistory).filter(d => moodHistory[d].mood).length, 30), target: 30 }) },
 
-      // --- Питание ---
       { id: 'food_7', emoji: '🍎', name: '7 дней питания', desc: 'Неделя дневника еды',
         goal: '7 дней вести дневник питания',
         check: () => Object.keys(foodHistory).filter(d => foodHistory[d].calories || foodHistory[d].mealsCount).length >= 7,
         progress: () => ({ cur: Math.min(Object.keys(foodHistory).filter(d => foodHistory[d].calories || foodHistory[d].mealsCount).length, 7), target: 7 }) },
 
-      // --- Спорт ---
       { id: 'sport_5', emoji: '💪', name: '5 тренировок', desc: '5 тренировок',
         goal: '5 тренировок всего',
         check: () => {
@@ -7016,7 +7024,6 @@
         check: () => getSportWeeklyStreak().current >= 1,
         progress: () => ({ cur: getSportWeeklyStreak().current >= 1 ? 1 : 0, target: 1 }) },
 
-      // --- Чтение ---
       { id: 'read_5', emoji: '📚', name: '5 отметок чтения', desc: '5 раз читал',
         goal: '5 дней чтения',
         check: () => Object.keys(readData).filter(d => readData[d].mood || readData[d].text || readData[d].bookTitle).length >= 5,
@@ -7063,7 +7070,6 @@
         check: () => getTotalPagesRead() >= 5000,
         progress: () => ({ cur: Math.min(getTotalPagesRead(), 5000), target: 5000 }) },
 
-      // --- Привычки ---
       { id: 'perfect_week', emoji: '🌟', name: 'Идеальная неделя', desc: '100% привычек за неделю',
         goal: 'Выполнить 100% привычек за неделю',
         check: () => getHabitsWeeklyStreak().current >= 1,
@@ -7073,7 +7079,6 @@
         check: () => getHabitsWeeklyStreak().current >= 4,
         progress: () => ({ cur: Math.min(getHabitsWeeklyStreak().current, 4), target: 4 }) },
 
-      // --- Цели ---
       { id: 'goals_3', emoji: '🎯', name: '3 цели', desc: 'Создал 3 цели',
         goal: 'Создать 3 цели',
         check: () => goals.length >= 3,
@@ -7083,7 +7088,6 @@
         check: () => goals.filter(g => g.completed).length >= 10,
         progress: () => ({ cur: Math.min(goals.filter(g => g.completed).length, 10), target: 10 }) },
 
-      // --- Время в приложении ---
       { id: 'app_year', emoji: '🎂', name: 'Год в приложении', desc: '365 дней использования',
         goal: 'Пользоваться приложением 365 дней',
         check: () => {
@@ -7103,7 +7107,6 @@
         } },
     ];
 
-    // Сумма прочитанных страниц по всем книгам
     function getTotalPagesRead() {
       let total = 0;
       Object.keys(readData).forEach(d => {
@@ -7160,12 +7163,7 @@
       }, 2200);
     }
 
-    // Проверка всех достижений с нуля — используется при удалении данных,
-    // чтобы "снять" потерянные достижения и выдать новые, если они появились.
     function recheckAllAchievements() {
-      // Проходим по всем достижениям, проверяем их текущий статус
-      // Если достижение разблокировано, но check() === false → убираем
-      // Если достижение заблокировано, но check() === true → добавляем
       const today = getLogicalDate();
       let changed = false;
       const newlyUnlocked = [];
@@ -7188,10 +7186,8 @@
         newlyUnlocked.forEach(a => achievementToastQueue.push(a));
         if (newlyUnlocked.length > 0) showNextAchievementToast();
       }
-      // Обновить модалку, если открыта
       const openAchModal = document.getElementById('achModal');
       if (openAchModal) {
-        // перерисовать содержимое
         const unlockedCount = Object.keys(achievementsUnlocked).length;
         const gridHtml = buildAchGridHtml();
         openAchModal.querySelector('h3').textContent = `🏆 Достижения — ${unlockedCount} / ${ACHIEVEMENTS.length}`;
@@ -7202,7 +7198,6 @@
     }
 
     function checkAchievements() {
-      // Только добавляем новые, не удаляем
       let newlyUnlocked = [];
       const today = getLogicalDate();
       ACHIEVEMENTS.forEach(ach => {
@@ -7227,7 +7222,6 @@
 
     function getAchievementProgress(ach) {
       if (achievementsUnlocked[ach.id]) {
-        // Уже разблокировано — показываем целевое значение
         if (ach.progress) {
           try {
             const p = ach.progress();
@@ -7403,7 +7397,7 @@
     loadFood();
     loadWeight(() => { renderWeight(); });
     loadFinances(() => { renderFinances(); });
-    loadDiaryData(() => { renderDayDiary(); });
+    loadDiaryData(() => { renderDayDiary(); updateHomeDiary(); });
 
     loadHabitsConfig(() => {
       loadHabitsData(() => {
@@ -7420,6 +7414,7 @@
                   updateHomeHabits();
                   updateHomeSport();
                   updateHomeRead();
+                  updateHomeDiary();
                   renderSteps(false);
                   renderGoals();
                   renderStats();
