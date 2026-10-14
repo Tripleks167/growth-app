@@ -45,6 +45,8 @@
       --streak-grad: linear-gradient(135deg, #fb923c 0%, #f43f5e 100%);
       --archive: #94a3b8;
       --archive-grad: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+      --diary: #22d3ee;
+      --diary-grad: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
     }
 
     html, body {
@@ -476,6 +478,7 @@
     .numbers-item .n-val.sport { color: var(--sport); }
     .numbers-item .n-val.read { color: var(--read); }
     .numbers-item .n-val.money { color: var(--money); }
+    .numbers-item .n-val.water { color: #4fc3f7; }
     .numbers-item .n-label {
       font-size: 11px; color: var(--text-dim);
       text-transform: uppercase; letter-spacing: 0.3px;
@@ -1208,6 +1211,54 @@
     }
     .habit-item.done .habit-text { color: var(--text-dim); }
 
+    /* ===== ЕЖЕДНЕВНИК ===== */
+    .diary-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; background: var(--card-2);
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 6px;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+    .diary-item:active { transform: scale(0.98); }
+    .diary-item.done {
+      background: rgba(34, 211, 238, 0.08);
+      border-color: rgba(34, 211, 238, 0.3);
+    }
+    .diary-check {
+      width: 22px; height: 22px; border-radius: 6px;
+      border: 2px solid var(--border); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 14px; color: transparent; cursor: pointer;
+    }
+    .diary-item.done .diary-check {
+      background: var(--diary-grad); border-color: var(--diary);
+      color: #14110f; font-weight: 900;
+    }
+    .diary-text {
+      flex: 1; font-size: 13px; line-height: 1.3;
+      word-break: break-word; cursor: pointer;
+      min-height: 18px;
+    }
+    .diary-item.done .diary-text { color: var(--text-dim); text-decoration: line-through; }
+    .diary-text.empty { color: var(--text-dim); font-style: italic; }
+    .diary-add-btn {
+      width: 100%; padding: 10px;
+      background: transparent;
+      border: 1px dashed var(--diary);
+      border-radius: 10px;
+      color: var(--diary);
+      font-size: 13px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.2s;
+      -webkit-appearance: none; appearance: none;
+      margin-top: 4px;
+    }
+    .diary-add-btn:active { background: rgba(34, 211, 238, 0.1); }
+
+    /* ===== СТАТЫ: график воды ===== */
+    .water-chart-title { color: #4fc3f7; }
+
     .week-grid-wrap {
       overflow-x: auto; margin: 0 -16px; padding: 0 16px;
       -webkit-overflow-scrolling: touch;
@@ -1334,6 +1385,7 @@
     .week-summary-mini .ws-val.sport { color: var(--sport); }
     .week-summary-mini .ws-val.read { color: var(--read); }
     .week-summary-mini .ws-val.steps { color: var(--steps); }
+    .week-summary-mini .ws-val.water { color: #4fc3f7; }
     .week-summary-mini .ws-label {
       font-size: 10px; color: var(--text-dim); margin-top: 2px;
     }
@@ -1899,6 +1951,16 @@
           <div class="note-status" id="noteStatus"></div>
         </div>
 
+        <!-- ===== ЕЖЕДНЕВНИК (НОВЫЙ БЛОК) ===== -->
+        <div class="card" id="day-card-diary">
+          <div class="card-head">
+            <div class="title"><span>📔</span> Ежедневник</div>
+            <button class="gear-btn" onclick="openDiaryEditor()">⚙️</button>
+          </div>
+          <div id="dayDiaryList"></div>
+          <button class="diary-add-btn" onclick="addDiaryRow()">+ Добавить строчку</button>
+        </div>
+
         <div class="card" id="day-card-food">
           <div class="card-head">
             <div class="title"><span>🍎</span> Питание</div>
@@ -2208,6 +2270,7 @@
       Object.keys(foodHistory).forEach(d => allDates.push(d));
       Object.keys(sportData).forEach(d => allDates.push(d));
       Object.keys(readData).forEach(d => allDates.push(d));
+      Object.keys(diaryData).forEach(d => allDates.push(d));
       Object.keys(habitsData.weeks || {}).forEach(w => {
         const wk = habitsData.weeks[w];
         if (wk && wk.checks) {
@@ -2311,7 +2374,7 @@
       return d.toISOString().slice(0, 10);
     }
 
-    /* ===== ПРАВКА: навигация по дням в "Дне" ===== */
+    // ===== ПРАВКА: навигация по дням в "Дне" =====
     function dayShift(delta) {
       initViewDay();
       const today = getLogicalDate();
@@ -2383,10 +2446,213 @@
       renderSleep();
       renderFood();
       renderDayHabits();
+      renderDayDiary();
     }
-    /* ===== /ПРАВКА ===== */
 
-    /* ВОДА */
+    /* =========================================================
+       ЕЖЕДНЕВНИК
+       ========================================================= */
+    const DIARY_DATA_KEY = 'diary_data_v1';
+    // структура: { "2025-10-14": { rows: [{id, text, done}] } }
+    let diaryData = {};
+
+    function saveDiaryData() {
+      const keys = Object.keys(diaryData).sort();
+      if (keys.length > 90) keys.slice(0, keys.length - 90).forEach(k => delete diaryData[k]);
+      tg.CloudStorage.setItem(DIARY_DATA_KEY, JSON.stringify(diaryData), (err) => { if (err) console.warn(err); });
+    }
+
+    function loadDiaryData(cb) {
+      tg.CloudStorage.getItem(DIARY_DATA_KEY, (err, value) => {
+        if (err || !value) { diaryData = {}; cb && cb(); return; }
+        try { diaryData = JSON.parse(value) || {}; } catch (e) { diaryData = {}; }
+        cb && cb();
+      });
+    }
+
+    function getDiaryForDate(dateStr) {
+      if (!diaryData[dateStr]) diaryData[dateStr] = { rows: [] };
+      if (!diaryData[dateStr].rows) diaryData[dateStr].rows = [];
+      return diaryData[dateStr];
+    }
+
+    function renderDayDiary() {
+      const container = document.getElementById('dayDiaryList');
+      if (!container) return;
+      const date = viewDayDate || getLogicalDate();
+      const day = getDiaryForDate(date);
+      if (day.rows.length === 0) {
+        container.innerHTML = `<div class="placeholder" style="padding:20px;margin-bottom:8px;"><span class="big">📔</span><div class="text">Пусто. Нажми «+ Добавить строчку»</div></div>`;
+        return;
+      }
+      let html = '';
+      day.rows.forEach(row => {
+        const done = !!row.done;
+        const text = row.text ? escapeHtml(row.text) : '<i>Без названия</i>';
+        html += `<div class="diary-item ${done ? 'done' : ''}">
+          <div class="diary-check" onclick="toggleDiaryRow('${row.id}')">✓</div>
+          <div class="diary-text ${row.text ? '' : 'empty'}" onclick="editDiaryText('${row.id}')">${text}</div>
+        </div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleDiaryRow(rowId) {
+      const date = viewDayDate || getLogicalDate();
+      const day = getDiaryForDate(date);
+      const row = day.rows.find(r => r.id === rowId);
+      if (!row) return;
+      row.done = !row.done;
+      saveDiaryData();
+      renderDayDiary();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    function editDiaryText(rowId) {
+      const date = viewDayDate || getLogicalDate();
+      const day = getDiaryForDate(date);
+      const row = day.rows.find(r => r.id === rowId);
+      if (!row) return;
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal">
+        <h3>📝 Строчка ежедневника</h3>
+        <label>Текст</label>
+        <input type="text" id="diaryTextInput" maxlength="200" value="${escapeHtml(row.text || '')}" placeholder="Что нужно сделать?">
+        <div class="modal-buttons">
+          <button class="cancel" id="cancelBtn">Отмена</button>
+          <button class="save" id="saveBtn">Сохранить</button>
+        </div>
+      </div>`;
+      document.body.appendChild(backdrop);
+      const input = backdrop.querySelector('#diaryTextInput');
+      setTimeout(() => { input.focus(); input.select(); }, 100);
+      backdrop.querySelector('#cancelBtn').onclick = () => backdrop.remove();
+      backdrop.querySelector('#saveBtn').onclick = () => {
+        row.text = input.value.trim();
+        saveDiaryData();
+        backdrop.remove();
+        renderDayDiary();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function addDiaryRow() {
+      const date = viewDayDate || getLogicalDate();
+      const day = getDiaryForDate(date);
+      const newRow = { id: 'dr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6), text: '', done: false };
+      day.rows.push(newRow);
+      saveDiaryData();
+      renderDayDiary();
+      tg.HapticFeedback?.impactOccurred('light');
+      // Сразу открываем редактирование текста новой строки
+      setTimeout(() => editDiaryText(newRow.id), 50);
+    }
+
+    function openDiaryEditor() {
+      const date = viewDayDate || getLogicalDate();
+      const day = getDiaryForDate(date);
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal" id="diaryEditorModal"></div>`;
+      document.body.appendChild(backdrop);
+      const modal = backdrop.querySelector('#diaryEditorModal');
+
+      function renderContent() {
+        let html = `<h3>⚙️ Редактор ежедневника</h3>`;
+        if (day.rows.length === 0) {
+          html += `<div class="modal-hint" style="text-align:center;padding:20px 0;">Строчек нет. Добавь первую!</div>`;
+        } else {
+          html += `<div class="edit-habit-list">`;
+          day.rows.forEach((row, i) => {
+            html += `<div class="edit-habit-row">
+              <span class="e-text">${row.text ? escapeHtml(row.text) : '<i>Без названия</i>'}</span>
+              <button class="e-btn" data-idx="${i}" data-action="edit">✎</button>
+              <button class="e-btn" data-idx="${i}" data-action="up">↑</button>
+              <button class="e-btn" data-idx="${i}" data-action="down">↓</button>
+              <button class="e-btn danger" data-idx="${i}" data-action="delete">✕</button>
+            </div>`;
+          });
+          html += `</div>`;
+        }
+        html += `<button class="add-habit-btn" id="diaryAddInsideBtn">+ Добавить строчку</button>`;
+        html += `<div class="modal-buttons">
+          <button class="cancel" id="closeDiaryEditor">Готово</button>
+          <button class="danger" id="clearAllDiaryBtn">Удалить все</button>
+        </div>`;
+        modal.innerHTML = html;
+
+        modal.querySelector('#diaryAddInsideBtn').onclick = () => {
+          day.rows.push({ id: 'dr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6), text: '', done: false });
+          saveDiaryData();
+          renderContent();
+          renderDayDiary();
+        };
+        modal.querySelector('#closeDiaryEditor').onclick = () => {
+          backdrop.remove();
+          renderDayDiary();
+        };
+        modal.querySelector('#clearAllDiaryBtn').onclick = () => {
+          if (!confirm('Удалить все строчки за этот день?')) return;
+          day.rows = [];
+          saveDiaryData();
+          renderContent();
+          renderDayDiary();
+          tg.HapticFeedback?.notificationOccurred('warning');
+        };
+        modal.querySelectorAll('.e-btn').forEach(btn => {
+          btn.onclick = () => {
+            const idx = parseInt(btn.dataset.idx, 10);
+            const action = btn.dataset.action;
+            if (action === 'edit') {
+              const row = day.rows[idx];
+              const newText = prompt('Текст строчки:', row.text || '');
+              if (newText !== null) {
+                row.text = newText.trim();
+                saveDiaryData();
+                renderContent();
+                renderDayDiary();
+              }
+            } else if (action === 'up') {
+              if (idx <= 0) return;
+              const tmp = day.rows[idx - 1];
+              day.rows[idx - 1] = day.rows[idx];
+              day.rows[idx] = tmp;
+              saveDiaryData();
+              renderContent();
+              renderDayDiary();
+            } else if (action === 'down') {
+              if (idx >= day.rows.length - 1) return;
+              const tmp = day.rows[idx + 1];
+              day.rows[idx + 1] = day.rows[idx];
+              day.rows[idx] = tmp;
+              saveDiaryData();
+              renderContent();
+              renderDayDiary();
+            } else if (action === 'delete') {
+              if (!confirm('Удалить эту строчку?')) return;
+              day.rows.splice(idx, 1);
+              saveDiaryData();
+              renderContent();
+              renderDayDiary();
+              tg.HapticFeedback?.notificationOccurred('warning');
+            }
+          };
+        });
+      }
+      renderContent();
+      backdrop.onclick = (e) => {
+        if (e.target === backdrop) {
+          backdrop.remove();
+          renderDayDiary();
+        }
+      };
+    }
+
+    /* =========================================================
+       ВОДА
+       ========================================================= */
     let waterCurrent = 0;
     let waterGoal = 2500;
     const WATER_KEY = 'water_v1';
@@ -5647,6 +5913,21 @@
       const days = getWeekDays();
       let html = '';
 
+      // === ГРАФИК ВОДЫ (в литрах) ===
+      const waterVals = days.map(d => {
+        const e = waterHistory[d.date];
+        return { label: d.name, value: e ? (e.current || 0) : 0, isFuture: d.isFuture };
+      });
+      const waterMax = Math.max(waterGoal, 4000, ...waterVals.map(v => v.value));
+      const waterFilled = waterVals.filter(v => v.value > 0);
+      const waterAvg = waterFilled.length > 0 ? Math.round(waterFilled.reduce((s, v) => s + v.value, 0) / waterFilled.length) : 0;
+
+      html += `<div class="chart-block">
+        <div class="chart-title water-chart-title">💧 Вода (л)</div>
+        <div class="chart-svg-wrap" id="chartWater"></div>
+        <div class="chart-avg">Среднее: <b>${waterAvg > 0 ? (waterAvg / 1000).toFixed(2) + ' л' : '—'}</b></div>
+      </div>`;
+
       const sleepVals = days.map(d => {
         const e = sleepHistory[d.date];
         return { label: d.name, value: e && e.duration ? e.duration : 0, isFuture: d.isFuture };
@@ -5764,6 +6045,11 @@
 
       container.innerHTML = html;
 
+      // Рендерим графики
+      renderBarChart(document.getElementById('chartWater'), waterVals, waterMax, '#4fc3f7', v => {
+        if (!v) return '';
+        return (v / 1000).toFixed(1) + 'л';
+      });
       renderBarChart(document.getElementById('chartSleep'), sleepVals, sleepMax, '#a78bfa', v => {
         const h = Math.floor(v / 60);
         return h > 0 ? h + 'ч' : '';
@@ -5988,6 +6274,7 @@
     loadFood();
     loadWeight(() => { renderWeight(); });
     loadFinances(() => { renderFinances(); });
+    loadDiaryData(() => { renderDayDiary(); });
 
     loadHabitsConfig(() => {
       loadHabitsData(() => {
