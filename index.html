@@ -1489,7 +1489,6 @@
     .add-habit-btn:active { background: var(--card-2); }
     .add-habit-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--text-dim); }
 
-    /* ============ РЕДАКТОР БЛОКОВ ============ */
     .habit-block-editor {
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--border);
@@ -1767,8 +1766,13 @@
       <div class="screen" id="screen-day">
         <div class="screen-header">
           <h1>День</h1>
-          <div class="sub" id="dayDate">Сегодня</div>
         </div>
+        <div class="week-nav">
+          <button type="button" id="dayPrevBtn" onclick="dayShift(-1)">‹</button>
+          <div class="week-label" id="dayNavLabel">—</div>
+          <button type="button" id="dayNextBtn" onclick="dayShift(1)">›</button>
+        </div>
+        <div id="dayArchiveBanner"></div>
 
         <div class="card" id="day-card-water">
           <div class="card-head">
@@ -1941,7 +1945,7 @@
 
         <div class="card" id="day-card-habits">
           <div class="card-head">
-            <div class="title"><span>✅</span> Привычки сегодня</div>
+            <div class="title"><span>✅</span> Привычки</div>
             <button class="gear-btn" onclick="openHabitsEditor()">⚙️</button>
           </div>
           <div id="dayHabitsList"></div>
@@ -2119,7 +2123,6 @@
     const now = new Date();
     const dateStr = now.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
     document.getElementById('todayDate').textContent = dateStr;
-    document.getElementById('dayDate').textContent = dateStr;
 
     const tabs = document.querySelectorAll('.tab');
     const screens = {};
@@ -2127,13 +2130,25 @@
       screens[s.id.replace('screen-', '')] = s;
     });
 
+    // ===== ПРАВКА: просматриваемый день =====
+    let viewDayDate = null;
+    function initViewDay() {
+      if (!viewDayDate) viewDayDate = getLogicalDate();
+    }
+    function isViewingToday() {
+      return viewDayDate === getLogicalDate();
+    }
+
     function switchScreen(name, scrollToId) {
       Object.values(screens).forEach(s => s.classList.remove('active'));
       screens[name]?.classList.add('active');
       tabs.forEach(t => t.classList.toggle('active', t.dataset.screen === name));
       tg.HapticFeedback?.selectionChanged();
 
-      if (name === 'day') renderDayHabits();
+      if (name === 'day') {
+        viewDayDate = getLogicalDate();
+        renderDayScreen();
+      }
       if (name === 'week') renderWeekAll();
       if (name === 'goals') renderGoals();
       if (name === 'stats') renderStats();
@@ -2296,6 +2311,81 @@
       return d.toISOString().slice(0, 10);
     }
 
+    /* ===== ПРАВКА: навигация по дням в "Дне" ===== */
+    function dayShift(delta) {
+      initViewDay();
+      const today = getLogicalDate();
+      const newDate = addDays(viewDayDate, delta);
+      if (newDate > today) return;
+      const minMonday = getMinArchiveWeek();
+      if (newDate < minMonday) return;
+      viewDayDate = newDate;
+      renderDayScreen();
+      tg.HapticFeedback?.selectionChanged();
+    }
+
+    function loadDayIntoEditors(date) {
+      const w = waterHistory[date];
+      waterCurrent = w ? (w.current || 0) : 0;
+      if (w && w.goal) waterGoal = w.goal;
+
+      stepsCurrent = stepsHistory[date] || 0;
+
+      const s = sleepHistory[date];
+      sleepBedtime = s?.bedtime || null;
+      sleepWakeup = s?.wakeup || null;
+      sleepQuality = s?.quality || null;
+
+      const f = foodHistory[date];
+      foodCalories = f?.calories || 0;
+      foodMeals = f?.meals ? { ...f.meals } : { breakfast: false, lunch: false, dinner: false, snack: false };
+      foodCooked = f?.cooked || 0;
+      foodCafe = f?.cafe || 0;
+      foodNote = f?.note || '';
+    }
+
+    function renderDayScreen() {
+      initViewDay();
+      const today = getLogicalDate();
+      const isToday = viewDayDate === today;
+      const dateLabelEl = document.getElementById('dayNavLabel');
+      const prevBtn = document.getElementById('dayPrevBtn');
+      const nextBtn = document.getElementById('dayNextBtn');
+      const bannerEl = document.getElementById('dayArchiveBanner');
+
+      const dateObj = new Date(viewDayDate + 'T12:00:00');
+      const human = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+      if (isToday) {
+        dateLabelEl.innerHTML = `${human} <span class="current-badge">Сегодня</span>`;
+      } else {
+        dateLabelEl.textContent = human.charAt(0).toUpperCase() + human.slice(1);
+      }
+
+      const minMonday = getMinArchiveWeek();
+      prevBtn.disabled = viewDayDate <= minMonday;
+      nextBtn.disabled = isToday;
+
+      if (isToday) {
+        bannerEl.innerHTML = '';
+      } else {
+        bannerEl.innerHTML = `<div class="archive-banner">✏️ Редактирование прошлого дня</div>`;
+      }
+
+      loadDayIntoEditors(viewDayDate);
+
+      if (typeof moodViewDate !== 'undefined') {
+        moodViewDate = viewDayDate;
+        renderMoodDate(); renderMoodScale(); renderNote();
+      }
+
+      renderWater(false);
+      renderSteps(false);
+      renderSleep();
+      renderFood();
+      renderDayHabits();
+    }
+    /* ===== /ПРАВКА ===== */
+
     /* ВОДА */
     let waterCurrent = 0;
     let waterGoal = 2500;
@@ -2334,18 +2424,20 @@
       waterGoalEl.textContent = waterGoal;
       const remain = waterGoal - waterCurrent;
       waterRemain.textContent = remain > 0 ? `Осталось ${remain} мл` : `Цель достигнута! +${-remain} мл 💪`;
-      const homeVal = document.getElementById('homeWaterValue');
-      if (homeVal) homeVal.innerHTML = `${waterCurrent} / ${waterGoal} ${miniBottleSvg(waterCurrent / waterGoal)}`;
+      if (isViewingToday()) {
+        const homeVal = document.getElementById('homeWaterValue');
+        if (homeVal) homeVal.innerHTML = `${waterCurrent} / ${waterGoal} ${miniBottleSvg(waterCurrent / waterGoal)}`;
+      }
       if (!animate) requestAnimationFrame(() => { waterRect.style.transition = ''; });
     }
     function addWater(ml) {
       const before = waterCurrent;
       waterCurrent = Math.max(0, Math.min(waterCurrent + ml, SLIDER_MAX));
       saveWater(); renderWater(); tg.HapticFeedback?.impactOccurred('light');
-      if (before < waterGoal && waterCurrent >= waterGoal) celebrateWater();
+      if (before < waterGoal && waterCurrent >= waterGoal && isViewingToday()) celebrateWater();
     }
     function resetWater() {
-      if (!confirm('Сбросить прогресс за сегодня?')) return;
+      if (!confirm('Сбросить прогресс за этот день?')) return;
       waterCurrent = 0; saveWater(); renderWater();
       tg.HapticFeedback?.notificationOccurred('warning');
     }
@@ -2365,11 +2457,13 @@
       checkAchievements();
     }
     function saveWater() {
-      const data = JSON.stringify({ date: getLogicalDate(), current: waterCurrent, goal: waterGoal, dayStartHour });
-      tg.CloudStorage.setItem(WATER_KEY, data, (err) => { if (err) console.warn(err); });
-      const date = getLogicalDate();
+      const date = viewDayDate || getLogicalDate();
       waterHistory[date] = { current: waterCurrent, goal: waterGoal };
       saveWaterHistory();
+      if (date === getLogicalDate()) {
+        const data = JSON.stringify({ date, current: waterCurrent, goal: waterGoal, dayStartHour });
+        tg.CloudStorage.setItem(WATER_KEY, data, (err) => { if (err) console.warn(err); });
+      }
     }
     function saveWaterHistory() {
       const keys = Object.keys(waterHistory).sort();
@@ -2511,8 +2605,10 @@
         stepsRemain.classList.add('done');
       }
       if (document.activeElement !== stepsInput) stepsInput.value = stepsCurrent || '';
-      const homeSteps = document.getElementById('homeStepsValue');
-      if (homeSteps) homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
+      if (isViewingToday()) {
+        const homeSteps = document.getElementById('homeStepsValue');
+        if (homeSteps) homeSteps.innerHTML = `${formatNum(stepsCurrent)} / ${formatNum(stepsGoal)} ${miniRingSvg(pct)}`;
+      }
       if (!animate) requestAnimationFrame(() => { stepsRingFill.style.transition = ''; });
     }
     function miniRingSvg(pct) {
@@ -2547,14 +2643,14 @@
     function addSteps(n) {
       const before = stepsCurrent;
       stepsCurrent = Math.max(0, Math.min(stepsCurrent + n, 200000));
-      saveSteps(); renderSteps(); updateStepsHistory();
+      saveSteps(); renderSteps();
       tg.HapticFeedback?.impactOccurred('light');
-      if (before < stepsGoal && stepsCurrent >= stepsGoal) celebrateSteps();
+      if (before < stepsGoal && stepsCurrent >= stepsGoal && isViewingToday()) celebrateSteps();
     }
     function setStepsFromInput() {
       const v = parseInt(stepsInput.value, 10);
       stepsCurrent = isNaN(v) ? 0 : Math.max(0, Math.min(v, 200000));
-      saveSteps(); renderSteps(); updateStepsHistory();
+      saveSteps(); renderSteps();
       tg.HapticFeedback?.notificationOccurred('success');
       checkAchievements();
     }
@@ -2574,8 +2670,14 @@
       checkAchievements();
     }
     function saveSteps() {
-      const data = JSON.stringify({ date: getLogicalDate(), current: stepsCurrent, goal: stepsGoal, dayStartHour });
-      tg.CloudStorage.setItem(STEPS_KEY, data, (err) => { if (err) console.warn(err); });
+      const date = viewDayDate || getLogicalDate();
+      if (stepsCurrent > 0) stepsHistory[date] = stepsCurrent;
+      else delete stepsHistory[date];
+      saveStepsHistory();
+      if (date === getLogicalDate()) {
+        const data = JSON.stringify({ date, current: stepsCurrent, goal: stepsGoal, dayStartHour });
+        tg.CloudStorage.setItem(STEPS_KEY, data, (err) => { if (err) console.warn(err); });
+      }
     }
     function loadSteps() {
       tg.CloudStorage.getItem(STEPS_KEY, (err, value) => {
@@ -2601,12 +2703,6 @@
         try { stepsHistory = JSON.parse(value) || {}; } catch (e) { stepsHistory = {}; }
         cb && cb();
       });
-    }
-    function updateStepsHistory() {
-      const date = getLogicalDate();
-      if (stepsCurrent > 0) stepsHistory[date] = stepsCurrent;
-      else delete stepsHistory[date];
-      saveStepsHistory();
     }
     function openStepsSettings() {
       const backdrop = document.createElement('div');
@@ -2662,7 +2758,8 @@
       const avg = daysWithSteps > 0 ? Math.round(total / 7) : 0;
       sumEl.innerHTML = `<div class="week-summary-mini three"><div class="ws-item"><div class="ws-val steps">${formatNum(total)}</div><div class="ws-label">Всего</div></div><div class="ws-item"><div class="ws-val steps">${formatNum(avg)}</div><div class="ws-label">Средн/день</div></div><div class="ws-item"><div class="ws-val steps">${best ? formatNum(best) : '—'}</div><div class="ws-label">Лучший ${bestDay}</div></div></div>`;
     }
-       /* ВЕС */
+
+    /* ВЕС */
     const WEIGHT_KEY = 'weight_v1';
     let weightHistory = [];
     function saveWeight() {
@@ -2885,6 +2982,7 @@
       renderQualityScale();
     }
     function updateHomeSleep() {
+      if (!isViewingToday()) return;
       const homeVal = document.getElementById('homeSleepValue');
       if (!homeVal) return;
       const dur = calcDuration(sleepBedtime, sleepWakeup);
@@ -2922,12 +3020,21 @@
       backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
     function saveSleep() {
-      const data = JSON.stringify({
-        date: getLogicalDate(), bedtime: sleepBedtime, wakeup: sleepWakeup,
-        quality: sleepQuality, normMin: sleepNormMin, normMax: sleepNormMax, dayStartHour
-      });
-      tg.CloudStorage.setItem(SLEEP_KEY, data, (err) => { if (err) console.warn(err); });
-      updateSleepHistory();
+      const date = viewDayDate || getLogicalDate();
+      const dur = calcDuration(sleepBedtime, sleepWakeup);
+      if (sleepBedtime || sleepWakeup || sleepQuality) {
+        sleepHistory[date] = { bedtime: sleepBedtime, wakeup: sleepWakeup, quality: sleepQuality, duration: dur };
+      } else {
+        delete sleepHistory[date];
+      }
+      saveSleepHistory();
+      if (date === getLogicalDate()) {
+        const data = JSON.stringify({
+          date, bedtime: sleepBedtime, wakeup: sleepWakeup,
+          quality: sleepQuality, normMin: sleepNormMin, normMax: sleepNormMax, dayStartHour
+        });
+        tg.CloudStorage.setItem(SLEEP_KEY, data, (err) => { if (err) console.warn(err); });
+      }
     }
     function loadSleep() {
       tg.CloudStorage.getItem(SLEEP_KEY, (err, value) => {
@@ -2988,14 +3095,6 @@
         cb && cb();
       });
     }
-    function updateSleepHistory() {
-      const date = getLogicalDate();
-      const dur = calcDuration(sleepBedtime, sleepWakeup);
-      if (sleepBedtime || sleepWakeup || sleepQuality) {
-        sleepHistory[date] = { bedtime: sleepBedtime, wakeup: sleepWakeup, quality: sleepQuality, duration: dur };
-      } else delete sleepHistory[date];
-      saveSleepHistory();
-    }
     function renderWeekSleep() {
       const container = document.getElementById('weekSleepTable');
       if (!container) return;
@@ -3048,7 +3147,6 @@
       moodScaleRow2.innerHTML = '';
       const currentEntry = moodHistory[moodViewDate];
       const currentMood = currentEntry?.mood || null;
-      const isToday = moodViewDate === getLogicalDate();
       MOOD_LEVELS.forEach((lvl, i) => {
         const level = i + 1;
         const btn = document.createElement('button');
@@ -3057,14 +3155,12 @@
         btn.dataset.level = level;
         btn.innerHTML = `<span>${lvl.emoji}</span><span class="num">${level}</span>`;
         if (currentMood === level) btn.classList.add('selected');
-        if (!isToday) btn.disabled = true;
         btn.onclick = () => selectMood(level);
         (i < 5 ? moodScaleRow1 : moodScaleRow2).appendChild(btn);
       });
       moodSelectedName.innerHTML = currentMood ? `Настроение: <b>${MOOD_LEVELS[currentMood - 1].name}</b>` : 'Настроение не выбрано';
     }
     function selectMood(level) {
-      if (moodViewDate !== getLogicalDate()) return;
       if (!moodHistory[moodViewDate]) moodHistory[moodViewDate] = {};
       moodHistory[moodViewDate].mood = level;
       saveMoodHistory(); renderMoodScale(); updateHomeMood();
@@ -3080,9 +3176,8 @@
         moodDateLabel.textContent = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
       }
       moodNextBtn.disabled = isToday;
-      const limit = new Date();
-      limit.setDate(limit.getDate() - 30);
-      moodPrevBtn.disabled = moodViewDate <= limit.toISOString().slice(0, 10);
+      const minMonday = getMinArchiveWeek();
+      moodPrevBtn.disabled = moodViewDate <= minMonday;
     }
     function moodShiftDay(delta) {
       if (delta > 0 && moodViewDate === getLogicalDate()) return;
@@ -3090,21 +3185,22 @@
       d.setDate(d.getDate() + delta);
       const newDate = d.toISOString().slice(0, 10);
       if (newDate > getLogicalDate()) return;
+      const minMonday = getMinArchiveWeek();
+      if (newDate < minMonday) return;
       moodViewDate = newDate;
-      renderMoodDate(); renderMoodScale(); renderNote();
+      viewDayDate = newDate;
+      renderDayScreen();
       tg.HapticFeedback?.selectionChanged();
     }
     function renderNote() {
       const entry = moodHistory[moodViewDate];
-      const isToday = moodViewDate === getLogicalDate();
       noteField.value = entry?.note || '';
-      noteField.disabled = !isToday;
-      noteField.placeholder = isToday ? 'Заметка дня...' : 'Прошлый день — только чтение';
+      noteField.disabled = false;
+      noteField.placeholder = 'Заметка дня...';
       noteStatus.textContent = '';
       noteStatus.classList.remove('saved');
     }
     noteField.addEventListener('input', () => {
-      if (moodViewDate !== getLogicalDate()) return;
       noteStatus.textContent = '...';
       noteStatus.classList.remove('saved');
       clearTimeout(noteDebounce);
@@ -3195,18 +3291,28 @@
       updateHomeFood();
     }
     function updateHomeFood() {
+      if (!isViewingToday()) return;
       const homeVal = document.getElementById('homeFoodValue');
       if (!homeVal) return;
       const mealsCount = Object.values(foodMeals).filter(Boolean).length;
       homeVal.textContent = (foodCalories || mealsCount) ? `${foodCalories} ккал · ${mealsCount} приёма` : '—';
     }
     function saveFood() {
-      const data = JSON.stringify({
-        date: getLogicalDate(), calories: foodCalories, goal: foodCalGoal,
-        meals: foodMeals, cooked: foodCooked, cafe: foodCafe, note: foodNote, dayStartHour
-      });
-      tg.CloudStorage.setItem(FOOD_KEY, data, (err) => { if (err) console.warn(err); });
-      updateFoodHistory();
+      const date = viewDayDate || getLogicalDate();
+      const mealsCount = Object.values(foodMeals).filter(Boolean).length;
+      if (foodCalories || mealsCount || foodCooked || foodCafe || foodNote) {
+        foodHistory[date] = { calories: foodCalories, meals: { ...foodMeals }, mealsCount, cooked: foodCooked, cafe: foodCafe, note: foodNote };
+      } else {
+        delete foodHistory[date];
+      }
+      saveFoodHistory();
+      if (date === getLogicalDate()) {
+        const data = JSON.stringify({
+          date, calories: foodCalories, goal: foodCalGoal,
+          meals: foodMeals, cooked: foodCooked, cafe: foodCafe, note: foodNote, dayStartHour
+        });
+        tg.CloudStorage.setItem(FOOD_KEY, data, (err) => { if (err) console.warn(err); });
+      }
     }
     function loadFood() {
       tg.CloudStorage.getItem(FOOD_KEY, (err, value) => {
@@ -3313,14 +3419,6 @@
         cb && cb();
       });
     }
-    function updateFoodHistory() {
-      const date = getLogicalDate();
-      const mealsCount = Object.values(foodMeals).filter(Boolean).length;
-      if (foodCalories || mealsCount || foodCooked || foodCafe || foodNote) {
-        foodHistory[date] = { calories: foodCalories, meals: { ...foodMeals }, mealsCount, cooked: foodCooked, cafe: foodCafe, note: foodNote };
-      } else delete foodHistory[date];
-      saveFoodHistory();
-    }
     function renderWeekFood() {
       const container = document.getElementById('weekFoodTable');
       if (!container) return;
@@ -3346,8 +3444,9 @@
       }).filter(Boolean).join('');
       const dishesBlock = dishes ? `<div class="wk-food-dishes"><div class="wk-food-dishes-title">Что кушал</div>${dishes}</div>` : '';
       container.innerHTML = `<div class="wk-food-header"><span class="wk-day">День</span><span class="wk-food-kcal">Ккал</span><span class="wk-food-meals">Приёмы</span><span class="wk-food-meals">Гот/Кафе</span></div>${rows}${stats}${dishesBlock}`;
-    }   
-          /* ПРИВЫЧКИ */
+    }
+
+    /* ПРИВЫЧКИ */
     const HABITS_CONFIG_KEY = 'habits_config_v1';
     const HABITS_DATA_KEY = 'habits_data_v1';
     const DEFAULT_HABITS_CONFIG = {
@@ -3424,8 +3523,11 @@
       });
     }
     function toggleHabit(habitId, dateStr) {
-      if (!isViewingCurrentWeek()) return;
-      const checks = getCurrentWeekChecks();
+      if (dateStr > getLogicalDate()) return;
+      const weekKey = getMondayOfDate(dateStr);
+      if (!habitsData.weeks[weekKey]) habitsData.weeks[weekKey] = { checks: {} };
+      if (!habitsData.weeks[weekKey].checks) habitsData.weeks[weekKey].checks = {};
+      const checks = habitsData.weeks[weekKey].checks;
       if (!checks[habitId]) checks[habitId] = {};
       if (checks[habitId][dateStr]) delete checks[habitId][dateStr];
       else checks[habitId][dateStr] = true;
@@ -3437,18 +3539,18 @@
     function renderDayHabits() {
       const container = document.getElementById('dayHabitsList');
       if (!container) return;
-      const today = getLogicalDate();
+      const date = viewDayDate || getLogicalDate();
       const checks = getCurrentWeekChecks();
       let html = '';
       habitsConfig.blocks.forEach(block => {
         if (block.type !== 'daily') return;
         let doneToday = 0;
-        block.habits.forEach(h => { if (checks[h.id] && checks[h.id][today]) doneToday++; });
+        block.habits.forEach(h => { if (checks[h.id] && checks[h.id][date]) doneToday++; });
         const total = block.habits.length;
         html += `<div class="habit-block"><div class="habit-block-head"><div class="habit-block-title">${block.emoji} ${escapeHtml(block.title)} <span class="count">(${doneToday}/${total})</span></div></div>`;
         block.habits.forEach(h => {
-          const done = checks[h.id] && checks[h.id][today];
-          html += `<div class="habit-item ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}', '${today}')"><div class="habit-check">✓</div><div class="habit-text">${escapeHtml(h.text)}</div></div>`;
+          const done = checks[h.id] && checks[h.id][date];
+          html += `<div class="habit-item ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}', '${date}')"><div class="habit-check">✓</div><div class="habit-text">${escapeHtml(h.text)}</div></div>`;
         });
         html += `</div>`;
       });
@@ -3619,7 +3721,6 @@
       if (!content) return;
       let html = '';
       habitsConfig.blocks.forEach((block, blockIndex) => {
-        // Скрываем из редактора: sport, read, weekly
         if (block.type === 'sport' || block.type === 'read' || block.type === 'weekly') return;
         html += `<div class="habit-block-editor" data-block-index="${blockIndex}">
           <div class="hbe-head">
@@ -3826,7 +3927,8 @@
       block.habits[habitIndex] = tmp;
       saveHabitsConfig(); renderHabitsEditorContent();
     }
-        /* СПОРТ И ЧТЕНИЕ */
+
+    /* СПОРТ И ЧТЕНИЕ */
     const SPORT_DATA_KEY = 'sport_data_v1';
     const READ_DATA_KEY = 'read_data_v1';
     const SPORT_TYPES_KEY = 'sport_types_v1';
@@ -4771,8 +4873,9 @@
       renderWeekSleep();
       renderWeekMood();
       renderWeekFood();
-    }  
-       /* ЦЕЛИ */
+    }
+
+    /* ЦЕЛИ */
     const GOALS_KEY = 'goals_v1';
     let goals = [];
     function saveGoals() {
@@ -5869,8 +5972,10 @@
     loadWater();
     loadWaterHistory(() => {
       initViewWeek();
+      initViewDay();
       renderStats();
       renderWeekAll();
+      renderDayScreen();
     });
     loadSteps();
     loadSleep();
@@ -5893,7 +5998,8 @@
                 loadGoals(() => {
                   initHabitsData();
                   initViewWeek();
-                  renderDayHabits();
+                  initViewDay();
+                  renderDayScreen();
                   renderWeekAll();
                   updateHomeHabits();
                   renderSteps(false);
@@ -5912,4 +6018,4 @@
     });
   </script>
 </body>
-</html>   
+</html>
