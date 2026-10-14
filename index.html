@@ -448,6 +448,7 @@
       text-align: center; font-size: 12px; color: var(--text-dim); margin-top: 6px;
     }
     .chart-avg b { color: var(--text); font-weight: 700; }
+    .water-chart-title { color: #4fc3f7; }
 
     .progress-wrap { margin-top: 4px; }
     .progress-bar-outer {
@@ -478,7 +479,7 @@
     .numbers-item .n-val.sport { color: var(--sport); }
     .numbers-item .n-val.read { color: var(--read); }
     .numbers-item .n-val.money { color: var(--money); }
-    .numbers-item .n-val.water { color: #4fc3f7; }
+    .numbers-item .n-val.steps { color: var(--steps); }
     .numbers-item .n-label {
       font-size: 11px; color: var(--text-dim);
       text-transform: uppercase; letter-spacing: 0.3px;
@@ -1256,8 +1257,165 @@
     }
     .diary-add-btn:active { background: rgba(34, 211, 238, 0.1); }
 
-    /* ===== СТАТЫ: график воды ===== */
-    .water-chart-title { color: #4fc3f7; }
+    /* ===== ТРЕНИРОВКИ (НОВОЕ) ===== */
+    .workout-list { margin-bottom: 8px; }
+    .workout-card {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .workout-card:active { transform: scale(0.99); }
+    .workout-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; margin-bottom: 6px;
+    }
+    .workout-head .wh-left {
+      display: flex; align-items: center; gap: 8px;
+      min-width: 0;
+    }
+    .workout-head .wh-emoji { font-size: 22px; line-height: 1; flex-shrink: 0; }
+    .workout-head .wh-title {
+      font-size: 14px; font-weight: 700;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .workout-head .wh-menu {
+      background: transparent; border: none; color: var(--text-dim);
+      font-size: 20px; cursor: pointer; padding: 0 4px;
+      line-height: 1; font-family: inherit; flex-shrink: 0;
+      -webkit-appearance: none; appearance: none;
+    }
+    .workout-meta {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--text-dim);
+      flex-wrap: wrap;
+    }
+    .workout-meta .wm-mood { font-weight: 700; color: var(--sport); }
+    .workout-meta .wm-badge {
+      background: var(--bg-2); padding: 2px 8px;
+      border-radius: 8px; font-weight: 600;
+    }
+    .workout-add-btn {
+      width: 100%; padding: 12px;
+      background: transparent;
+      border: 1px dashed var(--sport);
+      border-radius: 12px;
+      color: var(--sport);
+      font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .workout-add-btn:active { background: rgba(249, 115, 22, 0.1); }
+
+    /* Упражнение в 2 строки */
+    .exercise-item {
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px; margin-bottom: 10px;
+    }
+    .exercise-header {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+    }
+    .exercise-header .ex-name-input {
+      flex: 1;
+      padding: 10px 12px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-2);
+      color: var(--text); font-size: 14px; font-family: inherit;
+      outline: none; min-width: 0;
+      -webkit-appearance: none; appearance: none;
+    }
+    .exercise-header .ex-name-input:focus { border-color: var(--sport); }
+    .exercise-header .ex-remove {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--card);
+      color: #fb923c; cursor: pointer; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; padding: 0; line-height: 1;
+      -webkit-appearance: none; appearance: none; flex-shrink: 0;
+    }
+    .exercise-header .ex-remove:active { transform: scale(0.9); }
+
+    .ex-sets-list { display: flex; flex-direction: column; gap: 6px; }
+    .ex-set-row {
+      display: grid;
+      grid-template-columns: 32px 1fr 1fr 32px;
+      gap: 6px; align-items: center;
+    }
+    .ex-set-row .set-num {
+      font-size: 11px; color: var(--text-dim); font-weight: 700;
+      text-align: center;
+    }
+    .ex-set-row input {
+      width: 100%; padding: 10px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg-2);
+      color: var(--text); font-size: 14px; font-family: inherit;
+      outline: none; text-align: center; min-width: 0;
+      font-variant-numeric: tabular-nums;
+      -webkit-appearance: none; appearance: none;
+    }
+    .ex-set-row input:focus { border-color: var(--sport); }
+    .ex-set-row input::placeholder { color: var(--text-dim); font-size: 11px; }
+    .ex-set-row .set-remove {
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--card);
+      color: #fb923c; cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; padding: 0; line-height: 1;
+      -webkit-appearance: none; appearance: none;
+    }
+    .ex-set-row .set-remove:active { transform: scale(0.9); }
+    .ex-set-row .set-remove.hidden {
+      visibility: hidden; pointer-events: none;
+    }
+
+    .ex-add-set-btn {
+      width: 100%; padding: 8px; margin-top: 6px;
+      background: transparent; border: 1px dashed var(--border);
+      border-radius: 8px; color: var(--sport);
+      font-size: 12px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      -webkit-appearance: none; appearance: none;
+    }
+    .ex-add-set-btn:active { background: rgba(249, 115, 22, 0.08); }
+
+    .ex-settings-row {
+      display: flex; align-items: center; gap: 6px; margin-top: 8px;
+      padding-top: 8px; border-top: 1px dashed var(--border);
+    }
+    .ex-settings-row .ex-settings-icon {
+      font-size: 14px; flex-shrink: 0;
+    }
+    .ex-settings-row .ex-settings-input {
+      flex: 1; padding: 8px 10px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg-2);
+      color: var(--text); font-size: 12px; font-family: inherit;
+      outline: none; min-width: 0;
+      -webkit-appearance: none; appearance: none;
+    }
+    .ex-settings-row .ex-settings-input:focus { border-color: var(--sport); }
+    .ex-settings-row .ex-settings-input::placeholder { color: var(--text-dim); font-style: italic; }
+
+    .ex-prev-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 6px 10px; margin-top: 6px;
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      border-radius: 8px;
+      color: var(--sport);
+      font-size: 11px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      -webkit-appearance: none; appearance: none;
+    }
+    .ex-prev-btn:active { transform: scale(0.95); }
+
+    .workout-empty-hint {
+      text-align: center; padding: 12px;
+      font-size: 12px; color: var(--text-dim);
+      font-style: italic;
+    }
 
     .week-grid-wrap {
       overflow-x: auto; margin: 0 -16px; padding: 0 16px;
@@ -1610,32 +1768,6 @@
       -webkit-appearance: none; appearance: none;
     }
 
-    .exercise-item {
-      background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px; margin-bottom: 8px;
-    }
-    .exercise-item .ex-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto;
-      gap: 6px; align-items: center;
-    }
-    .exercise-item input {
-      width: 100%; padding: 8px; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--bg-2);
-      color: var(--text); font-size: 13px; font-family: inherit;
-      outline: none; text-align: center; min-width: 0;
-      -webkit-appearance: none; appearance: none;
-    }
-    .exercise-item input.ex-name { text-align: left; grid-column: span 2; }
-    .exercise-item input:focus { border-color: var(--sport); }
-    .exercise-item .ex-remove {
-      width: 28px; height: 28px; border-radius: 6px;
-      border: 1px solid var(--border); background: var(--card);
-      color: #fb923c; cursor: pointer; font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: inherit; padding: 0; line-height: 1;
-      -webkit-appearance: none; appearance: none;
-    }
-
     .emoji-scale-10 {
       display: grid; grid-template-columns: repeat(5, 1fr);
       gap: 6px; margin-bottom: 8px;
@@ -1951,7 +2083,7 @@
           <div class="note-status" id="noteStatus"></div>
         </div>
 
-        <!-- ===== ЕЖЕДНЕВНИК (НОВЫЙ БЛОК) ===== -->
+        <!-- ===== ЕЖЕДНЕВНИК ===== -->
         <div class="card" id="day-card-diary">
           <div class="card-head">
             <div class="title"><span>📔</span> Ежедневник</div>
@@ -1959,6 +2091,15 @@
           </div>
           <div id="dayDiaryList"></div>
           <button class="diary-add-btn" onclick="addDiaryRow()">+ Добавить строчку</button>
+        </div>
+
+        <!-- ===== СПОРТ (ДЕНЬ) ===== -->
+        <div class="card" id="day-card-sport">
+          <div class="card-head">
+            <div class="title"><span>🏋️</span> Тренировки</div>
+          </div>
+          <div id="daySportList"></div>
+          <button class="workout-add-btn" onclick="openWorkoutEditor(null)">+ Добавить тренировку</button>
         </div>
 
         <div class="card" id="day-card-food">
@@ -2192,7 +2333,6 @@
       screens[s.id.replace('screen-', '')] = s;
     });
 
-    // ===== ПРАВКА: просматриваемый день =====
     let viewDayDate = null;
     function initViewDay() {
       if (!viewDayDate) viewDayDate = getLogicalDate();
@@ -2374,7 +2514,6 @@
       return d.toISOString().slice(0, 10);
     }
 
-    // ===== ПРАВКА: навигация по дням в "Дне" =====
     function dayShift(delta) {
       initViewDay();
       const today = getLogicalDate();
@@ -2447,13 +2586,13 @@
       renderFood();
       renderDayHabits();
       renderDayDiary();
+      renderDaySport();
     }
 
     /* =========================================================
        ЕЖЕДНЕВНИК
        ========================================================= */
     const DIARY_DATA_KEY = 'diary_data_v1';
-    // структура: { "2025-10-14": { rows: [{id, text, done}] } }
     let diaryData = {};
 
     function saveDiaryData() {
@@ -2546,7 +2685,6 @@
       saveDiaryData();
       renderDayDiary();
       tg.HapticFeedback?.impactOccurred('light');
-      // Сразу открываем редактирование текста новой строки
       setTimeout(() => editDiaryText(newRow.id), 50);
     }
 
@@ -4194,7 +4332,9 @@
       saveHabitsConfig(); renderHabitsEditorContent();
     }
 
-    /* СПОРТ И ЧТЕНИЕ */
+    /* =========================================================
+       СПОРТ — новая структура: { workouts: [ {...}, {...} ] }
+       ========================================================= */
     const SPORT_DATA_KEY = 'sport_data_v1';
     const READ_DATA_KEY = 'read_data_v1';
     const SPORT_TYPES_KEY = 'sport_types_v1';
@@ -4213,6 +4353,34 @@
     let sportData = {};
     let readData = {};
     let sportTypes = JSON.parse(JSON.stringify(DEFAULT_SPORT_TYPES));
+
+    // Миграция: превращаем старый формат (одна тренировка на день) в новый (массив workouts)
+    function migrateSportData() {
+      Object.keys(sportData).forEach(date => {
+        const d = sportData[date];
+        if (d && !Array.isArray(d.workouts) && (d.mood || d.typeId || (d.exercises && d.exercises.length) || d.distance || d.note)) {
+          sportData[date] = {
+            workouts: [{
+              id: 'w_migrated_' + date,
+              typeId: d.typeId || null,
+              mood: d.mood || null,
+              exercises: (d.exercises || []).map(ex => ({
+                id: 'ex_' + Math.random().toString(36).slice(2, 8),
+                name: ex.name || '',
+                sets: Array.isArray(ex.sets) ? ex.sets : [{ weight: ex.weight || null, reps: ex.reps || null }],
+                settings: ex.settings || ''
+              })),
+              distance: d.distance || null,
+              time: d.time || null,
+              note: d.note || ''
+            }]
+          };
+        } else if (d && !Array.isArray(d.workouts)) {
+          sportData[date] = { workouts: [] };
+        }
+      });
+    }
+
     function saveSportData() {
       const keys = Object.keys(sportData).sort();
       if (keys.length > 90) keys.slice(0, keys.length - 90).forEach(k => delete sportData[k]);
@@ -4221,7 +4389,7 @@
     function loadSportData(cb) {
       tg.CloudStorage.getItem(SPORT_DATA_KEY, (err, value) => {
         if (err || !value) { sportData = {}; cb && cb(); return; }
-        try { sportData = JSON.parse(value) || {}; } catch (e) { sportData = {}; }
+        try { sportData = JSON.parse(value) || {}; migrateSportData(); } catch (e) { sportData = {}; }
         cb && cb();
       });
     }
@@ -4259,139 +4427,225 @@
       const b = habitsConfig.blocks.find(x => x.type === 'read');
       return b && b.habits[0] ? b.habits[0].id : null;
     }
-    function renderWeekSport() {
-      const listEl = document.getElementById('weekSportList');
-      const sumEl = document.getElementById('weekSportSummary');
-      if (!listEl) return;
-      const days = getWeekDays();
-      const isArchive = !isViewingCurrentWeek();
-      let html = '';
-      let totalDone = 0, totalMood = 0, moodCount = 0;
-      days.forEach(d => {
-        const entry = sportData[d.date];
-        const hasEntry = entry && (entry.mood || entry.typeId || (entry.exercises && entry.exercises.length) || entry.distance || entry.note);
-        const clickAttr = isArchive ? '' : `onclick="openSportModal('${d.date}')"`;
-        const clickClass = isArchive ? ' no-click' : '';
-        if (!hasEntry) {
-          html += `<div class="week-day-row empty${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">— (отдых)</span></div></div>`;
-          return;
-        }
-        totalDone++;
-        if (entry.mood) { totalMood += entry.mood; moodCount++; }
-        const emoji = entry.mood ? SPORT_EMOJIS[entry.mood - 1] : '';
-        const typeObj = sportTypes.find(t => t.id === entry.typeId);
-        const typeName = typeObj ? `${typeObj.emoji} ${typeObj.name}` : '';
-        let details = '';
-        if (entry.exercises && entry.exercises.length) {
-          details = entry.exercises.map(ex => {
-            const parts = [];
-            if (ex.name) parts.push(`<b>${escapeHtml(ex.name)}</b>`);
-            const nums = [];
-            if (ex.weight) nums.push(`${ex.weight} кг`);
-            if (ex.reps) nums.push(`${ex.reps} повт.`);
-            if (ex.sets) nums.push(`${ex.sets} подх.`);
-            if (nums.length) parts.push(nums.join(' × '));
-            return parts.join(' ');
-          }).join('<br>');
-        } else if (entry.distance || entry.time) {
-          const nums = [];
-          if (entry.distance) nums.push(`${entry.distance} км`);
-          if (entry.time) nums.push(`${entry.time} мин`);
-          if (entry.distance && entry.time) {
-            const pace = entry.time / entry.distance;
-            const paceMin = Math.floor(pace);
-            const paceSec = Math.round((pace - paceMin) * 60);
-            nums.push(`темп ${paceMin}:${String(paceSec).padStart(2,'0')} /км`);
-            const speed = (entry.distance / (entry.time / 60)).toFixed(1);
-            nums.push(`${speed} км/ч`);
-          }
-          details = nums.join(' · ');
-        }
-        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${typeName ? ` · ${typeName}` : ''}${details ? `<span class="exercise-line">${details}</span>` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
-      });
-      listEl.innerHTML = html;
-      const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
-      sumEl.innerHTML = `<div class="week-summary-mini"><div class="ws-item"><div class="ws-val sport">${totalDone}</div><div class="ws-label">Тренировок</div></div><div class="ws-item"><div class="ws-val sport">${avgMood}</div><div class="ws-label">Средняя</div></div></div>`;
+
+    function getWorkoutsForDate(date) {
+      if (!sportData[date]) sportData[date] = { workouts: [] };
+      if (!Array.isArray(sportData[date].workouts)) sportData[date].workouts = [];
+      return sportData[date].workouts;
     }
-    function renderWeekRead() {
-      const listEl = document.getElementById('weekReadList');
-      const sumEl = document.getElementById('weekReadSummary');
-      if (!listEl) return;
-      const days = getWeekDays();
-      const isArchive = !isViewingCurrentWeek();
-      let html = '';
-      let totalDone = 0, totalMood = 0, moodCount = 0;
-      days.forEach(d => {
-        const entry = readData[d.date];
-        const hasEntry = entry && (entry.mood || entry.text);
-        const clickAttr = isArchive ? '' : `onclick="openReadModal('${d.date}')"`;
-        const clickClass = isArchive ? ' no-click' : '';
-        if (!hasEntry) {
-          html += `<div class="week-day-row empty${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">—</span></div></div>`;
-          return;
-        }
-        totalDone++;
-        if (entry.mood) { totalMood += entry.mood; moodCount++; }
-        const emoji = entry.mood ? READ_EMOJIS[entry.mood - 1] : '';
-        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
+
+    // Подсчёт упражнений и подходов для карточки
+    function workoutStats(w) {
+      const exCount = (w.exercises || []).length;
+      let setCount = 0;
+      (w.exercises || []).forEach(ex => {
+        if (Array.isArray(ex.sets)) setCount += ex.sets.length;
+        else setCount += 1;
       });
-      listEl.innerHTML = html;
-      const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
-      sumEl.innerHTML = `<div class="week-summary-mini"><div class="ws-item"><div class="ws-val read">${totalDone}</div><div class="ws-label">Раз читал</div></div><div class="ws-item"><div class="ws-val read">${avgMood}</div><div class="ws-label">Средняя</div></div></div>`;
+      return { exCount, setCount };
     }
-    let sportModalState = null;
-    let sportModalEl = null;
-    function openSportModal(dateStr) {
-      if (!isViewingCurrentWeek()) return;
-      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
-      const existing = sportData[dateStr] || { mood: null, typeId: null, exercises: [], distance: null, time: null, note: '' };
-      sportModalState = {
-        date: dateStr,
-        mood: existing.mood || null,
-        typeId: existing.typeId || null,
-        exercises: existing.exercises ? JSON.parse(JSON.stringify(existing.exercises)) : [],
-        distance: existing.distance || '',
-        time: existing.time || '',
-        note: existing.note || ''
+
+    // ===== РЕНДЕР ДНЕВНОГО СПИСКА ТРЕНИРОВОК =====
+    function renderDaySport() {
+      const container = document.getElementById('daySportList');
+      if (!container) return;
+      const date = viewDayDate || getLogicalDate();
+      const workouts = getWorkoutsForDate(date);
+      if (workouts.length === 0) {
+        container.innerHTML = `<div class="workout-empty-hint">Тренировок пока нет. Добавь первую!</div>`;
+        return;
+      }
+      let html = '<div class="workout-list">';
+      workouts.forEach(w => {
+        const typeObj = sportTypes.find(t => t.id === w.typeId);
+        const emoji = typeObj ? typeObj.emoji : (w.mood ? SPORT_EMOJIS[w.mood - 1] : '🏋️');
+        const title = typeObj ? typeObj.name : 'Тренировка';
+        const { exCount, setCount } = workoutStats(w);
+        const stats = [];
+        if (typeObj && typeObj.mode === 'exercises') {
+          stats.push(`${exCount} упр.`);
+          stats.push(`${setCount} подх.`);
+        } else if (typeObj && typeObj.mode === 'distance') {
+          if (w.distance) stats.push(`${w.distance} км`);
+          if (w.time) stats.push(`${w.time} мин`);
+        }
+        if (w.mood) stats.push(`${SPORT_EMOJIS[w.mood - 1]} ${w.mood}/10`);
+        html += `<div class="workout-card" data-workout-id="${w.id}">
+          <div class="workout-head">
+            <div class="wh-left">
+              <div class="wh-emoji">${emoji}</div>
+              <div class="wh-title">${escapeHtml(title)}</div>
+            </div>
+            <button class="wh-menu" data-action="menu" data-workout-id="${w.id}">⋯</button>
+          </div>
+          ${stats.length ? `<div class="workout-meta">${stats.map(s => `<span class="wm-badge">${s}</span>`).join('')}</div>` : ''}
+        </div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+      // Клик по карточке — открыть редактор
+      container.querySelectorAll('.workout-card').forEach(card => {
+        card.onclick = (e) => {
+          if (e.target.dataset.action === 'menu') return;
+          const wid = card.dataset.workoutId;
+          openWorkoutEditor(wid);
+        };
+      });
+      // Меню
+      container.querySelectorAll('.wh-menu').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const wid = btn.dataset.workoutId;
+          openWorkoutMenu(wid, btn);
+        };
+      });
+    }
+
+    function openWorkoutMenu(workoutId, anchorBtn) {
+      const date = viewDayDate || getLogicalDate();
+      const workouts = getWorkoutsForDate(date);
+      const w = workouts.find(x => x.id === workoutId);
+      if (!w) return;
+      document.querySelectorAll('.goal-actions-backdrop, .goal-actions-menu').forEach(m => m.remove());
+      const backdrop = document.createElement('div');
+      backdrop.className = 'goal-actions-backdrop';
+      backdrop.onclick = () => closeWorkoutMenu();
+      document.body.appendChild(backdrop);
+      const menu = document.createElement('div');
+      menu.className = 'goal-actions-menu';
+      const rect = anchorBtn.getBoundingClientRect();
+      let left = rect.right - 200;
+      if (left < 8) left = 8;
+      menu.style.top = (rect.bottom + 4) + 'px';
+      menu.style.left = left + 'px';
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.textContent = '✏️ Редактировать';
+      editBtn.onclick = (e) => { e.stopPropagation(); closeWorkoutMenu(); openWorkoutEditor(workoutId); };
+      menu.appendChild(editBtn);
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'danger';
+      delBtn.textContent = '🗑️ Удалить тренировку';
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        closeWorkoutMenu();
+        if (!confirm('Удалить эту тренировку?')) return;
+        const arr = getWorkoutsForDate(date);
+        const idx = arr.findIndex(x => x.id === workoutId);
+        if (idx >= 0) arr.splice(idx, 1);
+        if (arr.length === 0) delete sportData[date];
+        saveSportData();
+        syncSportHabit(date);
+        renderDaySport(); renderWeekSport(); renderWeekHabitsGrid(); renderWeekSummary();
+        tg.HapticFeedback?.notificationOccurred('warning');
       };
-      buildSportModal();
+      menu.appendChild(delBtn);
+      document.body.appendChild(menu);
+      window._workoutMenuEl = menu;
+      window._workoutMenuBackdrop = backdrop;
     }
-    function buildSportModal() {
-      const s = sportModalState;
+    function closeWorkoutMenu() {
+      if (window._workoutMenuEl) { window._workoutMenuEl.remove(); window._workoutMenuEl = null; }
+      if (window._workoutMenuBackdrop) { window._workoutMenuBackdrop.remove(); window._workoutMenuBackdrop = null; }
+    }
+
+    // Галочка в привычке «Тренировка» = есть хотя бы одна тренировка за день
+    function syncSportHabit(date) {
+      const sportHabitId = getSportHabitId();
+      if (!sportHabitId) return;
+      const workouts = getWorkoutsForDate(date);
+      const hasAny = workouts.length > 0;
+      const weekKey = getMondayOfDate(date);
+      if (!habitsData.weeks[weekKey]) habitsData.weeks[weekKey] = { checks: {} };
+      if (!habitsData.weeks[weekKey].checks) habitsData.weeks[weekKey].checks = {};
+      const checks = habitsData.weeks[weekKey].checks;
+      if (!checks[sportHabitId]) checks[sportHabitId] = {};
+      if (hasAny) checks[sportHabitId][date] = true;
+      else delete checks[sportHabitId][date];
+      saveHabitsData();
+    }
+
+    // ===== РЕДАКТОР ТРЕНИРОВКИ =====
+    let workoutEditorState = null;
+    let workoutEditorEl = null;
+
+    function openWorkoutEditor(workoutId) {
+      const date = viewDayDate || getLogicalDate();
+      const workouts = getWorkoutsForDate(date);
+      let w;
+      if (workoutId) {
+        w = workouts.find(x => x.id === workoutId);
+        if (!w) return;
+      } else {
+        w = {
+          id: 'w_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          typeId: null,
+          mood: null,
+          exercises: [],
+          distance: null,
+          time: null,
+          note: ''
+        };
+      }
+      workoutEditorState = {
+        date,
+        workout: JSON.parse(JSON.stringify(w)),
+        isNew: !workoutId
+      };
+      buildWorkoutEditor();
+    }
+
+    function buildWorkoutEditor() {
+      const s = workoutEditorState;
       if (!s) return;
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
       const backdrop = document.createElement('div');
       backdrop.className = 'modal-backdrop show';
-      backdrop.innerHTML = `<div class="modal" id="sportModal"></div>`;
+      backdrop.innerHTML = `<div class="modal" id="workoutEditorModal"></div>`;
       document.body.appendChild(backdrop);
-      sportModalEl = backdrop;
+      workoutEditorEl = backdrop;
+      const modal = backdrop.querySelector('#workoutEditorModal');
+      const w = s.workout;
+
       const dateObj = new Date(s.date + 'T12:00:00');
       const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
-      const modal = backdrop.querySelector('#sportModal');
-      modal.innerHTML = `
-        <h3>🏃 Спорт — ${escapeHtml(dateLabel)}</h3>
-        <label>Насколько продуктивно?</label>
-        <div class="emoji-scale-10" id="sportEmojiScale"></div>
-        <label>Вид нагрузки</label>
-        <div class="type-grid" id="sportTypeGrid"></div>
-        <button type="button" class="add-type-btn" id="addSportTypeBtn">+ Добавить свой вид</button>
-        <div id="sportTypeDetails"></div>
-        <label>Заметка</label>
-        <textarea class="note-field" id="sportNoteField" placeholder="Как прошло?" maxlength="500" style="min-height:60px;">${escapeHtml(s.note)}</textarea>
-        <div class="modal-buttons">
-          <button class="cancel" id="cancelBtn">Отмена</button>
-          <button class="save" id="saveBtn">Сохранить</button>
-        </div>
-      `;
-      const emojiScale = modal.querySelector('#sportEmojiScale');
+
+      let html = `<h3>🏋️ Тренировка — ${escapeHtml(dateLabel)}</h3>`;
+
+      // Настроение (продуктивность)
+      html += `<label>Насколько продуктивно?</label>`;
+      html += `<div class="emoji-scale-10" id="wEmojiScale"></div>`;
+
+      // Вид
+      html += `<label>Вид нагрузки</label>`;
+      html += `<div class="type-grid" id="wTypeGrid"></div>`;
+      html += `<button type="button" class="add-type-btn" id="wAddTypeBtn">+ Добавить свой вид</button>`;
+
+      // Детали
+      html += `<div id="wDetails"></div>`;
+
+      // Заметка
+      html += `<label>Заметка</label>`;
+      html += `<textarea class="note-field" id="wNoteField" placeholder="Как прошло?" maxlength="500" style="min-height:60px;">${escapeHtml(w.note || '')}</textarea>`;
+
+      html += `<div class="modal-buttons">
+        <button class="cancel" id="wCancelBtn">Отмена</button>
+        <button class="save" id="wSaveBtn">${s.isNew ? 'Добавить' : 'Сохранить'}</button>
+      </div>`;
+      modal.innerHTML = html;
+
+      // Emoji scale
+      const emojiScale = modal.querySelector('#wEmojiScale');
       const emojiBtns = [];
       SPORT_EMOJIS.forEach((e, i) => {
         const level = i + 1;
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'emoji-btn' + (s.mood === level ? ' selected' : '');
+        btn.className = 'emoji-btn' + (w.mood === level ? ' selected' : '');
         btn.innerHTML = `<span class="e-icon">${e}</span><span class="e-num">${level}</span>`;
-        btn.onclick = function() {
-          s.mood = level;
+        btn.onclick = () => {
+          w.mood = level;
           emojiBtns.forEach(b => b.classList.remove('selected'));
           btn.classList.add('selected');
           tg.HapticFeedback?.selectionChanged();
@@ -4399,79 +4653,82 @@
         emojiScale.appendChild(btn);
         emojiBtns.push(btn);
       });
-      const typeGrid = modal.querySelector('#sportTypeGrid');
+
+      // Тип
+      const typeGrid = modal.querySelector('#wTypeGrid');
       const typeBtns = [];
       sportTypes.forEach(t => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'type-btn' + (s.typeId === t.id ? ' selected' : '');
+        btn.className = 'type-btn' + (w.typeId === t.id ? ' selected' : '');
         btn.innerHTML = `<span style="font-size:22px;">${t.emoji}</span><span class="type-name">${escapeHtml(t.name)}</span>`;
-        btn.onclick = function() {
-          s.typeId = t.id;
+        btn.onclick = () => {
+          w.typeId = t.id;
           typeBtns.forEach(b => b.classList.remove('selected'));
           btn.classList.add('selected');
-          renderSportDetailsBlock(modal.querySelector('#sportTypeDetails'), s);
+          renderWorkoutDetails(modal.querySelector('#wDetails'), w, s.date);
           tg.HapticFeedback?.selectionChanged();
         };
         typeGrid.appendChild(btn);
         typeBtns.push(btn);
       });
-      modal.querySelector('#addSportTypeBtn').onclick = function() { addSportTypeCustom(); };
-      const detailsEl = modal.querySelector('#sportTypeDetails');
-      renderSportDetailsBlock(detailsEl, s);
-      const noteInp = modal.querySelector('#sportNoteField');
-      noteInp.addEventListener('input', function() { s.note = noteInp.value; });
-      backdrop.querySelector('#cancelBtn').onclick = function() { closeSportModal(); };
-      backdrop.querySelector('#saveBtn').onclick = function() {
-        const hasData = s.mood || s.typeId || s.exercises.length || s.distance || s.time || s.note;
-        if (hasData) {
-          sportData[s.date] = {
-            mood: s.mood, typeId: s.typeId, exercises: s.exercises,
-            distance: parseFloat(s.distance) || null, time: parseFloat(s.time) || null,
-            note: s.note
-          };
-        } else delete sportData[s.date];
+      modal.querySelector('#wAddTypeBtn').onclick = () => addSportTypeCustom(() => {
+        // Пересобрать
+        const saved = JSON.parse(JSON.stringify(w));
+        closeWorkoutEditor();
+        workoutEditorState = { date: s.date, workout: saved, isNew: s.isNew };
+        buildWorkoutEditor();
+      });
+
+      // Детали
+      renderWorkoutDetails(modal.querySelector('#wDetails'), w, s.date);
+
+      // Заметка
+      const noteInp = modal.querySelector('#wNoteField');
+      noteInp.addEventListener('input', () => { w.note = noteInp.value; });
+
+      backdrop.querySelector('#wCancelBtn').onclick = () => closeWorkoutEditor();
+      backdrop.querySelector('#wSaveBtn').onclick = () => {
+        const arr = getWorkoutsForDate(s.date);
+        const existingIdx = arr.findIndex(x => x.id === w.id);
+        if (existingIdx >= 0) arr[existingIdx] = w;
+        else arr.push(w);
+        // Убираем пустые
+        const cleaned = arr.filter(x => x.mood || x.typeId || (x.exercises && x.exercises.length) || x.distance || x.time || x.note);
+        if (cleaned.length === 0) delete sportData[s.date];
+        else sportData[s.date] = { workouts: cleaned };
         saveSportData();
-        const sportHabitId = getSportHabitId();
-        if (sportHabitId) {
-          const checks = getCurrentWeekChecks();
-          if (!checks[sportHabitId]) checks[sportHabitId] = {};
-          if (hasData) checks[sportHabitId][s.date] = true;
-          else delete checks[sportHabitId][s.date];
-          saveHabitsData();
-        }
-        closeSportModal();
+        syncSportHabit(s.date);
+        closeWorkoutEditor();
+        renderDaySport();
         renderWeekSport(); renderWeekHabitsGrid(); renderWeekSummary();
         tg.HapticFeedback?.notificationOccurred('success');
         checkAchievements();
       };
-      backdrop.onclick = function(e) { if (e.target === backdrop) closeSportModal(); };
+      backdrop.onclick = (e) => { if (e.target === backdrop) closeWorkoutEditor(); };
     }
-    function closeSportModal() {
-      if (sportModalEl && sportModalEl.parentNode) sportModalEl.remove();
-      sportModalEl = null;
-      sportModalState = null;
-    }
-    function renderSportDetailsBlock(container, s) {
-      const typeObj = sportTypes.find(t => t.id === s.typeId);
+
+    function renderWorkoutDetails(container, w, date) {
+      if (!container) return;
+      const typeObj = sportTypes.find(t => t.id === w.typeId);
       if (!typeObj) { container.innerHTML = ''; return; }
       if (typeObj.mode === 'exercises') {
-        renderExerciseDetails(container, s);
+        renderWorkoutExercises(container, w);
       } else if (typeObj.mode === 'distance') {
         container.innerHTML = `
           <label>Дистанция (км)</label>
-          <input type="number" id="sportDistance" min="0" max="500" step="0.1" value="${s.distance}" placeholder="0">
+          <input type="number" id="wDistance" min="0" max="500" step="0.1" value="${w.distance || ''}" placeholder="0">
           <label>Время (мин)</label>
-          <input type="number" id="sportTime" min="0" max="1000" step="1" value="${s.time}" placeholder="0">
-          <div class="modal-hint" id="paceHint"></div>
+          <input type="number" id="wTime" min="0" max="1000" step="1" value="${w.time || ''}" placeholder="0">
+          <div class="modal-hint" id="wPaceHint"></div>
         `;
-        const distInp = container.querySelector('#sportDistance');
-        const timeInp = container.querySelector('#sportTime');
-        const paceHint = container.querySelector('#paceHint');
-        const updatePace = function() {
-          s.distance = distInp.value;
-          s.time = timeInp.value;
-          const dist = parseFloat(s.distance), time = parseFloat(s.time);
+        const distInp = container.querySelector('#wDistance');
+        const timeInp = container.querySelector('#wTime');
+        const paceHint = container.querySelector('#wPaceHint');
+        const updatePace = () => {
+          w.distance = distInp.value;
+          w.time = timeInp.value;
+          const dist = parseFloat(w.distance), time = parseFloat(w.time);
           if (dist > 0 && time > 0) {
             const pace = time / dist;
             const paceMin = Math.floor(pace);
@@ -4484,117 +4741,275 @@
         timeInp.addEventListener('input', updatePace);
         updatePace();
       } else {
-        container.innerHTML = '';
+        container.innerHTML = `<div class="modal-hint" style="margin-top:8px;">Просто отметка — без деталей.</div>`;
       }
     }
-    function renderExerciseDetails(container, s) {
+
+    // ===== УПРАЖНЕНИЯ (2 строки: название + подходы + настройки) =====
+    function renderWorkoutExercises(container, w) {
       container.innerHTML = '';
-      s.exercises.forEach(function(ex, idx) {
+      if (!Array.isArray(w.exercises)) w.exercises = [];
+
+      w.exercises.forEach((ex, exIdx) => {
+        if (!ex.id) ex.id = 'ex_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+        if (!Array.isArray(ex.sets)) ex.sets = [{ weight: null, reps: null }];
+        if (ex.settings == null) ex.settings = '';
+
         const item = document.createElement('div');
         item.className = 'exercise-item';
         item.innerHTML = `
-          <div class="ex-row">
-            <input type="text" class="ex-name" placeholder="Упражнение" value="${escapeHtml(ex.name || '')}" style="grid-column: span 2;">
-            <input type="number" placeholder="кг" value="${ex.weight || ''}" min="0" step="0.5">
-            <input type="number" placeholder="повт." value="${ex.reps || ''}" min="0">
-            <input type="number" placeholder="подх." value="${ex.sets || ''}" min="0">
-            <button type="button" class="ex-remove">✕</button>
+          <div class="exercise-header">
+            <input type="text" class="ex-name-input" placeholder="Название упражнения" value="${escapeHtml(ex.name || '')}">
+            <button type="button" class="ex-remove" data-action="remove-ex">✕</button>
+          </div>
+          <div class="ex-sets-list" data-sets></div>
+          <button type="button" class="ex-add-set-btn" data-action="add-set">+ Добавить подход</button>
+          <button type="button" class="ex-prev-btn" data-action="prev">📋 Прошлый раз</button>
+          <div class="ex-settings-row">
+            <span class="ex-settings-icon">⚙️</span>
+            <input type="text" class="ex-settings-input" placeholder="Настройки тренажёра (сиденье 4, спинка 2...)" value="${escapeHtml(ex.settings || '')}" maxlength="200">
           </div>
         `;
-        const inputs = item.querySelectorAll('input');
-        const nameInp = inputs[0];
-        const weightInp = inputs[1];
-        const repsInp = inputs[2];
-        const setsInp = inputs[3];
-        nameInp.addEventListener('input', function() { ex.name = nameInp.value; });
-        weightInp.addEventListener('input', function() { ex.weight = parseFloat(weightInp.value) || null; });
-        repsInp.addEventListener('input', function() { ex.reps = parseFloat(repsInp.value) || null; });
-        setsInp.addEventListener('input', function() { ex.sets = parseFloat(setsInp.value) || null; });
-        item.querySelector('.ex-remove').onclick = function() {
-          s.exercises.splice(idx, 1);
-          renderExerciseDetails(container, s);
+
+        // Название
+        const nameInp = item.querySelector('.ex-name-input');
+        nameInp.addEventListener('input', () => { ex.name = nameInp.value; });
+
+        // Настройки
+        const setInp = item.querySelector('.ex-settings-input');
+        setInp.addEventListener('input', () => { ex.settings = setInp.value; });
+
+        // Подходы
+        const setsWrap = item.querySelector('[data-sets]');
+        const renderSets = () => {
+          setsWrap.innerHTML = '';
+          ex.sets.forEach((set, si) => {
+            const row = document.createElement('div');
+            row.className = 'ex-set-row';
+            const canRemove = ex.sets.length > 1;
+            row.innerHTML = `
+              <span class="set-num">${si + 1}</span>
+              <input type="number" placeholder="кг" min="0" step="0.5" value="${set.weight != null && set.weight !== '' ? set.weight : ''}">
+              <input type="number" placeholder="повт." min="0" value="${set.reps != null && set.reps !== '' ? set.reps : ''}">
+              <button type="button" class="set-remove ${canRemove ? '' : 'hidden'}">✕</button>
+            `;
+            const [wInp, rInp] = row.querySelectorAll('input');
+            wInp.addEventListener('input', () => {
+              const v = parseFloat(wInp.value);
+              set.weight = isNaN(v) ? null : v;
+            });
+            rInp.addEventListener('input', () => {
+              const v = parseInt(rInp.value, 10);
+              set.reps = isNaN(v) ? null : v;
+            });
+            row.querySelector('.set-remove').onclick = () => {
+              if (ex.sets.length <= 1) return;
+              ex.sets.splice(si, 1);
+              renderSets();
+            };
+            setsWrap.appendChild(row);
+          });
         };
+        renderSets();
+
+        // Добавить подход (по умолчанию копируем последний вес)
+        item.querySelector('[data-action="add-set"]').onclick = () => {
+          const last = ex.sets[ex.sets.length - 1];
+          ex.sets.push({ weight: last ? last.weight : null, reps: null });
+          renderSets();
+        };
+
+        // Прошлый раз
+        item.querySelector('[data-action="prev"]').onclick = () => {
+          const prev = findPrevExercise(ex.name);
+          if (!prev) {
+            alert('Прошлых записей с таким названием не найдено.');
+            return;
+          }
+          const parts = [];
+          if (prev.sets && prev.sets.length) {
+            prev.sets.forEach(s => {
+              parts.push(`${s.weight != null ? s.weight : '?'}×${s.reps != null ? s.reps : '?'}`);
+            });
+          }
+          const msg = `Прошлый раз:\n${parts.join(', ')}${prev.settings ? '\nНастройки: ' + prev.settings : ''}\n\nПодставить?`;
+          if (!confirm(msg)) return;
+          ex.sets = JSON.parse(JSON.stringify(prev.sets || [{ weight: null, reps: null }]));
+          if (prev.settings) ex.settings = prev.settings;
+          renderWorkoutExercises(container, w);
+        };
+
+        // Удалить упражнение
+        item.querySelector('[data-action="remove-ex"]').onclick = () => {
+          if (!confirm(`Удалить упражнение «${ex.name || 'без названия'}»?`)) return;
+          w.exercises.splice(exIdx, 1);
+          renderWorkoutExercises(container, w);
+        };
+
         container.appendChild(item);
       });
+
       const addBtn = document.createElement('button');
       addBtn.type = 'button';
       addBtn.className = 'add-habit-btn';
       addBtn.textContent = '+ Добавить упражнение';
-      addBtn.onclick = function() {
-        s.exercises.push({ name: '', weight: null, reps: null, sets: null });
-        renderExerciseDetails(container, s);
+      addBtn.onclick = () => {
+        w.exercises.push({
+          id: 'ex_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          name: '',
+          sets: [{ weight: null, reps: null }],
+          settings: ''
+        });
+        renderWorkoutExercises(container, w);
       };
       container.appendChild(addBtn);
     }
-    function addSportTypeCustom() {
-      const backdrop = document.createElement('div');
-      backdrop.className = 'modal-backdrop show';
-      backdrop.style.zIndex = '110';
-      backdrop.innerHTML = `<div class="modal"><h3>Новый вид спорта</h3><label>Название</label><input type="text" id="newTypeName" placeholder="Например: Скалолазание" maxlength="30"><label>Режим записи</label><div class="type-grid" id="modeGrid" style="grid-template-columns: repeat(3, 1fr);"><button type="button" class="type-btn" data-mode="none"><span style="font-size:22px;">✓</span><span class="type-name">Просто<br>галочка</span></button><button type="button" class="type-btn" data-mode="distance"><span style="font-size:22px;">📍</span><span class="type-name">Дистанция<br>+ время</span></button><button type="button" class="type-btn" data-mode="exercises"><span style="font-size:22px;">🏋️</span><span class="type-name">Упражнения<br>с весом</span></button></div><div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">Добавить</button></div></div>`;
-      document.body.appendChild(backdrop);
-      let selectedMode = 'none';
-      const modeBtns = backdrop.querySelectorAll('#modeGrid .type-btn');
-      modeBtns.forEach(function(btn) {
-        btn.onclick = function() {
-          selectedMode = btn.dataset.mode;
-          modeBtns.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-        };
-      });
-      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
-      backdrop.querySelector('#saveBtn').onclick = function() {
-        const name = backdrop.querySelector('#newTypeName').value.trim();
-        if (!name) { backdrop.remove(); return; }
-        const id = 'custom_' + Date.now();
-        sportTypes.push({ id: id, emoji: '⭐', name: name, mode: selectedMode });
-        saveSportTypes();
-        backdrop.remove();
-        if (sportModalEl && sportModalState) {
-          const savedState = sportModalState;
-          closeSportModal();
-          sportModalState = savedState;
-          buildSportModal();
-        }
-        tg.HapticFeedback?.notificationOccurred('success');
-      };
-      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
-    }
-    function openSportSettings() {
-      const backdrop = document.createElement('div');
-      backdrop.className = 'modal-backdrop show';
-      let html = '<h3>⚙️ Виды спорта</h3><div class="edit-habit-list">';
-      sportTypes.forEach(function(t, i) {
-        html += '<div class="edit-habit-row"><span class="e-text">' + t.emoji + ' ' + escapeHtml(t.name) + ' <span style="color:var(--text-dim);font-size:11px;">(' + t.mode + ')</span></span><button type="button" class="e-btn" data-idx="' + i + '" data-action="edit">✎</button><button type="button" class="e-btn danger" data-idx="' + i + '" data-action="delete">✕</button></div>';
-      });
-      html += '</div><div class="modal-buttons"><button class="cancel" id="closeBtn">Готово</button></div>';
-      backdrop.innerHTML = '<div class="modal">' + html + '</div>';
-      document.body.appendChild(backdrop);
-      backdrop.querySelectorAll('.edit-habit-row .e-btn').forEach(function(btn) {
-        btn.onclick = function() {
-          const idx = parseInt(btn.dataset.idx, 10);
-          const action = btn.dataset.action;
-          if (action === 'edit') {
-            const t = sportTypes[idx];
-            const newName = prompt('Новое название:', t.name);
-            if (newName && newName.trim()) {
-              t.name = newName.trim();
-              saveSportTypes();
-              backdrop.remove();
-              openSportSettings();
-            }
-          } else if (action === 'delete') {
-            if (confirm('Удалить вид «' + sportTypes[idx].name + '»?')) {
-              sportTypes.splice(idx, 1);
-              saveSportTypes();
-              backdrop.remove();
-              openSportSettings();
+
+    // Поиск последнего выполнения упражнения с таким же названием
+    function findPrevExercise(name) {
+      const target = (name || '').trim().toLowerCase();
+      if (!target) return null;
+      const dates = Object.keys(sportData).sort().reverse();
+      const today = viewDayDate || getLogicalDate();
+      for (const date of dates) {
+        if (date >= today) continue;
+        const day = sportData[date];
+        if (!day || !Array.isArray(day.workouts)) continue;
+        for (const w of day.workouts) {
+          if (!Array.isArray(w.exercises)) continue;
+          for (const ex of w.exercises) {
+            if ((ex.name || '').trim().toLowerCase() === target) {
+              return { sets: ex.sets || [], settings: ex.settings || '', date };
             }
           }
+        }
+      }
+      return null;
+    }
+
+    function closeWorkoutEditor() {
+      if (workoutEditorEl && workoutEditorEl.parentNode) workoutEditorEl.remove();
+      workoutEditorEl = null;
+      workoutEditorState = null;
+    }
+
+    // ===== СПОРТ В НЕДЕЛЕ =====
+    function renderWeekSport() {
+      const listEl = document.getElementById('weekSportList');
+      const sumEl = document.getElementById('weekSportSummary');
+      if (!listEl) return;
+      const days = getWeekDays();
+      const isArchive = !isViewingCurrentWeek();
+      let html = '';
+      let totalWorkouts = 0, totalMood = 0, moodCount = 0;
+      days.forEach(d => {
+        const day = sportData[d.date];
+        const workouts = day && Array.isArray(day.workouts) ? day.workouts : [];
+        const clickAttr = isArchive ? '' : `onclick="openWorkoutEditor(null)"`;
+        const clickClass = isArchive ? ' no-click' : '';
+        if (workouts.length === 0) {
+          html += `<div class="week-day-row empty${clickClass}"><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">— (отдых)</span></div></div>`;
+          return;
+        }
+        totalWorkouts += workouts.length;
+        let content = '';
+        workouts.forEach((w, i) => {
+          if (w.mood) { totalMood += w.mood; moodCount++; }
+          const typeObj = sportTypes.find(t => t.id === w.typeId);
+          const emoji = typeObj ? typeObj.emoji : (w.mood ? SPORT_EMOJIS[w.mood - 1] : '🏋️');
+          const typeName = typeObj ? typeObj.name : 'Тренировка';
+          const { exCount, setCount } = workoutStats(w);
+          let sub = '';
+          if (typeObj && typeObj.mode === 'exercises') {
+            sub = `${exCount} упр. · ${setCount} подх.`;
+            if (w.exercises && w.exercises.length) {
+              sub += '<br>' + w.exercises.slice(0, 3).map(ex => {
+                const setsStr = (ex.sets || []).map(s => `${s.weight != null ? s.weight : '?'}×${s.reps != null ? s.reps : '?'}`).join(', ');
+                const st = ex.settings ? ` <i style="color:#a89e93;">(${escapeHtml(ex.settings)})</i>` : '';
+                return `<span class="exercise-line"><b>${escapeHtml(ex.name || '—')}</b>: ${setsStr}${st}</span>`;
+              }).join('') + (w.exercises.length > 3 ? `<span class="exercise-line">…ещё ${w.exercises.length - 3}</span>` : '');
+            }
+          } else if (typeObj && typeObj.mode === 'distance') {
+            const parts = [];
+            if (w.distance) parts.push(`${w.distance} км`);
+            if (w.time) parts.push(`${w.time} мин`);
+            sub = parts.join(' · ');
+          }
+          content += `<div style="margin-top:${i > 0 ? '8px' : '0'};">
+            <div>${emoji} <b>${escapeHtml(typeName)}</b>${w.mood ? ` <span class="label">${w.mood}/10</span>` : ''}</div>
+            ${sub ? `<div class="exercise-line" style="padding-left:0;">${sub}</div>` : ''}
+            ${w.note ? `<div class="exercise-line" style="padding-left:0;">${escapeHtml(w.note)}</div>` : ''}
+          </div>`;
+        });
+        const clickStr = isArchive ? '' : `onclick="openWorkoutEditorForDate('${d.date}')"`;
+        html += `<div class="week-day-row done${clickClass}" ${clickStr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${content}</div></div>`;
+      });
+      listEl.innerHTML = html;
+      const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
+      sumEl.innerHTML = `<div class="week-summary-mini"><div class="ws-item"><div class="ws-val sport">${totalWorkouts}</div><div class="ws-label">Тренировок</div></div><div class="ws-item"><div class="ws-val sport">${avgMood}</div><div class="ws-label">Средняя</div></div></div>`;
+    }
+
+    // Открыть редактор для конкретной даты (из "Недели")
+    function openWorkoutEditorForDate(date) {
+      if (!isViewingCurrentWeek()) return;
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.remove());
+      const workouts = getWorkoutsForDate(date);
+      if (workouts.length === 0) {
+        // Нет тренировок — сразу редактор новой
+        const saved = workoutEditorState;
+        workoutEditorState = { date, workout: {
+          id: 'w_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          typeId: null, mood: null, exercises: [], distance: null, time: null, note: ''
+        }, isNew: true };
+        buildWorkoutEditor();
+        return;
+      }
+      // Список тренировок на день
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.innerHTML = `<div class="modal" id="dayWorkoutsModal"></div>`;
+      document.body.appendChild(backdrop);
+      const modal = backdrop.querySelector('#dayWorkoutsModal');
+      const dateObj = new Date(date + 'T12:00:00');
+      const dateLabel = dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+      let html = `<h3>🏋️ Тренировки — ${escapeHtml(dateLabel)}</h3><div class="workout-list">`;
+      workouts.forEach(w => {
+        const typeObj = sportTypes.find(t => t.id === w.typeId);
+        const emoji = typeObj ? typeObj.emoji : (w.mood ? SPORT_EMOJIS[w.mood - 1] : '🏋️');
+        const title = typeObj ? typeObj.name : 'Тренировка';
+        const { exCount, setCount } = workoutStats(w);
+        const stats = [];
+        if (typeObj && typeObj.mode === 'exercises') { stats.push(`${exCount} упр.`); stats.push(`${setCount} подх.`); }
+        else if (typeObj && typeObj.mode === 'distance') {
+          if (w.distance) stats.push(`${w.distance} км`);
+          if (w.time) stats.push(`${w.time} мин`);
+        }
+        if (w.mood) stats.push(`${SPORT_EMOJIS[w.mood - 1]} ${w.mood}/10`);
+        html += `<div class="workout-card" data-wid="${w.id}"><div class="workout-head"><div class="wh-left"><div class="wh-emoji">${emoji}</div><div class="wh-title">${escapeHtml(title)}</div></div></div>${stats.length ? `<div class="workout-meta">${stats.map(s => `<span class="wm-badge">${s}</span>`).join('')}</div>` : ''}</div>`;
+      });
+      html += `</div><button class="workout-add-btn" id="addWorkoutHereBtn">+ Добавить тренировку</button>`;
+      html += `<div class="modal-buttons"><button class="cancel" id="closeWorkoutsBtn">Закрыть</button></div>`;
+      modal.innerHTML = html;
+      modal.querySelectorAll('.workout-card').forEach(card => {
+        card.onclick = () => {
+          const wid = card.dataset.wid;
+          backdrop.remove();
+          openWorkoutEditor(wid);
         };
       });
-      backdrop.querySelector('#closeBtn').onclick = function() { backdrop.remove(); renderWeekSport(); };
-      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
+      modal.querySelector('#addWorkoutHereBtn').onclick = () => {
+        backdrop.remove();
+        workoutEditorState = { date, workout: {
+          id: 'w_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          typeId: null, mood: null, exercises: [], distance: null, time: null, note: ''
+        }, isNew: true };
+        buildWorkoutEditor();
+      };
+      modal.querySelector('#closeWorkoutsBtn').onclick = () => backdrop.remove();
+      backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
     }
+
+    // ===== ЧТЕНИЕ (без изменений) =====
     let readModalState = null;
     let readModalEl = null;
     function openReadModal(dateStr) {
@@ -4674,6 +5089,99 @@
       if (readModalEl && readModalEl.parentNode) readModalEl.remove();
       readModalEl = null;
       readModalState = null;
+    }
+    function renderWeekRead() {
+      const listEl = document.getElementById('weekReadList');
+      const sumEl = document.getElementById('weekReadSummary');
+      if (!listEl) return;
+      const days = getWeekDays();
+      const isArchive = !isViewingCurrentWeek();
+      let html = '';
+      let totalDone = 0, totalMood = 0, moodCount = 0;
+      days.forEach(d => {
+        const entry = readData[d.date];
+        const hasEntry = entry && (entry.mood || entry.text);
+        const clickAttr = isArchive ? '' : `onclick="openReadModal('${d.date}')"`;
+        const clickClass = isArchive ? ' no-click' : '';
+        if (!hasEntry) {
+          html += `<div class="week-day-row empty${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content"><span class="label">—</span></div></div>`;
+          return;
+        }
+        totalDone++;
+        if (entry.mood) { totalMood += entry.mood; moodCount++; }
+        const emoji = entry.mood ? READ_EMOJIS[entry.mood - 1] : '';
+        html += `<div class="week-day-row done${clickClass}" ${clickAttr}><div class="week-day-name">${d.name}</div><div class="week-day-content">${emoji ? `<span class="emoji">${emoji}</span>` : ''}${entry.mood ? `<span class="label">${entry.mood}/10</span>` : ''}${entry.text ? ` · ${escapeHtml(entry.text)}` : ''}${entry.note ? `<span class="exercise-line">${escapeHtml(entry.note)}</span>` : ''}</div></div>`;
+      });
+      listEl.innerHTML = html;
+      const avgMood = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '—';
+      sumEl.innerHTML = `<div class="week-summary-mini"><div class="ws-item"><div class="ws-val read">${totalDone}</div><div class="ws-label">Раз читал</div></div><div class="ws-item"><div class="ws-val read">${avgMood}</div><div class="ws-label">Средняя</div></div></div>`;
+    }
+
+    // ===== СПОРТ-НАСТРОЙКИ (удаление/переименование типов) =====
+    function openSportSettings() {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      let html = '<h3>⚙️ Виды спорта</h3><div class="edit-habit-list">';
+      sportTypes.forEach(function(t, i) {
+        html += '<div class="edit-habit-row"><span class="e-text">' + t.emoji + ' ' + escapeHtml(t.name) + ' <span style="color:var(--text-dim);font-size:11px;">(' + t.mode + ')</span></span><button type="button" class="e-btn" data-idx="' + i + '" data-action="edit">✎</button><button type="button" class="e-btn danger" data-idx="' + i + '" data-action="delete">✕</button></div>';
+      });
+      html += '</div><div class="modal-buttons"><button class="cancel" id="closeBtn">Готово</button></div>';
+      backdrop.innerHTML = '<div class="modal">' + html + '</div>';
+      document.body.appendChild(backdrop);
+      backdrop.querySelectorAll('.edit-habit-row .e-btn').forEach(function(btn) {
+        btn.onclick = function() {
+          const idx = parseInt(btn.dataset.idx, 10);
+          const action = btn.dataset.action;
+          if (action === 'edit') {
+            const t = sportTypes[idx];
+            const newName = prompt('Новое название:', t.name);
+            if (newName && newName.trim()) {
+              t.name = newName.trim();
+              saveSportTypes();
+              backdrop.remove();
+              openSportSettings();
+            }
+          } else if (action === 'delete') {
+            if (confirm('Удалить вид «' + sportTypes[idx].name + '»?')) {
+              sportTypes.splice(idx, 1);
+              saveSportTypes();
+              backdrop.remove();
+              openSportSettings();
+            }
+          }
+        };
+      });
+      backdrop.querySelector('#closeBtn').onclick = function() { backdrop.remove(); renderWeekSport(); renderDaySport(); };
+      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
+    }
+
+    function addSportTypeCustom(afterAdd) {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop show';
+      backdrop.style.zIndex = '110';
+      backdrop.innerHTML = `<div class="modal"><h3>Новый вид спорта</h3><label>Название</label><input type="text" id="newTypeName" placeholder="Например: Скалолазание" maxlength="30"><label>Режим записи</label><div class="type-grid" id="modeGrid" style="grid-template-columns: repeat(3, 1fr);"><button type="button" class="type-btn" data-mode="none"><span style="font-size:22px;">✓</span><span class="type-name">Просто<br>галочка</span></button><button type="button" class="type-btn" data-mode="distance"><span style="font-size:22px;">📍</span><span class="type-name">Дистанция<br>+ время</span></button><button type="button" class="type-btn" data-mode="exercises"><span style="font-size:22px;">🏋️</span><span class="type-name">Упражнения<br>с весом</span></button></div><div class="modal-buttons"><button class="cancel" id="cancelBtn">Отмена</button><button class="save" id="saveBtn">Добавить</button></div></div>`;
+      document.body.appendChild(backdrop);
+      let selectedMode = 'none';
+      const modeBtns = backdrop.querySelectorAll('#modeGrid .type-btn');
+      modeBtns.forEach(function(btn) {
+        btn.onclick = function() {
+          selectedMode = btn.dataset.mode;
+          modeBtns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+      });
+      backdrop.querySelector('#cancelBtn').onclick = function() { backdrop.remove(); };
+      backdrop.querySelector('#saveBtn').onclick = function() {
+        const name = backdrop.querySelector('#newTypeName').value.trim();
+        if (!name) { backdrop.remove(); return; }
+        const id = 'custom_' + Date.now();
+        sportTypes.push({ id: id, emoji: '⭐', name: name, mode: selectedMode });
+        saveSportTypes();
+        backdrop.remove();
+        if (afterAdd) afterAdd();
+        tg.HapticFeedback?.notificationOccurred('success');
+      };
+      backdrop.onclick = function(e) { if (e.target === backdrop) backdrop.remove(); };
     }
 
     /* ФИНАНСЫ */
@@ -5031,7 +5539,13 @@
       const waterDays = Object.keys(waterHistory).filter(d => d >= startDate && d <= endDate && d <= today && waterHistory[d].current > 0);
       const waterAvg = waterDays.length > 0 ? Math.round(waterDays.reduce((s, d) => s + waterHistory[d].current, 0) / waterDays.length) : 0;
 
-      const sportDays = Object.keys(sportData).filter(d => d >= startDate && d <= endDate && d <= today && (sportData[d].mood || sportData[d].typeId || (sportData[d].exercises && sportData[d].exercises.length) || sportData[d].distance));
+      let sportCount = 0;
+      Object.keys(sportData).forEach(d => {
+        if (d >= startDate && d <= endDate && d <= today) {
+          const day = sportData[d];
+          if (day && Array.isArray(day.workouts)) sportCount += day.workouts.length;
+        }
+      });
       const readDays = Object.keys(readData).filter(d => d >= startDate && d <= endDate && d <= today && (readData[d].mood || readData[d].text));
 
       let habDone = 0, habPossible = 0;
@@ -5069,7 +5583,7 @@
         <div class="stats-day-row"><div class="label"><span>😊</span> Среднее настроение</div><div class="value">${moodAvg > 0 ? moodAvg.toFixed(1) + ' / 10' : '—'}</div></div>
         <div class="stats-day-row"><div class="label"><span>🍎</span> Средние калории</div><div class="value">${foodAvg > 0 ? foodAvg + ' ккал' : '—'}</div></div>
         <div class="stats-day-row"><div class="label"><span>💧</span> Средняя вода</div><div class="value">${waterAvg > 0 ? waterAvg + ' мл' : '—'}</div></div>
-        <div class="stats-day-row"><div class="label"><span>🏃</span> Тренировок</div><div class="value">${sportDays.length}</div></div>
+        <div class="stats-day-row"><div class="label"><span>🏃</span> Тренировок</div><div class="value">${sportCount}</div></div>
         <div class="stats-day-row"><div class="label"><span>📚</span> Раз читал</div><div class="value">${readDays.length}</div></div>
         <div class="stats-day-row"><div class="label"><span>✅</span> Средний % привычек</div><div class="value">${habPossible > 0 ? habPct + '%' : '—'}</div></div>
       `;
@@ -5749,8 +6263,8 @@
         let n = 0;
         for (let i = 0; i < 7; i++) {
           const dateStr = addDays(weekKey, i);
-          const e = sportData[dateStr];
-          if (e && (e.mood || e.typeId || (e.exercises && e.exercises.length) || e.distance || e.note)) n++;
+          const day = sportData[dateStr];
+          if (day && Array.isArray(day.workouts)) n += day.workouts.length;
         }
         return n;
       }
@@ -5830,12 +6344,13 @@
       });
       summaryHtml += `<div class="stats-day-row"><div class="label"><span>✅</span> Привычки</div><div class="value ${habTotal === 0 ? 'dim' : (habDone === habTotal ? 'ok' : '')}">${habTotal > 0 ? `${habDone} / ${habTotal}` : '—'}</div></div>`;
 
-      const sportE = sportData[today];
-      if (sportE && (sportE.mood || sportE.typeId || (sportE.exercises && sportE.exercises.length) || sportE.distance || sportE.note)) {
-        const typeObj = sportTypes.find(t => t.id === sportE.typeId);
-        const typeName = typeObj ? `${typeObj.emoji} ${typeObj.name}` : '';
-        const moodEmoji = sportE.mood ? SPORT_EMOJIS[sportE.mood - 1] : '';
-        summaryHtml += `<div class="stats-day-row"><div class="label"><span>🏃</span> Спорт</div><div class="value">${moodEmoji} ${typeName || 'Тренировка'}</div></div>`;
+      const workouts = getWorkoutsForDate(today);
+      if (workouts.length > 0) {
+        const types = workouts.map(w => {
+          const t = sportTypes.find(x => x.id === w.typeId);
+          return t ? `${t.emoji} ${t.name}` : '🏋️';
+        }).join(', ');
+        summaryHtml += `<div class="stats-day-row"><div class="label"><span>🏃</span> Спорт</div><div class="value">${workouts.length} · ${types}</div></div>`;
       } else {
         summaryHtml += `<div class="stats-day-row"><div class="label"><span>🏃</span> Спорт</div><div class="value dim">—</div></div>`;
       }
@@ -5913,7 +6428,6 @@
       const days = getWeekDays();
       let html = '';
 
-      // === ГРАФИК ВОДЫ (в литрах) ===
       const waterVals = days.map(d => {
         const e = waterHistory[d.date];
         return { label: d.name, value: e ? (e.current || 0) : 0, isFuture: d.isFuture };
@@ -6023,8 +6537,8 @@
 
       let sportCount = 0, readCount = 0;
       days.forEach(d => {
-        const sp = sportData[d.date];
-        if (sp && (sp.mood || sp.typeId || (sp.exercises && sp.exercises.length) || sp.distance || sp.note)) sportCount++;
+        const day = sportData[d.date];
+        if (day && Array.isArray(day.workouts)) sportCount += day.workouts.length;
         const rd = readData[d.date];
         if (rd && (rd.mood || rd.text)) readCount++;
       });
@@ -6045,7 +6559,6 @@
 
       container.innerHTML = html;
 
-      // Рендерим графики
       renderBarChart(document.getElementById('chartWater'), waterVals, waterMax, '#4fc3f7', v => {
         if (!v) return '';
         return (v / 1000).toFixed(1) + 'л';
@@ -6070,7 +6583,7 @@
       { id: 'first_5k',    emoji: '🚶', name: '5 000 шагов',        desc: 'Прошёл 5000 шагов за день',
         check: () => (stepsHistory[getLogicalDate()] || stepsCurrent) >= 5000 },
       { id: 'first_sport', emoji: '🥇', name: 'Первая тренировка',  desc: 'Первая отметка спорта',
-        check: () => Object.keys(sportData).length > 0 },
+        check: () => Object.keys(sportData).some(d => sportData[d] && Array.isArray(sportData[d].workouts) && sportData[d].workouts.length > 0) },
       { id: 'first_goal',  emoji: '🎯', name: 'Первая цель',        desc: 'Создал цель',
         check: () => goals.length > 0 },
       { id: 'streak_7',    emoji: '🔥', name: '7 дней подряд',      desc: 'Неделя streak',
@@ -6087,10 +6600,14 @@
           return e && e.current >= e.goal && e.goal > 0;
         }},
       { id: 'sport_10',    emoji: '💪', name: '10 тренировок',      desc: 'Суммарно 10 тренировок',
-        check: () => Object.keys(sportData).filter(d => {
-          const e = sportData[d];
-          return e && (e.mood || e.typeId || (e.exercises && e.exercises.length) || e.distance);
-        }).length >= 10 },
+        check: () => {
+          let n = 0;
+          Object.keys(sportData).forEach(d => {
+            const day = sportData[d];
+            if (day && Array.isArray(day.workouts)) n += day.workouts.length;
+          });
+          return n >= 10;
+        }},
       { id: 'first_book',  emoji: '📖', name: 'Первая книга',       desc: 'Первая отметка чтения',
         check: () => Object.keys(readData).length > 0 },
       { id: 'streak_30',   emoji: '💎', name: '30 дней подряд',     desc: 'Месяц streak',
@@ -6102,10 +6619,14 @@
       { id: 'perfect_month', emoji: '👑', name: 'Идеальный месяц',  desc: '4 недели привычек подряд',
         check: () => getHabitsWeeklyStreak().current >= 4 },
       { id: 'sport_100',   emoji: '🏋️', name: '100 тренировок',     desc: 'Суммарно 100 тренировок',
-        check: () => Object.keys(sportData).filter(d => {
-          const e = sportData[d];
-          return e && (e.mood || e.typeId || (e.exercises && e.exercises.length) || e.distance);
-        }).length >= 100 },
+        check: () => {
+          let n = 0;
+          Object.keys(sportData).forEach(d => {
+            const day = sportData[d];
+            if (day && Array.isArray(day.workouts)) n += day.workouts.length;
+          });
+          return n >= 100;
+        }},
       { id: 'goals_10',    emoji: '🏆', name: '10 целей',           desc: 'Достиг 10 целей',
         check: () => goals.filter(g => g.completed).length >= 10 },
       { id: 'app_year',    emoji: '🎂', name: 'Год в приложении',   desc: '365 дней использования',
